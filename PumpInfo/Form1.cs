@@ -24,7 +24,8 @@ namespace PumpInfo
             string receiptFile_Path = ofd.FileName;
             DbUtilities DBU = new DbUtilities(receiptFile_Path);
             List<ImpData> objList = DBU.FillListFromReceipt();
-            
+
+            bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
 
         }
     }

@@ -210,7 +210,7 @@ namespace PumpInfo
             return ret;
         }
 
-        public bool InsertReceiptDataIntoSQLiteTable(ImpData receiptDataList)
+        public bool InsertReceiptLineDataIntoSQLiteTable(ImpData receiptDataList)
         {
             bool ret = false;
 
@@ -243,6 +243,21 @@ namespace PumpInfo
             }
 
             sqlConn.Close();
+
+            return ret;
+        }
+
+        public bool InsertReceiptAllDataIntoSQLiteTable(List<ImpData> ImpDataList)
+        {
+            bool ret = true;
+
+            foreach (ImpData thisLine in ImpDataList)
+            {
+                if (!InsertReceiptLineDataIntoSQLiteTable(thisLine))
+                {
+                    ret = false;
+                }
+            }
 
             return ret;
         }
