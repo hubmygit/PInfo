@@ -28,13 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnOpenFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // btnOpenFile
+            // 
+            this.btnOpenFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnOpenFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOpenFile.Location = new System.Drawing.Point(12, 12);
+            this.btnOpenFile.Name = "btnOpenFile";
+            this.btnOpenFile.Size = new System.Drawing.Size(135, 40);
+            this.btnOpenFile.TabIndex = 10;
+            this.btnOpenFile.Text = "Αρχείο";
+            this.btnOpenFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOpenFile.UseVisualStyleBackColor = true;
+            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 312);
+            this.Controls.Add(this.btnOpenFile);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -42,6 +57,8 @@
         }
 
         #endregion
+
+        public System.Windows.Forms.Button btnOpenFile;
     }
 }
 

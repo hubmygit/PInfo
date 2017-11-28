@@ -15,5 +15,14 @@ namespace PumpInfo
         {
             InitializeComponent();
         }
+
+        private void btnOpenFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.ShowDialog();
+
+            string receiptFile_Path = ofd.FileName;
+
+        }
     }
 }
