@@ -210,4 +210,14 @@ namespace PumpInfo
         }
     }
 
+    public static class SQLiteDBInfo
+    {
+        static SQLiteDBInfo()
+        {
+            dbFile = Application.StartupPath + "\\DBs\\PumpInfo.db"; 
+        }
+
+        public static string dbFile { get; set; }
+    }
+
 }
