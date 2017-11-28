@@ -25,7 +25,7 @@ namespace PumpInfo
             DbUtilities DBU = new DbUtilities(receiptFile_Path);
             List<ImpData> objList = DBU.FillListFromReceipt();
 
-            bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
+            //bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
 
         }
     }
