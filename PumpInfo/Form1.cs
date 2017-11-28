@@ -20,10 +20,19 @@ namespace PumpInfo
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.ShowDialog();
-
+            
             string receiptFile_Path = ofd.FileName;
+
+            if (receiptFile_Path.Trim() == "")
+            {
+                return;
+            }
+
             DbUtilities DBU = new DbUtilities(receiptFile_Path);
             List<ImpData> objList = DBU.FillListFromReceipt();
+
+            objList = DBU.DataNotExistsInSQLiteTable(objList);
+
 
             //bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
 

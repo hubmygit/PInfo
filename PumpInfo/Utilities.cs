@@ -210,7 +210,7 @@ namespace PumpInfo
             return ret;
         }
 
-        public bool InsertReceiptLineDataIntoSQLiteTable(ImpData receiptDataList)
+        public bool InsertReceiptLineDataIntoSQLiteTable(ImpData receiptData)
         {
             bool ret = false;
 
@@ -223,14 +223,14 @@ namespace PumpInfo
                 sqlConn.Open();
                 SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
 
-                cmd.Parameters.AddWithValue("@VehicleNo", receiptDataList.vehicleNo);
-                cmd.Parameters.AddWithValue("@Dt", receiptDataList.datetime);
-                cmd.Parameters.AddWithValue("@CooLong", receiptDataList.coordinates.longitude);
-                cmd.Parameters.AddWithValue("@CooLat", receiptDataList.coordinates.latitude);
-                cmd.Parameters.AddWithValue("@Weight", receiptDataList.weight);
-                cmd.Parameters.AddWithValue("@Temp", receiptDataList.temp);
-                cmd.Parameters.AddWithValue("@Density", receiptDataList.density);
-                cmd.Parameters.AddWithValue("@Volume", receiptDataList.volume);
+                cmd.Parameters.AddWithValue("@VehicleNo", receiptData.vehicleNo);
+                cmd.Parameters.AddWithValue("@Dt", receiptData.datetime);
+                cmd.Parameters.AddWithValue("@CooLong", receiptData.coordinates.longitude);
+                cmd.Parameters.AddWithValue("@CooLat", receiptData.coordinates.latitude);
+                cmd.Parameters.AddWithValue("@Weight", receiptData.weight);
+                cmd.Parameters.AddWithValue("@Temp", receiptData.temp);
+                cmd.Parameters.AddWithValue("@Density", receiptData.density);
+                cmd.Parameters.AddWithValue("@Volume", receiptData.volume);
                 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -257,6 +257,57 @@ namespace PumpInfo
                 {
                     ret = false;
                 }
+            }
+
+            return ret;
+        }
+
+        public List<ImpData> DataNotExistsInSQLiteTable(List<ImpData> ImpDataList)
+        {
+            List<ImpData> ret = new List<ImpData>();
+
+            foreach (ImpData thisLine in ImpDataList)
+            {
+                if (!ExistsInSQLiteTable(thisLine))
+                {
+                    ret.Add(thisLine);
+                }
+            }
+
+            return ret;
+        }
+
+        public bool ExistsInSQLiteTable(ImpData receiptData)
+        {
+            bool ret = false;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Id FROM [receiptData] " + 
+                "WHERE [VehicleNo] = @VehicleNo AND [Dt] = @Dt AND [CooLong] = @CooLong AND [CooLat] = @CooLat AND [Weight] = @Weight ", sqlConn);
+
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@VehicleNo", receiptData.vehicleNo);
+                cmd.Parameters.AddWithValue("@Dt", receiptData.datetime);
+                cmd.Parameters.AddWithValue("@CooLong", receiptData.coordinates.longitude);
+                cmd.Parameters.AddWithValue("@CooLat", receiptData.coordinates.latitude);
+                cmd.Parameters.AddWithValue("@Weight", receiptData.weight);
+
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                
+                if(reader.Read())
+                {
+                    //string Id = reader["Id"].ToString();
+                    ret = true;
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
             }
 
             return ret;
