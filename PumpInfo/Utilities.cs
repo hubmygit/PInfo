@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace PumpInfo
 {
@@ -109,5 +111,92 @@ namespace PumpInfo
         //public double!!!!
     }
 
+    public class DbUtilities
+    {
+        public List<ImpData> ImpDataList = new List<ImpData>();
+
+        public string fileName;
+
+        //ImpDataList = 
+        
+        public List<ImpData> FillListFromReceipt(string File_Name)
+        {
+            List<ImpData> ret = new List<ImpData>();
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(File_Name))
+                {
+                    string[] lines = new string[8];
+                    int cnt = 0;
+                    while (true)
+                    {
+                        string line = sr.ReadLine();
+                        if (line == null)
+                        {
+                            break;
+                        }
+
+                        if (line.Trim().Length == 0)
+                        {
+                            continue;
+                        }
+
+                        if (cnt == 0 && line.IndexOf("#") > 0)
+                        {
+                            lines[0] = line.Substring(line.IndexOf("#") + 1, 1);
+                        }
+                        else if (cnt > 0 && line.IndexOf(":") > 0)
+                        {
+                            if (cnt == 1)
+                            {
+                                lines[1] = line.Substring(line.IndexOf(":") + 1).Trim();
+                            }
+                            else if (cnt == 2)
+                            {
+                                lines[2] = line.Substring(line.IndexOf(":") + 1).Trim();
+                            }
+                            else if (cnt == 3)
+                            {
+                                lines[3] = line.Substring(line.IndexOf(":") + 1).Trim();
+                            }
+                            else if (cnt == 4)
+                            {
+                                lines[4] = line.Substring(line.IndexOf(":") + 1, line.IndexOf("Kg") - (line.IndexOf(":") + 1)).Trim();
+                            }
+                            else if (cnt == 5)
+                            {
+                                lines[5] = line.Substring(line.IndexOf(":") + 1, (line.IndexOf("C") - 1) - (line.IndexOf(":") + 1)).Trim();
+                            }
+                            else if (cnt == 6)
+                            {
+                                lines[6] = line.Substring(line.IndexOf(":") + 1).Trim();
+                            }
+                            else if (cnt == 7)
+                            {
+                                lines[7] = line.Substring(line.IndexOf(":") + 1, line.IndexOf("L") - (line.IndexOf(":") + 1)).Trim();
+                            }
+                        }
+
+                        cnt++;
+
+                        if (cnt == 8)
+                        {
+                            ret.Add(new ImpData(lines));
+
+                            cnt = 0;
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("File could not be read:" + ex.Message);
+            }
+
+            return ret;
+        }
+    }
 
 }

@@ -22,6 +22,9 @@ namespace PumpInfo
             ofd.ShowDialog();
 
             string receiptFile_Path = ofd.FileName;
+            
+            //List<ImpData> objList = FillListFromReceipt(receiptFile_Path);
+
 
         }
     }
