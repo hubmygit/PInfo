@@ -22,9 +22,9 @@ namespace PumpInfo
             ofd.ShowDialog();
 
             string receiptFile_Path = ofd.FileName;
+            DbUtilities DBU = new DbUtilities(receiptFile_Path);
+            List<ImpData> objList = DBU.FillListFromReceipt();
             
-            //List<ImpData> objList = FillListFromReceipt(receiptFile_Path);
-
 
         }
     }

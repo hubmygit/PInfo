@@ -113,14 +113,25 @@ namespace PumpInfo
 
     public class DbUtilities
     {
-        public List<ImpData> ImpDataList = new List<ImpData>();
+        //public List<ImpData> ImpDataList = new List<ImpData>();
 
         public string fileName;
 
-        //ImpDataList = 
-        
-        public List<ImpData> FillListFromReceipt(string File_Name)
+        public DbUtilities()
         {
+            //
+        }
+
+        public DbUtilities(string File_Name)
+        {
+            fileName = File_Name;
+        }
+        //ImpDataList = 
+
+        public List<ImpData> FillListFromReceipt()
+        {
+            string File_Name = fileName;
+
             List<ImpData> ret = new List<ImpData>();
 
             try
