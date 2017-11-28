@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,7 +18,7 @@ namespace PumpInfo
         public Coordinates coordinates = new Coordinates();
         public double weight = 0.0;
         public double temp = 0.0;
-        public double qty = 0.0;
+        public double density = 0.0;
         public double volume = 0.0;
         public int vehicleNo = 0;
 
@@ -32,7 +34,7 @@ namespace PumpInfo
 
             weight = ConvertStrToDouble(lines[4]);
             temp = ConvertStrToDouble(lines[5]);
-            qty = ConvertStrToDouble(lines[6]);
+            density = ConvertStrToDouble(lines[6]);
             volume = ConvertStrToDouble(lines[7]);
         }
 
@@ -126,7 +128,6 @@ namespace PumpInfo
         {
             fileName = File_Name;
         }
-        //ImpDataList = 
 
         public List<ImpData> FillListFromReceipt()
         {
@@ -208,6 +209,44 @@ namespace PumpInfo
 
             return ret;
         }
+
+        public bool InsertReceiptDataIntoSQLiteTable(ImpData receiptDataList)
+        {
+            bool ret = false;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+
+            string InsSt = "INSERT INTO [receiptData] ([VehicleNo], [Dt], [CooLong], [CooLat], [Weight], [Temp], [Density], [Volume]) VALUES " + 
+                           "(@Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @VehicleNo) ";
+            try
+            {
+                sqlConn.Open();
+                SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@VehicleNo", receiptDataList.vehicleNo);
+                cmd.Parameters.AddWithValue("@Dt", receiptDataList.datetime);
+                cmd.Parameters.AddWithValue("@CooLong", receiptDataList.coordinates.longitude);
+                cmd.Parameters.AddWithValue("@CooLat", receiptDataList.coordinates.latitude);
+                cmd.Parameters.AddWithValue("@Weight", receiptDataList.weight);
+                cmd.Parameters.AddWithValue("@Temp", receiptDataList.temp);
+                cmd.Parameters.AddWithValue("@Density", receiptDataList.density);
+                cmd.Parameters.AddWithValue("@Volume", receiptDataList.volume);
+                
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            sqlConn.Close();
+
+            return ret;
+        }
+
     }
 
     public static class SQLiteDBInfo
