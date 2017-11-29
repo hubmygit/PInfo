@@ -20,15 +20,15 @@ namespace PumpInfo
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.ShowDialog();
-            
-            string receiptFile_Path = ofd.FileName;
 
+            string receiptFile_Path = ofd.FileName;
             if (receiptFile_Path.Trim() == "")
             {
                 return;
             }
 
             DbUtilities DBU = new DbUtilities(receiptFile_Path);
+
             List<ImpData> objList = DBU.FillListFromReceipt();
 
             objList = DBU.GetDataNotExistsInSQLiteTable(objList);
@@ -37,9 +37,19 @@ namespace PumpInfo
 
             DBU.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
-            int help = 0;
             //bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
 
         }
+
+        private void dgvReceiptData_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                MessageBox.Show("Row: " + e.RowIndex.ToString());
+                MessageBox.Show("Column: " + e.ColumnIndex.ToString());
+
+            }
+        }
+
     }
 }

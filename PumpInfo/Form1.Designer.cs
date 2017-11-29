@@ -91,15 +91,19 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvReceiptData.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvReceiptData.Location = new System.Drawing.Point(12, 80);
+            this.dgvReceiptData.MultiSelect = false;
             this.dgvReceiptData.Name = "dgvReceiptData";
+            this.dgvReceiptData.ReadOnly = true;
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvReceiptData.Size = new System.Drawing.Size(880, 350);
             this.dgvReceiptData.TabIndex = 11;
+            this.dgvReceiptData.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReceiptData_CellContentDoubleClick);
             // 
             // Accepted
             // 
             this.Accepted.HeaderText = "";
             this.Accepted.Name = "Accepted";
+            this.Accepted.ReadOnly = true;
             this.Accepted.Width = 50;
             // 
             // Vehicle
