@@ -31,9 +31,13 @@ namespace PumpInfo
             DbUtilities DBU = new DbUtilities(receiptFile_Path);
             List<ImpData> objList = DBU.FillListFromReceipt();
 
-            objList = DBU.DataNotExistsInSQLiteTable(objList);
+            objList = DBU.GetDataNotExistsInSQLiteTable(objList);
 
+            List<object[]> ObjRows = DBU.ImpDataListToGridViewRowList(objList);
 
+            DBU.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+
+            int help = 0;
             //bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
 
         }

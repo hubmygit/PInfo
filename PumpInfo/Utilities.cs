@@ -21,6 +21,7 @@ namespace PumpInfo
         public double density = 0.0;
         public double volume = 0.0;
         public int vehicleNo = 0;
+        public bool accepted = false;
 
         public ImpData(string[] lines)
         {
@@ -262,7 +263,7 @@ namespace PumpInfo
             return ret;
         }
 
-        public List<ImpData> DataNotExistsInSQLiteTable(List<ImpData> ImpDataList)
+        public List<ImpData> GetDataNotExistsInSQLiteTable(List<ImpData> ImpDataList)
         {
             List<ImpData> ret = new List<ImpData>();
 
@@ -273,6 +274,25 @@ namespace PumpInfo
                     ret.Add(thisLine);
                 }
             }
+
+            return ret;
+        }
+
+        public List<object[]> ImpDataListToGridViewRowList(List<ImpData> objList)
+        {
+            List<object[]> ret = new List<object[]>();
+
+            foreach (ImpData thisObj in objList)
+            {
+                ret.Add(ImpDataToGridViewRow(thisObj));
+            }
+
+            return ret;
+        }
+        public object[] ImpDataToGridViewRow(ImpData obj)
+        {
+            //object[] ret = new object[] { false, obj.vehicleNo, obj.date, obj.time, ... };
+            object[] ret = new object[] { obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"), obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight, obj.temp, obj.density, obj.volume };
 
             return ret;
         }
@@ -313,6 +333,13 @@ namespace PumpInfo
             return ret;
         }
 
+        public void ShowDataToDataGridView(DataGridView dgv, List<object[]> objList)
+        {
+            foreach (object[] thisObj in objList)
+            {
+                dgv.Rows.Add(thisObj);
+            }
+        }
     }
 
     public static class SQLiteDBInfo
@@ -324,5 +351,6 @@ namespace PumpInfo
 
         public static string dbFile { get; set; }
     }
+
 
 }
