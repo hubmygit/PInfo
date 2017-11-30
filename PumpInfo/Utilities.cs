@@ -52,16 +52,16 @@ namespace PumpInfo
             volume = ConvertStrToDouble(lines[7]);
         }
 
-        public void addExtraData()
+        public void addExtraData(string Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
         {
             accepted = true;
 
-            brand = "";
-            dealer = "";
-            address = "";
-            product = "";
-            pump = "";
-            pumpVolume = "";
+            brand = Brand;
+            dealer = Dealer;
+            address = Address;
+            product = Product;
+            pump = Pump;
+            pumpVolume = PumpVolume;
         }
 
         public void removeExtraData()
@@ -142,6 +142,11 @@ namespace PumpInfo
             return ret;
         }
     }
+
+    public enum RecordAction { None,
+                               Insert,
+                               Update,
+                               Delete }
 
     public class Coordinates
     {

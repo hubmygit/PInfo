@@ -37,40 +37,11 @@ namespace PumpInfo
                 txtPumpVol.Text = obj.pumpVolume;
             }
             
-
-
-            //if (selectedItem.accepted)
-            //{
-            //    //delete extra data from objs list
-
-            //    DialogResult dialogResult = MessageBox.Show("Είστε σίγουροι ότι θέλετε να ακυρώσετε την επιλεγμένη εγγραφή; \r\n" + 
-            //        "Προσοχή! Οι επιπλέον πληροφορίες που έχουν καταχωρηθεί θα χαθούν;", "Ακύρωση", MessageBoxButtons.YesNo);
-            //    if (dialogResult == DialogResult.Yes)
-            //    {
-            //        objList.Find(i => i.dataGridViewRowIndex == itemIndex).removeExtraData();
-
-            //        List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
-            //        GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
-            //    }
-            //}
-            //else
-            //{
-            //    //add extra data to objs list
-
-            //}
-
-
-            //if (obj.accepted) //update-delete
-            //{
-
-            //}
-            //else //insert
-            //{
-
-            //}
+            
         }
 
         public ImpData obj;
+        public RecordAction recordAction = RecordAction.None;
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -79,12 +50,48 @@ namespace PumpInfo
         
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            //add extra data to obj
+            if (obj.accepted)//update
+            {
+                btnDel.Enabled = true;
 
+                //obj.removeExtraData();
+                obj.addExtraData(txtBrand.Text, txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
+                                
+                recordAction = RecordAction.Update;
+
+                Close();
+            }
+            else //insert
+            {
+                obj.addExtraData(txtBrand.Text, txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
+
+                recordAction = RecordAction.Insert;
+
+                Close();
+            }
         }
 
         private void btnDel_Click(object sender, EventArgs e)
         {
+            //remove extra data from obj
+            DialogResult dialogResult = MessageBox.Show("Είστε σίγουροι ότι θέλετε να ακυρώσετε την επιλεγμένη εγγραφή; \r\n" + 
+                "Προσοχή! Οι επιπλέον πληροφορίες που έχουν καταχωρηθεί θα χαθούν;", "Ακύρωση", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                obj.removeExtraData();
 
+                recordAction = RecordAction.Delete;
+
+                Close();
+
+
+                //delete extra data from objs list
+                //objList.Find(i => i.dataGridViewRowIndex == itemIndex).removeExtraData();
+
+                //List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
+                //GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+            }
         }
     }
 }
