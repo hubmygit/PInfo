@@ -60,26 +60,42 @@ namespace PumpInfo
                 //1. refresh objList => is reference, so it's updated!
                 //objList.Find(i => i.dataGridViewRowIndex == itemIndex).copyExtraData(frmAcceptance.obj);//selectedItem
 
-                //2. changes to database
+                //2. changes to database => other button
                 //if (frmAcceptance.recordAction == RecordAction.Insert || frmAcceptance.recordAction == RecordAction.Update)
                 //{
-
                 //}
                 //else if (frmAcceptance.recordAction == RecordAction.Delete)
                 //{
-
                 //}
 
+                //3 & 4 => update only checkbox of clicked row
                 //3. create new List<object[]> 
                 //List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
                 //4. refresh dataGridView
                 //GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
-                //3 & 4 => update only checkbox of clicked row
                 dgvReceiptData["Accepted", e.RowIndex].Value = selectedItem.accepted;
 
 
 
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            //objList To SQLite DB
+            DbUtilities dbu = new DbUtilities();
+
+            bool insSuccess = dbu.InsertReceiptAllDataIntoSQLiteTable(objList);
+
+            if (insSuccess)
+            {
+                MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
+            }
+            else
+            {
+                MessageBox.Show("Η καταχώρηση ολοκληρώθηκε με σφάλματα!");
+            }
+
         }
     }
 }

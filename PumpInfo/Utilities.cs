@@ -271,8 +271,8 @@ namespace PumpInfo
 
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
 
-            string InsSt = "INSERT INTO [receiptData] ([VehicleNo], [Dt], [CooLong], [CooLat], [Weight], [Temp], [Density], [Volume]) VALUES " + 
-                           "(@Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @VehicleNo) ";
+            string InsSt = "INSERT INTO [receiptData] ([VehicleNo], [Dt], [CooLong], [CooLat], [Weight], [Temp], [Density], [Volume], [Accepted]) VALUES " + 
+                           "(@Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @VehicleNo, @Accepted) ";
             try
             {
                 sqlConn.Open();
@@ -286,7 +286,8 @@ namespace PumpInfo
                 cmd.Parameters.AddWithValue("@Temp", receiptData.temp);
                 cmd.Parameters.AddWithValue("@Density", receiptData.density);
                 cmd.Parameters.AddWithValue("@Volume", receiptData.volume);
-                
+                cmd.Parameters.AddWithValue("@Accepted", receiptData.accepted);
+
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
 
