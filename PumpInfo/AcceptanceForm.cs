@@ -50,8 +50,15 @@ namespace PumpInfo
         
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (txtBrand.Text.Trim() == "" || txtDealer.Text.Trim() == "" || txtAddress.Text.Trim() == "" || txtProduct.Text.Trim() == "" || txtPump.Text.Trim() == "" || txtPumpVol.Text.Trim() == "")
+            {
+                MessageBox.Show("Προσοχή! Δεν έχετε συμπληρώσει όλα τα πεδία.");
+                return;
+            }
+
+
             //add extra data to obj
-            if (obj.accepted)//update
+            if (obj.accepted) //update
             {
                 btnDel.Enabled = true;
 
@@ -83,14 +90,7 @@ namespace PumpInfo
 
                 recordAction = RecordAction.Delete;
 
-                Close();
-
-
-                //delete extra data from objs list
-                //objList.Find(i => i.dataGridViewRowIndex == itemIndex).removeExtraData();
-
-                //List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
-                //GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+                Close();                
             }
         }
     }

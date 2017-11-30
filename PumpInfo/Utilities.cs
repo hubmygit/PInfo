@@ -64,6 +64,18 @@ namespace PumpInfo
             pumpVolume = PumpVolume;
         }
 
+        public void copyExtraData(ImpData otherObj)
+        {
+            accepted = otherObj.accepted;
+
+            brand = otherObj.brand;
+            dealer = otherObj.dealer;
+            address = otherObj.address;
+            product = otherObj.product;
+            pump = otherObj.pump;
+            pumpVolume = otherObj.pumpVolume;
+        }
+
         public void removeExtraData()
         {
             accepted = false;
@@ -409,6 +421,14 @@ namespace PumpInfo
             foreach (object[] thisObj in objList)
             {
                 dgv.Rows.Add(thisObj);
+            }
+        }
+
+        public static void RefreshCheckBoxesToDataGridView(DataGridView dgv, List<ImpData> objList)
+        {
+            foreach (DataGridViewRow dgvRow in dgv.Rows)
+            {
+                dgv["Accepted", dgvRow.Index].Value = objList.Find(i=>i.dataGridViewRowIndex == dgvRow.Index).accepted;
             }
         }
 

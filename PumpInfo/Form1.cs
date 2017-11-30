@@ -49,15 +49,34 @@ namespace PumpInfo
             {
                 //MessageBox.Show("Row: " + e.RowIndex.ToString() + ", Column: " + e.ColumnIndex.ToString());
                 
-
                 int itemIndex = GridViewUtils.getItemIndex(dgvReceiptData, e.RowIndex);
                 //bool accepted = (bool)dgvReceiptData.Rows[e.RowIndex].Cells["Accepted"].Value;
                 ImpData selectedItem = objList.Find(i => i.dataGridViewRowIndex == itemIndex);
-
-                
+                                
                 AcceptanceForm frmAcceptance = new AcceptanceForm(selectedItem);
                 frmAcceptance.ShowDialog();
-                
+
+
+                //1. refresh objList => is reference, so it's updated!
+                //objList.Find(i => i.dataGridViewRowIndex == itemIndex).copyExtraData(frmAcceptance.obj);//selectedItem
+
+                //2. changes to database
+                //if (frmAcceptance.recordAction == RecordAction.Insert || frmAcceptance.recordAction == RecordAction.Update)
+                //{
+
+                //}
+                //else if (frmAcceptance.recordAction == RecordAction.Delete)
+                //{
+
+                //}
+
+                //3. create new List<object[]> 
+                //List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
+                //4. refresh dataGridView
+                //GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+                //3 & 4 => update only checkbox of clicked row
+                dgvReceiptData["Accepted", e.RowIndex].Value = selectedItem.accepted;
+
 
 
             }
