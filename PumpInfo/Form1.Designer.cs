@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
+            this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,6 +73,7 @@
             this.dgvReceiptData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvReceiptData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvReceiptData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Index,
             this.Accepted,
             this.Vehicle,
             this.Date,
@@ -98,6 +100,14 @@
             this.dgvReceiptData.Size = new System.Drawing.Size(880, 350);
             this.dgvReceiptData.TabIndex = 11;
             this.dgvReceiptData.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReceiptData_CellContentDoubleClick);
+            // 
+            // Index
+            // 
+            this.Index.HeaderText = "Index";
+            this.Index.Name = "Index";
+            this.Index.ReadOnly = true;
+            this.Index.Visible = false;
+            this.Index.Width = 60;
             // 
             // Accepted
             // 
@@ -186,6 +196,7 @@
 
         public System.Windows.Forms.Button btnOpenFile;
         private System.Windows.Forms.DataGridView dgvReceiptData;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;

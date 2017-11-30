@@ -35,7 +35,7 @@ namespace PumpInfo
 
             List<object[]> ObjRows = DBU.ImpDataListToGridViewRowList(objList);
 
-            DBU.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+            GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
             //bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
 
@@ -45,9 +45,9 @@ namespace PumpInfo
         {
             if (e.RowIndex != -1)
             {
-                MessageBox.Show("Row: " + e.RowIndex.ToString());
-                MessageBox.Show("Column: " + e.ColumnIndex.ToString());
+                //MessageBox.Show("Row: " + e.RowIndex.ToString() + ", Column: " + e.ColumnIndex.ToString());
 
+                MessageBox.Show(GridViewUtils.getItemIndex(dgvReceiptData, e.RowIndex).ToString());
             }
         }
 

@@ -23,6 +23,8 @@ namespace PumpInfo
         public int vehicleNo = 0;
         public bool accepted = false;
 
+        public int dataGridViewRowIndex;
+
         public ImpData(string[] lines)
         {
             vehicleNo = Convert.ToInt32(lines[0]);
@@ -266,12 +268,15 @@ namespace PumpInfo
         public List<ImpData> GetDataNotExistsInSQLiteTable(List<ImpData> ImpDataList)
         {
             List<ImpData> ret = new List<ImpData>();
-
+            int RowIndex = 0;
             foreach (ImpData thisLine in ImpDataList)
             {
                 if (!ExistsInSQLiteTable(thisLine))
                 {
+                    thisLine.dataGridViewRowIndex = RowIndex;
                     ret.Add(thisLine);
+
+                    RowIndex++;
                 }
             }
 
@@ -292,7 +297,9 @@ namespace PumpInfo
         public object[] ImpDataToGridViewRow(ImpData obj)
         {
             //object[] ret = new object[] { false, obj.vehicleNo, obj.date, obj.time, ... };
-            object[] ret = new object[] { obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"), obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight, obj.temp, obj.density, obj.volume };
+            object[] ret = new object[] { obj.dataGridViewRowIndex, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
+                                          obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
+                                          obj.temp, obj.density, obj.volume };
 
             return ret;
         }
@@ -333,13 +340,6 @@ namespace PumpInfo
             return ret;
         }
 
-        public void ShowDataToDataGridView(DataGridView dgv, List<object[]> objList)
-        {
-            foreach (object[] thisObj in objList)
-            {
-                dgv.Rows.Add(thisObj);
-            }
-        }
     }
 
     public static class SQLiteDBInfo
@@ -352,5 +352,23 @@ namespace PumpInfo
         public static string dbFile { get; set; }
     }
 
+    public static class GridViewUtils
+    {
+        public static int getItemIndex(DataGridView dgv, int rowIndex)
+        {
+            int ret = Convert.ToInt32(dgv.Rows[rowIndex].Cells[0].Value);
 
+            return ret;
+        }
+
+        public static void ShowDataToDataGridView(DataGridView dgv, List<object[]> objList)
+        {
+            dgv.Rows.Clear();
+
+            foreach (object[] thisObj in objList)
+            {
+                dgv.Rows.Add(thisObj);
+            }
+        }
+    }
 }
