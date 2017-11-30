@@ -11,6 +11,8 @@ namespace PumpInfo
 {
     public class ImpData
     {
+
+        //receipt data
         public string date = "";
         public string time = "";
         public DateTime datetime = new DateTime();
@@ -21,9 +23,18 @@ namespace PumpInfo
         public double density = 0.0;
         public double volume = 0.0;
         public int vehicleNo = 0;
-        public bool accepted = false;
 
+        //
+        public bool accepted = false;        
         public int dataGridViewRowIndex;
+
+        //extra data - manually added
+        public string brand = "";
+        public string dealer = "";
+        public string address = "";
+        public string product = "";
+        public string pump = "";
+        public string pumpVolume = "";
 
         public ImpData(string[] lines)
         {
@@ -39,6 +50,30 @@ namespace PumpInfo
             temp = ConvertStrToDouble(lines[5]);
             density = ConvertStrToDouble(lines[6]);
             volume = ConvertStrToDouble(lines[7]);
+        }
+
+        public void addExtraData()
+        {
+            accepted = true;
+
+            brand = "";
+            dealer = "";
+            address = "";
+            product = "";
+            pump = "";
+            pumpVolume = "";
+        }
+
+        public void removeExtraData()
+        {
+            accepted = false;
+
+            brand = "";
+            dealer = "";
+            address = "";
+            product = "";
+            pump = "";
+            pumpVolume = "";
         }
 
         public string csvDateToSqlDate(string csvDate)
@@ -283,26 +318,26 @@ namespace PumpInfo
             return ret;
         }
 
-        public List<object[]> ImpDataListToGridViewRowList(List<ImpData> objList)
-        {
-            List<object[]> ret = new List<object[]>();
+        //public List<object[]> ImpDataListToGridViewRowList(List<ImpData> objList)
+        //{
+        //    List<object[]> ret = new List<object[]>();
 
-            foreach (ImpData thisObj in objList)
-            {
-                ret.Add(ImpDataToGridViewRow(thisObj));
-            }
+        //    foreach (ImpData thisObj in objList)
+        //    {
+        //        ret.Add(ImpDataToGridViewRow(thisObj));
+        //    }
 
-            return ret;
-        }
-        public object[] ImpDataToGridViewRow(ImpData obj)
-        {
-            //object[] ret = new object[] { false, obj.vehicleNo, obj.date, obj.time, ... };
-            object[] ret = new object[] { obj.dataGridViewRowIndex, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
-                                          obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
-                                          obj.temp, obj.density, obj.volume };
+        //    return ret;
+        //}
+        //public object[] ImpDataToGridViewRow(ImpData obj)
+        //{
+        //    //object[] ret = new object[] { false, obj.vehicleNo, obj.date, obj.time, ... };
+        //    object[] ret = new object[] { obj.dataGridViewRowIndex, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
+        //                                  obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
+        //                                  obj.temp, obj.density, obj.volume };
 
-            return ret;
-        }
+        //    return ret;
+        //}
 
         public bool ExistsInSQLiteTable(ImpData receiptData)
         {
@@ -356,7 +391,8 @@ namespace PumpInfo
     {
         public static int getItemIndex(DataGridView dgv, int rowIndex)
         {
-            int ret = Convert.ToInt32(dgv.Rows[rowIndex].Cells[0].Value);
+            //int ret = Convert.ToInt32(dgv.Rows[rowIndex].Cells[0].Value);
+            int ret = Convert.ToInt32(dgv.Rows[rowIndex].Cells["Index"].Value);
 
             return ret;
         }
@@ -370,5 +406,35 @@ namespace PumpInfo
                 dgv.Rows.Add(thisObj);
             }
         }
+
+        public static void ShowObjToDataGridView(DataGridView dgv, object[] obj)
+        {
+            dgv.Rows.Clear();
+            
+            dgv.Rows.Add(obj);
+        }
+
+        public static List<object[]> ImpDataListToGridViewRowList(List<ImpData> objList)
+        {
+            List<object[]> ret = new List<object[]>();
+
+            foreach (ImpData thisObj in objList)
+            {
+                ret.Add(ImpDataToGridViewRow(thisObj));
+            }
+
+            return ret;
+        }
+
+        public static object[] ImpDataToGridViewRow(ImpData obj)
+        {
+            //object[] ret = new object[] { false, obj.vehicleNo, obj.date, obj.time, ... };
+            object[] ret = new object[] { obj.dataGridViewRowIndex, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
+                                          obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
+                                          obj.temp, obj.density, obj.volume };
+
+            return ret;
+        }
+
     }
 }

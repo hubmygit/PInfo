@@ -16,6 +16,8 @@ namespace PumpInfo
             InitializeComponent();
         }
 
+        public List<ImpData> objList = new List<ImpData>();
+
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -29,11 +31,11 @@ namespace PumpInfo
 
             DbUtilities DBU = new DbUtilities(receiptFile_Path);
 
-            List<ImpData> objList = DBU.FillListFromReceipt();
+            List<ImpData> receiptObjList = DBU.FillListFromReceipt();
 
-            objList = DBU.GetDataNotExistsInSQLiteTable(objList);
+            objList = DBU.GetDataNotExistsInSQLiteTable(receiptObjList);
 
-            List<object[]> ObjRows = DBU.ImpDataListToGridViewRowList(objList);
+            List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
 
             GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
@@ -41,15 +43,24 @@ namespace PumpInfo
 
         }
 
-        private void dgvReceiptData_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvReceiptData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
                 //MessageBox.Show("Row: " + e.RowIndex.ToString() + ", Column: " + e.ColumnIndex.ToString());
+                
 
-                MessageBox.Show(GridViewUtils.getItemIndex(dgvReceiptData, e.RowIndex).ToString());
+                int itemIndex = GridViewUtils.getItemIndex(dgvReceiptData, e.RowIndex);
+                //bool accepted = (bool)dgvReceiptData.Rows[e.RowIndex].Cells["Accepted"].Value;
+                ImpData selectedItem = objList.Find(i => i.dataGridViewRowIndex == itemIndex);
+
+                
+                AcceptanceForm frmAcceptance = new AcceptanceForm(selectedItem);
+                frmAcceptance.ShowDialog();
+                
+
+
             }
         }
-
     }
 }
