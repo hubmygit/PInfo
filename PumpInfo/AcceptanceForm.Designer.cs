@@ -52,11 +52,11 @@
             this.lblPump = new System.Windows.Forms.Label();
             this.txtPump = new System.Windows.Forms.TextBox();
             this.lblProduct = new System.Windows.Forms.Label();
-            this.txtProduct = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.cbBrand = new System.Windows.Forms.ComboBox();
+            this.cbProduct = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).BeginInit();
             this.SuspendLayout();
             // 
@@ -266,13 +266,6 @@
             this.lblProduct.TabIndex = 20;
             this.lblProduct.Text = "Product";
             // 
-            // txtProduct
-            // 
-            this.txtProduct.Location = new System.Drawing.Point(151, 316);
-            this.txtProduct.Name = "txtProduct";
-            this.txtProduct.Size = new System.Drawing.Size(121, 20);
-            this.txtProduct.TabIndex = 19;
-            // 
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -315,17 +308,28 @@
             // 
             // cbBrand
             // 
+            this.cbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBrand.FormattingEnabled = true;
             this.cbBrand.Location = new System.Drawing.Point(151, 260);
             this.cbBrand.Name = "cbBrand";
             this.cbBrand.Size = new System.Drawing.Size(121, 21);
             this.cbBrand.TabIndex = 28;
             // 
+            // cbProduct
+            // 
+            this.cbProduct.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProduct.FormattingEnabled = true;
+            this.cbProduct.Location = new System.Drawing.Point(151, 316);
+            this.cbProduct.Name = "cbProduct";
+            this.cbProduct.Size = new System.Drawing.Size(121, 21);
+            this.cbProduct.TabIndex = 29;
+            // 
             // AcceptanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(919, 442);
+            this.Controls.Add(this.cbProduct);
             this.Controls.Add(this.cbBrand);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnDel);
@@ -335,7 +339,6 @@
             this.Controls.Add(this.lblPump);
             this.Controls.Add(this.txtPump);
             this.Controls.Add(this.lblProduct);
-            this.Controls.Add(this.txtProduct);
             this.Controls.Add(this.lblAddress);
             this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.lblDealer);
@@ -374,10 +377,10 @@
         private System.Windows.Forms.Label lblPump;
         private System.Windows.Forms.TextBox txtPump;
         private System.Windows.Forms.Label lblProduct;
-        private System.Windows.Forms.TextBox txtProduct;
         public System.Windows.Forms.Button btnAdd;
         public System.Windows.Forms.Button btnDel;
         public System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.ComboBox cbBrand;
+        private System.Windows.Forms.ComboBox cbProduct;
     }
 }

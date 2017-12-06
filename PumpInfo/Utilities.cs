@@ -25,15 +25,16 @@ namespace PumpInfo
         public int vehicleNo = 0;
 
         //
-        public bool accepted = false;        
+        public bool accepted = false;
         public int dataGridViewRowIndex;
 
         //extra data - manually added
         //public string brand = "";
-        public Brand brand = new Brand(); 
+        public Brand brand = new Brand();
         public string dealer = "";
         public string address = "";
-        public string product = "";
+        //public string product = "";
+        public Product product = new Product();
         public string pump = "";
         public string pumpVolume = "";
 
@@ -54,7 +55,7 @@ namespace PumpInfo
         }
 
         //public void addExtraData(string Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
-        public void addExtraData(Brand Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
+        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, string PumpVolume)
         {
             accepted = true;
 
@@ -84,10 +85,10 @@ namespace PumpInfo
 
             //brand = "";
             brand = new Brand();
-
             dealer = "";
             address = "";
-            product = "";
+            //product = "";
+            product = new Product();
             pump = "";
             pumpVolume = "";
         }
@@ -159,10 +160,13 @@ namespace PumpInfo
         }
     }
 
-    public enum RecordAction { None,
-                               Insert,
-                               Update,
-                               Delete }
+    public enum RecordAction
+    {
+        None,
+        Insert,
+        Update,
+        Delete
+    }
 
     public class Coordinates
     {
@@ -275,8 +279,8 @@ namespace PumpInfo
 
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
 
-            string InsSt = "INSERT INTO [receiptData] ([VehicleNo], [Dt], [CooLong], [CooLat], [Weight], [Temp], [Density], [Volume], [Accepted]) VALUES " + 
-                           "(@Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @VehicleNo, @Accepted) ";
+            string InsSt = "INSERT INTO [receiptData] ([VehicleNo], [Dt], [CooLong], [CooLat], [Weight], [Temp], [Density], [Volume], [Accepted]) VALUES " +
+                           "(@VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @Accepted) ";
             try
             {
                 sqlConn.Open();
@@ -307,13 +311,89 @@ namespace PumpInfo
             return ret;
         }
 
+        public int GetMaxReceiptId()
+        {
+            int ret = -1;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            string SelectSt = "SELECT max(Id) as Id FROM [receiptData] ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Id"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public bool InsertExtraLineDataIntoSQLiteTable(ImpData extraData, int receiptId)
+        {
+            bool ret = false;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+
+            string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume]) VALUES " +
+                           "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume) ";
+            try
+            {
+                sqlConn.Open();
+                SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@ReceiptDataId", receiptId);
+                cmd.Parameters.AddWithValue("@BrandId", extraData.brand.Id);
+                cmd.Parameters.AddWithValue("@Dealer", extraData.dealer);
+                cmd.Parameters.AddWithValue("@Address", extraData.address);
+                cmd.Parameters.AddWithValue("@ProductId", extraData.product.Id);
+                cmd.Parameters.AddWithValue("@Pump", extraData.pump);
+                cmd.Parameters.AddWithValue("@PumpVolume", extraData.pumpVolume);
+
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public bool InsertReceiptAllDataIntoSQLiteTable(List<ImpData> ImpDataList)
         {
             bool ret = true;
 
             foreach (ImpData thisLine in ImpDataList)
             {
-                if (!InsertReceiptLineDataIntoSQLiteTable(thisLine))
+                if (InsertReceiptLineDataIntoSQLiteTable(thisLine))
+                {
+                    int receiptId = GetMaxReceiptId();
+                    if (receiptId == -1)
+                    {
+                        //MessageBox.Show("Δε βρέθηκε Id Κύριας Εγγραφής!\r\nΗμ/νία-Ώρα εγγραφής: " + thisLine.datetime.ToString("dd.MM.yyyy hh:mm:ss"));
+                        MessageBox.Show("Δε βρέθηκε καταχωρημένη κύρια Εγγραφή!");
+                        continue;
+                    }
+
+                    if (!InsertExtraLineDataIntoSQLiteTable(thisLine, receiptId))
+                    {
+                        MessageBox.Show("Αποτυχία καταχώρησης συμπληρωματικών πληροφοριών! \r\nId Κύριας Εγγραφής: " + receiptId.ToString());
+                    }
+                }
+                else
                 {
                     ret = false;
                 }
@@ -366,7 +446,7 @@ namespace PumpInfo
             bool ret = false;
 
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Id FROM [receiptData] " + 
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Id FROM [receiptData] " +
                 "WHERE [VehicleNo] = @VehicleNo AND [Dt] = @Dt AND [CooLong] = @CooLong AND [CooLat] = @CooLat AND [Weight] = @Weight ", sqlConn);
 
             try
@@ -380,8 +460,8 @@ namespace PumpInfo
                 cmd.Parameters.AddWithValue("@Weight", receiptData.weight);
 
                 SQLiteDataReader reader = cmd.ExecuteReader();
-                
-                if(reader.Read())
+
+                if (reader.Read())
                 {
                     //string Id = reader["Id"].ToString();
                     ret = true;
@@ -440,38 +520,49 @@ namespace PumpInfo
 
             return ret;
         }
-        
 
-        //public static ComboboxItem[] GetObjBrands()
-        //{
-        //    List<Brand> Brands = new List<Brand>();
-        //    List<ComboboxItem> cbBrands = new List<ComboboxItem>();
+        public static List<Product> GetProductsList()
+        {
+            List<Product> ret = new List<Product>();
 
-        //    SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
-        //    string SelectSt = "SELECT Id, Name FROM [Brand] ORDER BY Name ";
-        //    SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
-        //    try
-        //    {
-        //        sqlConn.Open();
-        //        SQLiteDataReader reader = cmd.ExecuteReader();
-        //        while (reader.Read())
-        //        {
-        //            Brands.Add(new Brand() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
-        //        }
-        //        reader.Close();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("The following error occurred: " + ex.Message);
-        //    }
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            string SelectSt = "SELECT Id, Name FROM [Product] ORDER BY Name ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Product() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
 
-        //    foreach (Brand br in Brands)
-        //    {
-        //        cbBrands.Add(new ComboboxItem() { Value = br, Text = br.Name });
-        //    }
+            return ret;
+        }
+        public static List<ComboboxItem> GetProductsComboboxItemsList(List<Product> Products)
+        {
+            List<ComboboxItem> ret = new List<ComboboxItem>();
 
-        //    return cbBrands.ToArray<ComboboxItem>();
-        //}
+            foreach (Product pr in Products)
+            {
+                ret.Add(new ComboboxItem() { Value = pr, Text = pr.Name });
+            }
+
+            return ret;
+        }
+
+        public static Product getComboboxItem_Product(ComboBox cb)
+        {
+            Product ret = ((Product)((ComboboxItem)cb.SelectedItem).Value);
+
+            return ret;
+        }
 
     }
 
@@ -479,7 +570,7 @@ namespace PumpInfo
     {
         static SQLiteDBInfo()
         {
-            dbFile = Application.StartupPath + "\\DBs\\PumpInfo.db"; 
+            dbFile = Application.StartupPath + "\\DBs\\PumpInfo.db";
         }
 
         public static string dbFile { get; set; }
@@ -509,14 +600,14 @@ namespace PumpInfo
         {
             foreach (DataGridViewRow dgvRow in dgv.Rows)
             {
-                dgv["Accepted", dgvRow.Index].Value = objList.Find(i=>i.dataGridViewRowIndex == dgvRow.Index).accepted;
+                dgv["Accepted", dgvRow.Index].Value = objList.Find(i => i.dataGridViewRowIndex == dgvRow.Index).accepted;
             }
         }
 
         public static void ShowObjToDataGridView(DataGridView dgv, object[] obj)
         {
             dgv.Rows.Clear();
-            
+
             dgv.Rows.Add(obj);
         }
 
@@ -562,7 +653,17 @@ namespace PumpInfo
 
         public Brand()
         {
-        }        
+        }
     }
 
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public Product()
+        {
+        }
     }
+
+}
