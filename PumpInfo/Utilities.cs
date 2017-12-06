@@ -380,18 +380,21 @@ namespace PumpInfo
             {
                 if (InsertReceiptLineDataIntoSQLiteTable(thisLine))
                 {
-                    int receiptId = GetMaxReceiptId();
-                    if (receiptId == -1)
+                    if (thisLine.accepted)
                     {
-                        //MessageBox.Show("Δε βρέθηκε Id Κύριας Εγγραφής!\r\nΗμ/νία-Ώρα εγγραφής: " + thisLine.datetime.ToString("dd.MM.yyyy hh:mm:ss"));
-                        MessageBox.Show("Δε βρέθηκε καταχωρημένη κύρια Εγγραφή!");
-                        ret = false;
-                        continue;
-                    }
+                        int receiptId = GetMaxReceiptId();
+                        if (receiptId == -1)
+                        {
+                            //MessageBox.Show("Δε βρέθηκε Id Κύριας Εγγραφής!\r\nΗμ/νία-Ώρα εγγραφής: " + thisLine.datetime.ToString("dd.MM.yyyy hh:mm:ss"));
+                            MessageBox.Show("Δε βρέθηκε καταχωρημένη κύρια Εγγραφή!");
+                            ret = false;
+                            continue;
+                        }
 
-                    if (!InsertExtraLineDataIntoSQLiteTable(thisLine, receiptId))
-                    {
-                        MessageBox.Show("Αποτυχία καταχώρησης συμπληρωματικών πληροφοριών! \r\nId Κύριας Εγγραφής: " + receiptId.ToString());
+                        if (!InsertExtraLineDataIntoSQLiteTable(thisLine, receiptId))
+                        {
+                            MessageBox.Show("Αποτυχία καταχώρησης συμπληρωματικών πληροφοριών! \r\nId Κύριας Εγγραφής: " + receiptId.ToString());
+                        }
                     }
                 }
                 else
