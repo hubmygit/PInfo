@@ -96,6 +96,9 @@ namespace PumpInfo
                 MessageBox.Show("Η καταχώρηση ολοκληρώθηκε με σφάλματα!");
             }
 
+            //refresh? / close form?
+            dgvReceiptData.Rows.Clear();
+            objList.Clear();
         }
     }
 }

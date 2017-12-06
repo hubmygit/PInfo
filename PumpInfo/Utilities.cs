@@ -385,6 +385,7 @@ namespace PumpInfo
                     {
                         //MessageBox.Show("Δε βρέθηκε Id Κύριας Εγγραφής!\r\nΗμ/νία-Ώρα εγγραφής: " + thisLine.datetime.ToString("dd.MM.yyyy hh:mm:ss"));
                         MessageBox.Show("Δε βρέθηκε καταχωρημένη κύρια Εγγραφή!");
+                        ret = false;
                         continue;
                     }
 
