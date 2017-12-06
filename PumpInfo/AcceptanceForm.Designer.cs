@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvCurrentObj = new System.Windows.Forms.DataGridView();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -42,7 +42,6 @@
             this.Temp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Density = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtBrand = new System.Windows.Forms.TextBox();
             this.lblBrand = new System.Windows.Forms.Label();
             this.lblDealer = new System.Windows.Forms.Label();
             this.txtDealer = new System.Windows.Forms.TextBox();
@@ -57,6 +56,7 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.cbBrand = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,14 +64,14 @@
             // 
             this.dgvCurrentObj.AllowUserToAddRows = false;
             this.dgvCurrentObj.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCurrentObj.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCurrentObj.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCurrentObj.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCurrentObj.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Index,
@@ -85,14 +85,14 @@
             this.Temp,
             this.Density,
             this.Volume});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCurrentObj.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCurrentObj.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvCurrentObj.Location = new System.Drawing.Point(12, 80);
             this.dgvCurrentObj.MultiSelect = false;
             this.dgvCurrentObj.Name = "dgvCurrentObj";
@@ -178,13 +178,6 @@
             this.Volume.ReadOnly = true;
             this.Volume.Width = 80;
             // 
-            // txtBrand
-            // 
-            this.txtBrand.Location = new System.Drawing.Point(151, 260);
-            this.txtBrand.Name = "txtBrand";
-            this.txtBrand.Size = new System.Drawing.Size(100, 20);
-            this.txtBrand.TabIndex = 13;
-            // 
             // lblBrand
             // 
             this.lblBrand.AutoSize = true;
@@ -209,7 +202,7 @@
             // 
             this.txtDealer.Location = new System.Drawing.Point(400, 260);
             this.txtDealer.Name = "txtDealer";
-            this.txtDealer.Size = new System.Drawing.Size(100, 20);
+            this.txtDealer.Size = new System.Drawing.Size(121, 20);
             this.txtDealer.TabIndex = 15;
             // 
             // lblAddress
@@ -226,7 +219,7 @@
             // 
             this.txtAddress.Location = new System.Drawing.Point(677, 260);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(100, 20);
+            this.txtAddress.Size = new System.Drawing.Size(121, 20);
             this.txtAddress.TabIndex = 17;
             // 
             // lblPumpVol
@@ -243,7 +236,7 @@
             // 
             this.txtPumpVol.Location = new System.Drawing.Point(677, 316);
             this.txtPumpVol.Name = "txtPumpVol";
-            this.txtPumpVol.Size = new System.Drawing.Size(100, 20);
+            this.txtPumpVol.Size = new System.Drawing.Size(121, 20);
             this.txtPumpVol.TabIndex = 23;
             // 
             // lblPump
@@ -260,7 +253,7 @@
             // 
             this.txtPump.Location = new System.Drawing.Point(400, 316);
             this.txtPump.Name = "txtPump";
-            this.txtPump.Size = new System.Drawing.Size(100, 20);
+            this.txtPump.Size = new System.Drawing.Size(121, 20);
             this.txtPump.TabIndex = 21;
             // 
             // lblProduct
@@ -277,7 +270,7 @@
             // 
             this.txtProduct.Location = new System.Drawing.Point(151, 316);
             this.txtProduct.Name = "txtProduct";
-            this.txtProduct.Size = new System.Drawing.Size(100, 20);
+            this.txtProduct.Size = new System.Drawing.Size(121, 20);
             this.txtProduct.TabIndex = 19;
             // 
             // btnAdd
@@ -320,11 +313,20 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // cbBrand
+            // 
+            this.cbBrand.FormattingEnabled = true;
+            this.cbBrand.Location = new System.Drawing.Point(151, 260);
+            this.cbBrand.Name = "cbBrand";
+            this.cbBrand.Size = new System.Drawing.Size(121, 21);
+            this.cbBrand.TabIndex = 28;
+            // 
             // AcceptanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(919, 442);
+            this.Controls.Add(this.cbBrand);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnDel);
             this.Controls.Add(this.btnAdd);
@@ -339,7 +341,6 @@
             this.Controls.Add(this.lblDealer);
             this.Controls.Add(this.txtDealer);
             this.Controls.Add(this.lblBrand);
-            this.Controls.Add(this.txtBrand);
             this.Controls.Add(this.dgvCurrentObj);
             this.Name = "AcceptanceForm";
             this.Text = "AcceptanceForm";
@@ -363,7 +364,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Temp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Density;
         private System.Windows.Forms.DataGridViewTextBoxColumn Volume;
-        private System.Windows.Forms.TextBox txtBrand;
         private System.Windows.Forms.Label lblBrand;
         private System.Windows.Forms.Label lblDealer;
         private System.Windows.Forms.TextBox txtDealer;
@@ -378,5 +378,6 @@
         public System.Windows.Forms.Button btnAdd;
         public System.Windows.Forms.Button btnDel;
         public System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ComboBox cbBrand;
     }
 }

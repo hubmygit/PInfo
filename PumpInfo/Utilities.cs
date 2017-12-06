@@ -29,7 +29,8 @@ namespace PumpInfo
         public int dataGridViewRowIndex;
 
         //extra data - manually added
-        public string brand = "";
+        //public string brand = "";
+        public Brand brand = new Brand(); 
         public string dealer = "";
         public string address = "";
         public string product = "";
@@ -52,7 +53,8 @@ namespace PumpInfo
             volume = ConvertStrToDouble(lines[7]);
         }
 
-        public void addExtraData(string Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
+        //public void addExtraData(string Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
+        public void addExtraData(Brand Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
         {
             accepted = true;
 
@@ -80,7 +82,9 @@ namespace PumpInfo
         {
             accepted = false;
 
-            brand = "";
+            //brand = "";
+            brand = new Brand();
+
             dealer = "";
             address = "";
             product = "";
@@ -393,6 +397,82 @@ namespace PumpInfo
             return ret;
         }
 
+        public static List<Brand> GetBrandsList()
+        {
+            List<Brand> ret = new List<Brand>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            string SelectSt = "SELECT Id, Name FROM [Brand] ORDER BY Name ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Brand() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<ComboboxItem> GetBrandsComboboxItemsList(List<Brand> Brands)
+        {
+            List<ComboboxItem> ret = new List<ComboboxItem>();
+
+            foreach (Brand br in Brands)
+            {
+                ret.Add(new ComboboxItem() { Value = br, Text = br.Name });
+            }
+
+            return ret;
+        }
+
+        public static Brand getComboboxItem_Brand(ComboBox cb)
+        {
+            Brand ret = ((Brand)((ComboboxItem)cb.SelectedItem).Value);
+
+            return ret;
+        }
+        
+
+        //public static ComboboxItem[] GetObjBrands()
+        //{
+        //    List<Brand> Brands = new List<Brand>();
+        //    List<ComboboxItem> cbBrands = new List<ComboboxItem>();
+
+        //    SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+        //    string SelectSt = "SELECT Id, Name FROM [Brand] ORDER BY Name ";
+        //    SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+        //    try
+        //    {
+        //        sqlConn.Open();
+        //        SQLiteDataReader reader = cmd.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+        //            Brands.Add(new Brand() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+        //        }
+        //        reader.Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("The following error occurred: " + ex.Message);
+        //    }
+
+        //    foreach (Brand br in Brands)
+        //    {
+        //        cbBrands.Add(new ComboboxItem() { Value = br, Text = br.Name });
+        //    }
+
+        //    return cbBrands.ToArray<ComboboxItem>();
+        //}
+
     }
 
     public static class SQLiteDBInfo
@@ -463,4 +543,26 @@ namespace PumpInfo
         }
 
     }
-}
+
+    public class ComboboxItem
+    {
+        public string Text { get; set; }
+        public object Value { get; set; }
+
+        public override string ToString()
+        {
+            return Text;
+        }
+    }
+
+    public class Brand
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public Brand()
+        {
+        }        
+    }
+
+    }

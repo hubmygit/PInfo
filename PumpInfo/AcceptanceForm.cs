@@ -13,12 +13,14 @@ namespace PumpInfo
     {
         public AcceptanceForm()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
 
         public AcceptanceForm(ImpData dataGridViewRow)
         {
             InitializeComponent();
+
+            cbBrand.Items.AddRange(DbUtilities.GetBrandsComboboxItemsList(brands).ToArray<ComboboxItem>());
 
             obj = dataGridViewRow;
             
@@ -29,7 +31,8 @@ namespace PumpInfo
             {
                 btnDel.Enabled = true;
 
-                txtBrand.Text = obj.brand;
+                cbBrand.SelectedIndex = cbBrand.FindStringExact(obj.brand.Name);
+
                 txtDealer.Text = obj.dealer;
                 txtAddress.Text = obj.address;
                 txtProduct.Text = obj.product;
@@ -42,6 +45,7 @@ namespace PumpInfo
 
         public ImpData obj;
         public RecordAction recordAction = RecordAction.None;
+        public List<Brand> brands = DbUtilities.GetBrandsList();
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -50,7 +54,7 @@ namespace PumpInfo
         
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (txtBrand.Text.Trim() == "" || txtDealer.Text.Trim() == "" || txtAddress.Text.Trim() == "" || txtProduct.Text.Trim() == "" || txtPump.Text.Trim() == "" || txtPumpVol.Text.Trim() == "")
+            if (cbBrand.Text.Trim() == "" || txtDealer.Text.Trim() == "" || txtAddress.Text.Trim() == "" || txtProduct.Text.Trim() == "" || txtPump.Text.Trim() == "" || txtPumpVol.Text.Trim() == "")
             {
                 MessageBox.Show("Προσοχή! Δεν έχετε συμπληρώσει όλα τα πεδία.");
                 return;
@@ -63,15 +67,18 @@ namespace PumpInfo
                 btnDel.Enabled = true;
 
                 //obj.removeExtraData();
-                obj.addExtraData(txtBrand.Text, txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
-                                
+                //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
+                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
+                //getComboboxItem_Brand
+
                 recordAction = RecordAction.Update;
 
                 Close();
             }
             else //insert
             {
-                obj.addExtraData(txtBrand.Text, txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
+                //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
+                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
 
                 recordAction = RecordAction.Insert;
 
