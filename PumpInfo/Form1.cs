@@ -35,12 +35,19 @@ namespace PumpInfo
 
             objList = DBU.GetDataNotExistsInSQLiteTable(receiptObjList);
 
-            List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
+            if (objList.Count > 0)
+            {
+                List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
 
-            GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+                GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
-            //bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
-
+                //bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
+            }
+            else
+            {
+                MessageBox.Show("Δε βρέθηκαν εγγραφές προς επεξεργασία! \r\n" + 
+                                "Αρχείο: " + receiptFile_Path);
+            }
         }
 
         private void dgvReceiptData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -99,6 +106,12 @@ namespace PumpInfo
             //refresh? / close form?
             dgvReceiptData.Rows.Clear();
             objList.Clear();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+            
         }
     }
 }
