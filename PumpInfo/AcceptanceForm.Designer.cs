@@ -182,7 +182,7 @@
             // 
             this.lblBrand.AutoSize = true;
             this.lblBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblBrand.Location = new System.Drawing.Point(73, 256);
+            this.lblBrand.Location = new System.Drawing.Point(87, 223);
             this.lblBrand.Name = "lblBrand";
             this.lblBrand.Size = new System.Drawing.Size(44, 16);
             this.lblBrand.TabIndex = 14;
@@ -192,7 +192,7 @@
             // 
             this.lblDealer.AutoSize = true;
             this.lblDealer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDealer.Location = new System.Drawing.Point(316, 256);
+            this.lblDealer.Location = new System.Drawing.Point(500, 223);
             this.lblDealer.Name = "lblDealer";
             this.lblDealer.Size = new System.Drawing.Size(49, 16);
             this.lblDealer.TabIndex = 16;
@@ -201,16 +201,16 @@
             // txtDealer
             // 
             this.txtDealer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtDealer.Location = new System.Drawing.Point(377, 253);
+            this.txtDealer.Location = new System.Drawing.Point(555, 220);
             this.txtDealer.Name = "txtDealer";
-            this.txtDealer.Size = new System.Drawing.Size(145, 22);
+            this.txtDealer.Size = new System.Drawing.Size(280, 22);
             this.txtDealer.TabIndex = 15;
             // 
             // lblAddress
             // 
             this.lblAddress.AutoSize = true;
             this.lblAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblAddress.Location = new System.Drawing.Point(593, 256);
+            this.lblAddress.Location = new System.Drawing.Point(72, 273);
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(59, 16);
             this.lblAddress.TabIndex = 18;
@@ -219,16 +219,16 @@
             // txtAddress
             // 
             this.txtAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtAddress.Location = new System.Drawing.Point(665, 253);
+            this.txtAddress.Location = new System.Drawing.Point(137, 270);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(145, 22);
+            this.txtAddress.Size = new System.Drawing.Size(280, 22);
             this.txtAddress.TabIndex = 17;
             // 
             // lblPumpVol
             // 
             this.lblPumpVol.AutoSize = true;
             this.lblPumpVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblPumpVol.Location = new System.Drawing.Point(556, 323);
+            this.lblPumpVol.Location = new System.Drawing.Point(457, 371);
             this.lblPumpVol.Name = "lblPumpVol";
             this.lblPumpVol.Size = new System.Drawing.Size(92, 16);
             this.lblPumpVol.TabIndex = 24;
@@ -237,16 +237,16 @@
             // txtPumpVol
             // 
             this.txtPumpVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtPumpVol.Location = new System.Drawing.Point(665, 320);
+            this.txtPumpVol.Location = new System.Drawing.Point(555, 368);
             this.txtPumpVol.Name = "txtPumpVol";
-            this.txtPumpVol.Size = new System.Drawing.Size(145, 22);
+            this.txtPumpVol.Size = new System.Drawing.Size(280, 22);
             this.txtPumpVol.TabIndex = 23;
             // 
             // lblPump
             // 
             this.lblPump.AutoSize = true;
             this.lblPump.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblPump.Location = new System.Drawing.Point(324, 323);
+            this.lblPump.Location = new System.Drawing.Point(88, 372);
             this.lblPump.Name = "lblPump";
             this.lblPump.Size = new System.Drawing.Size(43, 16);
             this.lblPump.TabIndex = 22;
@@ -255,16 +255,16 @@
             // txtPump
             // 
             this.txtPump.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtPump.Location = new System.Drawing.Point(377, 320);
+            this.txtPump.Location = new System.Drawing.Point(137, 368);
             this.txtPump.Name = "txtPump";
-            this.txtPump.Size = new System.Drawing.Size(145, 22);
+            this.txtPump.Size = new System.Drawing.Size(280, 22);
             this.txtPump.TabIndex = 21;
             // 
             // lblProduct
             // 
             this.lblProduct.AutoSize = true;
             this.lblProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblProduct.Location = new System.Drawing.Point(61, 323);
+            this.lblProduct.Location = new System.Drawing.Point(77, 321);
             this.lblProduct.Name = "lblProduct";
             this.lblProduct.Size = new System.Drawing.Size(54, 16);
             this.lblProduct.TabIndex = 20;
@@ -315,9 +315,9 @@
             this.cbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbBrand.FormattingEnabled = true;
-            this.cbBrand.Location = new System.Drawing.Point(128, 253);
+            this.cbBrand.Location = new System.Drawing.Point(137, 220);
             this.cbBrand.Name = "cbBrand";
-            this.cbBrand.Size = new System.Drawing.Size(145, 24);
+            this.cbBrand.Size = new System.Drawing.Size(280, 24);
             this.cbBrand.TabIndex = 28;
             // 
             // cbProduct
@@ -325,16 +325,16 @@
             this.cbProduct.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbProduct.FormattingEnabled = true;
-            this.cbProduct.Location = new System.Drawing.Point(128, 320);
+            this.cbProduct.Location = new System.Drawing.Point(137, 318);
             this.cbProduct.Name = "cbProduct";
-            this.cbProduct.Size = new System.Drawing.Size(145, 24);
+            this.cbProduct.Size = new System.Drawing.Size(280, 24);
             this.cbProduct.TabIndex = 29;
             // 
             // AcceptanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 442);
+            this.ClientSize = new System.Drawing.Size(906, 442);
             this.Controls.Add(this.cbProduct);
             this.Controls.Add(this.cbBrand);
             this.Controls.Add(this.btnClose);

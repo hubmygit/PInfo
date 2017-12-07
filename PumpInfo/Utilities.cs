@@ -481,6 +481,42 @@ namespace PumpInfo
             return ret;
         }
 
+        public bool MigrateDataFromSQLiteToJson()
+        {
+            bool ret = false;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Id FROM [receiptData] ", sqlConn); //+
+                //"WHERE [VehicleNo] = @VehicleNo AND [Dt] = @Dt AND [CooLong] = @CooLong AND [CooLat] = @CooLat AND [Weight] = @Weight ", sqlConn);
+
+            try
+            {
+                sqlConn.Open();
+
+                //cmd.Parameters.AddWithValue("@VehicleNo", receiptData.vehicleNo);
+                //cmd.Parameters.AddWithValue("@Dt", receiptData.datetime);
+                //cmd.Parameters.AddWithValue("@CooLong", receiptData.coordinates.longitude);
+                //cmd.Parameters.AddWithValue("@CooLat", receiptData.coordinates.latitude);
+                //cmd.Parameters.AddWithValue("@Weight", receiptData.weight);
+
+                SQLiteDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    //string Id = reader["Id"].ToString();
+                    ret = true;
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<Brand> GetBrandsList()
         {
             List<Brand> ret = new List<Brand>();
