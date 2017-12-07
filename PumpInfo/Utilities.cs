@@ -400,6 +400,31 @@ namespace PumpInfo
             return ret;
         }
 
+        public int GetMaxExportedGroupId()
+        {
+            int ret = 0;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            string SelectSt = "SELECT ifnull(max(Id), 0) as Id FROM [ExportedGroup] ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Id"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public bool InsertProcessedGroupLineIntoSQLiteTable()
         {
             bool ret = false;
@@ -412,6 +437,33 @@ namespace PumpInfo
                 sqlConn.Open();
                 SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
                 
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public bool InsertExportedGroupLineIntoSQLiteTable()
+        {
+            bool ret = false;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+
+            string InsSt = "INSERT INTO [ExportedGroup] ([Dt]) VALUES (datetime()) ";
+            try
+            {
+                sqlConn.Open();
+                SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
 
