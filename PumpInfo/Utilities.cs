@@ -431,13 +431,20 @@ namespace PumpInfo
         {
             bool ret = true;
 
-            int ProcessedGroupId = 1;
+            int ProcessedGroupId = 0;
 
             if (ImpDataList.Count > 0)
             {
-                InsertProcessedGroupLineIntoSQLiteTable(); //insert new id
-
+                if (!InsertProcessedGroupLineIntoSQLiteTable()) //insert new id
+                {
+                    return false;
+                }
                 ProcessedGroupId = GetMaxProcessedGroupId(); //get last (max) id
+                if (ProcessedGroupId <= 0)
+                {
+                    return false;
+                }
+
             }
 
             foreach (ImpData thisLine in ImpDataList)
