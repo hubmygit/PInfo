@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using System.Web.Script.Serialization;
+
 namespace PumpInfo
 {
     public class ImpData
@@ -273,14 +275,14 @@ namespace PumpInfo
             return ret;
         }
 
-        public bool InsertReceiptLineDataIntoSQLiteTable(ImpData receiptData)
+        public bool InsertReceiptLineDataIntoSQLiteTable(ImpData receiptData, int processedId)
         {
             bool ret = false;
 
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
 
-            string InsSt = "INSERT INTO [receiptData] ([VehicleNo], [Dt], [CooLong], [CooLat], [Weight], [Temp], [Density], [Volume], [Accepted]) VALUES " +
-                           "(@VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @Accepted) ";
+            string InsSt = "INSERT INTO [receiptData] ([VehicleNo], [Dt], [CooLong], [CooLat], [Weight], [Temp], [Density], [Volume], [Accepted], [ProcessedGroupId]) VALUES " +
+                           "(@VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @Accepted, @ProcessedGroupId) ";
             try
             {
                 sqlConn.Open();
@@ -295,6 +297,7 @@ namespace PumpInfo
                 cmd.Parameters.AddWithValue("@Density", receiptData.density);
                 cmd.Parameters.AddWithValue("@Volume", receiptData.volume);
                 cmd.Parameters.AddWithValue("@Accepted", receiptData.accepted);
+                cmd.Parameters.AddWithValue("@ProcessedGroupId", processedId);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -372,13 +375,45 @@ namespace PumpInfo
             return ret;
         }
 
+        public int GetMaxProcessedGroupId()
+        {
+            int ret = 0;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            string SelectSt = "SELECT max(Id) as Id FROM [ProcessedGroup] ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Id"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public bool InsertReceiptAllDataIntoSQLiteTable(List<ImpData> ImpDataList)
         {
             bool ret = true;
 
+            int ProcessedGroupId = 1;
+
+            if (ImpDataList.Count > 0)
+            {
+                ProcessedGroupId = GetMaxProcessedGroupId() + 1;
+            }
+
             foreach (ImpData thisLine in ImpDataList)
             {
-                if (InsertReceiptLineDataIntoSQLiteTable(thisLine))
+                if (InsertReceiptLineDataIntoSQLiteTable(thisLine, ProcessedGroupId))
                 {
                     if (thisLine.accepted)
                     {
@@ -481,7 +516,7 @@ namespace PumpInfo
             return ret;
         }
 
-        public bool MigrateDataFromSQLiteToJson()
+        public bool ExportSQLiteDataToJson()
         {
             bool ret = false;
 
