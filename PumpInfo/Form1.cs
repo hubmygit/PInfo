@@ -122,5 +122,22 @@ namespace PumpInfo
             }
             
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+
+            //DbUtilities dbu = new DbUtilities();
+            //int exportedGroupId = dbu.GetMaxReceiptData_ExportedGroupId();
+
+
+            //if null exists ?
+
+            //else max
+
+
+            //1. receiptData.exportedGroupId == 0
+
+            //2. receiptData.exportedGroupId > 0
+        }
     }
 }

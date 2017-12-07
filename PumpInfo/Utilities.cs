@@ -425,6 +425,42 @@ namespace PumpInfo
             return ret;
         }
 
+        public int GetMaxReceiptData_ExportedGroupId()
+        {
+            int ret = 0;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            //select top 1 1 from xxxxxxxx where ifnull(ExportedGroupId, 0) = 0
+            string SelectSt = "SELECT ifnull(ExportedGroupId, 0) as Id, count(*) as cnt " +
+                              "FROM [receiptData] GROUP BY ExportedGroupId ORDER BY ExportedGroupId ";
+
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    //max(x) --> 4
+                    ret = Convert.ToInt32(reader["Id"].ToString());
+
+                    if (ret == 0) //null records exist
+                    {
+                        break;
+                    }
+                    //max ??
+
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public bool InsertProcessedGroupLineIntoSQLiteTable()
         {
             bool ret = false;
@@ -452,17 +488,19 @@ namespace PumpInfo
             return ret;
         }
 
-        public bool InsertExportedGroupLineIntoSQLiteTable()
+        public bool InsertExportedGroupLineIntoSQLiteTable(string Filename)
         {
             bool ret = false;
 
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
 
-            string InsSt = "INSERT INTO [ExportedGroup] ([Dt]) VALUES (datetime()) ";
+            string InsSt = "INSERT INTO [ExportedGroup] ([Dt], [Filename]) VALUES (datetime(), @Filename) ";
             try
             {
                 sqlConn.Open();
                 SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Filename", Filename);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -604,12 +642,20 @@ namespace PumpInfo
             return ret;
         }
 
-        public bool ExportSQLiteDataToJson()
+        public bool ExportSQLiteDataToJson(int ExportedGroupId) // NULL
         {
+            //var obj = new ImpData();
+            
+            //var json = new JavaScriptSerializer().Serialize(obj);
+
             bool ret = false;
 
+            //"SELECT Id, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId FROM [receiptData] WHERE ExportedGroupId = "
+            //"SELECT Id, ReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, GeostationId FROM [extraData] WHERE ReceiptDataId = "
+
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Id FROM [receiptData] ", sqlConn); //+
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Id, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId " + 
+                                                  "FROM [receiptData] WHERE ExportedGroupId = ", sqlConn); //+
                 //"WHERE [VehicleNo] = @VehicleNo AND [Dt] = @Dt AND [CooLong] = @CooLong AND [CooLat] = @CooLat AND [Weight] = @Weight ", sqlConn);
 
             try
