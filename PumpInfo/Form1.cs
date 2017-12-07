@@ -110,7 +110,16 @@ namespace PumpInfo
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+            int acceptedCnt = objList.Count(i => i.accepted == true);
+
+            if (acceptedCnt > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Είστε σίγουροι ότι θέλετε να κλείσετε την εφαρμογή;\r\n" + 
+                                                            "Τα δεδομένα που έχετε αποθηκεύσει σε " + acceptedCnt.ToString() + " εγγραφές θα χαθούν!", 
+                                                            "Έξοδος", MessageBoxButtons.YesNo);
+
+                e.Cancel = (dialogResult == DialogResult.No);
+            }
             
         }
     }
