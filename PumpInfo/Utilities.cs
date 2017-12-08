@@ -46,6 +46,7 @@ namespace PumpInfo
         public int processedGroupId = 0;
         public int exportedGroupId = 0;
         public int extraDataId = 0;
+        public string strDt = "";
 
         public ImpData()
         {
@@ -652,7 +653,8 @@ namespace PumpInfo
                 {
                     ImpData objLine = new ImpData() { receiptDataId = Convert.ToInt32(reader["Id"].ToString()),
                                             vehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
-                                            datetime = Convert.ToDateTime(reader["Dt"].ToString()),
+                                            //datetime = Convert.ToDateTime(reader["Dt"].ToString()),
+                                            strDt = reader["Dt"].ToString(),
                                             coordinates = new Coordinates() { longitude = reader["CooLong"].ToString(), latitude = reader["CooLat"].ToString() },
                                             weight = Convert.ToDouble(reader["Weight"].ToString()),
                                             temp = Convert.ToDouble(reader["Temp"].ToString()),
@@ -690,58 +692,25 @@ namespace PumpInfo
 
         public string ObjectListToJson(List<ImpData> ObjectList)
         {
+            //one object to json and back
+            //string json = new JavaScriptSerializer().Serialize(ObjectList[0]);
+            //ImpData desObj = new JavaScriptSerializer().Deserialize<ImpData>(json);
+            
+            //object list to json and back
+            //**object list to json**
             string jsonAll = new JavaScriptSerializer().Serialize(ObjectList);
 
-            //foreach (ImpData thisObj in ObjectList)
-            //{
-            //    string json = new JavaScriptSerializer().Serialize(thisObj);
-            //}
-
+            //**json to object list**
+            //List<ImpData> desObjAll = new JavaScriptSerializer().Deserialize<List<ImpData>>(jsonAll);
+            
             return jsonAll;
         }
 
-        public bool ExportSQLiteDataToJson(int ExportedGroupId) // NULL
+        public List<ImpData> JsonToObjectList(string jsonFile)
         {
-            //var obj = new ImpData();
-            
-            //var json = new JavaScriptSerializer().Serialize(obj);
+            List<ImpData> desObjAll = new JavaScriptSerializer().Deserialize<List<ImpData>>(jsonFile);
 
-            bool ret = false;
-
-            //"SELECT Id, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId FROM [receiptData] WHERE ExportedGroupId = "
-            //"SELECT Id, ReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, GeostationId FROM [extraData] WHERE ReceiptDataId = "
-
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Id, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId " + 
-                                                  "FROM [receiptData] WHERE ExportedGroupId = ", sqlConn); //+
-                //"WHERE [VehicleNo] = @VehicleNo AND [Dt] = @Dt AND [CooLong] = @CooLong AND [CooLat] = @CooLat AND [Weight] = @Weight ", sqlConn);
-
-            try
-            {
-                sqlConn.Open();
-
-                //cmd.Parameters.AddWithValue("@VehicleNo", receiptData.vehicleNo);
-                //cmd.Parameters.AddWithValue("@Dt", receiptData.datetime);
-                //cmd.Parameters.AddWithValue("@CooLong", receiptData.coordinates.longitude);
-                //cmd.Parameters.AddWithValue("@CooLat", receiptData.coordinates.latitude);
-                //cmd.Parameters.AddWithValue("@Weight", receiptData.weight);
-
-                SQLiteDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    //string Id = reader["Id"].ToString();
-                    ret = true;
-                }
-
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("The following error occurred: " + ex.Message);
-            }
-
-            return ret;
+            return desObjAll;
         }
 
         public static List<Brand> GetBrandsList()
