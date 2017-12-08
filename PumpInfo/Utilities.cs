@@ -713,6 +713,15 @@ namespace PumpInfo
             return desObjAll;
         }
 
+        public void createJsonFile(string jsonData)
+        {
+            //save as dialog...
+            using (StreamWriter sw = new StreamWriter("jsonTest.json"))
+            {
+                sw.Write(jsonData);
+            }
+        }
+
         public static List<Brand> GetBrandsList()
         {
             List<Brand> ret = new List<Brand>();

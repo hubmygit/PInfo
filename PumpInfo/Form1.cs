@@ -134,9 +134,7 @@ namespace PumpInfo
 
                 string jsonData = dbu.ObjectListToJson(DataToMigrate);
 
-
-
-                int list_to_json = 0;
+                dbu.createJsonFile(jsonData);
             }
             else //no data found
             {
