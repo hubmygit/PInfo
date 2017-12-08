@@ -38,8 +38,19 @@ namespace PumpInfo
         //public string product = "";
         public Product product = new Product();
         public string pump = "";
-        public string pumpVolume = "";
+        public double pumpVolume = 0.0;
+        public int geostationId = 0;
 
+        //data to json -> to MSSQL
+        public int receiptDataId = 0;
+        public int processedGroupId = 0;
+        public int exportedGroupId = 0;
+        public int extraDataId = 0;
+
+        public ImpData()
+        {
+            //
+        }
         public ImpData(string[] lines)
         {
             vehicleNo = Convert.ToInt32(lines[0]);
@@ -57,7 +68,7 @@ namespace PumpInfo
         }
 
         //public void addExtraData(string Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
-        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, string PumpVolume)
+        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, double PumpVolume)
         {
             accepted = true;
 
@@ -92,7 +103,7 @@ namespace PumpInfo
             //product = "";
             product = new Product();
             pump = "";
-            pumpVolume = "";
+            pumpVolume = 0.0;
         }
 
         public string csvDateToSqlDate(string csvDate)
@@ -400,37 +411,12 @@ namespace PumpInfo
             return ret;
         }
 
-        public int GetMaxExportedGroupId()
-        {
-            int ret = 0;
-
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
-            string SelectSt = "SELECT ifnull(max(Id), 0) as Id FROM [ExportedGroup] ";
-            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
-            try
-            {
-                sqlConn.Open();
-                SQLiteDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    ret = Convert.ToInt32(reader["Id"].ToString());
-                }
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("The following error occurred: " + ex.Message);
-            }
-
-            return ret;
-        }
-
         public int GetMaxReceiptData_ExportedGroupId()
         {
-            int ret = 0;
+            int maxId = -1;
+            int currentId = -1;
 
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
-            //select top 1 1 from xxxxxxxx where ifnull(ExportedGroupId, 0) = 0
             string SelectSt = "SELECT ifnull(ExportedGroupId, 0) as Id, count(*) as cnt " +
                               "FROM [receiptData] GROUP BY ExportedGroupId ORDER BY ExportedGroupId ";
 
@@ -441,15 +427,16 @@ namespace PumpInfo
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    //max(x) --> 4
-                    ret = Convert.ToInt32(reader["Id"].ToString());
-
-                    if (ret == 0) //null records exist
+                    currentId = Convert.ToInt32(reader["Id"].ToString());
+                    if (currentId == 0) //null records
                     {
-                        break;
+                        return 0;
                     }
-                    //max ??
 
+                    if (maxId < currentId)
+                    {
+                        maxId = currentId;
+                    }
                 }
                 reader.Close();
             }
@@ -458,7 +445,7 @@ namespace PumpInfo
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
 
-            return ret;
+            return maxId;
         }
 
         public bool InsertProcessedGroupLineIntoSQLiteTable()
@@ -467,7 +454,7 @@ namespace PumpInfo
 
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
 
-            string InsSt = "INSERT INTO [ProcessedGroup] ([Dt]) VALUES (datetime()) ";
+            string InsSt = "INSERT INTO [ProcessedGroup] ([Dt]) VALUES (datetime('now', 'localtime')) ";
             try
             {
                 sqlConn.Open();
@@ -494,7 +481,7 @@ namespace PumpInfo
 
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
 
-            string InsSt = "INSERT INTO [ExportedGroup] ([Dt], [Filename]) VALUES (datetime(), @Filename) ";
+            string InsSt = "INSERT INTO [ExportedGroup] ([Dt], [Filename]) VALUES (datetime('now', 'localtime'), @Filename) ";
             try
             {
                 sqlConn.Open();
@@ -640,6 +627,75 @@ namespace PumpInfo
             }
 
             return ret;
+        }
+
+        public List<ImpData> ReceiptDataLines_To_ObjectList(int ExportedGroupId)
+        {
+            List<ImpData> ret = new List<ImpData>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteCommand cmd = new SQLiteCommand("SELECT RD.Id, RD.VehicleNo, datetime(RD.Dt) as Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
+                                                  "RD.Accepted, ifnull(RD.ProcessedGroupId,0) as ProcessedGroupId, ifnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
+                                                  "ifnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, ED.GeostationId " +
+                " FROM [receiptData] RD left outer join [extraData] ED on RD.Id = ED.ReceiptDataId " +
+                " WHERE ifnull(RD.[ExportedGroupId], 0) = @ExportedGroupId ", sqlConn);
+
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@ExportedGroupId", ExportedGroupId);
+                
+                SQLiteDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    ImpData objLine = new ImpData() { receiptDataId = Convert.ToInt32(reader["Id"].ToString()),
+                                            vehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
+                                            datetime = Convert.ToDateTime(reader["Dt"].ToString()),
+                                            coordinates = new Coordinates() { longitude = reader["CooLong"].ToString(), latitude = reader["CooLat"].ToString() },
+                                            weight = Convert.ToDouble(reader["Weight"].ToString()),
+                                            temp = Convert.ToDouble(reader["Temp"].ToString()),
+                                            density = Convert.ToDouble(reader["Density"].ToString()),
+                                            volume = Convert.ToDouble(reader["Volume"].ToString()),
+                                            accepted = Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())),
+                                            processedGroupId = Convert.ToInt32(reader["ProcessedGroupId"].ToString()),
+                                            exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString())
+                    };
+
+                    if (Convert.ToInt32(reader["EDId"].ToString()) > 0) //has extra data
+                    {
+                        objLine.extraDataId = Convert.ToInt32(reader["EDId"].ToString());
+                        objLine.brand = new Brand() { Id = Convert.ToInt32(reader["BrandId"].ToString()) };
+                        objLine.dealer = reader["Dealer"].ToString();
+                        objLine.address = reader["Address"].ToString();
+                        objLine.product = new Product() { Id = Convert.ToInt32(reader["ProductId"].ToString()) };
+                        objLine.pump = reader["Pump"].ToString();
+                        objLine.pumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString());
+                        objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
+                    }
+
+                    ret.Add(objLine);
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public void ObjectListToJson(List<ImpData> ObjectList)
+        {
+            foreach (ImpData thisObj in ObjectList)
+            {
+                var json = new JavaScriptSerializer().Serialize(thisObj);
+
+                int help = 0;
+            }
         }
 
         public bool ExportSQLiteDataToJson(int ExportedGroupId) // NULL

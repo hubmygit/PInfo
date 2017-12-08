@@ -125,19 +125,24 @@ namespace PumpInfo
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            DbUtilities dbu = new DbUtilities();
+            int exportedGroupId = dbu.GetMaxReceiptData_ExportedGroupId();
 
-            //DbUtilities dbu = new DbUtilities();
-            //int exportedGroupId = dbu.GetMaxReceiptData_ExportedGroupId();
+            if (exportedGroupId >= 0) //nulls || maxId
+            {
+                //select
+                List<ImpData> DataToMigrate = dbu.ReceiptDataLines_To_ObjectList(exportedGroupId);
+
+                
+
+                int list_to_json = 0;
+            }
+            else //no data found
+            {
+                MessageBox.Show("Προσοχή! Δε βρέθηκαν εγγραφές για εξαγωγή!");
+            }
 
 
-            //if null exists ?
-
-            //else max
-
-
-            //1. receiptData.exportedGroupId == 0
-
-            //2. receiptData.exportedGroupId > 0
         }
     }
 }

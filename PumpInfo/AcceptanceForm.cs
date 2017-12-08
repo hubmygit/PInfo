@@ -37,7 +37,7 @@ namespace PumpInfo
                 txtAddress.Text = obj.address;
                 cbProduct.SelectedIndex = cbProduct.FindStringExact(obj.product.Name);
                 txtPump.Text = obj.pump;
-                txtPumpVol.Text = obj.pumpVolume;
+                txtPumpVol.Text = obj.pumpVolume.ToString();
             }
             
             
@@ -69,7 +69,7 @@ namespace PumpInfo
 
                 //obj.removeExtraData();
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
-                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), txtPump.Text, txtPumpVol.Text);
+                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), txtPump.Text, Convert.ToDouble(txtPumpVol.Text));
                 //getComboboxItem_Brand
 
                 recordAction = RecordAction.Update;
@@ -79,7 +79,7 @@ namespace PumpInfo
             else //insert
             {
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
-                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), txtPump.Text, txtPumpVol.Text);
+                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), txtPump.Text, Convert.ToDouble(txtPumpVol.Text));
 
                 recordAction = RecordAction.Insert;
 
