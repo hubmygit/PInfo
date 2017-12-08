@@ -134,7 +134,12 @@ namespace PumpInfo
 
                 string jsonData = dbu.ObjectListToJson(DataToMigrate);
 
-                dbu.createJsonFile(jsonData);
+                dbu.createJsonFile("jsonTest.json", jsonData);
+
+                int wait_here = 0;
+
+                //save as dialog???
+                string read_data = dbu.getAllDataFromJsonFile("jsonTest.json");
             }
             else //no data found
             {

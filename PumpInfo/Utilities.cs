@@ -713,13 +713,25 @@ namespace PumpInfo
             return desObjAll;
         }
 
-        public void createJsonFile(string jsonData)
+        public void createJsonFile(string Path, string jsonData)
         {
             //save as dialog...
-            using (StreamWriter sw = new StreamWriter("jsonTest.json"))
+            using (StreamWriter sw = new StreamWriter(Path))
             {
                 sw.Write(jsonData);
             }
+        }
+
+        public string getAllDataFromJsonFile(string Path)
+        {
+            string ret = "";
+
+            using (StreamReader sr = new StreamReader(Path))
+            {
+                ret = sr.ReadToEnd();
+            }
+
+            return ret;
         }
 
         public static List<Brand> GetBrandsList()
