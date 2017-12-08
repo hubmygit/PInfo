@@ -130,10 +130,11 @@ namespace PumpInfo
 
             if (exportedGroupId >= 0) //nulls || maxId
             {
-                //select
                 List<ImpData> DataToMigrate = dbu.ReceiptDataLines_To_ObjectList(exportedGroupId);
 
-                
+                string jsonData = dbu.ObjectListToJson(DataToMigrate);
+
+
 
                 int list_to_json = 0;
             }

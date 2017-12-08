@@ -688,14 +688,16 @@ namespace PumpInfo
             return ret;
         }
 
-        public void ObjectListToJson(List<ImpData> ObjectList)
+        public string ObjectListToJson(List<ImpData> ObjectList)
         {
-            foreach (ImpData thisObj in ObjectList)
-            {
-                var json = new JavaScriptSerializer().Serialize(thisObj);
+            string jsonAll = new JavaScriptSerializer().Serialize(ObjectList);
 
-                int help = 0;
-            }
+            //foreach (ImpData thisObj in ObjectList)
+            //{
+            //    string json = new JavaScriptSerializer().Serialize(thisObj);
+            //}
+
+            return jsonAll;
         }
 
         public bool ExportSQLiteDataToJson(int ExportedGroupId) // NULL
