@@ -130,13 +130,31 @@ namespace PumpInfo
             DbUtilities dbu = new DbUtilities();
             int exportedGroupId = dbu.GetMaxReceiptData_ExportedGroupId();
 
+            int nextExportedGroupId = -1;
+
             if (exportedGroupId >= 0) //nulls || maxId
             {
-                List<ImpData> DataToMigrate = dbu.ReceiptDataLines_To_ObjectList(exportedGroupId);
+                if (exportedGroupId == 0)
+                {
+                    nextExportedGroupId = dbu.GetMaxExportedGroupId() + 1;
+                }
+                else
+                {
+                    nextExportedGroupId = exportedGroupId;
+                }
+
+                List<ImpData> DataToMigrate = dbu.ReceiptDataLines_To_ObjectList(exportedGroupId, nextExportedGroupId);
 
                 string jsonData = dbu.ObjectListToJson(DataToMigrate);
 
-                dbu.createJsonFile(jsonData);                
+                string jsonFile = dbu.createJsonFile(jsonData);
+
+                if (exportedGroupId == 0) //nulls
+                {
+                    dbu.InsertExportedGroupLineIntoSQLiteTable(jsonFile);
+                    dbu.UpdateReceiptData_ExportedGroupId(nextExportedGroupId);
+                }
+
             }
             else //no data found
             {

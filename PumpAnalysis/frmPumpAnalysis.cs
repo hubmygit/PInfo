@@ -26,6 +26,24 @@ namespace PumpAnalysis
             DbUtilities dbu = new DbUtilities();
 
             string read_data = dbu.getAllDataFromJsonFile();
+
+            if (read_data.Trim() == "")
+            {
+                return;
+            }
+
+            List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
+
+            bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(DataToMigrate);
+            if (insSuccess == false)
+            {
+                MessageBox.Show("Η διαδικασία ολοκληρώθηκε με σφάλματα!");
+            }
+            else
+            {
+                MessageBox.Show("Η διαδικασία ολοκληρώθηκε επιτυχώς!");
+            }
+
         }
     }
 }

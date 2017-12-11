@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using System.Web.Script.Serialization;
+using System.Data.SqlClient;
 
 namespace PumpLib
 {
@@ -412,6 +413,31 @@ namespace PumpLib
             return ret;
         }
 
+        public int GetMaxExportedGroupId()
+        {
+            int ret = 0;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            string SelectSt = "SELECT ifnull(max(Id), 0) as Id FROM [ExportedGroup] ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Id"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public int GetMaxReceiptData_ExportedGroupId()
         {
             int maxId = -1;
@@ -630,7 +656,7 @@ namespace PumpLib
             return ret;
         }
 
-        public List<ImpData> ReceiptDataLines_To_ObjectList(int ExportedGroupId)
+        public List<ImpData> ReceiptDataLines_To_ObjectList(int ExportedGroupId, int nextExportedGroupId_if_null)
         {
             List<ImpData> ret = new List<ImpData>();
 
@@ -649,20 +675,26 @@ namespace PumpLib
                 
                 SQLiteDataReader reader = cmd.ExecuteReader();
 
+                if (ExportedGroupId == 0)
+                {
+                    ExportedGroupId = nextExportedGroupId_if_null;
+                }
+
                 while (reader.Read())
                 {
                     ImpData objLine = new ImpData() { receiptDataId = Convert.ToInt32(reader["Id"].ToString()),
-                                            vehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
-                                            //datetime = Convert.ToDateTime(reader["Dt"].ToString()),
-                                            strDt = reader["Dt"].ToString(),
-                                            coordinates = new Coordinates() { longitude = reader["CooLong"].ToString(), latitude = reader["CooLat"].ToString() },
-                                            weight = Convert.ToDouble(reader["Weight"].ToString()),
-                                            temp = Convert.ToDouble(reader["Temp"].ToString()),
-                                            density = Convert.ToDouble(reader["Density"].ToString()),
-                                            volume = Convert.ToDouble(reader["Volume"].ToString()),
-                                            accepted = Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())),
-                                            processedGroupId = Convert.ToInt32(reader["ProcessedGroupId"].ToString()),
-                                            exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString())
+                        vehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
+                        //datetime = Convert.ToDateTime(reader["Dt"].ToString()),
+                        strDt = reader["Dt"].ToString(),
+                        coordinates = new Coordinates() { longitude = reader["CooLong"].ToString(), latitude = reader["CooLat"].ToString() },
+                        weight = Convert.ToDouble(reader["Weight"].ToString()),
+                        temp = Convert.ToDouble(reader["Temp"].ToString()),
+                        density = Convert.ToDouble(reader["Density"].ToString()),
+                        volume = Convert.ToDouble(reader["Volume"].ToString()),
+                        accepted = Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())),
+                        processedGroupId = Convert.ToInt32(reader["ProcessedGroupId"].ToString()),
+                        //exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString())
+                        exportedGroupId = ExportedGroupId
                     };
 
                     if (Convert.ToInt32(reader["EDId"].ToString()) > 0) //has extra data
@@ -686,6 +718,91 @@ namespace PumpLib
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
+
+            return ret;
+        }
+
+        public bool UpdateReceiptData_ExportedGroupId(int nextExportedGroupId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SQLiteDBInfo.dbFile);
+            string UpdSt = "UPDATE [receiptData] SET ExportedGroupId = " + (nextExportedGroupId + 1).ToString() + " WHERE ifnull(ExportedGroupId,0) = 0 ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(UpdSt, sqlConn);
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public bool ObjectList_To_SQLServerReceiptDataLines(List<ImpData> ObjectList)
+        {
+            bool ret = true;
+
+            foreach (ImpData thisObj in ObjectList)
+            {
+                if (ObjectData_To_SQLServerReceiptDataLines(thisObj) == false)
+                {
+                    ret = false;
+                }
+            }
+            
+            return ret;
+        }
+
+        public bool ObjectData_To_SQLServerReceiptDataLines(ImpData obj)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+
+            string InsSt = "INSERT INTO xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+            //    cmd.Parameters.AddWithValue("@VehicleNo", receiptData.vehicleNo);
+            //    cmd.Parameters.AddWithValue("@Dt", receiptData.datetime);
+            //    cmd.Parameters.AddWithValue("@CooLong", receiptData.coordinates.longitude);
+            //    cmd.Parameters.AddWithValue("@CooLat", receiptData.coordinates.latitude);
+            //    cmd.Parameters.AddWithValue("@Weight", receiptData.weight);
+            //    cmd.Parameters.AddWithValue("@Temp", receiptData.temp);
+            //    cmd.Parameters.AddWithValue("@Density", receiptData.density);
+            //    cmd.Parameters.AddWithValue("@Volume", receiptData.volume);
+            //    cmd.Parameters.AddWithValue("@Accepted", receiptData.accepted);
+            //    cmd.Parameters.AddWithValue("@ProcessedGroupId", processedId);
+
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                //extra data
+                if (1 == 1)
+                {
+                    //extra data
+                }
+
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            sqlConn.Close();
 
             return ret;
         }
@@ -721,8 +838,9 @@ namespace PumpLib
             }
         }
 
-        public void createJsonFile(string jsonData)
+        public string createJsonFile(string jsonData)
         {
+            string filename = "";
             SaveFileDialog sfd = new SaveFileDialog();
             //sfd.Filter = "Text files (*.txt)|*.txt";
             sfd.Filter = "JSON files (*.json)|*.json";
@@ -730,8 +848,11 @@ namespace PumpLib
 
             if (result == DialogResult.OK)
             {
+                filename = sfd.FileName;
                 createJsonFile(sfd.FileName, jsonData);
             }
+
+            return filename;
         }
 
         public string getAllDataFromJsonFile(string Path)
@@ -752,6 +873,7 @@ namespace PumpLib
             string ret = "";
 
             OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "JSON files (*.json)|*.json";
             DialogResult result = ofd.ShowDialog();
 
             string json_Path = ofd.FileName;
@@ -862,6 +984,21 @@ namespace PumpLib
         }
 
         public static string dbFile { get; set; }
+    }
+
+    public static class SqlDBInfo
+    {
+        static SqlDBInfo()
+        {
+            //default values
+            string server = "protokolSrv";
+            string database = "PumpInfo"; 
+            string username = "GramUser"; 
+            string password = "111111"; 
+            connectionString = "Persist Security Info=False; User ID=" + username + "; Password=" + password + "; Initial Catalog=" + database + "; Server=" + server;
+        }
+
+        public static string connectionString { get; set; }
     }
 
     public static class GridViewUtils
