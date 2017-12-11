@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using PumpLib;
+
 namespace PumpInfo
 {
     public partial class frmPumpInfo : Form
