@@ -748,52 +748,102 @@ namespace PumpLib
             return ret;
         }
 
-        public bool ObjectList_To_SQLServerReceiptDataLines(List<ImpData> ObjectList)
+        public bool ObjectList_To_SQLServerReceiptDataLines(List<ImpData> ObjectList, string FileToImport)
         {
             bool ret = true;
 
             foreach (ImpData thisObj in ObjectList)
             {
-                if (ObjectData_To_SQLServerReceiptDataLines(thisObj) == false)
+                if (ObjectData_To_SQLServerReceiptDataLines(thisObj, FileToImport) == false)
                 {
                     ret = false;
+                }
+                else
+                {
+                    //extra data
+                    if (thisObj.extraDataId > 0)
+                    {
+                        if (ObjectData_To_SQLServerExtraDataLines(thisObj, FileToImport) == false)
+                        {
+                            ret = false;
+                        }
+                    }
                 }
             }
             
             return ret;
         }
 
-        public bool ObjectData_To_SQLServerReceiptDataLines(ImpData obj)
+        public bool ObjectData_To_SQLServerReceiptDataLines(ImpData obj, string FileToImport)
         {
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+            string InsSt = "INSERT INTO [dbo].[receiptData] (Id, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId, ImpFilename) " +
+                           " VALUES (@Id, @VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @Accepted, @ProcessedGroupId, @ExportedGroupId, @ImpFilename ) ";
+
             try
             {
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
 
-            //    cmd.Parameters.AddWithValue("@VehicleNo", receiptData.vehicleNo);
-            //    cmd.Parameters.AddWithValue("@Dt", receiptData.datetime);
-            //    cmd.Parameters.AddWithValue("@CooLong", receiptData.coordinates.longitude);
-            //    cmd.Parameters.AddWithValue("@CooLat", receiptData.coordinates.latitude);
-            //    cmd.Parameters.AddWithValue("@Weight", receiptData.weight);
-            //    cmd.Parameters.AddWithValue("@Temp", receiptData.temp);
-            //    cmd.Parameters.AddWithValue("@Density", receiptData.density);
-            //    cmd.Parameters.AddWithValue("@Volume", receiptData.volume);
-            //    cmd.Parameters.AddWithValue("@Accepted", receiptData.accepted);
-            //    cmd.Parameters.AddWithValue("@ProcessedGroupId", processedId);
+                cmd.Parameters.AddWithValue("@Id", obj.receiptDataId);
+                cmd.Parameters.AddWithValue("@VehicleNo", obj.vehicleNo);
+                cmd.Parameters.AddWithValue("@Dt", obj.strDt); //????????
+                cmd.Parameters.AddWithValue("@CooLong", obj.coordinates.longitude);
+                cmd.Parameters.AddWithValue("@CooLat", obj.coordinates.latitude);
+                cmd.Parameters.AddWithValue("@Weight", obj.weight);
+                cmd.Parameters.AddWithValue("@Temp", obj.temp);
+                cmd.Parameters.AddWithValue("@Density", obj.density);
+                cmd.Parameters.AddWithValue("@Volume", obj.volume);
+                cmd.Parameters.AddWithValue("@Accepted", obj.accepted);
+                cmd.Parameters.AddWithValue("@ProcessedGroupId", obj.processedGroupId);
+                cmd.Parameters.AddWithValue("@ExportedGroupId", obj.exportedGroupId);
+                cmd.Parameters.AddWithValue("@ImpFilename", FileToImport);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
+                
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
 
-                //extra data
-                if (1 == 1)
-                {
-                    //extra data
-                }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+
+        public bool ObjectData_To_SQLServerExtraDataLines(ImpData obj, string FileToImport)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+
+            string InsSt = "INSERT INTO [dbo].[extraData] (Id, ReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, GeostationId) " +
+                        " VALUES (@Id, @ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @GeostationId ) ";
+
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Id", obj.extraDataId);
+                cmd.Parameters.AddWithValue("@ReceiptDataId", obj.receiptDataId);
+                cmd.Parameters.AddWithValue("@BrandId", obj.brand.Id);
+                cmd.Parameters.AddWithValue("@Dealer", obj.dealer);
+                cmd.Parameters.AddWithValue("@Address", obj.address);
+                cmd.Parameters.AddWithValue("@ProductId", obj.product.Id);
+                cmd.Parameters.AddWithValue("@Pump", obj.pump);
+                cmd.Parameters.AddWithValue("@PumpVolume", obj.pumpVolume);
+                cmd.Parameters.AddWithValue("@GeostationId", obj.geostationId);
+
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
 
                 ret = true;
             }
