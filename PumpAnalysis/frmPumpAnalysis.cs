@@ -17,5 +17,12 @@ namespace PumpAnalysis
 
             
         }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            DbUtilities dbu = new DbUtilities();
+
+            string read_data = dbu.getAllDataFromJsonFile();
+        }
     }
 }

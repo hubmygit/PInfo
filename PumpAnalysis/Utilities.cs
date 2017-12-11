@@ -751,9 +751,16 @@ namespace PumpAnalysis
         {
             string ret = "";
 
-            //open file dialog ????
+            OpenFileDialog ofd = new OpenFileDialog();
+            DialogResult result = ofd.ShowDialog();
 
-            ret = getAllDataFromJsonFile("string Path");
+            string json_Path = ofd.FileName;
+            if (json_Path.Trim() == "" || result != DialogResult.OK)
+            {
+                return ret;
+            }
+
+            ret = getAllDataFromJsonFile(json_Path);
 
             return ret;
         }

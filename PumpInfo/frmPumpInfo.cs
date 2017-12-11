@@ -21,10 +21,10 @@ namespace PumpInfo
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.ShowDialog();
+            DialogResult result = ofd.ShowDialog();
 
             string receiptFile_Path = ofd.FileName;
-            if (receiptFile_Path.Trim() == "")
+            if (receiptFile_Path.Trim() == "" || result != DialogResult.OK)
             {
                 return;
             }
@@ -134,10 +134,7 @@ namespace PumpInfo
 
                 string jsonData = dbu.ObjectListToJson(DataToMigrate);
 
-                dbu.createJsonFile(jsonData);
-
-                //open file dialog???
-                //string read_data = dbu.getAllDataFromJsonFile("jsonTest.json");
+                dbu.createJsonFile(jsonData);                
             }
             else //no data found
             {
