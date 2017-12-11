@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PumpInfo
+namespace PumpAnalysis
 {
     static class Program
     {
@@ -15,7 +15,7 @@ namespace PumpInfo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmPumpInfo());
+            Application.Run(new frmPumpAnalysis());
         }
     }
 }

@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace PumpInfo
 {
-    public partial class Form1 : Form
+    public partial class frmPumpInfo : Form
     {
-        public Form1()
+        public frmPumpInfo()
         {
             InitializeComponent();
         }
@@ -134,12 +134,10 @@ namespace PumpInfo
 
                 string jsonData = dbu.ObjectListToJson(DataToMigrate);
 
-                dbu.createJsonFile("jsonTest.json", jsonData);
+                dbu.createJsonFile(jsonData);
 
-                int wait_here = 0;
-
-                //save as dialog???
-                string read_data = dbu.getAllDataFromJsonFile("jsonTest.json");
+                //open file dialog???
+                //string read_data = dbu.getAllDataFromJsonFile("jsonTest.json");
             }
             else //no data found
             {

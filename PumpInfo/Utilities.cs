@@ -715,10 +715,22 @@ namespace PumpInfo
 
         public void createJsonFile(string Path, string jsonData)
         {
-            //save as dialog...
             using (StreamWriter sw = new StreamWriter(Path))
             {
                 sw.Write(jsonData);
+            }
+        }
+
+        public void createJsonFile(string jsonData)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            //sfd.Filter = "Text files (*.txt)|*.txt";
+            sfd.Filter = "JSON files (*.json)|*.json";
+            DialogResult result = sfd.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                createJsonFile(sfd.FileName, jsonData);
             }
         }
 
@@ -730,6 +742,18 @@ namespace PumpInfo
             {
                 ret = sr.ReadToEnd();
             }
+
+            return ret;
+        }
+
+
+        public string getAllDataFromJsonFile()
+        {
+            string ret = "";
+
+            //open file dialog ????
+
+            ret = getAllDataFromJsonFile("string Path");
 
             return ret;
         }
