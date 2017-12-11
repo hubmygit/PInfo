@@ -34,7 +34,7 @@ namespace PumpAnalysis
 
             List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
 
-            bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(DataToMigrate);
+            bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(DataToMigrate, read_data);
             if (insSuccess == false)
             {
                 MessageBox.Show("Η διαδικασία ολοκληρώθηκε με σφάλματα!");
