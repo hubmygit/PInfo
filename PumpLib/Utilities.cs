@@ -429,6 +429,7 @@ namespace PumpLib
                     ret = Convert.ToInt32(reader["Id"].ToString());
                 }
                 reader.Close();
+                sqlConn.Close();
             }
             catch (Exception ex)
             {
@@ -457,7 +458,9 @@ namespace PumpLib
                     currentId = Convert.ToInt32(reader["Id"].ToString());
                     if (currentId == 0) //null records
                     {
-                        return 0;
+                        maxId = 0;
+                        break;
+                        //return 0;
                     }
 
                     if (maxId < currentId)
@@ -466,6 +469,7 @@ namespace PumpLib
                     }
                 }
                 reader.Close();
+                sqlConn.Close();
             }
             catch (Exception ex)
             {
@@ -517,16 +521,37 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@Filename", Filename);
 
                 cmd.CommandType = CommandType.Text;
+
                 cmd.ExecuteNonQuery();
 
                 ret = true;
+
+                sqlConn.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
 
-            sqlConn.Close();
+
+
+
+            //sqlConn.Open();
+
+            //using (var cmd = new SQLiteCommand(InsSt, sqlConn))
+            //using (var transaction = sqlConn.BeginTransaction())
+            //{
+            //    cmd.Parameters.AddWithValue("@Filename", Filename);
+            //    cmd.CommandType = CommandType.Text;
+
+            //    cmd.ExecuteNonQuery();
+
+            //    transaction.Commit();
+
+            //    ret = true;
+            //}
+
+
 
             return ret;
         }
@@ -716,6 +741,7 @@ namespace PumpLib
                 }
 
                 reader.Close();
+                sqlConn.Close();
             }
             catch (Exception ex)
             {
@@ -742,12 +768,14 @@ namespace PumpLib
                 {
                     ret = true;
                 }
+
+                sqlConn.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
-
+            
             return ret;
         }
 
