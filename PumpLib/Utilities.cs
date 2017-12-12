@@ -658,12 +658,14 @@ namespace PumpLib
 
         public List<ImpData> ReceiptDataLines_To_ObjectList(int ExportedGroupId, int nextExportedGroupId_if_null)
         {
+            int ExpGrId = ExportedGroupId;
             List<ImpData> ret = new List<ImpData>();
 
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
             SQLiteCommand cmd = new SQLiteCommand("SELECT RD.Id, RD.VehicleNo, datetime(RD.Dt) as Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
                                                   "RD.Accepted, ifnull(RD.ProcessedGroupId,0) as ProcessedGroupId, ifnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
-                                                  "ifnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, ED.GeostationId " +
+                                                  "ifnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, " + 
+                                                  "ifnull(ED.GeostationId,0) as GeostationId " +
                 " FROM [receiptData] RD left outer join [extraData] ED on RD.Id = ED.ReceiptDataId " +
                 " WHERE ifnull(RD.[ExportedGroupId], 0) = @ExportedGroupId ", sqlConn);
 
@@ -677,12 +679,13 @@ namespace PumpLib
 
                 if (ExportedGroupId == 0)
                 {
-                    ExportedGroupId = nextExportedGroupId_if_null;
+                    ExpGrId = nextExportedGroupId_if_null;
                 }
 
                 while (reader.Read())
                 {
-                    ImpData objLine = new ImpData() { receiptDataId = Convert.ToInt32(reader["Id"].ToString()),
+                    ImpData objLine = new ImpData()
+                    {   receiptDataId = Convert.ToInt32(reader["Id"].ToString()),
                         vehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
                         //datetime = Convert.ToDateTime(reader["Dt"].ToString()),
                         strDt = reader["Dt"].ToString(),
@@ -694,7 +697,7 @@ namespace PumpLib
                         accepted = Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())),
                         processedGroupId = Convert.ToInt32(reader["ProcessedGroupId"].ToString()),
                         //exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString())
-                        exportedGroupId = ExportedGroupId
+                        exportedGroupId = ExpGrId
                     };
 
                     if (Convert.ToInt32(reader["EDId"].ToString()) > 0) //has extra data
@@ -726,12 +729,12 @@ namespace PumpLib
         {
             bool ret = false;
 
-            SqlConnection sqlConn = new SqlConnection(SQLiteDBInfo.dbFile);
-            string UpdSt = "UPDATE [receiptData] SET ExportedGroupId = " + (nextExportedGroupId + 1).ToString() + " WHERE ifnull(ExportedGroupId,0) = 0 ";
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            string UpdSt = "UPDATE [receiptData] SET ExportedGroupId = " + nextExportedGroupId.ToString() + " WHERE ifnull(ExportedGroupId,0) = 0 ";
             try
             {
                 sqlConn.Open();
-                SqlCommand cmd = new SqlCommand(UpdSt, sqlConn);
+                SQLiteCommand cmd = new SQLiteCommand(UpdSt, sqlConn);
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
 

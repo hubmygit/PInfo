@@ -94,20 +94,28 @@ namespace PumpInfo
             //objList To SQLite DB
             DbUtilities dbu = new DbUtilities();
 
-            bool insSuccess = dbu.InsertReceiptAllDataIntoSQLiteTable(objList);
-
-            if (insSuccess)
+            if (objList.Count > 0)
             {
-                MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
+                bool insSuccess = dbu.InsertReceiptAllDataIntoSQLiteTable(objList);
+
+                if (insSuccess)
+                {
+                    MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
+                }
+                else
+                {
+                    MessageBox.Show("Η καταχώρηση ολοκληρώθηκε με σφάλματα!");
+                }
+
+                //refresh? / close form?
+                dgvReceiptData.Rows.Clear();
+                objList.Clear();
             }
             else
             {
-                MessageBox.Show("Η καταχώρηση ολοκληρώθηκε με σφάλματα!");
+                MessageBox.Show("Δε βρέθηκαν εγγραφές προς καταχώρηση!");
             }
 
-            //refresh? / close form?
-            dgvReceiptData.Rows.Clear();
-            objList.Clear();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
