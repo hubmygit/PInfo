@@ -287,7 +287,7 @@ namespace PumpLib
 
             return ret;
         }
-
+        
         public bool InsertReceiptLineDataIntoSQLiteTable(ImpData receiptData, int processedId)
         {
             bool ret = false;
@@ -624,6 +624,34 @@ namespace PumpLib
             return ret;
         }
 
+        public List<ImpData> GetDataNotExistsInSQLSrvTable(List<ImpData> ImpDataList)
+        {
+            List<ImpData> ret = new List<ImpData>();
+            int RowIndex = 0;
+
+            foreach (ImpData thisLine in ImpDataList)
+            {
+                if (!ExistsInSQLSrvTable(thisLine))
+                {
+                    thisLine.dataGridViewRowIndex = RowIndex;
+
+                    //add other vars needed....
+                    //date = csvDateToSqlDate(lines[1]);
+                    //time = csvTimeToSqlTime(lines[2]);
+                    //datetime = sqlDtToDatetime(lines[1], lines[2]);
+                    //position = lines[3];
+                    //position = lines[3];
+                    //coordinates = getLatLon(lines[3]);
+
+                    ret.Add(thisLine);
+
+                    RowIndex++;
+                }
+            }
+
+            return ret;
+        }
+
         //public List<object[]> ImpDataListToGridViewRowList(List<ImpData> objList)
         //{
         //    List<object[]> ret = new List<object[]>();
@@ -664,6 +692,42 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@Weight", receiptData.weight);
 
                 SQLiteDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    //string Id = reader["Id"].ToString();
+                    ret = true;
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public bool ExistsInSQLSrvTable(ImpData receiptData)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            SqlCommand cmd = new SqlCommand("SELECT Id FROM [dbo].[receiptData] " +
+                "WHERE [VehicleNo] = @VehicleNo AND [Dt] = @Dt AND [CooLong] = @CooLong AND [CooLat] = @CooLat AND [Weight] = @Weight ", sqlConn);
+
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@VehicleNo", receiptData.vehicleNo);
+                cmd.Parameters.AddWithValue("@Dt", receiptData.strDt); //-------------------->replace datetime with strDt
+                cmd.Parameters.AddWithValue("@CooLong", receiptData.coordinates.longitude);
+                cmd.Parameters.AddWithValue("@CooLat", receiptData.coordinates.latitude);
+                cmd.Parameters.AddWithValue("@Weight", receiptData.weight);
+
+                SqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
                 {
