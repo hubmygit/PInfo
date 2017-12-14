@@ -37,9 +37,9 @@ namespace PumpAnalysis
 
             if (objList.Count > 0)
             {
-                //List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
+                List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
 
-                //GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+                GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
                 ////bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
             }

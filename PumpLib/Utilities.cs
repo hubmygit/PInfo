@@ -292,7 +292,7 @@ namespace PumpLib
         {
             bool ret = false;
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
             string InsSt = "INSERT INTO [receiptData] ([VehicleNo], [Dt], [CooLong], [CooLat], [Weight], [Temp], [Density], [Volume], [Accepted], [ProcessedGroupId]) VALUES " +
                            "(@VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @Accepted, @ProcessedGroupId) ";
@@ -331,7 +331,7 @@ namespace PumpLib
         {
             int ret = -1;
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
             string SelectSt = "SELECT max(Id) as Id FROM [receiptData] ";
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
@@ -356,7 +356,7 @@ namespace PumpLib
         {
             bool ret = false;
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
             string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume]) VALUES " +
                            "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume) ";
@@ -392,7 +392,7 @@ namespace PumpLib
         {
             int ret = 0;
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
             string SelectSt = "SELECT ifnull(max(Id), 0) as Id FROM [ProcessedGroup] ";
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
@@ -417,7 +417,7 @@ namespace PumpLib
         {
             int ret = 0;
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
             string SelectSt = "SELECT ifnull(max(Id), 0) as Id FROM [ExportedGroup] ";
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
@@ -444,7 +444,7 @@ namespace PumpLib
             int maxId = -1;
             int currentId = -1;
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
             string SelectSt = "SELECT ifnull(ExportedGroupId, 0) as Id, count(*) as cnt " +
                               "FROM [receiptData] GROUP BY ExportedGroupId ORDER BY ExportedGroupId ";
 
@@ -483,7 +483,7 @@ namespace PumpLib
         {
             bool ret = false;
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
             string InsSt = "INSERT INTO [ProcessedGroup] ([Dt]) VALUES (datetime('now', 'localtime')) ";
             try
@@ -510,7 +510,7 @@ namespace PumpLib
         {
             bool ret = false;
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
             string InsSt = "INSERT INTO [ExportedGroup] ([Dt], [Filename]) VALUES (datetime('now', 'localtime'), @Filename) ";
             try
@@ -635,13 +635,11 @@ namespace PumpLib
                 {
                     thisLine.dataGridViewRowIndex = RowIndex;
 
-                    //add other vars needed....
-                    //date = csvDateToSqlDate(lines[1]);
-                    //time = csvTimeToSqlTime(lines[2]);
-                    //datetime = sqlDtToDatetime(lines[1], lines[2]);
-                    //position = lines[3];
-                    //position = lines[3];
-                    //coordinates = getLatLon(lines[3]);
+                    //add other vars needed...
+                    thisLine.date = thisLine.strDt.Substring(0, 10);//csvDateToSqlDate(lines[1]);
+                    thisLine.time = thisLine.strDt.Substring(11, 5);//csvTimeToSqlTime(lines[2]);
+                    thisLine.datetime = Convert.ToDateTime(thisLine.strDt);//sqlDtToDatetime(lines[1], lines[2]);
+                    thisLine.position = thisLine.coordinates.latitude + " " + thisLine.coordinates.longitude;//lines[3];
 
                     ret.Add(thisLine);
 
@@ -677,7 +675,7 @@ namespace PumpLib
         {
             bool ret = false;
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
             SQLiteCommand cmd = new SQLiteCommand("SELECT Id FROM [receiptData] " +
                 "WHERE [VehicleNo] = @VehicleNo AND [Dt] = @Dt AND [CooLong] = @CooLong AND [CooLat] = @CooLat AND [Weight] = @Weight ", sqlConn);
 
@@ -750,7 +748,7 @@ namespace PumpLib
             int ExpGrId = ExportedGroupId;
             List<ImpData> ret = new List<ImpData>();
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
             SQLiteCommand cmd = new SQLiteCommand("SELECT RD.Id, RD.VehicleNo, datetime(RD.Dt) as Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
                                                   "RD.Accepted, ifnull(RD.ProcessedGroupId,0) as ProcessedGroupId, ifnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
                                                   "ifnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, " + 
@@ -778,7 +776,7 @@ namespace PumpLib
                         vehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
                         //datetime = Convert.ToDateTime(reader["Dt"].ToString()),
                         strDt = reader["Dt"].ToString(),
-                        coordinates = new Coordinates() { longitude = reader["CooLong"].ToString(), latitude = reader["CooLat"].ToString() },
+                        coordinates = new Coordinates() { longitude = reader["CooLong"].ToString().Replace(",","."), latitude = reader["CooLat"].ToString().Replace(",", ".") },
                         weight = Convert.ToDouble(reader["Weight"].ToString()),
                         temp = Convert.ToDouble(reader["Temp"].ToString()),
                         density = Convert.ToDouble(reader["Density"].ToString()),
@@ -819,7 +817,7 @@ namespace PumpLib
         {
             bool ret = false;
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
             string UpdSt = "UPDATE [receiptData] SET ExportedGroupId = " + nextExportedGroupId.ToString() + " WHERE ifnull(ExportedGroupId,0) = 0 ";
             try
             {
@@ -1036,7 +1034,7 @@ namespace PumpLib
         {
             List<Brand> ret = new List<Brand>();
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
             string SelectSt = "SELECT Id, Name FROM [Brand] ORDER BY Name ";
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
@@ -1080,7 +1078,7 @@ namespace PumpLib
         {
             List<Product> ret = new List<Product>();
 
-            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + SQLiteDBInfo.dbFile + ";Version=3;");
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
             string SelectSt = "SELECT Id, Name FROM [Product] ORDER BY Name ";
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
@@ -1125,10 +1123,12 @@ namespace PumpLib
     {
         static SQLiteDBInfo()
         {
-            dbFile = Application.StartupPath + "\\DBs\\PumpInfo.db";
+            string dbFile = Application.StartupPath + "\\DBs\\PumpInfo.db";
+            connectionString = "Data Source=" + dbFile + ";Version=3;";
         }
 
-        public static string dbFile { get; set; }
+        //public static string dbFile { get; set; }
+        public static string connectionString { get; set; }
     }
 
     public static class SqlDBInfo
