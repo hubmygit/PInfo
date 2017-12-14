@@ -1157,6 +1157,34 @@ namespace PumpLib
         }
 
 
+        public int getMaxImportedGroupId(string fileName)
+        {
+            int ret = -1;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT max(Id) as Id FROM [dbo].[ImportedGroup] WHERE FileName = @FileName ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+
+            cmd.Parameters.AddWithValue("@FileName", fileName);
+
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["MaxRevNo"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
     }
 
     public static class SQLiteDBInfo

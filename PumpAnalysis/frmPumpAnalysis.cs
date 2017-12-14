@@ -82,7 +82,7 @@ namespace PumpAnalysis
 
             if (objList.Count > 0)
             {
-                // 1. import the whole file into sql DB table - imported group
+                //import the whole file into sql DB table - imported group
                 bool success = dbu.InertImportedFileIntoTable(json_filename, fileBytes);
                 if (!success)
                 {
@@ -90,10 +90,10 @@ namespace PumpAnalysis
                     return;
                 }
 
-                // 2. get max id 
-                int ImportedGroupId = 0;
+                //get max id 
+                int ImportedGroupId = dbu.getMaxImportedGroupId(json_filename);
 
-                if (ImportedGroupId <= 0)
+                if (ImportedGroupId < 0) //error: -1
                 {
                     MessageBox.Show("Προσοχή! Σφάλμα κατά την εύρεση του καταχωρημένου αρχείου.");
                     return;
