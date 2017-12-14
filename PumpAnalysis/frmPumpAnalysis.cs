@@ -15,11 +15,11 @@ namespace PumpAnalysis
     {
         public frmPumpAnalysis()
         {
-            InitializeComponent();
-
-            
+            InitializeComponent();           
         }
 
+        public List<ImpData> objList = new List<ImpData>();
+        public string json_filename;
         private void btnImport_Click(object sender, EventArgs e)
         {
             
@@ -43,14 +43,18 @@ namespace PumpAnalysis
                 return;
             }
 
+            //get byte[] ready to import into table
+
             List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
-            List<ImpData> objList = dbu.GetDataNotExistsInSQLSrvTable(DataToMigrate);
+            objList = dbu.GetDataNotExistsInSQLSrvTable(DataToMigrate);
 
             if (objList.Count > 0)
             {
                 List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
 
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+
+                json_filename = json_Path.Substring(json_Path.LastIndexOf("/"));
             }
             else
             {
@@ -59,40 +63,42 @@ namespace PumpAnalysis
             }
 
 
-            //if (objList.Count > 0)
-            //{
-            //    //List<object[]> aaa = GridViewUtils.ImpJsonDataListToGridViewRowList(objList);
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Προσοχή! Δε βρέθηκαν εγγραφές στο αρχείο.");
-            //}
 
-            //?? show to grid
+            //check: 2nd time import of the same file ??
 
-            //?? 2nd import of the same file ??
-
-            //import txt file as blob into sqlite
             //import the whole file into sql DB table - imported group
 
-            /*
-            bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(DataToMigrate, read_data);
-            if (insSuccess == false)
-            {
-                MessageBox.Show("Η διαδικασία ολοκληρώθηκε με σφάλματα!");
-            }
-            else
-            {
-                MessageBox.Show("Η διαδικασία ολοκληρώθηκε επιτυχώς!");
-            }
-            */
+            
+
 
 
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //
+            DbUtilities dbu = new DbUtilities();
+
+            if (objList.Count > 0)
+            {
+                bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(objList, json_filename);
+
+                if (insSuccess)
+                {
+                    MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
+                }
+                else
+                {
+                    MessageBox.Show("Η καταχώρηση ολοκληρώθηκε με σφάλματα!");
+                }
+
+                //refresh? / close form?
+                dgvReceiptData.Rows.Clear();
+                objList.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Δε βρέθηκαν εγγραφές προς καταχώρηση!");
+            }
         }
     }
 }
