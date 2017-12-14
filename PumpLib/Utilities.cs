@@ -404,6 +404,7 @@ namespace PumpLib
                     ret = Convert.ToInt32(reader["Id"].ToString());
                 }
                 reader.Close();
+                sqlConn.Close();
             }
             catch (Exception ex)
             {
@@ -698,6 +699,7 @@ namespace PumpLib
                 }
 
                 reader.Close();
+                sqlConn.Close();
             }
             catch (Exception ex)
             {
@@ -720,7 +722,7 @@ namespace PumpLib
                 sqlConn.Open();
 
                 cmd.Parameters.AddWithValue("@VehicleNo", receiptData.vehicleNo);
-                cmd.Parameters.AddWithValue("@Dt", receiptData.strDt); //-------------------->replace datetime with strDt
+                cmd.Parameters.AddWithValue("@Dt", receiptData.strDt); 
                 cmd.Parameters.AddWithValue("@CooLong", receiptData.coordinates.longitude);
                 cmd.Parameters.AddWithValue("@CooLat", receiptData.coordinates.latitude);
                 cmd.Parameters.AddWithValue("@Weight", receiptData.weight);
@@ -734,6 +736,7 @@ namespace PumpLib
                 }
 
                 reader.Close();
+                sqlConn.Close();
             }
             catch (Exception ex)
             {
@@ -1046,6 +1049,7 @@ namespace PumpLib
                     ret.Add(new Brand() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
                 }
                 reader.Close();
+                sqlConn.Close();
             }
             catch (Exception ex)
             {
@@ -1090,6 +1094,7 @@ namespace PumpLib
                     ret.Add(new Product() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
                 }
                 reader.Close();
+                sqlConn.Close();
             }
             catch (Exception ex)
             {
