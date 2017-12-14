@@ -20,6 +20,7 @@ namespace PumpAnalysis
 
         public List<ImpData> objList = new List<ImpData>();
         public string json_filename;
+        byte[] fileBytes;
         private void btnImport_Click(object sender, EventArgs e)
         {
             
@@ -54,7 +55,10 @@ namespace PumpAnalysis
 
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
-                json_filename = json_Path.Substring(json_Path.LastIndexOf("/"));
+                json_filename = json_Path.Substring(json_Path.LastIndexOf("\\") + 1);
+
+                //get file contents as byte[]
+                fileBytes = System.IO.File.ReadAllBytes(json_Path); 
             }
             else
             {
@@ -64,9 +68,7 @@ namespace PumpAnalysis
 
 
 
-            //check: 2nd time import of the same file ??
-
-            //import the whole file into sql DB table - imported group
+            
 
             
 
@@ -80,7 +82,24 @@ namespace PumpAnalysis
 
             if (objList.Count > 0)
             {
-                bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(objList, json_filename);
+                // 1. import the whole file into sql DB table - imported group
+                bool success = dbu.InertImportedFileIntoTable(json_filename, fileBytes);
+                if (!success)
+                {
+                    MessageBox.Show("Προσοχή! Σφάλμα κατά την καταχώρηση του αρχείου " + json_filename);
+                    return;
+                }
+
+                // 2. get max id 
+                int ImportedGroupId = 0;
+
+                if (ImportedGroupId <= 0)
+                {
+                    MessageBox.Show("Προσοχή! Σφάλμα κατά την εύρεση του καταχωρημένου αρχείου.");
+                    return;
+                }
+
+                bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(objList, ImportedGroupId);
 
                 if (insSuccess)
                 {
@@ -94,6 +113,7 @@ namespace PumpAnalysis
                 //refresh? / close form?
                 dgvReceiptData.Rows.Clear();
                 objList.Clear();
+                Array.Clear(fileBytes, 0, fileBytes.Length);
             }
             else
             {

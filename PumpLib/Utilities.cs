@@ -844,13 +844,13 @@ namespace PumpLib
             return ret;
         }
 
-        public bool ObjectList_To_SQLServerReceiptDataLines(List<ImpData> ObjectList, string FileToImport)
+        public bool ObjectList_To_SQLServerReceiptDataLines(List<ImpData> ObjectList, int ImportedGroupId)
         {
             bool ret = true;
 
             foreach (ImpData thisObj in ObjectList)
             {
-                if (ObjectData_To_SQLServerReceiptDataLines(thisObj, FileToImport) == false)
+                if (ObjectData_To_SQLServerReceiptDataLines(thisObj, ImportedGroupId) == false)
                 {
                     ret = false;
                 }
@@ -859,7 +859,7 @@ namespace PumpLib
                     //extra data
                     if (thisObj.extraDataId > 0)
                     {
-                        if (ObjectData_To_SQLServerExtraDataLines(thisObj, FileToImport) == false)
+                        if (ObjectData_To_SQLServerExtraDataLines(thisObj) == false)
                         {
                             ret = false;
                         }
@@ -870,14 +870,14 @@ namespace PumpLib
             return ret;
         }
 
-        public bool ObjectData_To_SQLServerReceiptDataLines(ImpData obj, string FileToImport)
+        public bool ObjectData_To_SQLServerReceiptDataLines(ImpData obj, int ImportedGroupId)
         {
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [dbo].[receiptData] (Id, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId, ImpFilename) " +
-                           " VALUES (@Id, @VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @Accepted, @ProcessedGroupId, @ExportedGroupId, @ImpFilename ) ";
+            string InsSt = "INSERT INTO [dbo].[receiptData] (Id, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId, ImportedGroupId) " +
+                           " VALUES (@Id, @VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @Accepted, @ProcessedGroupId, @ExportedGroupId, @ImportedGroupId ) ";
 
             try
             {
@@ -896,7 +896,7 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@Accepted", obj.accepted);
                 cmd.Parameters.AddWithValue("@ProcessedGroupId", obj.processedGroupId);
                 cmd.Parameters.AddWithValue("@ExportedGroupId", obj.exportedGroupId);
-                cmd.Parameters.AddWithValue("@ImpFilename", FileToImport);
+                cmd.Parameters.AddWithValue("@ImportedGroupId", ImportedGroupId);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -914,7 +914,7 @@ namespace PumpLib
         }
 
 
-        public bool ObjectData_To_SQLServerExtraDataLines(ImpData obj, string FileToImport)
+        public bool ObjectData_To_SQLServerExtraDataLines(ImpData obj)
         {
             bool ret = false;
 
@@ -1121,6 +1121,41 @@ namespace PumpLib
 
             return ret;
         }
+
+
+
+
+        public bool InertImportedFileIntoTable(string fileName, byte[] fileBytes) 
+        {
+            bool ret = false;
+
+            if (fileName.Trim().Length > 0 && fileBytes.Length > 0)
+            {
+                SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+                string InsSt = "INSERT INTO [dbo].[ImportedGroup] (Dt, FileName, FileCont) VALUES (getdate(), @FileName, @FileCont) ";
+                try
+                {
+                    sqlConn.Open();
+                    SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+                    cmd.Parameters.AddWithValue("@FileName", fileName); 
+                    cmd.Parameters.Add("@FileCont", SqlDbType.VarBinary).Value = fileBytes;
+                    cmd.CommandType = CommandType.Text;
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        ret = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
+            }
+
+            return ret;
+        }
+
 
     }
 
