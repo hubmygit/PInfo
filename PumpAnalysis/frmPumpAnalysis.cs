@@ -66,14 +66,6 @@ namespace PumpAnalysis
                                 "Αρχείο: " + json_Path);
             }
 
-
-
-            
-
-            
-
-
-
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -93,7 +85,7 @@ namespace PumpAnalysis
                 //get max id 
                 int ImportedGroupId = dbu.getMaxImportedGroupId(json_filename);
 
-                if (ImportedGroupId < 0) //error: -1
+                if (ImportedGroupId <= 0) //error: -1 (& 0 -> id starts from 1...)
                 {
                     MessageBox.Show("Προσοχή! Σφάλμα κατά την εύρεση του καταχωρημένου αρχείου.");
                     return;
@@ -120,5 +112,18 @@ namespace PumpAnalysis
                 MessageBox.Show("Δε βρέθηκαν εγγραφές προς καταχώρηση!");
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DbUtilities d = new DbUtilities();
+
+            string geo_json_data = d.getAllDataFromJsonFile(@"C:\Users\hkylidis\Desktop\rev_geocoding_el.json");
+
+            //GeoCoding a = d.stringToGenericObject<GeoCoding>(geo_json_data);
+
+        }
     }
+
+    
 }
+

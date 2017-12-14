@@ -976,6 +976,8 @@ namespace PumpLib
             return desObjAll;
         }
 
+
+
         public void createJsonFile(string Path, string jsonData)
         {
             using (StreamWriter sw = new StreamWriter(Path))
@@ -1173,7 +1175,7 @@ namespace PumpLib
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    ret = Convert.ToInt32(reader["MaxRevNo"].ToString());
+                    ret = Convert.ToInt32(reader["Id"].ToString());
                 }
                 reader.Close();
             }
@@ -1184,7 +1186,7 @@ namespace PumpLib
 
             return ret;
         }
-
+        
     }
 
     public static class SQLiteDBInfo
@@ -1304,4 +1306,48 @@ namespace PumpLib
         }
     }
 
+    //--> Google Geocoding classes
+    public class GeoCoding
+    {
+        public Results[] results;
+        public string status;
+    }
+
+    public class Results
+    {
+        public Address_components[] address_components;
+        public string formatted_address;
+        public Geometry geometry;
+        public string place_id;
+        public string[] types;
+    }
+
+    public class Address_components
+    {
+        public string long_name;
+        public string short_name;
+        public string[] types;
+    }
+
+    public class Geometry
+    {
+        public Location location;
+        public string location_type;
+        public Viewport viewport;
+        public Viewport bounds;
+    }
+
+    public class Location
+    {
+        public string lat;
+        public string lng;
+    }
+
+    public class Viewport
+    {
+        public Location northeast;
+        public Location southwest;
+
+    }
+    //<-- Google Geocoding classes
 }
