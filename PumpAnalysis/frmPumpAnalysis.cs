@@ -119,7 +119,7 @@ namespace PumpAnalysis
 
             string geo_json_data = d.getAllDataFromJsonFile(@"C:\Users\hkylidis\Desktop\rev_geocoding_el.json");
 
-            //GeoCoding a = d.stringToGenericObject<GeoCoding>(geo_json_data);
+            GeoCoding a = d.stringToGenericObject<GeoCoding>(geo_json_data);
 
         }
     }

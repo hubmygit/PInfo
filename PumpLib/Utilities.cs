@@ -976,7 +976,12 @@ namespace PumpLib
             return desObjAll;
         }
 
+        public T stringToGenericObject<T>(string jsonFile)
+        {
+            T desObjAll = new JavaScriptSerializer().Deserialize<T>(jsonFile);
 
+            return desObjAll;
+        }
 
         public void createJsonFile(string Path, string jsonData)
         {
