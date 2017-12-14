@@ -25,7 +25,18 @@ namespace PumpAnalysis
             
             DbUtilities dbu = new DbUtilities();
 
-            string read_data = dbu.getAllDataFromJsonFile();
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "JSON files (*.json)|*.json";
+            DialogResult result = ofd.ShowDialog();
+
+            string json_Path = ofd.FileName;
+            if (json_Path.Trim() == "" || result != DialogResult.OK)
+            {
+                return;
+            }
+
+
+            string read_data = dbu.getAllDataFromJsonFile(json_Path);
 
             if (read_data.Trim() == "")
             {
@@ -40,13 +51,11 @@ namespace PumpAnalysis
                 List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
 
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
-
-                ////bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
             }
             else
             {
-                //MessageBox.Show("Δε βρέθηκαν εγγραφές προς επεξεργασία! \r\n" +
-                //                "Αρχείο: " + receiptFile_Path);
+                MessageBox.Show("Δε βρέθηκαν εγγραφές προς επεξεργασία! \r\n" +
+                                "Αρχείο: " + json_Path);
             }
 
 
