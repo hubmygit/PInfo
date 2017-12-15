@@ -40,6 +40,8 @@ namespace PumpLib
         public Product product = new Product();
         public string pump = "";
         public double pumpVolume = 0.0;
+        public int sampleNo = 0;
+
         public int geostationId = 0;
 
         //data to json -> to MSSQL
@@ -80,6 +82,8 @@ namespace PumpLib
             product = Product;
             pump = Pump;
             pumpVolume = PumpVolume;
+
+            //sampleNo
         }
 
         public void copyExtraData(ImpData otherObj)
@@ -92,6 +96,8 @@ namespace PumpLib
             product = otherObj.product;
             pump = otherObj.pump;
             pumpVolume = otherObj.pumpVolume;
+
+            //sampleNo
         }
 
         public void removeExtraData()
@@ -106,6 +112,8 @@ namespace PumpLib
             product = new Product();
             pump = "";
             pumpVolume = 0.0;
+
+            //sampleNo
         }
 
         public string csvDateToSqlDate(string csvDate)

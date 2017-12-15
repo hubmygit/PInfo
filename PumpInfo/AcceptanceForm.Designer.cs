@@ -58,6 +58,8 @@
             this.btnDel = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.lblVolDiffPerc = new System.Windows.Forms.Label();
+            this.lblSampleNo = new System.Windows.Forms.Label();
+            this.txtSampleNo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).BeginInit();
             this.SuspendLayout();
             // 
@@ -345,11 +347,31 @@
             this.lblVolDiffPerc.TabIndex = 30;
             this.lblVolDiffPerc.Text = "Volume Diff Perc: 0.0";
             // 
+            // lblSampleNo
+            // 
+            this.lblSampleNo.AutoSize = true;
+            this.lblSampleNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblSampleNo.Location = new System.Drawing.Point(473, 446);
+            this.lblSampleNo.Name = "lblSampleNo";
+            this.lblSampleNo.Size = new System.Drawing.Size(76, 16);
+            this.lblSampleNo.TabIndex = 31;
+            this.lblSampleNo.Text = "Sample No";
+            // 
+            // txtSampleNo
+            // 
+            this.txtSampleNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtSampleNo.Location = new System.Drawing.Point(555, 443);
+            this.txtSampleNo.Name = "txtSampleNo";
+            this.txtSampleNo.Size = new System.Drawing.Size(280, 22);
+            this.txtSampleNo.TabIndex = 32;
+            // 
             // AcceptanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(906, 442);
+            this.ClientSize = new System.Drawing.Size(906, 502);
+            this.Controls.Add(this.txtSampleNo);
+            this.Controls.Add(this.lblSampleNo);
             this.Controls.Add(this.lblVolDiffPerc);
             this.Controls.Add(this.cbProduct);
             this.Controls.Add(this.cbBrand);
@@ -405,5 +427,7 @@
         private System.Windows.Forms.ComboBox cbBrand;
         private System.Windows.Forms.ComboBox cbProduct;
         private System.Windows.Forms.Label lblVolDiffPerc;
+        private System.Windows.Forms.Label lblSampleNo;
+        private System.Windows.Forms.TextBox txtSampleNo;
     }
 }

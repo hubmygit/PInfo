@@ -116,7 +116,15 @@ namespace PumpInfo
                 PVol = Convert.ToDouble(txtPumpVol.Text.Trim());
             }
 
-            double Vol = Convert.ToDouble(dgvCurrentObj.Rows[0].Cells["Volume"].Value);
+            double Vol = 0.0;
+            if (dgvCurrentObj.Rows[0].Cells["Volume"].Value.ToString().Trim() == "")
+            {
+                Vol = 0.0;
+            }
+            else
+            {
+                Vol = Convert.ToDouble(dgvCurrentObj.Rows[0].Cells["Volume"].Value);
+            }
             
             double percDiff = 0.0;
             if (Vol > 0.0 && PVol > 0.0)
