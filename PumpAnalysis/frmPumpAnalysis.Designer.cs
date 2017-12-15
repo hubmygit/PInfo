@@ -32,6 +32,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnImport = new System.Windows.Forms.Button();
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,8 +45,7 @@
             this.Temp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Density = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.VolDiffPerc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,7 +90,8 @@
             this.Weight,
             this.Temp,
             this.Density,
-            this.Volume});
+            this.Volume,
+            this.VolDiffPerc});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -105,6 +107,30 @@
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvReceiptData.Size = new System.Drawing.Size(880, 410);
             this.dgvReceiptData.TabIndex = 14;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSave.Image = global::PumpAnalysis.Properties.Resources.Save_32x;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(616, 12);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(135, 40);
+            this.btnSave.TabIndex = 16;
+            this.btnSave.Text = "Αποθήκευση";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(322, 21);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "testing...";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Index
             // 
@@ -183,29 +209,11 @@
             this.Volume.ReadOnly = true;
             this.Volume.Width = 80;
             // 
-            // btnSave
+            // VolDiffPerc
             // 
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSave.Image = global::PumpAnalysis.Properties.Resources.Save_32x;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(616, 12);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(135, 40);
-            this.btnSave.TabIndex = 16;
-            this.btnSave.Text = "Αποθήκευση";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(322, 21);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "testing...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.VolDiffPerc.HeaderText = "VolDiff%";
+            this.VolDiffPerc.Name = "VolDiffPerc";
+            this.VolDiffPerc.ReadOnly = true;
             // 
             // frmPumpAnalysis
             // 
@@ -227,6 +235,8 @@
 
         public System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.DataGridView dgvReceiptData;
+        public System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
@@ -238,8 +248,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Temp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Density;
         private System.Windows.Forms.DataGridViewTextBoxColumn Volume;
-        public System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VolDiffPerc;
     }
 }
 

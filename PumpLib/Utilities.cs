@@ -1256,25 +1256,47 @@ namespace PumpLib
             dgv.Rows.Add(obj);
         }
 
-        public static List<object[]> ImpDataListToGridViewRowList(List<ImpData> objList)
+        public static List<object[]> ImpDataListToGridViewRowList(List<ImpData> objList, bool extraCalcColumns = false)
         {
             List<object[]> ret = new List<object[]>();
 
             foreach (ImpData thisObj in objList)
             {
-                ret.Add(ImpDataToGridViewRow(thisObj));
+                if (extraCalcColumns)
+                {
+                    ret.Add(ImpDataToGridViewRow(thisObj, extraCalcColumns));//
+                }
+                else
+                {
+                    ret.Add(ImpDataToGridViewRow(thisObj));
+                }
             }
 
             return ret;
         }
-
-        public static object[] ImpDataToGridViewRow(ImpData obj)
+        
+        public static object[] ImpDataToGridViewRow(ImpData obj, bool extraCalcColumns = false)
         {
             //object[] ret = new object[] { false, obj.vehicleNo, obj.date, obj.time, ... };
             object[] ret = new object[] { obj.dataGridViewRowIndex, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
                                           obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
                                           obj.temp, obj.density, obj.volume };
 
+            if (extraCalcColumns)
+            {                
+                double percDiff = 0.0;
+                if (obj.volume > 0.0 && obj.pumpVolume > 0.0)
+                {
+                    percDiff = (obj.volume - obj.pumpVolume) / obj.volume;
+                    percDiff = percDiff * 100.0; //??
+                    percDiff = Math.Round(percDiff, 5);
+                }
+
+                ret = new object[] { obj.dataGridViewRowIndex, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
+                                          obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
+                                          obj.temp, obj.density, obj.volume, percDiff };
+            }
+            
             return ret;
         }
 

@@ -51,7 +51,7 @@ namespace PumpAnalysis
 
             if (objList.Count > 0)
             {
-                List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
+                List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList, true);
 
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
