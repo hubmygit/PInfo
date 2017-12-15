@@ -103,5 +103,36 @@ namespace PumpInfo
                 Close();                
             }
         }
+
+        private void txtPumpVol_Leave(object sender, EventArgs e)
+        {
+            double PVol = 0.0;
+            if (txtPumpVol.Text.Trim() == "")
+            {
+                PVol = 0.0;
+            }
+            else
+            {
+                PVol = Convert.ToDouble(txtPumpVol.Text.Trim());
+            }
+
+            double Vol = Convert.ToDouble(dgvCurrentObj.Rows[0].Cells["Volume"].Value);
+            
+            double percDiff = 0.0;
+            if (Vol > 0.0 && PVol > 0.0)
+            {
+                percDiff = (Vol - PVol) / Vol;
+                percDiff = percDiff * 100.0; //??
+                percDiff = Math.Round(percDiff, 5);
+            }
+
+
+
+
+
+            lblVolDiffPerc.Text = "Volume Difference: " + percDiff.ToString() + " %";
+           
+
+        }
     }
 }
