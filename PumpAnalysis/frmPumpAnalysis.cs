@@ -116,11 +116,19 @@ namespace PumpAnalysis
         private void button1_Click(object sender, EventArgs e)
         {
             DbUtilities d = new DbUtilities();
-
             string geo_json_data = d.getAllDataFromJsonFile(@"C:\Users\hkylidis\Desktop\rev_geocoding_el.json");
 
             GeoCoding a = d.stringToGenericObject<GeoCoding>(geo_json_data);
+            if (a.status.ToUpper() == "OK")
+            {
+                string areaLevel1 = a.results.Where(i => i.types.Contains("administrative_area_level_1")).FirstOrDefault().address_components.Where(i => i.types.Contains("administrative_area_level_1")).FirstOrDefault().long_name;
+                string areaLevel2 = a.results.Where(i => i.types.Contains("administrative_area_level_2")).FirstOrDefault().address_components.Where(i => i.types.Contains("administrative_area_level_2")).FirstOrDefault().long_name;
+                string areaLevel3 = a.results.Where(i => i.types.Contains("administrative_area_level_3")).FirstOrDefault().address_components.Where(i => i.types.Contains("administrative_area_level_3")).FirstOrDefault().long_name;
+                string areaLevel4 = a.results.Where(i => i.types.Contains("administrative_area_level_4")).FirstOrDefault().address_components.Where(i => i.types.Contains("administrative_area_level_4")).FirstOrDefault().long_name;
 
+                int help = 0;
+            }
+            
         }
     }
 

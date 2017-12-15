@@ -101,5 +101,11 @@
   <ItemGroup>
     <None Include="Resources\Save_32x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cancel_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExportToFile_32x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

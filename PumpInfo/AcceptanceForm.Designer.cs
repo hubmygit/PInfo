@@ -273,6 +273,7 @@
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnAdd.Image = global::PumpInfo.Properties.Resources.Save_32x;
             this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAdd.Location = new System.Drawing.Point(12, 23);
             this.btnAdd.Name = "btnAdd";
@@ -287,6 +288,7 @@
             // 
             this.btnDel.Enabled = false;
             this.btnDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnDel.Image = global::PumpInfo.Properties.Resources.Cancel_32x;
             this.btnDel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDel.Location = new System.Drawing.Point(192, 23);
             this.btnDel.Name = "btnDel";
