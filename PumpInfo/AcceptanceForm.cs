@@ -149,5 +149,23 @@ namespace PumpInfo
            
 
         }
+
+        private void txtPumpVol_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 44 && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+
+            if ((((TextBox)sender).Text.IndexOf(",") >= 0 || ((TextBox)sender).Text.Trim() == "" || ((TextBox)sender).SelectionStart == 0) && 
+                e.KeyChar == 44) //only one decimal point & not first character
+            {
+                e.Handled = true;
+            }
+
+            //48 - 57 will be numbers
+            //44 or 46 - decimal point (44: "," & 46: ".")
+            //8 - backspace
+        }
     }
 }

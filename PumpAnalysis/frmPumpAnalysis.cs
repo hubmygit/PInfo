@@ -75,7 +75,7 @@ namespace PumpAnalysis
             if (objList.Count > 0)
             {
                 //import the whole file into sql DB table - imported group
-                bool success = dbu.InertImportedFileIntoTable(json_filename, fileBytes);
+                bool success = dbu.InsertImportedFileIntoTable(json_filename, fileBytes);
                 if (!success)
                 {
                     MessageBox.Show("Προσοχή! Σφάλμα κατά την καταχώρηση του αρχείου " + json_filename);

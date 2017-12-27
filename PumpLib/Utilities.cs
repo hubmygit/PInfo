@@ -1147,7 +1147,7 @@ namespace PumpLib
 
 
 
-        public bool InertImportedFileIntoTable(string fileName, byte[] fileBytes) 
+        public bool InsertImportedFileIntoTable(string fileName, byte[] fileBytes) 
         {
             bool ret = false;
 
