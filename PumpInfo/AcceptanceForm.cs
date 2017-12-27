@@ -167,5 +167,16 @@ namespace PumpInfo
             //44 or 46 - decimal point (44: "," & 46: ".")
             //8 - backspace
         }
+
+        private void txtSampleNo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //allow only integers
+            if ((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+            //48 - 57 will be numbers
+            //8 - backspace
+        }
     }
 }
