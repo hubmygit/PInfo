@@ -57,12 +57,17 @@ namespace PumpInfo
         
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (cbBrand.Text.Trim() == "" || txtDealer.Text.Trim() == "" || txtAddress.Text.Trim() == "" || cbProduct.Text.Trim() == "" || txtPump.Text.Trim() == "" || txtPumpVol.Text.Trim() == "")
+            if (cbBrand.Text.Trim() == "" || txtDealer.Text.Trim() == "" || txtAddress.Text.Trim() == "" || cbProduct.Text.Trim() == "" || 
+                txtPump.Text.Trim() == "" || txtPumpVol.Text.Trim() == "") //SampleNo: can be empty - Remarks: no need to check...
             {
                 MessageBox.Show("Προσοχή! Δεν έχετε συμπληρώσει όλα τα πεδία.");
                 return;
             }
 
+            if (txtSampleNo.Text.Trim() == "")
+            {
+                txtSampleNo.Text = "0";
+            }
 
             //add extra data to obj
             if (obj.accepted) //update
@@ -71,7 +76,8 @@ namespace PumpInfo
 
                 //obj.removeExtraData();
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
-                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), txtPump.Text, Convert.ToDouble(txtPumpVol.Text));
+                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), 
+                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text);
                 //getComboboxItem_Brand
 
                 recordAction = RecordAction.Update;
@@ -81,7 +87,8 @@ namespace PumpInfo
             else //insert
             {
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
-                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), txtPump.Text, Convert.ToDouble(txtPumpVol.Text));
+                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), 
+                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text);
 
                 recordAction = RecordAction.Insert;
 

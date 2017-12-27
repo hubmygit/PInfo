@@ -41,6 +41,7 @@ namespace PumpLib
         public string pump = "";
         public double pumpVolume = 0.0;
         public int sampleNo = 0;
+        public string remarks = "";
 
         public int geostationId = 0;
 
@@ -72,7 +73,7 @@ namespace PumpLib
         }
 
         //public void addExtraData(string Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
-        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, double PumpVolume)
+        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, double PumpVolume, int SampleNo, string Remarks)
         {
             accepted = true;
 
@@ -82,9 +83,9 @@ namespace PumpLib
             product = Product;
             pump = Pump;
             pumpVolume = PumpVolume;
-
-            //sampleNo
-        }
+            sampleNo = SampleNo;
+            remarks = Remarks;
+    }
 
         public void copyExtraData(ImpData otherObj)
         {
@@ -96,8 +97,8 @@ namespace PumpLib
             product = otherObj.product;
             pump = otherObj.pump;
             pumpVolume = otherObj.pumpVolume;
-
-            //sampleNo
+            sampleNo = otherObj.sampleNo;
+            remarks = otherObj.remarks;
         }
 
         public void removeExtraData()
@@ -112,8 +113,8 @@ namespace PumpLib
             product = new Product();
             pump = "";
             pumpVolume = 0.0;
-
-            //sampleNo
+            sampleNo = 0;
+            remarks = "";
         }
 
         public string csvDateToSqlDate(string csvDate)
@@ -366,8 +367,8 @@ namespace PumpLib
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume]) VALUES " +
-                           "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume) ";
+            string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume], [SampleNo], [Remarks]) VALUES " +
+                           "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks) ";
             try
             {
                 sqlConn.Open();
@@ -380,6 +381,8 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@ProductId", extraData.product.Id);
                 cmd.Parameters.AddWithValue("@Pump", extraData.pump);
                 cmd.Parameters.AddWithValue("@PumpVolume", extraData.pumpVolume);
+                cmd.Parameters.AddWithValue("@SampleNo", extraData.sampleNo);
+                cmd.Parameters.AddWithValue("@Remarks", extraData.remarks);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -762,8 +765,8 @@ namespace PumpLib
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
             SQLiteCommand cmd = new SQLiteCommand("SELECT RD.Id, RD.VehicleNo, datetime(RD.Dt) as Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
                                                   "RD.Accepted, ifnull(RD.ProcessedGroupId,0) as ProcessedGroupId, ifnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
-                                                  "ifnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, " + 
-                                                  "ifnull(ED.GeostationId,0) as GeostationId " +
+                                                  "ifnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, " +
+                                                  "ifnull(ED.SampleNo,0) as SampleNo, ED.Remarks, ifnull(ED.GeostationId,0) as GeostationId " +
                 " FROM [receiptData] RD left outer join [extraData] ED on RD.Id = ED.ReceiptDataId " +
                 " WHERE ifnull(RD.[ExportedGroupId], 0) = @ExportedGroupId ", sqlConn);
 
@@ -807,6 +810,8 @@ namespace PumpLib
                         objLine.product = new Product() { Id = Convert.ToInt32(reader["ProductId"].ToString()) };
                         objLine.pump = reader["Pump"].ToString();
                         objLine.pumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString());
+                        objLine.sampleNo = Convert.ToInt32(reader["SampleNo"].ToString());
+                        objLine.remarks = reader["Remarks"].ToString();
                         objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
                     }
 
@@ -928,8 +933,8 @@ namespace PumpLib
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [dbo].[extraData] (Id, ReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, GeostationId) " +
-                        " VALUES (@Id, @ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @GeostationId ) ";
+            string InsSt = "INSERT INTO [dbo].[extraData] (Id, ReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId) " +
+                        " VALUES (@Id, @ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId ) ";
 
             try
             {
@@ -944,6 +949,8 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@ProductId", obj.product.Id);
                 cmd.Parameters.AddWithValue("@Pump", obj.pump);
                 cmd.Parameters.AddWithValue("@PumpVolume", obj.pumpVolume);
+                cmd.Parameters.AddWithValue("@SampleNo", obj.sampleNo);
+                cmd.Parameters.AddWithValue("@Remarks", obj.remarks);
                 cmd.Parameters.AddWithValue("@GeostationId", obj.geostationId);
 
                 cmd.CommandType = CommandType.Text;
@@ -1301,8 +1308,8 @@ namespace PumpLib
                 }
 
                 ret = new object[] { obj.dataGridViewRowIndex, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
-                                          obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
-                                          obj.temp, obj.density, obj.volume, percDiff };
+                                     obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
+                                     obj.temp, obj.density, obj.volume, percDiff };
             }
             
             return ret;
