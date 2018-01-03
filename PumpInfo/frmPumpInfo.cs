@@ -149,6 +149,7 @@ namespace PumpInfo
                 else
                 {
                     nextExportedGroupId = exportedGroupId;
+                    MessageBox.Show("Δεν έχουν αποθηκευτεί εγγραφές. Η εξαγωγή θα πραγματοποιηθεί με τις πιό πρόσφατες εγγραφές που έχουν αποθηκευτεί.");
                 }
 
                 List<ImpData> DataToMigrate = dbu.ReceiptDataLines_To_ObjectList(exportedGroupId, nextExportedGroupId);
