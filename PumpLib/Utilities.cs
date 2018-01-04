@@ -1032,6 +1032,8 @@ namespace PumpLib
             using (StreamWriter sw = new StreamWriter(Path))
             {
                 sw.Write(jsonData);
+
+                MessageBox.Show("Δημιουργήθηκε το αρχείο: [" + Path + "]");
             }
         }
 
@@ -1049,6 +1051,61 @@ namespace PumpLib
                 createJsonFile(sfd.FileName, jsonData);
             }
 
+            return filename;
+        }
+
+        public string createDefaultJsonFileInSelectedFolder(string jsonData)
+        {
+            string filename = "";
+
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            DialogResult result = fbd.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                filename = fbd.SelectedPath;
+                filename += "\\instId_datetime.json";
+
+                createJsonFile(filename, jsonData);
+            }
+
+            return filename;
+        }
+
+        private string getInstId()
+        {
+            string ret = "";
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT MachineNo From [Inst] ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = reader["MachineNo"].ToString();
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public string createDefaultJsonFile(string jsonData)
+        {
+            string dt = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string ins = getInstId(); 
+
+            string filename = Application.StartupPath + "\\Exports\\" + ins + "_" + dt + ".json";
+
+            createJsonFile(filename, jsonData);
+            
             return filename;
         }
 

@@ -24,7 +24,7 @@ namespace PumpInfo
 
         private void ExpCounterToLblText(Label lbl)
         {
-            lbl.Text = "Εγγραφές προς εξαγωγή: " + new DbUtilities().CountReceiptData_ExportedGroupId().ToString();
+            lbl.Text = "Εγγραφές : " + new DbUtilities().CountReceiptData_ExportedGroupId().ToString();
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
@@ -182,7 +182,8 @@ namespace PumpInfo
 
                 string jsonData = dbu.ObjectListToJson(DataToMigrate);
 
-                string jsonFile = dbu.createJsonFile(jsonData);
+                //string jsonFile = dbu.createJsonFile(jsonData);
+                string jsonFile = dbu.createDefaultJsonFile(jsonData);
 
                 if (exportedGroupId == 0) //nulls
                 {
