@@ -491,6 +491,35 @@ namespace PumpLib
             return maxId;
         }
 
+        public int CountReceiptData_ExportedGroupId()
+        {
+            int cnt = 0;
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT count(*) as cnt " +
+                              "FROM [receiptData] WHERE ifnull(ExportedGroupId, 0) = 0 ";
+
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    cnt = Convert.ToInt32(reader["cnt"].ToString());
+                    
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return cnt;
+        }
+
         public bool InsertProcessedGroupLineIntoSQLiteTable()
         {
             bool ret = false;

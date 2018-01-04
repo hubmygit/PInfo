@@ -16,9 +16,16 @@ namespace PumpInfo
         public frmPumpInfo()
         {
             InitializeComponent();
+
+            ExpCounterToLblText(lblCountExported);
         }
 
         public List<ImpData> objList = new List<ImpData>();
+
+        private void ExpCounterToLblText(Label lbl)
+        {
+            lbl.Text = "Εγγραφές προς εξαγωγή: " + new DbUtilities().CountReceiptData_ExportedGroupId().ToString();
+        }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
@@ -110,6 +117,8 @@ namespace PumpInfo
                 //refresh? / close form?
                 dgvReceiptData.Rows.Clear();
                 objList.Clear();
+
+                ExpCounterToLblText(lblCountExported);
             }
             else
             {
@@ -145,11 +154,28 @@ namespace PumpInfo
                 if (exportedGroupId == 0)
                 {
                     nextExportedGroupId = dbu.GetMaxExportedGroupId() + 1;
+
+                    if (dgvReceiptData.RowCount > 0)
+                    {
+                        MessageBox.Show("Δεν έχουν αποθηκευτεί εγγραφές που επεξεργάζεστε. Η εξαγωγή θα πραγματοποιηθεί με τις αποθηκευμένες εγγραφές.");
+                    }
+                    
                 }
                 else
                 {
                     nextExportedGroupId = exportedGroupId;
-                    MessageBox.Show("Δεν έχουν αποθηκευτεί εγγραφές. Η εξαγωγή θα πραγματοποιηθεί με τις πιό πρόσφατες εγγραφές που έχουν αποθηκευτεί.");
+
+                    if (dgvReceiptData.RowCount > 0)
+                    {
+                        MessageBox.Show("Δεν έχουν αποθηκευτεί εγγραφές που επεξεργάζεστε. Η εξαγωγή θα πραγματοποιηθεί με τις πιό πρόσφατες εγγραφές που έχουν αποθηκευτεί.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Δεν υπάρχουν νέες εγγραφές. Η εξαγωγή θα πραγματοποιηθεί με τις πιό πρόσφατες εγγραφές που έχουν αποθηκευτεί.");
+                    }
+                    
+
+                    
                 }
 
                 List<ImpData> DataToMigrate = dbu.ReceiptDataLines_To_ObjectList(exportedGroupId, nextExportedGroupId);
@@ -170,7 +196,7 @@ namespace PumpInfo
                 MessageBox.Show("Προσοχή! Δε βρέθηκαν εγγραφές για εξαγωγή!");
             }
 
-
+            ExpCounterToLblText(lblCountExported);
         }
     }
 }
