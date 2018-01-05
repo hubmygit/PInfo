@@ -54,6 +54,7 @@
             this.PumpVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblImpFile = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -141,11 +142,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(322, 21);
+            this.button1.Location = new System.Drawing.Point(1087, 21);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 17;
-            this.button1.Text = "testing...";
+            this.button1.Text = "geo test...";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -280,11 +281,22 @@
             this.Remarks.Name = "Remarks";
             this.Remarks.ReadOnly = true;
             // 
+            // lblImpFile
+            // 
+            this.lblImpFile.AutoSize = true;
+            this.lblImpFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblImpFile.Location = new System.Drawing.Point(12, 55);
+            this.lblImpFile.Name = "lblImpFile";
+            this.lblImpFile.Size = new System.Drawing.Size(59, 16);
+            this.lblImpFile.TabIndex = 18;
+            this.lblImpFile.Text = "Αρχείο: -";
+            // 
             // frmPumpAnalysis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 502);
+            this.Controls.Add(this.lblImpFile);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnImport);
@@ -293,6 +305,7 @@
             this.Text = "Pump Analysis";
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -322,6 +335,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PumpVol;
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
+        private System.Windows.Forms.Label lblImpFile;
     }
 }
 

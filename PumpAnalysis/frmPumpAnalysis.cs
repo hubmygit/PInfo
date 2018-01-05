@@ -36,7 +36,14 @@ namespace PumpAnalysis
                 return;
             }
 
-            MessageBox.Show("***** Log [filename: " + json_Path + "] *****");
+            //init
+            lblImpFile.Text = "Αρχείο: -";
+            objList.Clear();
+            dgvReceiptData.Rows.Clear();
+            json_filename = "";
+            Array.Clear(fileBytes, 0, fileBytes.Length);
+
+            MessageBox.Show("***** Log [Filename: " + json_Path + "] *****");
 
             string read_data = dbu.getAllDataFromJsonFile(json_Path);
 
@@ -66,6 +73,8 @@ namespace PumpAnalysis
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
                 json_filename = json_Path.Substring(json_Path.LastIndexOf("\\") + 1);
+
+                lblImpFile.Text = "Αρχείο: " + json_filename;
 
                 //get file contents as byte[]
                 fileBytes = System.IO.File.ReadAllBytes(json_Path); 
@@ -116,6 +125,9 @@ namespace PumpAnalysis
                 dgvReceiptData.Rows.Clear();
                 objList.Clear();
                 Array.Clear(fileBytes, 0, fileBytes.Length);
+                lblImpFile.Text = "Αρχείο: -";
+                json_filename = "";
+                
             }
             else
             {

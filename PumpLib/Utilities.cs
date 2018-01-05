@@ -948,6 +948,7 @@ namespace PumpLib
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
+                MessageBox.Show("***** Log [The following error occurred: " + ex.Message + "] *****");
             }
 
             sqlConn.Close();
@@ -1258,6 +1259,8 @@ namespace PumpLib
                 catch (Exception ex)
                 {
                     MessageBox.Show("The following error occurred: " + ex.Message);
+
+                    MessageBox.Show("***** Log [File: " + fileName + ". The following error occurred: " + ex.Message + "] *****");
                 }
             }
 
@@ -1288,6 +1291,7 @@ namespace PumpLib
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
+                MessageBox.Show("***** Log [The following error occurred: " + ex.Message + "] *****");
             }
 
             return ret;
