@@ -1395,7 +1395,8 @@ namespace PumpLib
 
                 ret = new object[] { obj.dataGridViewRowIndex, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
                                      obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
-                                     obj.temp, obj.density, obj.volume, percDiff };
+                                     obj.temp, obj.density, obj.volume, percDiff,
+                                     obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks };
             }
             
             return ret;

@@ -36,21 +36,31 @@ namespace PumpAnalysis
                 return;
             }
 
+            MessageBox.Show("***** Log [filename: " + json_Path + "] *****");
 
             string read_data = dbu.getAllDataFromJsonFile(json_Path);
 
             if (read_data.Trim() == "")
             {
+                MessageBox.Show("***** Log [Empty file] *****");
                 return;
             }
 
             //get byte[] ready to import into table
 
             List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
+
+            MessageBox.Show("***** Log [Rows in file: " + DataToMigrate.Count.ToString() + "] *****");
+            MessageBox.Show("***** Log [Accepted=true Rows: " + DataToMigrate.Count(i=>i.accepted == true).ToString() + ", Accepted=false Rows: " + DataToMigrate.Count(i => i.accepted == false).ToString() + "] *****");
+
             objList = dbu.GetDataNotExistsInSQLSrvTable(DataToMigrate);
+
+            MessageBox.Show("***** Log [Rows to save: " + objList.Count.ToString() + "] *****");
 
             if (objList.Count > 0)
             {
+                MessageBox.Show("***** Log [Accepted=true Rows: " + objList.Count(i => i.accepted == true).ToString() + ", Accepted=false Rows: " + objList.Count(i => i.accepted == false).ToString() + "] *****");
+
                 List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList, true);
 
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
