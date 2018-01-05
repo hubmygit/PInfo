@@ -948,7 +948,7 @@ namespace PumpLib
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
-                MessageBox.Show("***** Log [The following error occurred: " + ex.Message + "] *****");
+                Output.WriteToFile(ex.Message, true);
             }
 
             sqlConn.Close();
@@ -1234,20 +1234,29 @@ namespace PumpLib
 
 
 
-        public bool InsertImportedFileIntoTable(string fileName, byte[] fileBytes) 
+        public bool InsertImportedFileIntoTable(string fileName, byte[] fileBytes, RowsCounter rowsCounter, bool manually) 
         {
             bool ret = false;
 
             if (fileName.Trim().Length > 0 && fileBytes.Length > 0)
             {
                 SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-                string InsSt = "INSERT INTO [dbo].[ImportedGroup] (Dt, FileName, FileCont) VALUES (getdate(), @FileName, @FileCont) ";
+                string InsSt = "INSERT INTO [dbo].[ImportedGroup] (Dt, FileName, FileCont, Manually, FileRows, FileAccRows, FileNAccRows, ToSaveRows, ToSaveAccRows, ToSaveNAccRows) " +
+                               "VALUES (getdate(), @FileName, @FileCont, @Manually, @FileRows, @FileAccRows, @FileNAccRows, @FileNAccRows, @ToSaveRows, @ToSaveAccRows, @ToSaveNAccRows) ";
                 try
                 {
                     sqlConn.Open();
                     SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
                     cmd.Parameters.AddWithValue("@FileName", fileName); 
                     cmd.Parameters.Add("@FileCont", SqlDbType.VarBinary).Value = fileBytes;
+                    cmd.Parameters.AddWithValue("@Manually", Convert.ToInt32(manually));
+                    cmd.Parameters.AddWithValue("@FileRows", Convert.ToInt32(rowsCounter.fileRows));
+                    cmd.Parameters.AddWithValue("@FileAccRows", Convert.ToInt32(rowsCounter.fileAccRows));
+                    cmd.Parameters.AddWithValue("@FileNAccRows", Convert.ToInt32(rowsCounter.fileNAccRows));
+                    cmd.Parameters.AddWithValue("@ToSaveRows", Convert.ToInt32(rowsCounter.toSaveRows));
+                    cmd.Parameters.AddWithValue("@ToSaveAccRows", Convert.ToInt32(rowsCounter.toSaveAccRows));
+                    cmd.Parameters.AddWithValue("@ToSaveNAccRows", Convert.ToInt32(rowsCounter.toSaveNAccRows));
+
                     cmd.CommandType = CommandType.Text;
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -1259,8 +1268,7 @@ namespace PumpLib
                 catch (Exception ex)
                 {
                     MessageBox.Show("The following error occurred: " + ex.Message);
-
-                    MessageBox.Show("***** Log [File: " + fileName + ". The following error occurred: " + ex.Message + "] *****");
+                    Output.WriteToFile("(" + fileName + " ) " + ex.Message, true);
                 }
             }
 
@@ -1291,7 +1299,7 @@ namespace PumpLib
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
-                MessageBox.Show("***** Log [The following error occurred: " + ex.Message + "] *****");
+                Output.WriteToFile(ex.Message, true);
             }
 
             return ret;
@@ -1418,21 +1426,7 @@ namespace PumpLib
             return Text;
         }
     }
-
-    public static class Output
-    {
-        public static void WriteToFile(string text)
-        {
-            //string filename = DateTime.Now.ToString("yyyyMMdd", System.Globalization.CultureInfo.GetCultureInfo("en-US"));
-            string dt = DateTime.Now.ToString("yyyyMMdd");
-
-            using (StreamWriter sw = new StreamWriter("Log" + dt + ".txt", true))
-            {
-                sw.WriteLine(dt + ": " + text);
-            }
-        }
-    }
-
+    
     public class Brand
     {
         public int Id { get; set; }
@@ -1452,6 +1446,53 @@ namespace PumpLib
         {
         }
     }
+
+    public static class Output
+    {
+        public static void WriteToFile(string text, bool error = false)
+        {
+            //string filename = DateTime.Now.ToString("yyyyMMdd", System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+
+            using (StreamWriter sw = new StreamWriter(Application.StartupPath + "\\Logs\\Log" + DateTime.Now.ToString("yyyyMMdd") + ".txt", true))
+            {
+                if (text.IndexOf("STARTING...") >= 0)
+                {
+                    sw.WriteLine("");
+                }
+
+                if (error)
+                {
+                    sw.WriteLine(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " ERROR" + text);
+                }
+                else
+                {
+                    sw.WriteLine(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " " + text);
+                }
+
+            }
+        }
+    }
+
+    public class RowsCounter
+    {
+        public int fileRows { get; set; }
+        public int toSaveRows { get; set; }
+        public int fileAccRows { get; set; }
+        public int fileNAccRows { get; set; }
+        public int toSaveAccRows { get; set; }
+        public int toSaveNAccRows { get; set; }
+
+        public void Clear()
+        {
+            fileRows = 0;
+            toSaveRows = 0;
+            fileAccRows = 0;
+            fileNAccRows = 0;
+            toSaveAccRows = 0;
+            toSaveNAccRows = 0;
+        }
+    }
+
 
     //--> Google Geocoding classes
     public class GeoCoding

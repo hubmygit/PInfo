@@ -20,7 +20,9 @@ namespace PumpAnalysis
 
         public List<ImpData> objList = new List<ImpData>();
         public string json_filename;
+        public string json_path;
         byte[] fileBytes;
+        RowsCounter counters = new RowsCounter();
         private void btnImport_Click(object sender, EventArgs e)
         {
             DbUtilities dbu = new DbUtilities();
@@ -29,8 +31,8 @@ namespace PumpAnalysis
             ofd.Filter = "JSON files (*.json)|*.json";
             DialogResult result = ofd.ShowDialog();
 
-            string json_Path = ofd.FileName;
-            if (json_Path.Trim() == "" || result != DialogResult.OK)
+            json_path = ofd.FileName;
+            if (json_path.Trim() == "" || result != DialogResult.OK)
             {
                 return;
             }
@@ -40,15 +42,22 @@ namespace PumpAnalysis
             objList.Clear();
             dgvReceiptData.Rows.Clear();
             json_filename = "";
-            //Array.Clear(fileBytes, 0, fileBytes.Length);
+            json_path = "";
+            if (fileBytes != null)
+            {
+                Array.Clear(fileBytes, 0, fileBytes.Length);
+            }
+            counters.Clear();
 
-            MessageBox.Show("***** Log [Filename: " + json_Path + "] *****");
+            Output.WriteToFile("***** STARTING... *****");
 
-            string read_data = dbu.getAllDataFromJsonFile(json_Path);
+            Output.WriteToFile("Filename: " + json_path);
+
+            string read_data = dbu.getAllDataFromJsonFile(json_path);
 
             if (read_data.Trim() == "")
             {
-                MessageBox.Show("***** Log [Empty file] *****");
+                Output.WriteToFile("Empty file!");
                 return;
             }
 
@@ -56,32 +65,40 @@ namespace PumpAnalysis
 
             List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
 
-            MessageBox.Show("***** Log [Rows in file: " + DataToMigrate.Count.ToString() + "] *****");
-            MessageBox.Show("***** Log [File - Accepted=true Rows: " + DataToMigrate.Count(i=>i.accepted == true).ToString() + ", Accepted=false Rows: " + DataToMigrate.Count(i => i.accepted == false).ToString() + "] *****");
-
+            counters.fileRows = DataToMigrate.Count;
+            counters.fileAccRows = DataToMigrate.Count(i => i.accepted == true);
+            counters.fileNAccRows = DataToMigrate.Count(i => i.accepted == false);
+            
+            Output.WriteToFile("Rows in file: " + counters.fileRows.ToString());
+            Output.WriteToFile("File - Accepted=true Rows: " + counters.fileAccRows.ToString() + ", Accepted=false Rows: " + counters.fileNAccRows.ToString());
+            
             objList = dbu.GetDataNotExistsInSQLSrvTable(DataToMigrate);
 
-            MessageBox.Show("***** Log [Rows to save: " + objList.Count.ToString() + "] *****");
+            counters.toSaveRows = objList.Count;
+            Output.WriteToFile("Rows to save: " + objList.Count.ToString());
 
             if (objList.Count > 0)
             {
-                MessageBox.Show("***** Log [To save - Accepted=true Rows: " + objList.Count(i => i.accepted == true).ToString() + ", Accepted=false Rows: " + objList.Count(i => i.accepted == false).ToString() + "] *****");
+                counters.toSaveAccRows = objList.Count(i => i.accepted == true);
+                counters.toSaveNAccRows = objList.Count(i => i.accepted == false);
+
+                Output.WriteToFile("To save - Accepted=true Rows: " + counters.toSaveAccRows.ToString() + ", Accepted=false Rows: " + counters.toSaveNAccRows.ToString());
 
                 List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList, true);
 
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
-                json_filename = json_Path.Substring(json_Path.LastIndexOf("\\") + 1);
+                json_filename = json_path.Substring(json_path.LastIndexOf("\\") + 1);
 
                 lblImpFile.Text = "Αρχείο: " + json_filename;
 
                 //get file contents as byte[]
-                fileBytes = System.IO.File.ReadAllBytes(json_Path); 
+                fileBytes = System.IO.File.ReadAllBytes(json_path); 
             }
             else
             {
                 MessageBox.Show("Δε βρέθηκαν εγγραφές προς επεξεργασία! \r\n" +
-                                "Αρχείο: " + json_Path);
+                                "Αρχείο: " + json_path);
             }
 
         }
@@ -90,10 +107,12 @@ namespace PumpAnalysis
         {
             DbUtilities dbu = new DbUtilities();
 
+            //insert and get id!
+
             if (objList.Count > 0)
             {
                 //import the whole file into sql DB table - imported group
-                bool success = dbu.InsertImportedFileIntoTable(json_filename, fileBytes);
+                bool success = dbu.InsertImportedFileIntoTable(json_filename, fileBytes, counters, true);
                 if (!success)
                 {
                     MessageBox.Show("Προσοχή! Σφάλμα κατά την καταχώρηση του αρχείου " + json_filename);
@@ -109,20 +128,25 @@ namespace PumpAnalysis
                     return;
                 }
 
-                MessageBox.Show("***** Log [ImportedGroupId: " + ImportedGroupId.ToString() + "] *****");
+                Output.WriteToFile("ImportedGroupId: " + ImportedGroupId.ToString());
 
                 bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(objList, ImportedGroupId);
 
-                //try
-                //***** System.IO.File.Move(Application.StartupPath + "//Import//" + json_filename, Application.StartupPath + "//Export//" + json_filename); ***************
-                //catch
-                    //Log"Error"
+                try
+                {
+                    System.IO.File.Move(json_path, Application.StartupPath + "//Export//" + json_filename);
+                }
+                catch (Exception ex)
+                {
+                    Output.WriteToFile(ex.Message, true);
+                    insSuccess = false;
+                }
 
                 if (insSuccess)
                 {
                     MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
 
-                    //update....flag
+                    //update....flag SUCCESS = 1
                 }
                 else
                 {
@@ -135,7 +159,8 @@ namespace PumpAnalysis
                 Array.Clear(fileBytes, 0, fileBytes.Length);
                 lblImpFile.Text = "Αρχείο: -";
                 json_filename = "";
-                                               
+                counters.Clear();
+
             }
             else
             {
