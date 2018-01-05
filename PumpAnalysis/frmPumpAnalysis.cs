@@ -42,7 +42,7 @@ namespace PumpAnalysis
             objList.Clear();
             dgvReceiptData.Rows.Clear();
             json_filename = "";
-            json_path = "";
+            //json_path = "";
             if (fileBytes != null)
             {
                 Array.Clear(fileBytes, 0, fileBytes.Length);
@@ -77,6 +77,11 @@ namespace PumpAnalysis
             counters.toSaveRows = objList.Count;
             Output.WriteToFile("Rows to save: " + objList.Count.ToString());
 
+            json_filename = json_path.Substring(json_path.LastIndexOf("\\") + 1);
+
+            //get file contents as byte[]
+            fileBytes = System.IO.File.ReadAllBytes(json_path);
+
             if (objList.Count > 0)
             {
                 counters.toSaveAccRows = objList.Count(i => i.accepted == true);
@@ -87,13 +92,8 @@ namespace PumpAnalysis
                 List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList, true);
 
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
-
-                json_filename = json_path.Substring(json_path.LastIndexOf("\\") + 1);
-
-                lblImpFile.Text = "Αρχείο: " + json_filename;
-
-                //get file contents as byte[]
-                fileBytes = System.IO.File.ReadAllBytes(json_path); 
+                
+                lblImpFile.Text = "Αρχείο: " + json_filename;                
             }
             else
             {
@@ -107,17 +107,18 @@ namespace PumpAnalysis
         {
             DbUtilities dbu = new DbUtilities();
 
-            //insert and get id!
-
+            //********************************************ToDo: insert and get id! 2 steps insert*******************************************
+            //import the whole file into sql DB table - imported group
+            bool success = dbu.InsertImportedFileIntoTable(json_filename, fileBytes, counters, true);
+            if (!success)
+            {
+                MessageBox.Show("Προσοχή! Σφάλμα κατά την καταχώρηση του αρχείου " + json_filename);
+                return;
+            }
+            
             if (objList.Count > 0)
             {
-                //import the whole file into sql DB table - imported group
-                bool success = dbu.InsertImportedFileIntoTable(json_filename, fileBytes, counters, true);
-                if (!success)
-                {
-                    MessageBox.Show("Προσοχή! Σφάλμα κατά την καταχώρηση του αρχείου " + json_filename);
-                    return;
-                }
+                
 
                 //get max id 
                 int ImportedGroupId = dbu.getMaxImportedGroupId(json_filename);

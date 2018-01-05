@@ -1242,7 +1242,7 @@ namespace PumpLib
             {
                 SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
                 string InsSt = "INSERT INTO [dbo].[ImportedGroup] (Dt, FileName, FileCont, Manually, FileRows, FileAccRows, FileNAccRows, ToSaveRows, ToSaveAccRows, ToSaveNAccRows) " +
-                               "VALUES (getdate(), @FileName, @FileCont, @Manually, @FileRows, @FileAccRows, @FileNAccRows, @FileNAccRows, @ToSaveRows, @ToSaveAccRows, @ToSaveNAccRows) ";
+                               "VALUES (getdate(), @FileName, @FileCont, @Manually, @FileRows, @FileAccRows, @FileNAccRows, @ToSaveRows, @ToSaveAccRows, @ToSaveNAccRows) ";
                 try
                 {
                     sqlConn.Open();
