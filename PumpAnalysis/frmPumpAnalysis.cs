@@ -23,7 +23,6 @@ namespace PumpAnalysis
         byte[] fileBytes;
         private void btnImport_Click(object sender, EventArgs e)
         {
-            
             DbUtilities dbu = new DbUtilities();
 
             OpenFileDialog ofd = new OpenFileDialog();
@@ -41,7 +40,7 @@ namespace PumpAnalysis
             objList.Clear();
             dgvReceiptData.Rows.Clear();
             json_filename = "";
-            Array.Clear(fileBytes, 0, fileBytes.Length);
+            //Array.Clear(fileBytes, 0, fileBytes.Length);
 
             MessageBox.Show("***** Log [Filename: " + json_Path + "] *****");
 
@@ -58,7 +57,7 @@ namespace PumpAnalysis
             List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
 
             MessageBox.Show("***** Log [Rows in file: " + DataToMigrate.Count.ToString() + "] *****");
-            MessageBox.Show("***** Log [Accepted=true Rows: " + DataToMigrate.Count(i=>i.accepted == true).ToString() + ", Accepted=false Rows: " + DataToMigrate.Count(i => i.accepted == false).ToString() + "] *****");
+            MessageBox.Show("***** Log [File - Accepted=true Rows: " + DataToMigrate.Count(i=>i.accepted == true).ToString() + ", Accepted=false Rows: " + DataToMigrate.Count(i => i.accepted == false).ToString() + "] *****");
 
             objList = dbu.GetDataNotExistsInSQLSrvTable(DataToMigrate);
 
@@ -66,7 +65,7 @@ namespace PumpAnalysis
 
             if (objList.Count > 0)
             {
-                MessageBox.Show("***** Log [Accepted=true Rows: " + objList.Count(i => i.accepted == true).ToString() + ", Accepted=false Rows: " + objList.Count(i => i.accepted == false).ToString() + "] *****");
+                MessageBox.Show("***** Log [To save - Accepted=true Rows: " + objList.Count(i => i.accepted == true).ToString() + ", Accepted=false Rows: " + objList.Count(i => i.accepted == false).ToString() + "] *****");
 
                 List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList, true);
 
@@ -110,11 +109,20 @@ namespace PumpAnalysis
                     return;
                 }
 
+                MessageBox.Show("***** Log [ImportedGroupId: " + ImportedGroupId.ToString() + "] *****");
+
                 bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(objList, ImportedGroupId);
+
+                //try
+                //***** System.IO.File.Move(Application.StartupPath + "//Import//" + json_filename, Application.StartupPath + "//Export//" + json_filename); ***************
+                //catch
+                    //Log"Error"
 
                 if (insSuccess)
                 {
                     MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
+
+                    //update....flag
                 }
                 else
                 {
@@ -127,7 +135,7 @@ namespace PumpAnalysis
                 Array.Clear(fileBytes, 0, fileBytes.Length);
                 lblImpFile.Text = "Αρχείο: -";
                 json_filename = "";
-                
+                                               
             }
             else
             {

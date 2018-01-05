@@ -1407,7 +1407,7 @@ namespace PumpLib
         }
 
     }
-
+    
     public class ComboboxItem
     {
         public string Text { get; set; }
@@ -1416,6 +1416,20 @@ namespace PumpLib
         public override string ToString()
         {
             return Text;
+        }
+    }
+
+    public static class Output
+    {
+        public static void WriteToFile(string text)
+        {
+            //string filename = DateTime.Now.ToString("yyyyMMdd", System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+            string dt = DateTime.Now.ToString("yyyyMMdd");
+
+            using (StreamWriter sw = new StreamWriter("Log" + dt + ".txt", true))
+            {
+                sw.WriteLine(dt + ": " + text);
+            }
         }
     }
 
