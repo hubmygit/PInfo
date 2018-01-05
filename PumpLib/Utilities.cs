@@ -1102,7 +1102,7 @@ namespace PumpLib
             string dt = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             string ins = getInstId(); 
 
-            string filename = Application.StartupPath + "\\Exports\\" + ins + "_" + dt + ".json";
+            string filename = Application.StartupPath + "\\Exports\\PumpInfo_" + ins + "_" + dt + ".json";
 
             createJsonFile(filename, jsonData);
             
