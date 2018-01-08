@@ -1304,8 +1304,41 @@ namespace PumpLib
 
             return ret;
         }
-        
+
+
+        public bool update_ImportedGroup_Table(int Id)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+
+            string UpdSt = "UPDATE [dbo].[ImportedGroup] SET SUCCESS = 1 WHERE Id = @Id";
+
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(UpdSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Id", Id);
+
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+                Output.WriteToFile(ex.Message, true);
+            }
+
+            sqlConn.Close();
+
+            return ret;
+        }
+
     }
+    
 
     public static class SQLiteDBInfo
     {

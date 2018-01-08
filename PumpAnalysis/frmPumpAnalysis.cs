@@ -107,7 +107,6 @@ namespace PumpAnalysis
         {
             DbUtilities dbu = new DbUtilities();
 
-            //********************************************ToDo: insert and get id! 2 steps insert*******************************************
             //import the whole file into sql DB table - imported group
             bool success = dbu.InsertImportedFileIntoTable(json_filename, fileBytes, counters, true);
             if (!success)
@@ -115,20 +114,17 @@ namespace PumpAnalysis
                 MessageBox.Show("Προσοχή! Σφάλμα κατά την καταχώρηση του αρχείου " + json_filename);
                 return;
             }
+            Output.WriteToFile("Saved file: " + json_filename);
             
             if (objList.Count > 0)
             {
-                
-
                 //get max id 
                 int ImportedGroupId = dbu.getMaxImportedGroupId(json_filename);
-
                 if (ImportedGroupId <= 0) //error: -1 (& 0 -> id starts from 1...)
                 {
                     MessageBox.Show("Προσοχή! Σφάλμα κατά την εύρεση του καταχωρημένου αρχείου.");
                     return;
                 }
-
                 Output.WriteToFile("ImportedGroupId: " + ImportedGroupId.ToString());
 
                 bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(objList, ImportedGroupId);
@@ -136,6 +132,7 @@ namespace PumpAnalysis
                 try
                 {
                     System.IO.File.Move(json_path, Application.StartupPath + "//Export//" + json_filename);
+                    Output.WriteToFile("File moved to 'Export' folder");
                 }
                 catch (Exception ex)
                 {
@@ -145,9 +142,9 @@ namespace PumpAnalysis
 
                 if (insSuccess)
                 {
-                    MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
+                    dbu.update_ImportedGroup_Table(ImportedGroupId);
 
-                    //update....flag SUCCESS = 1
+                    MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
                 }
                 else
                 {
