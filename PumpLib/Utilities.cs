@@ -923,15 +923,15 @@ namespace PumpLib
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [dbo].[receiptData] (Id, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId, ImportedGroupId) " +
-                           " VALUES (@Id, @VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @Accepted, @ProcessedGroupId, @ExportedGroupId, @ImportedGroupId ) ";
+            string InsSt = "INSERT INTO [dbo].[receiptData] (ClientId, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId, ImportedGroupId) " +
+                           " VALUES (@ClientId, @VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @Accepted, @ProcessedGroupId, @ExportedGroupId, @ImportedGroupId ) ";
 
             try
             {
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
 
-                cmd.Parameters.AddWithValue("@Id", obj.receiptDataId);
+                cmd.Parameters.AddWithValue("@ClientId", obj.receiptDataId);
                 cmd.Parameters.AddWithValue("@VehicleNo", obj.vehicleNo);
                 cmd.Parameters.AddWithValue("@Dt", obj.strDt); //????????
                 cmd.Parameters.AddWithValue("@CooLong", obj.coordinates.longitude);
@@ -968,7 +968,7 @@ namespace PumpLib
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [dbo].[extraData] (Id, ReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId) " +
+            string InsSt = "INSERT INTO [dbo].[extraData] (ClientId, ReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId) " +
                         " VALUES (@Id, @ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId ) ";
 
             try
@@ -976,7 +976,7 @@ namespace PumpLib
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
 
-                cmd.Parameters.AddWithValue("@Id", obj.extraDataId);
+                cmd.Parameters.AddWithValue("@ClientId", obj.extraDataId);
                 cmd.Parameters.AddWithValue("@ReceiptDataId", obj.receiptDataId);
                 cmd.Parameters.AddWithValue("@BrandId", obj.brand.Id);
                 cmd.Parameters.AddWithValue("@Dealer", obj.dealer);
