@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using System.IO;
 using PumpLib;
 
 namespace PumpAnalysis
@@ -15,7 +16,7 @@ namespace PumpAnalysis
     {
         public frmPumpAnalysis()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
 
         public List<ImpData> objList = new List<ImpData>();
@@ -131,7 +132,7 @@ namespace PumpAnalysis
 
                 try
                 {
-                    System.IO.File.Move(json_path, Application.StartupPath + "//Archive//" + json_filename);
+                    System.IO.File.Move(json_path, Application.StartupPath + "\\Archive\\" + json_filename);
                     Output.WriteToFile("File moved to 'Archive' folder");
                 }
                 catch (Exception ex)
@@ -163,6 +164,19 @@ namespace PumpAnalysis
             else
             {
                 MessageBox.Show("Δε βρέθηκαν εγγραφές προς καταχώρηση!");
+            }
+        }
+
+        private void AutomaticProcedure()
+        {
+            //get all json files from folder
+            string targetDirectory = Application.StartupPath + "\\Import";
+
+            string[] fileEntries = Directory.GetFiles(targetDirectory, "*.json");
+
+            foreach (string fileName in fileEntries)
+            {
+                string str = fileName;
             }
         }
 
