@@ -52,6 +52,8 @@ namespace PumpLib
         public int extraDataId = 0;
         public string strDt = "";
 
+        public int machineNo = 0;
+
         public ImpData()
         {
             //
@@ -812,6 +814,8 @@ namespace PumpLib
                     ExpGrId = nextExportedGroupId_if_null;
                 }
 
+                int machNo = getInstId();
+
                 while (reader.Read())
                 {
                     ImpData objLine = new ImpData()
@@ -827,7 +831,8 @@ namespace PumpLib
                         accepted = Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())),
                         processedGroupId = Convert.ToInt32(reader["ProcessedGroupId"].ToString()),
                         //exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString())
-                        exportedGroupId = ExpGrId
+                        exportedGroupId = ExpGrId,
+                        machineNo = machNo
                     };
 
                     if (Convert.ToInt32(reader["EDId"].ToString()) > 0) //has extra data
@@ -1073,9 +1078,9 @@ namespace PumpLib
             return filename;
         }
 
-        private string getInstId()
+        private int getInstId()
         {
-            string ret = "";
+            int ret = 0;
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
             string SelectSt = "SELECT MachineNo From [Inst] ";
@@ -1086,7 +1091,7 @@ namespace PumpLib
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    ret = reader["MachineNo"].ToString();
+                    ret = Convert.ToInt32(reader["MachineNo"].ToString());
                 }
                 reader.Close();
             }
@@ -1101,9 +1106,9 @@ namespace PumpLib
         public string createDefaultJsonFile(string jsonData)
         {
             string dt = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            string ins = getInstId(); 
+            int machineNo = getInstId(); 
 
-            string filename = Application.StartupPath + "\\Exports\\PumpInfo_" + ins + "_" + dt + ".json";
+            string filename = Application.StartupPath + "\\Exports\\PumpInfo_" + machineNo.ToString() + "_" + dt + ".json";
 
             createJsonFile(filename, jsonData);
             
