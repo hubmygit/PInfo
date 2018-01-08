@@ -34,6 +34,7 @@
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
             this.btnSave = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.lblImpFile = new System.Windows.Forms.Label();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,7 +55,7 @@
             this.PumpVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblImpFile = new System.Windows.Forms.Label();
+            this.MachineNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,7 +110,8 @@
             this.Pump,
             this.PumpVol,
             this.SampleNo,
-            this.Remarks});
+            this.Remarks,
+            this.MachineNo});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -149,6 +151,16 @@
             this.button1.Text = "geo test...";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // lblImpFile
+            // 
+            this.lblImpFile.AutoSize = true;
+            this.lblImpFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblImpFile.Location = new System.Drawing.Point(12, 55);
+            this.lblImpFile.Name = "lblImpFile";
+            this.lblImpFile.Size = new System.Drawing.Size(59, 16);
+            this.lblImpFile.TabIndex = 18;
+            this.lblImpFile.Text = "Αρχείο: -";
             // 
             // Index
             // 
@@ -262,18 +274,21 @@
             this.Pump.HeaderText = "Pump";
             this.Pump.Name = "Pump";
             this.Pump.ReadOnly = true;
+            this.Pump.Width = 70;
             // 
             // PumpVol
             // 
             this.PumpVol.HeaderText = "PumpVolume";
             this.PumpVol.Name = "PumpVol";
             this.PumpVol.ReadOnly = true;
+            this.PumpVol.Width = 110;
             // 
             // SampleNo
             // 
             this.SampleNo.HeaderText = "SampleNo";
             this.SampleNo.Name = "SampleNo";
             this.SampleNo.ReadOnly = true;
+            this.SampleNo.Width = 90;
             // 
             // Remarks
             // 
@@ -281,15 +296,11 @@
             this.Remarks.Name = "Remarks";
             this.Remarks.ReadOnly = true;
             // 
-            // lblImpFile
+            // MachineNo
             // 
-            this.lblImpFile.AutoSize = true;
-            this.lblImpFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblImpFile.Location = new System.Drawing.Point(12, 55);
-            this.lblImpFile.Name = "lblImpFile";
-            this.lblImpFile.Size = new System.Drawing.Size(59, 16);
-            this.lblImpFile.TabIndex = 18;
-            this.lblImpFile.Text = "Αρχείο: -";
+            this.MachineNo.HeaderText = "MachineNo";
+            this.MachineNo.Name = "MachineNo";
+            this.MachineNo.ReadOnly = true;
             // 
             // frmPumpAnalysis
             // 
@@ -315,6 +326,7 @@
         private System.Windows.Forms.DataGridView dgvReceiptData;
         public System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label lblImpFile;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
@@ -335,7 +347,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PumpVol;
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
-        private System.Windows.Forms.Label lblImpFile;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MachineNo;
     }
 }
 

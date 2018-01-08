@@ -128,6 +128,7 @@ namespace PumpAnalysis
                 Output.WriteToFile("ImportedGroupId: " + ImportedGroupId.ToString());
 
                 bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(objList, ImportedGroupId);
+                Output.WriteToFile("Saved file: " + json_filename);
 
                 try
                 {

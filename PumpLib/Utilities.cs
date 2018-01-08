@@ -982,7 +982,7 @@ namespace PumpLib
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
             string InsSt = "INSERT INTO [dbo].[extraData] (ClientId, ReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId) " +
-                        " VALUES (@Id, @ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId ) ";
+                        " VALUES (@ClientId, @ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId ) ";
 
             try
             {
@@ -1009,6 +1009,7 @@ namespace PumpLib
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
+                Output.WriteToFile(ex.Message, true);
             }
 
             sqlConn.Close();
@@ -1512,7 +1513,7 @@ namespace PumpLib
                 ret = new object[] { obj.dataGridViewRowIndex, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
                                      obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
                                      obj.temp, obj.density, obj.volume, percDiff,
-                                     obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks };
+                                     obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo };
             }
             
             return ret;
@@ -1566,7 +1567,7 @@ namespace PumpLib
 
                 if (error)
                 {
-                    sw.WriteLine(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " ERROR" + text);
+                    sw.WriteLine(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " ERROR! " + text);
                 }
                 else
                 {
