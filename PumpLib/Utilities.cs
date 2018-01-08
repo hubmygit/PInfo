@@ -666,11 +666,14 @@ namespace PumpLib
 
             return ret;
         }
-
+        
         public List<ImpData> GetDataNotExistsInSQLSrvTable(List<ImpData> ImpDataList)
         {
             List<ImpData> ret = new List<ImpData>();
             int RowIndex = 0;
+
+            List<Brand> brands = GetSqlBrandsList();
+            List<Product> products = GetSqlProductsList();
 
             foreach (ImpData thisLine in ImpDataList)
             {
@@ -683,6 +686,16 @@ namespace PumpLib
                     thisLine.time = thisLine.strDt.Substring(11, 5);//csvTimeToSqlTime(lines[2]);
                     thisLine.datetime = Convert.ToDateTime(thisLine.strDt);//sqlDtToDatetime(lines[1], lines[2]);
                     thisLine.position = thisLine.coordinates.latitude + " " + thisLine.coordinates.longitude;//lines[3];
+
+                    if (thisLine.brand.Id > 0)
+                    {
+                        thisLine.brand.Name = brands.Find(i => i.Id == thisLine.brand.Id).Name;
+                    }
+
+                    if (thisLine.product.Id > 0)
+                    {
+                        thisLine.product.Name = products.Find(i => i.Id == thisLine.product.Id).Name;
+                    }
 
                     ret.Add(thisLine);
 
@@ -1173,6 +1186,32 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<Brand> GetSqlBrandsList()
+        {
+            List<Brand> ret = new List<Brand>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Name FROM [Brand] ORDER BY Name ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Brand() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<ComboboxItem> GetBrandsComboboxItemsList(List<Brand> Brands)
         {
             List<ComboboxItem> ret = new List<ComboboxItem>();
@@ -1217,6 +1256,33 @@ namespace PumpLib
 
             return ret;
         }
+
+        public static List<Product> GetSqlProductsList()
+        {
+            List<Product> ret = new List<Product>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Name FROM [Product] ORDER BY Name ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Product() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<ComboboxItem> GetProductsComboboxItemsList(List<Product> Products)
         {
             List<ComboboxItem> ret = new List<ComboboxItem>();

@@ -40,9 +40,13 @@ namespace PumpInfo
                 cbProduct.SelectedIndex = cbProduct.FindStringExact(obj.product.Name);
                 txtPump.Text = obj.pump;
                 txtPumpVol.Text = obj.pumpVolume.ToString();
-
+                
                 //show diff
                 txtPumpVol_Leave(null, null);
+
+                txtSampleNo.Text = obj.sampleNo.ToString();
+                txtRemarks.Text = obj.remarks;
+
             }
             
             

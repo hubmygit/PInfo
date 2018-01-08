@@ -131,8 +131,8 @@ namespace PumpAnalysis
 
                 try
                 {
-                    System.IO.File.Move(json_path, Application.StartupPath + "//Export//" + json_filename);
-                    Output.WriteToFile("File moved to 'Export' folder");
+                    System.IO.File.Move(json_path, Application.StartupPath + "//Archive//" + json_filename);
+                    Output.WriteToFile("File moved to 'Archive' folder");
                 }
                 catch (Exception ex)
                 {
