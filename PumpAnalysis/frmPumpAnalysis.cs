@@ -98,7 +98,7 @@ namespace PumpAnalysis
             else
             {
                 MessageBox.Show("Δε βρέθηκαν εγγραφές προς επεξεργασία! \r\n" +
-                                "Αρχείο: " + json_path);
+                                "Παρακαλώ μετακινήστε στο φάκελο αρχειοθέτησης το αρχείο " + json_path + ".");
             }
 
         }
@@ -128,7 +128,6 @@ namespace PumpAnalysis
                 Output.WriteToFile("ImportedGroupId: " + ImportedGroupId.ToString());
 
                 bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(objList, ImportedGroupId);
-                Output.WriteToFile("Saved file: " + json_filename);
 
                 try
                 {
@@ -167,7 +166,7 @@ namespace PumpAnalysis
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void geocodingTest()
         {
             DbUtilities d = new DbUtilities();
             string geo_json_data = d.getAllDataFromJsonFile(@"C:\Users\hkylidis\Desktop\rev_geocoding_el.json");
