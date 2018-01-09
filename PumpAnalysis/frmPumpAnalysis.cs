@@ -18,7 +18,11 @@ namespace PumpAnalysis
         {
             InitializeComponent();
 
-            AutomaticProcedure();
+            string[] args = Environment.GetCommandLineArgs();
+            if (args.Count(i => i.ToUpper().Trim(new char[] { ' ', '-', '/' }) == "AUTO") > 0)
+            {
+                AutomaticProcedure();
+            }
         }
 
         public List<ImpData> objList = new List<ImpData>();
@@ -181,10 +185,11 @@ namespace PumpAnalysis
 
             Output.WriteToFile(fileEntries.Length + " file(s) found.");
 
-            int cnt = 1;
+            int cnt = 0;
 
             foreach (string fileName in fileEntries)
             {
+                cnt++;
                 Output.WriteToFile("Starting - File " + cnt.ToString() + "/" + fileEntries.Length);
 
                 //init
@@ -209,6 +214,7 @@ namespace PumpAnalysis
 
                 //import the whole file into sql DB table - imported group
                 bool success = dbu.InsertImportedFileIntoTable(json_filename, fileBytes, counters, false);
+                Output.WriteToFile("Saved file: " + json_filename);
 
                 try
                 {
@@ -224,12 +230,10 @@ namespace PumpAnalysis
                 {
                     continue;
                 }
-                Output.WriteToFile("Saved file: " + json_filename);
-
+                
                 if (read_data.Trim() == "")
                 {
                     Output.WriteToFile("Empty file!");
-
                     continue;
                 }
 
@@ -262,6 +266,7 @@ namespace PumpAnalysis
                 Output.WriteToFile("To save - Accepted=true Rows: " + counters.toSaveAccRows.ToString() + ", Accepted=false Rows: " + counters.toSaveNAccRows.ToString());
 
                 bool result = dbu.update_ImportedGroup_Counters(ImportedGroupId, counters);
+                Output.WriteToFile("Counters updated.");
 
                 if (objList.Count <= 0)
                 {
@@ -283,9 +288,7 @@ namespace PumpAnalysis
                 Array.Clear(fileBytes, 0, fileBytes.Length);
                 lblImpFile.Text = "Αρχείο: -";
                 json_filename = "";
-                counters.Clear();
-
-                cnt++;
+                counters.Clear();                
             }
 
             Output.WriteToFile("***** FINISHED... *****");

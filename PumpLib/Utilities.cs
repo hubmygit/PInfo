@@ -1416,7 +1416,7 @@ namespace PumpLib
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
             string UpdSt = "UPDATE [dbo].[ImportedGroup] " +
-                "SET FileRows = @FileRows, FileAccRows = @FileAccRows, FileNAccRows = @FileNAccRows " +
+                "SET FileRows = @FileRows, FileAccRows = @FileAccRows, FileNAccRows = @FileNAccRows, " +
                 "ToSaveRows = @ToSaveRows, ToSaveAccRows = @ToSaveAccRows, ToSaveNAccRows = @ToSaveNAccRows " + 
                 "WHERE Id = @Id";
 
