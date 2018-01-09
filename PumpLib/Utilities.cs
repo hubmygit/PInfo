@@ -1409,6 +1409,46 @@ namespace PumpLib
             return ret;
         }
 
+        public bool update_ImportedGroup_Counters(int Id, RowsCounter rowsCounter)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+
+            string UpdSt = "UPDATE [dbo].[ImportedGroup] " +
+                "SET FileRows = @FileRows, FileAccRows = @FileAccRows, FileNAccRows = @FileNAccRows " +
+                "ToSaveRows = @ToSaveRows, ToSaveAccRows = @ToSaveAccRows, ToSaveNAccRows = @ToSaveNAccRows " + 
+                "WHERE Id = @Id";
+
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(UpdSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Id", Id);
+                cmd.Parameters.AddWithValue("@FileRows", Convert.ToInt32(rowsCounter.fileRows));
+                cmd.Parameters.AddWithValue("@FileAccRows", Convert.ToInt32(rowsCounter.fileAccRows));
+                cmd.Parameters.AddWithValue("@FileNAccRows", Convert.ToInt32(rowsCounter.fileNAccRows));
+                cmd.Parameters.AddWithValue("@ToSaveRows", Convert.ToInt32(rowsCounter.toSaveRows));
+                cmd.Parameters.AddWithValue("@ToSaveAccRows", Convert.ToInt32(rowsCounter.toSaveAccRows));
+                cmd.Parameters.AddWithValue("@ToSaveNAccRows", Convert.ToInt32(rowsCounter.toSaveNAccRows));
+
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+                Output.WriteToFile(ex.Message, true);
+            }
+
+            sqlConn.Close();
+
+            return ret;
+        }
+
     }
     
 

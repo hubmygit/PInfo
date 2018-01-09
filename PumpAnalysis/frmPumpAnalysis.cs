@@ -17,6 +17,8 @@ namespace PumpAnalysis
         public frmPumpAnalysis()
         {
             InitializeComponent();
+
+            AutomaticProcedure();
         }
 
         public List<ImpData> objList = new List<ImpData>();
@@ -146,10 +148,12 @@ namespace PumpAnalysis
                     dbu.update_ImportedGroup_Table(ImportedGroupId);
 
                     MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
+                    Output.WriteToFile("***** FINISHED... *****");
                 }
                 else
                 {
                     MessageBox.Show("Η καταχώρηση ολοκληρώθηκε με σφάλματα!");
+                    Output.WriteToFile("***** FINISHED WITH ERRORS... *****");
                 }
 
                 //refresh? / close form?
@@ -169,15 +173,122 @@ namespace PumpAnalysis
 
         private void AutomaticProcedure()
         {
+            Output.WriteToFile("***** STARTING... *****");
+
             //get all json files from folder
             string targetDirectory = Application.StartupPath + "\\Import";
-
             string[] fileEntries = Directory.GetFiles(targetDirectory, "*.json");
+
+            Output.WriteToFile(fileEntries.Length + " file(s) found.");
+
+            int cnt = 1;
 
             foreach (string fileName in fileEntries)
             {
-                string str = fileName;
+                Output.WriteToFile("Starting - File " + cnt.ToString() + "/" + fileEntries.Length);
+
+                //init
+                lblImpFile.Text = "Αρχείο: -";
+                objList.Clear();
+                json_filename = "";
+                if (fileBytes != null)
+                {
+                    Array.Clear(fileBytes, 0, fileBytes.Length);
+                }
+                counters.Clear();
+
+                DbUtilities dbu = new DbUtilities();
+                json_path = fileName;
+                Output.WriteToFile("Filename: " + json_path);
+
+                string read_data = dbu.getAllDataFromJsonFile(json_path);
+                //get file contents as byte[]
+                fileBytes = System.IO.File.ReadAllBytes(json_path);
+
+                json_filename = json_path.Substring(json_path.LastIndexOf("\\") + 1);
+
+                //import the whole file into sql DB table - imported group
+                bool success = dbu.InsertImportedFileIntoTable(json_filename, fileBytes, counters, false);
+
+                try
+                {
+                    System.IO.File.Move(json_path, Application.StartupPath + "\\Archive\\" + json_filename);
+                    Output.WriteToFile("File moved to 'Archive' folder");
+                }
+                catch (Exception ex)
+                {
+                    Output.WriteToFile(ex.Message, true);
+                }
+
+                if (!success)
+                {
+                    continue;
+                }
+                Output.WriteToFile("Saved file: " + json_filename);
+
+                if (read_data.Trim() == "")
+                {
+                    Output.WriteToFile("Empty file!");
+
+                    continue;
+                }
+
+                //get max id 
+                int ImportedGroupId = dbu.getMaxImportedGroupId(json_filename);
+                if (ImportedGroupId <= 0) //error: -1 (& 0 -> id starts from 1...)
+                {
+                    continue;
+                }
+                Output.WriteToFile("ImportedGroupId: " + ImportedGroupId.ToString());
+
+                List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
+
+                counters.fileRows = DataToMigrate.Count;
+                counters.fileAccRows = DataToMigrate.Count(i => i.accepted == true);
+                counters.fileNAccRows = DataToMigrate.Count(i => i.accepted == false);
+                Output.WriteToFile("Rows in file: " + counters.fileRows.ToString());
+                Output.WriteToFile("File - Accepted=true Rows: " + counters.fileAccRows.ToString() + ", Accepted=false Rows: " + counters.fileNAccRows.ToString());
+
+                objList = dbu.GetDataNotExistsInSQLSrvTable(DataToMigrate);
+
+                counters.toSaveRows = objList.Count;
+                Output.WriteToFile("Rows to save: " + objList.Count.ToString());
+
+                if (objList.Count > 0)
+                {
+                    counters.toSaveAccRows = objList.Count(i => i.accepted == true);
+                    counters.toSaveNAccRows = objList.Count(i => i.accepted == false);
+                }
+                Output.WriteToFile("To save - Accepted=true Rows: " + counters.toSaveAccRows.ToString() + ", Accepted=false Rows: " + counters.toSaveNAccRows.ToString());
+
+                bool result = dbu.update_ImportedGroup_Counters(ImportedGroupId, counters);
+
+                if (objList.Count <= 0)
+                {
+                    continue;
+                }
+                
+                lblImpFile.Text = "Αρχείο: " + json_filename;
+                
+                bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(objList, ImportedGroupId);
+
+                if (insSuccess)
+                {
+                    dbu.update_ImportedGroup_Table(ImportedGroupId);
+                }
+
+                Output.WriteToFile("Fineshed - File " + cnt.ToString() + "/" + fileEntries.Length);
+
+                objList.Clear();
+                Array.Clear(fileBytes, 0, fileBytes.Length);
+                lblImpFile.Text = "Αρχείο: -";
+                json_filename = "";
+                counters.Clear();
+
+                cnt++;
             }
+
+            Output.WriteToFile("***** FINISHED... *****");
         }
 
         private void geocodingTest()
@@ -192,8 +303,6 @@ namespace PumpAnalysis
                 string areaLevel2 = a.results.Where(i => i.types.Contains("administrative_area_level_2")).FirstOrDefault().address_components.Where(i => i.types.Contains("administrative_area_level_2")).FirstOrDefault().long_name;
                 string areaLevel3 = a.results.Where(i => i.types.Contains("administrative_area_level_3")).FirstOrDefault().address_components.Where(i => i.types.Contains("administrative_area_level_3")).FirstOrDefault().long_name;
                 string areaLevel4 = a.results.Where(i => i.types.Contains("administrative_area_level_4")).FirstOrDefault().address_components.Where(i => i.types.Contains("administrative_area_level_4")).FirstOrDefault().long_name;
-
-                int help = 0;
             }
             
         }
