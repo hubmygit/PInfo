@@ -1310,6 +1310,18 @@ namespace PumpLib
         {
             bool ret = false;
 
+            if (fileName == null)
+            {
+                Output.WriteToFile("Empty File Name.", true);
+                return ret;
+            }
+
+            if (fileBytes == null)
+            {
+                Output.WriteToFile("Empty File Bytes.", true);
+                return ret;
+            }
+
             if (fileName.Trim().Length > 0 && fileBytes.Length > 0)
             {
                 SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);

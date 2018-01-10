@@ -18,11 +18,11 @@ namespace PumpAnalysis
         {
             InitializeComponent();
 
-            string[] args = Environment.GetCommandLineArgs();
-            if (args.Count(i => i.ToUpper().Trim(new char[] { ' ', '-', '/' }) == "AUTO") > 0)
-            {
-                AutomaticProcedure();
-            }
+            //string[] args = Environment.GetCommandLineArgs();
+            //if (args.Count(i => i.ToUpper().Trim(new char[] { ' ', '-', '/' }) == "AUTO") > 0)
+            //{
+            //    AutomaticProcedure();
+            //}            
         }
 
         public List<ImpData> objList = new List<ImpData>();
@@ -57,6 +57,7 @@ namespace PumpAnalysis
             counters.Clear();
 
             Output.WriteToFile("***** STARTING... *****");
+            Output.WriteToFile("-- Import Function --");
 
             Output.WriteToFile("Filename: " + json_path);
 
@@ -113,6 +114,16 @@ namespace PumpAnalysis
         private void btnSave_Click(object sender, EventArgs e)
         {
             DbUtilities dbu = new DbUtilities();
+
+            Output.WriteToFile("-- Save Function --");
+
+            if (json_filename == null || fileBytes == null)
+            {
+                Output.WriteToFile("No File to save.", true);
+                MessageBox.Show("Δεν έχετε επιλέξει αρχείο προς αποθήκευση!");
+                return;
+            }
+
 
             //import the whole file into sql DB table - imported group
             bool success = dbu.InsertImportedFileIntoTable(json_filename, fileBytes, counters, true);
@@ -292,6 +303,7 @@ namespace PumpAnalysis
             }
 
             Output.WriteToFile("***** FINISHED... *****");
+
         }
 
         private void geocodingTest()
@@ -307,6 +319,19 @@ namespace PumpAnalysis
                 string areaLevel3 = a.results.Where(i => i.types.Contains("administrative_area_level_3")).FirstOrDefault().address_components.Where(i => i.types.Contains("administrative_area_level_3")).FirstOrDefault().long_name;
                 string areaLevel4 = a.results.Where(i => i.types.Contains("administrative_area_level_4")).FirstOrDefault().address_components.Where(i => i.types.Contains("administrative_area_level_4")).FirstOrDefault().long_name;
             }
+            
+        }
+
+        private void frmPumpAnalysis_Load(object sender, EventArgs e)
+        {
+            string[] args = Environment.GetCommandLineArgs();
+            if (args.Count(i => i.ToUpper().Trim(new char[] { ' ', '-', '/' }) == "AUTO") > 0)
+            {
+                AutomaticProcedure();
+
+                Application.Exit();
+            }
+                        
             
         }
     }
