@@ -16,13 +16,7 @@ namespace PumpAnalysis
     {
         public frmPumpAnalysis()
         {
-            InitializeComponent();
-
-            //string[] args = Environment.GetCommandLineArgs();
-            //if (args.Count(i => i.ToUpper().Trim(new char[] { ' ', '-', '/' }) == "AUTO") > 0)
-            //{
-            //    AutomaticProcedure();
-            //}            
+            InitializeComponent();          
         }
 
         public List<ImpData> objList = new List<ImpData>();

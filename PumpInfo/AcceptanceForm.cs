@@ -185,5 +185,10 @@ namespace PumpInfo
             //48 - 57 will be numbers
             //8 - backspace
         }
+
+        private void btnMap_Click(object sender, EventArgs e)
+        {
+            //map form
+        }
     }
 }
