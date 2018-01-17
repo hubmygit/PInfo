@@ -63,6 +63,8 @@
             this.lblRemarks = new System.Windows.Forms.Label();
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.btnMap = new System.Windows.Forms.Button();
+            this.lblGeostationIdTitle = new System.Windows.Forms.Label();
+            this.lblGeostationId = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).BeginInit();
             this.SuspendLayout();
             // 
@@ -400,12 +402,36 @@
             this.btnMap.UseVisualStyleBackColor = true;
             this.btnMap.Click += new System.EventHandler(this.btnMap_Click);
             // 
+            // lblGeostationIdTitle
+            // 
+            this.lblGeostationIdTitle.AutoSize = true;
+            this.lblGeostationIdTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblGeostationIdTitle.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblGeostationIdTitle.Location = new System.Drawing.Point(552, 285);
+            this.lblGeostationIdTitle.Name = "lblGeostationIdTitle";
+            this.lblGeostationIdTitle.Size = new System.Drawing.Size(92, 15);
+            this.lblGeostationIdTitle.TabIndex = 37;
+            this.lblGeostationIdTitle.Text = "GeostationId:";
+            // 
+            // lblGeostationId
+            // 
+            this.lblGeostationId.AutoSize = true;
+            this.lblGeostationId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblGeostationId.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblGeostationId.Location = new System.Drawing.Point(650, 285);
+            this.lblGeostationId.Name = "lblGeostationId";
+            this.lblGeostationId.Size = new System.Drawing.Size(15, 15);
+            this.lblGeostationId.TabIndex = 38;
+            this.lblGeostationId.Text = "0";
+            // 
             // AcceptanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(906, 502);
+            this.Controls.Add(this.lblGeostationId);
+            this.Controls.Add(this.lblGeostationIdTitle);
             this.Controls.Add(this.btnMap);
             this.Controls.Add(this.txtRemarks);
             this.Controls.Add(this.lblRemarks);
@@ -472,5 +498,7 @@
         private System.Windows.Forms.Label lblRemarks;
         private System.Windows.Forms.TextBox txtRemarks;
         private System.Windows.Forms.Button btnMap;
+        private System.Windows.Forms.Label lblGeostationIdTitle;
+        private System.Windows.Forms.Label lblGeostationId;
     }
 }

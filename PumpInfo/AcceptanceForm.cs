@@ -85,7 +85,7 @@ namespace PumpInfo
                 //obj.removeExtraData();
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
                 obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), 
-                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text);
+                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text, Convert.ToInt32(lblGeostationId.Text));
                 //getComboboxItem_Brand
 
                 recordAction = RecordAction.Update;
@@ -96,7 +96,7 @@ namespace PumpInfo
             {
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
                 obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), 
-                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text);
+                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text, Convert.ToInt32(lblGeostationId.Text));
 
                 recordAction = RecordAction.Insert;
 
@@ -187,16 +187,19 @@ namespace PumpInfo
             //8 - backspace
         }
 
+        
+
+
         private void btnMap_Click(object sender, EventArgs e)
         {
             MapFormParams MapObj = new MapFormParams()
             {
-                latitude = 38.2682,
-                longitude = 21.755,
-                radius = 150,
-                apiKey = "AIzaSyCxAKDi4ZgokHWCYK_5sQ8Dg-nlcLT2myo",
-                connectionString = SQLiteDBInfo.connectionString,
-                existsInternetConnection = true
+                latitude = Convert.ToDouble(dgvCurrentObj["latitude", 0].Value.ToString().Replace('.', ',')),   //38.2682,
+                longitude = Convert.ToDouble(dgvCurrentObj["longitude", 0].Value.ToString().Replace('.', ',')), //21.755,
+                radius = 150, //meters
+                apiKey = MapsApi.key, //"AIzaSyCxAKDi4ZgokHWCYK_5sQ8Dg-nlcLT2myo"
+                connectionString = SQLiteDBMap.connectionString, //Stationsdb.db
+                existsInternetConnection = NetworkConnections.CheckInternetConnection()
             };
             
             //map form
@@ -207,7 +210,7 @@ namespace PumpInfo
             string name = frmMap.mapFormGeoData.name;
             string address = frmMap.mapFormGeoData.address;
 
-            MessageBox.Show(id.ToString() + " * " + name + " * " + address);
+            MessageBox.Show(id.ToString() + "\r\n" + name + "\r\n" + address);
         }
     }
 }

@@ -11,10 +11,10 @@ namespace MapForm
 {
     public partial class SearchPlace : Form
     {
-        //public SearchPlace()
-        //{
-        //    InitializeComponent();
-        //}
+        public SearchPlace()
+        {
+            InitializeComponent();
+        }
 
         public SearchPlace(MapFormParams MapFrmParamsObj)
         {

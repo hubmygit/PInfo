@@ -75,7 +75,7 @@ namespace PumpLib
         }
 
         //public void addExtraData(string Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
-        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, double PumpVolume, int SampleNo, string Remarks)
+        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, double PumpVolume, int SampleNo, string Remarks, int GeostationId)
         {
             accepted = true;
 
@@ -87,6 +87,7 @@ namespace PumpLib
             pumpVolume = PumpVolume;
             sampleNo = SampleNo;
             remarks = Remarks;
+            geostationId = GeostationId;
     }
 
         public void copyExtraData(ImpData otherObj)
@@ -101,6 +102,7 @@ namespace PumpLib
             pumpVolume = otherObj.pumpVolume;
             sampleNo = otherObj.sampleNo;
             remarks = otherObj.remarks;
+            geostationId = otherObj.geostationId;
         }
 
         public void removeExtraData()
@@ -117,6 +119,7 @@ namespace PumpLib
             pumpVolume = 0.0;
             sampleNo = 0;
             remarks = "";
+            geostationId = 0;
         }
 
         public string csvDateToSqlDate(string csvDate)
@@ -369,8 +372,8 @@ namespace PumpLib
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume], [SampleNo], [Remarks]) VALUES " +
-                           "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks) ";
+            string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume], [SampleNo], [Remarks], [GeostationId]) VALUES " +
+                           "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId) ";
             try
             {
                 sqlConn.Open();
@@ -385,6 +388,7 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@PumpVolume", extraData.pumpVolume);
                 cmd.Parameters.AddWithValue("@SampleNo", extraData.sampleNo);
                 cmd.Parameters.AddWithValue("@Remarks", extraData.remarks);
+                cmd.Parameters.AddWithValue("@GeostationId", extraData.geostationId); 
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -1476,6 +1480,18 @@ namespace PumpLib
         public static string connectionString { get; set; }
     }
 
+    public static class SQLiteDBMap
+    {
+        static SQLiteDBMap()
+        {
+            string dbFile = Application.StartupPath + "\\DBs\\Stationsdb.db";
+            connectionString = "Data Source=" + dbFile + ";Version=3;";
+        }
+
+        //public static string dbFile { get; set; }
+        public static string connectionString { get; set; }
+    }
+
     public static class SqlDBInfo
     {
         static SqlDBInfo()
@@ -1489,6 +1505,39 @@ namespace PumpLib
         }
 
         public static string connectionString { get; set; }
+    }
+
+    public static class MapsApi
+    {
+        static MapsApi()
+        {
+            key = "AIzaSyCxAKDi4ZgokHWCYK_5sQ8Dg-nlcLT2myo";
+        }
+        public static string key { get; set; }
+    }
+
+    public static class NetworkConnections
+    {
+        public static bool CheckInternetConnection()
+        {
+            try
+            {
+                using (var client = new System.Net.WebClient())
+                {
+                    using (client.OpenRead("http://clients3.google.com/generate_204"))
+                    {
+                        System.IO.Stream stream = client.OpenRead("http://clients3.google.com/generate_204");
+                        //var content = client.DownloadString("http://clients3.google.com/generate_204");
+
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 
     public static class GridViewUtils
@@ -1565,7 +1614,7 @@ namespace PumpLib
                 ret = new object[] { obj.dataGridViewRowIndex, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
                                      obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
                                      obj.temp, obj.density, obj.volume, percDiff,
-                                     obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo };
+                                     obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo, obj.geostationId };
             }
             
             return ret;
