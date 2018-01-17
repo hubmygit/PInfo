@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using PumpLib;
+using MapForm;
 
 namespace PumpInfo
 {
@@ -188,7 +189,25 @@ namespace PumpInfo
 
         private void btnMap_Click(object sender, EventArgs e)
         {
+            MapFormParams MapObj = new MapFormParams()
+            {
+                latitude = 38.2682,
+                longitude = 21.755,
+                radius = 150,
+                apiKey = "AIzaSyCxAKDi4ZgokHWCYK_5sQ8Dg-nlcLT2myo",
+                connectionString = SQLiteDBInfo.connectionString,
+                existsInternetConnection = true
+            };
+            
             //map form
+            SearchPlace frmMap = new SearchPlace(MapObj);
+            frmMap.ShowDialog();
+
+            int id = frmMap.mapFormGeoData.id;
+            string name = frmMap.mapFormGeoData.name;
+            string address = frmMap.mapFormGeoData.address;
+
+            MessageBox.Show(id.ToString() + " * " + name + " * " + address);
         }
     }
 }
