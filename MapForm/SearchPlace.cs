@@ -28,9 +28,9 @@ namespace MapForm
             textBox6.Text = MapFrmParamsObj.existsInternetConnection.ToString();
 
 
-            textBox7.Text = "1";
+            textBox7.Text = "123";
             textBox8.Text = "Δοκιμή";
-            textBox9.Text = "Δοκιμαστική Εγγραφή 111";
+            textBox9.Text = "Δοκιμαστική Εγγραφή 321";
 
             mapFormGeoData.id = Convert.ToInt32(textBox7.Text);
             mapFormGeoData.name = textBox8.Text; 

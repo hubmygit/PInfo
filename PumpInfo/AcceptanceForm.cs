@@ -209,8 +209,12 @@ namespace PumpInfo
             int id = frmMap.mapFormGeoData.id;
             string name = frmMap.mapFormGeoData.name;
             string address = frmMap.mapFormGeoData.address;
-
+            
             MessageBox.Show(id.ToString() + "\r\n" + name + "\r\n" + address);
+
+            lblGeostationId.Text = frmMap.mapFormGeoData.id.ToString();
+            txtDealer.Text = frmMap.mapFormGeoData.name;
+            txtAddress.Text = frmMap.mapFormGeoData.address;
         }
     }
 }
