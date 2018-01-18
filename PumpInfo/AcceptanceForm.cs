@@ -26,6 +26,8 @@ namespace PumpInfo
             cbBrand.Items.AddRange(DbUtilities.GetBrandsComboboxItemsList(brands).ToArray<ComboboxItem>());
             cbProduct.Items.AddRange(DbUtilities.GetProductsComboboxItemsList(products).ToArray<ComboboxItem>());
 
+            maxVolumeDiffPerc = Config.MaxVolumeDiffPerc(); 
+
             obj = dataGridViewRow;
             
             object[] ObjRow = GridViewUtils.ImpDataToGridViewRow(obj);
@@ -57,6 +59,7 @@ namespace PumpInfo
         public RecordAction recordAction = RecordAction.None;
         public List<Brand> brands = DbUtilities.GetBrandsList();
         public List<Product> products = DbUtilities.GetProductsList();
+        public double maxVolumeDiffPerc;
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -148,14 +151,15 @@ namespace PumpInfo
                 percDiff = percDiff * 100.0; //??
                 percDiff = Math.Round(percDiff, 5);
             }
-
-
-
+            
 
 
             lblVolDiffPerc.Text = "Volume Difference: " + percDiff.ToString() + " %";
-           
 
+            if (Math.Abs(percDiff) > maxVolumeDiffPerc && maxVolumeDiffPerc > 0.0)
+            {
+                MessageBox.Show("Προσοχή! \r\nΕντοπίστηκε μεγάλη διαφορά στο πεδίο των λίτρων.");
+            }
         }
 
         private void txtPumpVol_KeyPress(object sender, KeyPressEventArgs e)
