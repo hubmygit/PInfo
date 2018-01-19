@@ -32,7 +32,20 @@ namespace PumpAnalysis
             {
                 int itemIndex = GridViewUtils.getItemIndex(dgvReceiptData, e.RowIndex);
 
-                MessageBox.Show(e.RowIndex.ToString() + "-" + itemIndex.ToString() + "???");
+                //MessageBox.Show(e.RowIndex.ToString() + "-" + itemIndex.ToString() + "???");
+
+                SaveFileDialog sfd = new SaveFileDialog();
+                //sfd.Filter = "PDF files (*.pdf)|*.pdf";
+                
+                DialogResult result = sfd.ShowDialog();
+                
+                if (sfd.FileName.Trim() == "" || result != DialogResult.OK)
+                {
+                    return;
+                }
+
+
+
             }
         }
     }

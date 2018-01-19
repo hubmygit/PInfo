@@ -52,6 +52,7 @@
             this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MachineNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,7 +94,8 @@
             this.PumpVol,
             this.SampleNo,
             this.Remarks,
-            this.MachineNo});
+            this.MachineNo,
+            this.GeostationId});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -251,6 +253,12 @@
             this.MachineNo.Name = "MachineNo";
             this.MachineNo.ReadOnly = true;
             // 
+            // GeostationId
+            // 
+            this.GeostationId.HeaderText = "GeostationId";
+            this.GeostationId.Name = "GeostationId";
+            this.GeostationId.ReadOnly = true;
+            // 
             // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -288,5 +296,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
         private System.Windows.Forms.DataGridViewTextBoxColumn MachineNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
     }
 }

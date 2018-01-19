@@ -888,7 +888,7 @@ namespace PumpLib
             SqlCommand cmd = new SqlCommand("SELECT RD.Id, RD.VehicleNo, RD.Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
                                                   "isnull(RD.Accepted,0) as Accepted, isnull(RD.ProcessedGroupId,0) as ProcessedGroupId, isnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
                                                   "isnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, " +
-                                                  "isnull(ED.SampleNo,0) as SampleNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId " +
+                                                  "isnull(ED.SampleNo,0) as SampleNo, isnull(RD.MachineNo,0) as MachineNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId " +
                 " FROM [receiptData] RD left outer join [extraData] ED on RD.Id = ED.ReceiptDataId " +
                 " WHERE isnull(RD.Accepted, 0) = 1 ", sqlConn);
 
@@ -904,8 +904,11 @@ namespace PumpLib
                     {
                         receiptDataId = Convert.ToInt32(reader["Id"].ToString()),
                         vehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
-                        //datetime = Convert.ToDateTime(reader["Dt"].ToString()),
+
+                        datetime = Convert.ToDateTime(reader["Dt"].ToString()),
                         strDt = reader["Dt"].ToString(),
+                        date = Convert.ToDateTime(reader["Dt"].ToString()).ToString("dd.MM.yyyy"),
+                        time = Convert.ToDateTime(reader["Dt"].ToString()).ToString("hh:mm"),
                         coordinates = new Coordinates() { longitude = reader["CooLong"].ToString().Replace(",", "."), latitude = reader["CooLat"].ToString().Replace(",", ".") },
                         weight = Convert.ToDouble(reader["Weight"].ToString()),
                         temp = Convert.ToDouble(reader["Temp"].ToString()),
@@ -913,23 +916,36 @@ namespace PumpLib
                         volume = Convert.ToDouble(reader["Volume"].ToString()),
                         accepted = Convert.ToBoolean(reader["Accepted"].ToString()),
                         processedGroupId = Convert.ToInt32(reader["ProcessedGroupId"].ToString()),
-                        exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString())//,
-                        //machineNo = machNo
+                        exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString()),
+                        machineNo = Convert.ToInt32(reader["MachineNo"].ToString())
                     };
 
                     if (Convert.ToInt32(reader["EDId"].ToString()) > 0) //has extra data
                     {
                         objLine.extraDataId = Convert.ToInt32(reader["EDId"].ToString());
-                        objLine.brand = new Brand() { Id = Convert.ToInt32(reader["BrandId"].ToString()) };
+                        objLine.brand = new Brand() { Id = Convert.ToInt32(reader["BrandId"].ToString()) }; //add name****************************
                         objLine.dealer = reader["Dealer"].ToString();
                         objLine.address = reader["Address"].ToString();
-                        objLine.product = new Product() { Id = Convert.ToInt32(reader["ProductId"].ToString()) };
+                        objLine.product = new Product() { Id = Convert.ToInt32(reader["ProductId"].ToString()) }; //add name****************************
                         objLine.pump = reader["Pump"].ToString();
                         objLine.pumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString());
                         objLine.sampleNo = Convert.ToInt32(reader["SampleNo"].ToString());
                         objLine.remarks = reader["Remarks"].ToString();
                         objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
                     }
+
+                    /*
+                        brand Name -> constructor...new Brand(int id) --id = BrandId / name = DbUtilities.GetBrandsList() | select...
+                        product Name ->     >>
+                        (?)public string date = "";
+                        (?) public string time = "";
+                        (?) public DateTime datetime = new DateTime();
+                        (?) public string position = "";
+                        receiptDataId -> ClientReceiptDataId
+                        *New* -> receiptDataId
+                        
+                        
+                    */
 
                     ret.Add(objLine);
                 }
