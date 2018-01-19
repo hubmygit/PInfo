@@ -88,7 +88,7 @@ namespace PumpLib
             sampleNo = SampleNo;
             remarks = Remarks;
             geostationId = GeostationId;
-    }
+        }
 
         public void copyExtraData(ImpData otherObj)
         {
@@ -850,6 +850,71 @@ namespace PumpLib
                         //exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString())
                         exportedGroupId = ExpGrId,
                         machineNo = machNo
+                    };
+
+                    if (Convert.ToInt32(reader["EDId"].ToString()) > 0) //has extra data
+                    {
+                        objLine.extraDataId = Convert.ToInt32(reader["EDId"].ToString());
+                        objLine.brand = new Brand() { Id = Convert.ToInt32(reader["BrandId"].ToString()) };
+                        objLine.dealer = reader["Dealer"].ToString();
+                        objLine.address = reader["Address"].ToString();
+                        objLine.product = new Product() { Id = Convert.ToInt32(reader["ProductId"].ToString()) };
+                        objLine.pump = reader["Pump"].ToString();
+                        objLine.pumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString());
+                        objLine.sampleNo = Convert.ToInt32(reader["SampleNo"].ToString());
+                        objLine.remarks = reader["Remarks"].ToString();
+                        objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
+                    }
+
+                    ret.Add(objLine);
+                }
+
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public List<ImpData> ReceiptDBLines_To_ObjectList()
+        {
+            List<ImpData> ret = new List<ImpData>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            SqlCommand cmd = new SqlCommand("SELECT RD.Id, RD.VehicleNo, RD.Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
+                                                  "isnull(RD.Accepted,0) as Accepted, isnull(RD.ProcessedGroupId,0) as ProcessedGroupId, isnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
+                                                  "isnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, " +
+                                                  "isnull(ED.SampleNo,0) as SampleNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId " +
+                " FROM [receiptData] RD left outer join [extraData] ED on RD.Id = ED.ReceiptDataId " +
+                " WHERE isnull(RD.Accepted, 0) = 1 ", sqlConn);
+
+            try
+            {
+                sqlConn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    ImpData objLine = new ImpData()
+                    {
+                        receiptDataId = Convert.ToInt32(reader["Id"].ToString()),
+                        vehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
+                        //datetime = Convert.ToDateTime(reader["Dt"].ToString()),
+                        strDt = reader["Dt"].ToString(),
+                        coordinates = new Coordinates() { longitude = reader["CooLong"].ToString().Replace(",", "."), latitude = reader["CooLat"].ToString().Replace(",", ".") },
+                        weight = Convert.ToDouble(reader["Weight"].ToString()),
+                        temp = Convert.ToDouble(reader["Temp"].ToString()),
+                        density = Convert.ToDouble(reader["Density"].ToString()),
+                        volume = Convert.ToDouble(reader["Volume"].ToString()),
+                        accepted = Convert.ToBoolean(reader["Accepted"].ToString()),
+                        processedGroupId = Convert.ToInt32(reader["ProcessedGroupId"].ToString()),
+                        exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString())//,
+                        //machineNo = machNo
                     };
 
                     if (Convert.ToInt32(reader["EDId"].ToString()) > 0) //has extra data

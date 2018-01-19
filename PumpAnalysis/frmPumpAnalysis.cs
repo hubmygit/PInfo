@@ -328,6 +328,12 @@ namespace PumpAnalysis
                         
             
         }
+
+        private void btnShowDbData_Click(object sender, EventArgs e)
+        {
+            frmShowDbData frmDbData = new frmShowDbData();
+            frmDbData.ShowDialog();
+        }
     }
 
     

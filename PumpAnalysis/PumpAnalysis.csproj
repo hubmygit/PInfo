@@ -52,10 +52,19 @@
     <Compile Include="frmPumpAnalysis.Designer.cs">
       <DependentUpon>frmPumpAnalysis.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmShowDbData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShowDbData.Designer.cs">
+      <DependentUpon>frmShowDbData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmPumpAnalysis.resx">
       <DependentUpon>frmPumpAnalysis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShowDbData.resx">
+      <DependentUpon>frmShowDbData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Document_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ShowDbData_32x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
