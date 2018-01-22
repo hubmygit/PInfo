@@ -1698,7 +1698,41 @@ namespace PumpLib
 
             return ret;
         }
-        
+
+        public static List<object[]> DBDataToGridViewRowList(List<ImpData> objList)
+        {
+            List<object[]> ret = new List<object[]>();
+
+            foreach (ImpData thisObj in objList)
+            {
+                ret.Add(DBDataToGridViewRow(thisObj));
+            }
+
+            return ret;
+        }
+
+        public static object[] DBDataToGridViewRow(ImpData obj)
+        {
+            object[] ret = new object[] { obj.receiptDataId, obj.extraDataId, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
+                                          obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
+                                          obj.temp, obj.density, obj.volume };
+
+            double percDiff = 0.0;
+            if (obj.volume > 0.0 && obj.pumpVolume > 0.0)
+            {
+                percDiff = (obj.volume - obj.pumpVolume) / obj.volume;
+                percDiff = percDiff * 100.0; //??
+                percDiff = Math.Round(percDiff, 5);
+            }
+
+            ret = new object[] { obj.receiptDataId, obj.extraDataId, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
+                                 obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
+                                 obj.temp, obj.density, obj.volume, percDiff,
+                                 obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo, obj.geostationId };
+
+            return ret;
+        }
+
         public static object[] ImpDataToGridViewRow(ImpData obj, bool extraCalcColumns = false)
         {
             //object[] ret = new object[] { false, obj.vehicleNo, obj.date, obj.time, ... };

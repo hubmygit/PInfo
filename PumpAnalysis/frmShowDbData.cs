@@ -20,7 +20,7 @@ namespace PumpAnalysis
             DbUtilities dbu = new DbUtilities();
             List<ImpData> objList = dbu.ReceiptDBLines_To_ObjectList();
 
-            List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList, true);
+            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(objList);
 
             GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
@@ -28,23 +28,33 @@ namespace PumpAnalysis
 
         private void dgvReceiptData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            /*
             if (e.RowIndex != -1)
             {
                 int itemIndex = GridViewUtils.getItemIndex(dgvReceiptData, e.RowIndex);
 
                 //MessageBox.Show(e.RowIndex.ToString() + "-" + itemIndex.ToString() + "???");
 
-                SaveFileDialog sfd = new SaveFileDialog();
+                OpenFileDialog ofd = new OpenFileDialog();
                 //sfd.Filter = "PDF files (*.pdf)|*.pdf";
                 
-                DialogResult result = sfd.ShowDialog();
+                DialogResult result = ofd.ShowDialog();
                 
-                if (sfd.FileName.Trim() == "" || result != DialogResult.OK)
+                if (ofd.FileName.Trim() == "" || result != DialogResult.OK)
                 {
                     return;
                 }
+                
+            }
+            */
+        }
 
-
+        private void btnAddFile_Click(object sender, EventArgs e)
+        {
+            if (dgvReceiptData.SelectedRows.Count > 0)
+            {
+                int receiptDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ReceiptDataId"].Value);
+                int extraDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value);
 
             }
         }
