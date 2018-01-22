@@ -886,11 +886,14 @@ namespace PumpLib
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             SqlCommand cmd = new SqlCommand("SELECT RD.Id, RD.VehicleNo, RD.Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
-                                                  "isnull(RD.Accepted,0) as Accepted, isnull(RD.ProcessedGroupId,0) as ProcessedGroupId, isnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
-                                                  "isnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, " +
-                                                  "isnull(ED.SampleNo,0) as SampleNo, isnull(RD.MachineNo,0) as MachineNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId " +
-                " FROM [receiptData] RD left outer join [extraData] ED on RD.Id = ED.ReceiptDataId " +
-                " WHERE isnull(RD.Accepted, 0) = 1 ", sqlConn);
+                                            "isnull(RD.Accepted,0) as Accepted, isnull(RD.ProcessedGroupId,0) as ProcessedGroupId, isnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
+                                            "isnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, B.Name as BName, ED.Dealer, ED.Address, ED.ProductId, P.Name as PName, ED.Pump, ED.PumpVolume, " +
+                                            "isnull(ED.SampleNo,0) as SampleNo, isnull(RD.MachineNo,0) as MachineNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId " +
+                                            " FROM [receiptData] RD left outer join " + 
+                                            "[extraData] ED on RD.Id = ED.ReceiptDataId left outer join " + 
+                                            "[brand] B on B.id = ED.BrandId left outer join " +
+                                            "[product] P on P.id = ED.ProductId " +
+                                            " WHERE isnull(RD.Accepted, 0) = 1 ", sqlConn);
 
             try
             {
@@ -923,29 +926,20 @@ namespace PumpLib
                     if (Convert.ToInt32(reader["EDId"].ToString()) > 0) //has extra data
                     {
                         objLine.extraDataId = Convert.ToInt32(reader["EDId"].ToString());
-                        objLine.brand = new Brand() { Id = Convert.ToInt32(reader["BrandId"].ToString()) }; //add name****************************
+                        objLine.brand = new Brand() { Id = Convert.ToInt32(reader["BrandId"].ToString()), Name = reader["BName"].ToString() }; 
                         objLine.dealer = reader["Dealer"].ToString();
                         objLine.address = reader["Address"].ToString();
-                        objLine.product = new Product() { Id = Convert.ToInt32(reader["ProductId"].ToString()) }; //add name****************************
+                        objLine.product = new Product() { Id = Convert.ToInt32(reader["ProductId"].ToString()), Name = reader["PName"].ToString() }; 
                         objLine.pump = reader["Pump"].ToString();
                         objLine.pumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString());
                         objLine.sampleNo = Convert.ToInt32(reader["SampleNo"].ToString());
                         objLine.remarks = reader["Remarks"].ToString();
                         objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
                     }
-
-                    /*
-                        brand Name -> constructor...new Brand(int id) --id = BrandId / name = DbUtilities.GetBrandsList() | select...
-                        product Name ->     >>
-                        (?)public string date = "";
-                        (?) public string time = "";
-                        (?) public DateTime datetime = new DateTime();
-                        (?) public string position = "";
-                        receiptDataId -> ClientReceiptDataId
-                        *New* -> receiptDataId
+                                        
+                        //brand Name -> constructor...new Brand(int id) --id = BrandId / name = DbUtilities.GetBrandsList()                         
                         
-                        
-                    */
+                    
 
                     ret.Add(objLine);
                 }
@@ -1021,8 +1015,8 @@ namespace PumpLib
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [dbo].[receiptData] (ClientId, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId, ImportedGroupId) " +
-                           " VALUES (@ClientId, @VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @Accepted, @ProcessedGroupId, @ExportedGroupId, @ImportedGroupId ) ";
+            string InsSt = "INSERT INTO [dbo].[receiptData] (ClientId, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId, ImportedGroupId, MachineNo) " +
+                           " VALUES (@ClientId, @VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, @Accepted, @ProcessedGroupId, @ExportedGroupId, @ImportedGroupId, @MachineNo ) ";
 
             try
             {
@@ -1042,6 +1036,7 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@ProcessedGroupId", obj.processedGroupId);
                 cmd.Parameters.AddWithValue("@ExportedGroupId", obj.exportedGroupId);
                 cmd.Parameters.AddWithValue("@ImportedGroupId", ImportedGroupId);
+                cmd.Parameters.AddWithValue("@MachineNo", obj.machineNo);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -1059,6 +1054,34 @@ namespace PumpLib
             return ret;
         }
 
+        public int getSQLReceiptDataId(int ClientReceiptDataId, int MachineNo)
+        {
+            int ret = -1;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id FROM [receiptData] WHERE ClientId = @ClientReceiptDataId and MachineNo = @MachineNo ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+
+            cmd.Parameters.AddWithValue("@ClientReceiptDataId", ClientReceiptDataId);
+            cmd.Parameters.AddWithValue("@MachineNo", MachineNo);
+
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Id"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
 
         public bool ObjectData_To_SQLServerExtraDataLines(ImpData obj)
         {
@@ -1066,16 +1089,17 @@ namespace PumpLib
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [dbo].[extraData] (ClientId, ReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId) " +
-                        " VALUES (@ClientId, @ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId ) ";
+            string InsSt = "INSERT INTO [dbo].[extraData] (ReceiptDataId, ClientId, ClientReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId) " +
+                        " VALUES (@ReceiptDataId, @ClientId, @ClientReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId ) ";
 
             try
             {
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
 
+                cmd.Parameters.AddWithValue("@ReceiptDataId", getSQLReceiptDataId(obj.receiptDataId, obj.machineNo)); 
                 cmd.Parameters.AddWithValue("@ClientId", obj.extraDataId);
-                cmd.Parameters.AddWithValue("@ReceiptDataId", obj.receiptDataId);
+                cmd.Parameters.AddWithValue("@ClientReceiptDataId", obj.receiptDataId);
                 cmd.Parameters.AddWithValue("@BrandId", obj.brand.Id);
                 cmd.Parameters.AddWithValue("@Dealer", obj.dealer);
                 cmd.Parameters.AddWithValue("@Address", obj.address);
