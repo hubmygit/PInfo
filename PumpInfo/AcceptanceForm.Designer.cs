@@ -65,6 +65,11 @@
             this.btnMap = new System.Windows.Forms.Button();
             this.lblGeostationIdTitle = new System.Windows.Forms.Label();
             this.lblGeostationId = new System.Windows.Forms.Label();
+            this.lblRealLat = new System.Windows.Forms.Label();
+            this.lblRealLong = new System.Windows.Forms.Label();
+            this.txtRealLat = new System.Windows.Forms.TextBox();
+            this.RealLong = new System.Windows.Forms.TextBox();
+            this.btnRealLatLong = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).BeginInit();
             this.SuspendLayout();
             // 
@@ -424,12 +429,65 @@
             this.lblGeostationId.TabIndex = 38;
             this.lblGeostationId.Text = "0";
             // 
+            // lblRealLat
+            // 
+            this.lblRealLat.AutoSize = true;
+            this.lblRealLat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblRealLat.Location = new System.Drawing.Point(68, 248);
+            this.lblRealLat.Name = "lblRealLat";
+            this.lblRealLat.Size = new System.Drawing.Size(58, 16);
+            this.lblRealLat.TabIndex = 39;
+            this.lblRealLat.Text = "Real Lat";
+            // 
+            // lblRealLong
+            // 
+            this.lblRealLong.AutoSize = true;
+            this.lblRealLong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblRealLong.Location = new System.Drawing.Point(61, 278);
+            this.lblRealLong.Name = "lblRealLong";
+            this.lblRealLong.Size = new System.Drawing.Size(70, 16);
+            this.lblRealLong.TabIndex = 40;
+            this.lblRealLong.Text = "Real Long";
+            // 
+            // txtRealLat
+            // 
+            this.txtRealLat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtRealLat.Location = new System.Drawing.Point(137, 245);
+            this.txtRealLat.Name = "txtRealLat";
+            this.txtRealLat.ReadOnly = true;
+            this.txtRealLat.Size = new System.Drawing.Size(280, 22);
+            this.txtRealLat.TabIndex = 41;
+            // 
+            // RealLong
+            // 
+            this.RealLong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.RealLong.Location = new System.Drawing.Point(137, 275);
+            this.RealLong.Name = "RealLong";
+            this.RealLong.ReadOnly = true;
+            this.RealLong.Size = new System.Drawing.Size(280, 22);
+            this.RealLong.TabIndex = 42;
+            // 
+            // btnRealLatLong
+            // 
+            this.btnRealLatLong.Location = new System.Drawing.Point(423, 259);
+            this.btnRealLatLong.Name = "btnRealLatLong";
+            this.btnRealLatLong.Size = new System.Drawing.Size(23, 23);
+            this.btnRealLatLong.TabIndex = 43;
+            this.btnRealLatLong.Text = "*";
+            this.btnRealLatLong.UseVisualStyleBackColor = true;
+            this.btnRealLatLong.Click += new System.EventHandler(this.btnRealLatLong_Click);
+            // 
             // AcceptanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(906, 502);
+            this.Controls.Add(this.btnRealLatLong);
+            this.Controls.Add(this.RealLong);
+            this.Controls.Add(this.txtRealLat);
+            this.Controls.Add(this.lblRealLong);
+            this.Controls.Add(this.lblRealLat);
             this.Controls.Add(this.lblGeostationId);
             this.Controls.Add(this.lblGeostationIdTitle);
             this.Controls.Add(this.btnMap);
@@ -500,5 +558,10 @@
         private System.Windows.Forms.Button btnMap;
         private System.Windows.Forms.Label lblGeostationIdTitle;
         private System.Windows.Forms.Label lblGeostationId;
+        private System.Windows.Forms.Label lblRealLat;
+        private System.Windows.Forms.Label lblRealLong;
+        private System.Windows.Forms.TextBox txtRealLat;
+        private System.Windows.Forms.TextBox RealLong;
+        private System.Windows.Forms.Button btnRealLatLong;
     }
 }

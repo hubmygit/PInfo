@@ -220,5 +220,10 @@ namespace PumpInfo
             txtDealer.Text = frmMap.mapFormGeoData.name;
             txtAddress.Text = frmMap.mapFormGeoData.address;
         }
+
+        private void btnRealLatLong_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
