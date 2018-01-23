@@ -223,7 +223,8 @@ namespace PumpInfo
 
         private void btnRealLatLong_Click(object sender, EventArgs e)
         {
-
+            frmRealCoordinates frmRealCoordinates = new frmRealCoordinates();
+            frmRealCoordinates.ShowDialog(this);
         }
     }
 }

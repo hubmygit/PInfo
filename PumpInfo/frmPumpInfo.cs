@@ -70,7 +70,7 @@ namespace PumpInfo
                 ImpData selectedItem = objList.Find(i => i.dataGridViewRowIndex == itemIndex);
                                 
                 AcceptanceForm frmAcceptance = new AcceptanceForm(selectedItem);
-                frmAcceptance.ShowDialog();
+                frmAcceptance.ShowDialog(this);
 
 
                 //1. refresh objList => is reference, so it's updated!
