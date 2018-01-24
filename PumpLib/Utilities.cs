@@ -42,8 +42,9 @@ namespace PumpLib
         public double pumpVolume = 0.0;
         public int sampleNo = 0;
         public string remarks = "";
-
+        
         public int geostationId = 0;
+        public Coordinates realCoordinates = new Coordinates();
 
         //data to json -> to MSSQL
         public int receiptDataId = 0;
@@ -75,7 +76,7 @@ namespace PumpLib
         }
 
         //public void addExtraData(string Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
-        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, double PumpVolume, int SampleNo, string Remarks, int GeostationId)
+        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, double PumpVolume, int SampleNo, string Remarks, int GeostationId, Coordinates RealCoordinates)
         {
             accepted = true;
 
@@ -88,6 +89,7 @@ namespace PumpLib
             sampleNo = SampleNo;
             remarks = Remarks;
             geostationId = GeostationId;
+            realCoordinates = RealCoordinates;
         }
 
         public void copyExtraData(ImpData otherObj)
@@ -103,6 +105,7 @@ namespace PumpLib
             sampleNo = otherObj.sampleNo;
             remarks = otherObj.remarks;
             geostationId = otherObj.geostationId;
+            realCoordinates = otherObj.realCoordinates;
         }
 
         public void removeExtraData()
@@ -120,6 +123,7 @@ namespace PumpLib
             sampleNo = 0;
             remarks = "";
             geostationId = 0;
+            realCoordinates = new Coordinates();
         }
 
         public string csvDateToSqlDate(string csvDate)
@@ -372,8 +376,8 @@ namespace PumpLib
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume], [SampleNo], [Remarks], [GeostationId]) VALUES " +
-                           "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId) ";
+            string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume], [SampleNo], [Remarks], [GeostationId], [CooLong], [CooLat]) VALUES " +
+                           "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId, @CooLong, @CooLat) ";
             try
             {
                 sqlConn.Open();
@@ -388,7 +392,9 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@PumpVolume", extraData.pumpVolume);
                 cmd.Parameters.AddWithValue("@SampleNo", extraData.sampleNo);
                 cmd.Parameters.AddWithValue("@Remarks", extraData.remarks);
-                cmd.Parameters.AddWithValue("@GeostationId", extraData.geostationId); 
+                cmd.Parameters.AddWithValue("@GeostationId", extraData.geostationId);
+                cmd.Parameters.AddWithValue("@CooLong", extraData.realCoordinates.longitude);
+                cmd.Parameters.AddWithValue("@CooLat", extraData.realCoordinates.latitude);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -814,7 +820,8 @@ namespace PumpLib
             SQLiteCommand cmd = new SQLiteCommand("SELECT RD.Id, RD.VehicleNo, datetime(RD.Dt) as Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
                                                   "RD.Accepted, ifnull(RD.ProcessedGroupId,0) as ProcessedGroupId, ifnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
                                                   "ifnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, " +
-                                                  "ifnull(ED.SampleNo,0) as SampleNo, ED.Remarks, ifnull(ED.GeostationId,0) as GeostationId " +
+                                                  "ifnull(ED.SampleNo,0) as SampleNo, ED.Remarks, ifnull(ED.GeostationId,0) as GeostationId, " + 
+                                                  "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat " +
                 " FROM [receiptData] RD left outer join [extraData] ED on RD.Id = ED.ReceiptDataId " +
                 " WHERE ifnull(RD.[ExportedGroupId], 0) = @ExportedGroupId ", sqlConn);
 
@@ -864,6 +871,7 @@ namespace PumpLib
                         objLine.sampleNo = Convert.ToInt32(reader["SampleNo"].ToString());
                         objLine.remarks = reader["Remarks"].ToString();
                         objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
+                        objLine.realCoordinates = new Coordinates() { longitude = reader["RealCooLong"].ToString().Replace(",", "."), latitude = reader["RealCooLat"].ToString().Replace(",", ".") };
                     }
 
                     ret.Add(objLine);
@@ -888,7 +896,8 @@ namespace PumpLib
             SqlCommand cmd = new SqlCommand("SELECT RD.Id, RD.VehicleNo, RD.Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
                                             "isnull(RD.Accepted,0) as Accepted, isnull(RD.ProcessedGroupId,0) as ProcessedGroupId, isnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
                                             "isnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, B.Name as BName, ED.Dealer, ED.Address, ED.ProductId, P.Name as PName, ED.Pump, ED.PumpVolume, " +
-                                            "isnull(ED.SampleNo,0) as SampleNo, isnull(RD.MachineNo,0) as MachineNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId " +
+                                            "isnull(ED.SampleNo,0) as SampleNo, isnull(RD.MachineNo,0) as MachineNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId, " +
+                                            "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat " +
                                             " FROM [receiptData] RD left outer join " + 
                                             "[extraData] ED on RD.Id = ED.ReceiptDataId left outer join " + 
                                             "[brand] B on B.id = ED.BrandId left outer join " +
@@ -935,6 +944,7 @@ namespace PumpLib
                         objLine.sampleNo = Convert.ToInt32(reader["SampleNo"].ToString());
                         objLine.remarks = reader["Remarks"].ToString();
                         objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
+                        objLine.realCoordinates = new Coordinates() { longitude = reader["RealCooLong"].ToString().Replace(",", "."), latitude = reader["RealCooLat"].ToString().Replace(",", ".") };
                     }
                                         
                         //brand Name -> constructor...new Brand(int id) --id = BrandId / name = DbUtilities.GetBrandsList()                         
@@ -1089,8 +1099,8 @@ namespace PumpLib
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [dbo].[extraData] (ReceiptDataId, ClientId, ClientReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId) " +
-                        " VALUES (@ReceiptDataId, @ClientId, @ClientReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId ) ";
+            string InsSt = "INSERT INTO [dbo].[extraData] (ReceiptDataId, ClientId, ClientReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId, CooLong, CooLat) " +
+                        " VALUES (@ReceiptDataId, @ClientId, @ClientReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId, @CooLong, @CooLat ) ";
 
             try
             {
@@ -1109,6 +1119,8 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@SampleNo", obj.sampleNo);
                 cmd.Parameters.AddWithValue("@Remarks", obj.remarks);
                 cmd.Parameters.AddWithValue("@GeostationId", obj.geostationId);
+                cmd.Parameters.AddWithValue("@CooLong", obj.realCoordinates.longitude);
+                cmd.Parameters.AddWithValue("@CooLat", obj.realCoordinates.latitude);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -1728,7 +1740,8 @@ namespace PumpLib
             ret = new object[] { obj.receiptDataId, obj.extraDataId, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
                                  obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
                                  obj.temp, obj.density, obj.volume, percDiff,
-                                 obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo, obj.geostationId };
+                                 obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo,
+                                 obj.geostationId, obj.realCoordinates.latitude, obj.realCoordinates.longitude };
 
             return ret;
         }
@@ -1753,7 +1766,8 @@ namespace PumpLib
                 ret = new object[] { obj.dataGridViewRowIndex, obj.accepted, obj.vehicleNo, obj.datetime.ToString("dd.MM.yyyy"),
                                      obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
                                      obj.temp, obj.density, obj.volume, percDiff,
-                                     obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo, obj.geostationId };
+                                     obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo,
+                                     obj.geostationId, obj.realCoordinates.latitude, obj.realCoordinates.longitude };
             }
             
             return ret;

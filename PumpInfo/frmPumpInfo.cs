@@ -49,6 +49,7 @@ namespace PumpInfo
                 List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
 
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+                dgvReceiptData.ClearSelection();
 
                 //bool successfulInsertion = DBU.InsertReceiptAllDataIntoSQLiteTable(objList);
             }
@@ -89,9 +90,9 @@ namespace PumpInfo
                 //List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList);
                 //4. refresh dataGridView
                 //GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+
                 dgvReceiptData["Accepted", e.RowIndex].Value = selectedItem.accepted;
-
-
+                
 
             }
         }

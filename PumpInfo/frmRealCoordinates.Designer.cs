@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvRealCoordinates = new System.Windows.Forms.DataGridView();
             this.ReceiptDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExtraDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,6 +43,9 @@
             this.Temp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Density = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnPrevLine = new System.Windows.Forms.Button();
+            this.btnSameDtLines = new System.Windows.Forms.Button();
+            this.btnAllLines = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealCoordinates)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,14 +53,17 @@
             // 
             this.dgvRealCoordinates.AllowUserToAddRows = false;
             this.dgvRealCoordinates.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRealCoordinates.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvRealCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRealCoordinates.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvRealCoordinates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRealCoordinates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ReceiptDataId,
@@ -72,21 +78,22 @@
             this.Temp,
             this.Density,
             this.Volume});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRealCoordinates.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvRealCoordinates.Location = new System.Drawing.Point(13, 86);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRealCoordinates.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvRealCoordinates.Location = new System.Drawing.Point(12, 81);
             this.dgvRealCoordinates.MultiSelect = false;
             this.dgvRealCoordinates.Name = "dgvRealCoordinates";
             this.dgvRealCoordinates.ReadOnly = true;
             this.dgvRealCoordinates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRealCoordinates.Size = new System.Drawing.Size(880, 138);
+            this.dgvRealCoordinates.Size = new System.Drawing.Size(880, 269);
             this.dgvRealCoordinates.TabIndex = 13;
+            this.dgvRealCoordinates.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRealCoordinates_CellDoubleClick);
             // 
             // ReceiptDataId
             // 
@@ -172,11 +179,53 @@
             this.Volume.ReadOnly = true;
             this.Volume.Width = 80;
             // 
+            // btnPrevLine
+            // 
+            this.btnPrevLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnPrevLine.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrevLine.Location = new System.Drawing.Point(13, 21);
+            this.btnPrevLine.Name = "btnPrevLine";
+            this.btnPrevLine.Size = new System.Drawing.Size(135, 40);
+            this.btnPrevLine.TabIndex = 28;
+            this.btnPrevLine.Text = "Προηγούμενη";
+            this.btnPrevLine.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrevLine.UseVisualStyleBackColor = true;
+            this.btnPrevLine.Click += new System.EventHandler(this.btnPrevLine_Click);
+            // 
+            // btnSameDtLines
+            // 
+            this.btnSameDtLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSameDtLines.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSameDtLines.Location = new System.Drawing.Point(154, 21);
+            this.btnSameDtLines.Name = "btnSameDtLines";
+            this.btnSameDtLines.Size = new System.Drawing.Size(135, 40);
+            this.btnSameDtLines.TabIndex = 29;
+            this.btnSameDtLines.Text = "Ημέρας";
+            this.btnSameDtLines.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSameDtLines.UseVisualStyleBackColor = true;
+            this.btnSameDtLines.Click += new System.EventHandler(this.btnSameDtLines_Click);
+            // 
+            // btnAllLines
+            // 
+            this.btnAllLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnAllLines.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAllLines.Location = new System.Drawing.Point(295, 21);
+            this.btnAllLines.Name = "btnAllLines";
+            this.btnAllLines.Size = new System.Drawing.Size(135, 40);
+            this.btnAllLines.TabIndex = 30;
+            this.btnAllLines.Text = "Όλα";
+            this.btnAllLines.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAllLines.UseVisualStyleBackColor = true;
+            this.btnAllLines.Click += new System.EventHandler(this.btnAllLines_Click);
+            // 
             // frmRealCoordinates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(906, 262);
+            this.ClientSize = new System.Drawing.Size(906, 362);
+            this.Controls.Add(this.btnAllLines);
+            this.Controls.Add(this.btnSameDtLines);
+            this.Controls.Add(this.btnPrevLine);
             this.Controls.Add(this.dgvRealCoordinates);
             this.Name = "frmRealCoordinates";
             this.Text = "Real Coordinates";
@@ -201,5 +250,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Temp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Density;
         private System.Windows.Forms.DataGridViewTextBoxColumn Volume;
+        public System.Windows.Forms.Button btnPrevLine;
+        public System.Windows.Forms.Button btnSameDtLines;
+        public System.Windows.Forms.Button btnAllLines;
     }
 }
