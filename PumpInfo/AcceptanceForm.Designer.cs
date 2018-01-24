@@ -68,7 +68,7 @@
             this.lblRealLat = new System.Windows.Forms.Label();
             this.lblRealLong = new System.Windows.Forms.Label();
             this.txtRealLat = new System.Windows.Forms.TextBox();
-            this.RealLong = new System.Windows.Forms.TextBox();
+            this.txtRealLong = new System.Windows.Forms.TextBox();
             this.btnRealLatLong = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).BeginInit();
             this.SuspendLayout();
@@ -458,14 +458,14 @@
             this.txtRealLat.Size = new System.Drawing.Size(280, 22);
             this.txtRealLat.TabIndex = 41;
             // 
-            // RealLong
+            // txtRealLong
             // 
-            this.RealLong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.RealLong.Location = new System.Drawing.Point(137, 275);
-            this.RealLong.Name = "RealLong";
-            this.RealLong.ReadOnly = true;
-            this.RealLong.Size = new System.Drawing.Size(280, 22);
-            this.RealLong.TabIndex = 42;
+            this.txtRealLong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtRealLong.Location = new System.Drawing.Point(137, 275);
+            this.txtRealLong.Name = "txtRealLong";
+            this.txtRealLong.ReadOnly = true;
+            this.txtRealLong.Size = new System.Drawing.Size(280, 22);
+            this.txtRealLong.TabIndex = 42;
             // 
             // btnRealLatLong
             // 
@@ -484,7 +484,7 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(906, 502);
             this.Controls.Add(this.btnRealLatLong);
-            this.Controls.Add(this.RealLong);
+            this.Controls.Add(this.txtRealLong);
             this.Controls.Add(this.txtRealLat);
             this.Controls.Add(this.lblRealLong);
             this.Controls.Add(this.lblRealLat);
@@ -561,7 +561,7 @@
         private System.Windows.Forms.Label lblRealLat;
         private System.Windows.Forms.Label lblRealLong;
         private System.Windows.Forms.TextBox txtRealLat;
-        private System.Windows.Forms.TextBox RealLong;
+        private System.Windows.Forms.TextBox txtRealLong;
         private System.Windows.Forms.Button btnRealLatLong;
     }
 }

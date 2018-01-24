@@ -20,6 +20,7 @@ namespace PumpInfo
         public ImpData AcceptedLineData = new ImpData();
         public List<ImpData> AllDataObjList = new List<ImpData>();
 
+        public Coordinates realCoordinates = new Coordinates();
         private void frmRealCoordinates_Load(object sender, EventArgs e)
         {
             AcceptedLineData = ((AcceptanceForm)this.Owner).obj;
@@ -105,11 +106,10 @@ namespace PumpInfo
         {
             if (e.RowIndex != -1)
             {
-                MessageBox.Show(dgvRealCoordinates.Rows[e.RowIndex].Cells["Latitude"].Value.ToString());
-                MessageBox.Show(dgvRealCoordinates.Rows[e.RowIndex].Cells["Longitude"].Value.ToString());
+                realCoordinates.latitude = dgvRealCoordinates.Rows[e.RowIndex].Cells["Latitude"].Value.ToString();
+                realCoordinates.longitude = dgvRealCoordinates.Rows[e.RowIndex].Cells["Longitude"].Value.ToString();
 
-                //AcceptedLineData.realLat = dgvRealCoordinates.Rows[e.RowIndex].Cells["Latitude"].Value;
-                //AcceptedLineData.realLong = dgvRealCoordinates.Rows[e.RowIndex].Cells["Longitude"].Value;
+                Close();
             }
         }
     }

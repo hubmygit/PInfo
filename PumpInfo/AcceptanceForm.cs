@@ -50,6 +50,11 @@ namespace PumpInfo
                 txtSampleNo.Text = obj.sampleNo.ToString();
                 txtRemarks.Text = obj.remarks;
 
+                //!!!!!! fill geostationId !!!!!!
+                lblGeostationId.Text = obj.geostationId.ToString();
+
+                txtRealLat.Text = obj.realCoordinates.latitude;
+                txtRealLong.Text = obj.realCoordinates.longitude;
             }
             
             
@@ -87,8 +92,9 @@ namespace PumpInfo
 
                 //obj.removeExtraData();
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
-                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), 
-                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text, Convert.ToInt32(lblGeostationId.Text));
+                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct),
+                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text,
+                                 Convert.ToInt32(lblGeostationId.Text), new Coordinates() { latitude = txtRealLat.Text, longitude = txtRealLong.Text });
                 //getComboboxItem_Brand
 
                 recordAction = RecordAction.Update;
@@ -99,7 +105,8 @@ namespace PumpInfo
             {
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
                 obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), 
-                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text, Convert.ToInt32(lblGeostationId.Text));
+                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text, 
+                                 Convert.ToInt32(lblGeostationId.Text), new Coordinates() { latitude = txtRealLat.Text, longitude = txtRealLong.Text });
 
                 recordAction = RecordAction.Insert;
 
@@ -224,7 +231,13 @@ namespace PumpInfo
         private void btnRealLatLong_Click(object sender, EventArgs e)
         {
             frmRealCoordinates frmRealCoordinates = new frmRealCoordinates();
+
+            frmRealCoordinates.realCoordinates = new Coordinates() { latitude = txtRealLat.Text, longitude = txtRealLong.Text };
+
             frmRealCoordinates.ShowDialog(this);
+
+            txtRealLat.Text = frmRealCoordinates.realCoordinates.latitude; //obj.realCoordinates.latitude;
+            txtRealLong.Text = frmRealCoordinates.realCoordinates.longitude; //obj.realCoordinates.longitude;
         }
     }
 }
