@@ -223,8 +223,8 @@ namespace PumpInfo
             }
             else
             {
-                realLat = txtRealLat.Text.Trim();
-                realLong = txtRealLong.Text.Trim();
+                realLat = txtRealLat.Text.Trim().Replace('.', ',');
+                realLong = txtRealLong.Text.Trim().Replace('.', ',');
             }
 
 
@@ -246,7 +246,7 @@ namespace PumpInfo
             string name = frmMap.mapFormGeoData.name;
             string address = frmMap.mapFormGeoData.address;
             
-            MessageBox.Show(id.ToString() + "\r\n" + name + "\r\n" + address);
+            //MessageBox.Show(id.ToString() + "\r\n" + name + "\r\n" + address);
 
             lblGeostationId.Text = frmMap.mapFormGeoData.id.ToString();
             txtDealer.Text = frmMap.mapFormGeoData.name;

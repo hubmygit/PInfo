@@ -39,12 +39,15 @@
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
+            this.gMap = new GMap.NET.WindowsForms.GMapControl();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 73);
+            this.label1.Location = new System.Drawing.Point(12, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 0;
@@ -53,7 +56,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 185);
+            this.label2.Location = new System.Drawing.Point(12, 76);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 1;
@@ -61,72 +64,121 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(112, 70);
+            this.textBox1.Location = new System.Drawing.Point(112, 12);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(191, 20);
             this.textBox1.TabIndex = 2;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(309, 70);
+            this.textBox2.Location = new System.Drawing.Point(309, 12);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(191, 20);
             this.textBox2.TabIndex = 3;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(506, 70);
+            this.textBox3.Location = new System.Drawing.Point(506, 12);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(191, 20);
             this.textBox3.TabIndex = 4;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(112, 111);
+            this.textBox4.Location = new System.Drawing.Point(112, 38);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(191, 20);
             this.textBox4.TabIndex = 5;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(309, 111);
+            this.textBox5.Location = new System.Drawing.Point(309, 38);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(191, 20);
             this.textBox5.TabIndex = 6;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(506, 111);
+            this.textBox6.Location = new System.Drawing.Point(506, 38);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(191, 20);
             this.textBox6.TabIndex = 7;
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(112, 182);
+            this.textBox7.Location = new System.Drawing.Point(112, 73);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(191, 20);
             this.textBox7.TabIndex = 10;
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(309, 182);
+            this.textBox8.Location = new System.Drawing.Point(309, 73);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(191, 20);
             this.textBox8.TabIndex = 9;
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(506, 182);
+            this.textBox9.Location = new System.Drawing.Point(506, 73);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(191, 20);
             this.textBox9.TabIndex = 8;
+            // 
+            // gMap
+            // 
+            this.gMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gMap.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.gMap.Bearing = 0F;
+            this.gMap.CanDragMap = true;
+            this.gMap.EmptyTileColor = System.Drawing.Color.Navy;
+            this.gMap.GrayScaleMode = true;
+            this.gMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.gMap.LevelsKeepInMemmory = 5;
+            this.gMap.Location = new System.Drawing.Point(12, 117);
+            this.gMap.MarkersEnabled = true;
+            this.gMap.MaxZoom = 100;
+            this.gMap.MinZoom = 2;
+            this.gMap.MouseWheelZoomEnabled = true;
+            this.gMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.gMap.Name = "gMap";
+            this.gMap.NegativeMode = false;
+            this.gMap.PolygonsEnabled = false;
+            this.gMap.RetryLoadTile = 0;
+            this.gMap.RoutesEnabled = false;
+            this.gMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.gMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.gMap.ShowTileGridLines = false;
+            this.gMap.Size = new System.Drawing.Size(685, 326);
+            this.gMap.TabIndex = 11;
+            this.gMap.Zoom = 12D;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 449);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.ShowEditingIcon = false;
+            this.dataGridView1.Size = new System.Drawing.Size(685, 120);
+            this.dataGridView1.TabIndex = 12;
             // 
             // SearchPlace
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(739, 367);
+            this.ClientSize = new System.Drawing.Size(715, 580);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.gMap);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.textBox9);
@@ -139,7 +191,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "SearchPlace";
-            this.Text = "Testing Form...";
+            this.Text = "Επιλογή Πρατηρίου";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,6 +211,8 @@
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBox9;
+        private GMap.NET.WindowsForms.GMapControl gMap;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 
