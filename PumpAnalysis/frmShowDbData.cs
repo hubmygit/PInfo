@@ -56,6 +56,27 @@ namespace PumpAnalysis
                 int receiptDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ReceiptDataId"].Value);
                 int extraDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value);
 
+
+                SampleFiles attachedFiles = new SampleFiles();
+                attachedFiles.ShowDialog();
+
+
+
+                //check -> "void addFilesIntoListView(ListView myListView, string[] fileNames)" from "protocol" project
+                ////Open File Dialog...
+                //OpenFileDialog ofd = new OpenFileDialog();
+                //ofd.Title = "Add Files";
+                //ofd.Multiselect = true; //array of files
+                //DialogResult result = ofd.ShowDialog();  //ofd.ShowDialog();
+
+                //if (ofd.FileName.Trim() == "" || result != DialogResult.OK)
+                //{
+                //    return;
+                //}
+
+
+
+
             }
         }
     }

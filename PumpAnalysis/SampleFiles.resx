@@ -117,79 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="ReceiptDataId.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="ExtraDataId.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Accepted.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Vehicle.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Date.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Time.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Latitude.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Longitude.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Weight.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Temp.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Density.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Volume.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="VolDiffPerc.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Brand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Dealer.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Address.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Product.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Pump.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="PumpVol.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="SampleNo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Remarks.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="MachineNo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GeostationId.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="RealLat.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="RealLong.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnOpenFile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAE1SURBVDhPnVG7asNAENQfJJ+QL8g3BPWqUgkSSKFekC9w
+        pSKNrV4QSCNSBBeq0qhxpcK4NDhFFENIYYMCQlK5uTntwvmUxI+BYXV3M7N7J0fQtu1CkUw2TfPIx/tR
+        VdV5Xdfvl/cv5FwndDPJJWTEkr+hhGPp+rX9Jjuk67o7lg4B8/NsRWe3T9pk82G60CEsHwKHMKPbcr3R
+        YnzDjEkwEfZAvIma5oKtPXS6Er/Oy4H57eOTgiAg13XJ8zyK4xiaaicEJnsCYRiGlKYpFUWhqxEyZXv/
+        BugubyBmiGHK85ySJNEVa0yDc7b3QIgYhSJE9X1/Z43K1t9hB5RleXyA0DYeFKBe+Qo8OUAgBlwBf8S8
+        Ckv+B4T4G1EUaTMq1scEjLMs0yZ0RsUa+yzZD4jR0aBhdpwf0oXOkRb5TIwAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="btnRemoveAll.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAFWSURBVDhPzZK/SsRAEMbvBQQfwMLKwkqwsjvSB6ysLQI+
+        gFap1CKlZ2oLuUYsFDmCYCERGyEiBBsbC1PdYRUl/8p1f8NtSCTkLB0Ydmbyfd/sTHaAlWU50q7woii2
+        qeV5vpFl2YepN11jHvguZIzixeaKmthbAFINOPz+nEn+fnutfN9XlmXVTg6uFqHT/d6OGq8tqaejfTWN
+        n0Xw9exUwLZtqzAMxYMgkJw6NxEBlFB8PHBEBCfmZnSE5DiOxJzkxHwXgaqqVnUSv12e1wLERiBJklqo
+        mYvA7+7MTcwIjMJ1jVDXyQJb5K/ZNNW1+OXkWF0N19Xd5KZfgG0bMrEeZzdN02VEGIPl9goA5KqGLEvR
+        ZkT4BtB13W4BTBOHLFKSDusitgQW2f8R4P8Tt97BX0wDU96D53kqiiI5zfuYQ/pNA0cQIdGZk5z6HLLY
+        ANOx4Zo8GPwAz+Ug+NQwPx0AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="btnRemoveFile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAFWSURBVDhPzZK/SsRAEMbvBQQfwMLKwkqwsjvSB6ysLQI+
+        gFap1CKlZ2oLuUYsFDmCYCERGyEiBBsbC1PdYRUl/8p1f8NtSCTkLB0Ydmbyfd/sTHaAlWU50q7woii2
+        qeV5vpFl2YepN11jHvguZIzixeaKmthbAFINOPz+nEn+fnutfN9XlmXVTg6uFqHT/d6OGq8tqaejfTWN
+        n0Xw9exUwLZtqzAMxYMgkJw6NxEBlFB8PHBEBCfmZnSE5DiOxJzkxHwXgaqqVnUSv12e1wLERiBJklqo
+        mYvA7+7MTcwIjMJ1jVDXyQJb5K/ZNNW1+OXkWF0N19Xd5KZfgG0bMrEeZzdN02VEGIPl9goA5KqGLEvR
+        ZkT4BtB13W4BTBOHLFKSDusitgQW2f8R4P8Tt97BX0wDU96D53kqiiI5zfuYQ/pNA0cQIdGZk5z6HLLY
+        ANOx4Zo8GPwAz+Ug+NQwPx0AAAAASUVORK5CYII=
+</value>
+  </data>
 </root>
