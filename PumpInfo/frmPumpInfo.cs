@@ -92,12 +92,7 @@ namespace PumpInfo
                 //GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
                 dgvReceiptData["Accepted", e.RowIndex].Value = selectedItem.accepted;
-
-                if ((selectedItem.realCoordinates.latitude.Trim() == "0" && selectedItem.realCoordinates.longitude.Trim() == "0") || 
-                    (selectedItem.realCoordinates.latitude.Trim() == "" && selectedItem.realCoordinates.longitude.Trim() == ""))
-                {
-                    selectedItem.realCoordinates = selectedItem.coordinates;
-                }
+                
             }
         }
 

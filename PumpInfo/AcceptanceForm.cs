@@ -90,6 +90,14 @@ namespace PumpInfo
             {
                 btnDel.Enabled = true;
 
+                if ((txtRealLat.Text.Trim() == "0" && txtRealLong.Text.Trim() == "0") ||
+                    (txtRealLat.Text.Trim() == "" && txtRealLong.Text.Trim() == ""))
+                {
+                    txtRealLat.Text = obj.coordinates.latitude;
+                    txtRealLong.Text = obj.coordinates.longitude;
+                }
+                
+
                 //obj.removeExtraData();
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
                 obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct),
@@ -103,6 +111,13 @@ namespace PumpInfo
             }
             else //insert
             {
+                if ((txtRealLat.Text.Trim() == "0" && txtRealLong.Text.Trim() == "0") ||
+                    (txtRealLat.Text.Trim() == "" && txtRealLong.Text.Trim() == ""))
+                {
+                    txtRealLat.Text = obj.coordinates.latitude;
+                    txtRealLong.Text = obj.coordinates.longitude;
+                }
+
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
                 obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), 
                                  txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text, 
