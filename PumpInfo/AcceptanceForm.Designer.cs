@@ -52,7 +52,6 @@
             this.lblPump = new System.Windows.Forms.Label();
             this.txtPump = new System.Windows.Forms.TextBox();
             this.lblProduct = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
             this.cbBrand = new System.Windows.Forms.ComboBox();
             this.cbProduct = new System.Windows.Forms.ComboBox();
             this.btnDel = new System.Windows.Forms.Button();
@@ -285,19 +284,6 @@
             this.lblProduct.TabIndex = 20;
             this.lblProduct.Text = "Product";
             // 
-            // btnClose
-            // 
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(757, 23);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(135, 40);
-            this.btnClose.TabIndex = 27;
-            this.btnClose.Text = "Έξοδος";
-            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
             // cbBrand
             // 
             this.cbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -498,7 +484,6 @@
             this.Controls.Add(this.lblVolDiffPerc);
             this.Controls.Add(this.cbProduct);
             this.Controls.Add(this.cbBrand);
-            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnDel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.lblPumpVol);
@@ -547,7 +532,6 @@
         private System.Windows.Forms.Label lblProduct;
         public System.Windows.Forms.Button btnAdd;
         public System.Windows.Forms.Button btnDel;
-        public System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.ComboBox cbBrand;
         private System.Windows.Forms.ComboBox cbProduct;
         private System.Windows.Forms.Label lblVolDiffPerc;

@@ -65,11 +65,6 @@ namespace PumpInfo
         public List<Brand> brands = DbUtilities.GetBrandsList();
         public List<Product> products = DbUtilities.GetProductsList();
         public double maxVolumeDiffPerc;
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
         
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -218,10 +213,25 @@ namespace PumpInfo
 
         private void btnMap_Click(object sender, EventArgs e)
         {
+            string realLat = "";
+            string realLong = "";
+
+            if ((txtRealLat.Text.Trim() == "0" && txtRealLong.Text.Trim() == "0") || (txtRealLat.Text.Trim() == "" && txtRealLong.Text.Trim() == ""))
+            {
+                realLat = dgvCurrentObj["latitude", 0].Value.ToString().Replace('.', ',');
+                realLong = dgvCurrentObj["longitude", 0].Value.ToString().Replace('.', ',');
+            }
+            else
+            {
+                realLat = txtRealLat.Text.Trim();
+                realLong = txtRealLong.Text.Trim();
+            }
+
+
             MapFormParams MapObj = new MapFormParams()
             {
-                latitude = Convert.ToDouble(dgvCurrentObj["latitude", 0].Value.ToString().Replace('.', ',')),   //38.2682,
-                longitude = Convert.ToDouble(dgvCurrentObj["longitude", 0].Value.ToString().Replace('.', ',')), //21.755,
+                latitude = Convert.ToDouble(realLat), //dgvCurrentObj["latitude", 0].Value.ToString().Replace('.', ',')),   //38.2682,
+                longitude = Convert.ToDouble(realLong), //dgvCurrentObj["longitude", 0].Value.ToString().Replace('.', ',')), //21.755,
                 radius = 150, //meters
                 apiKey = MapsApi.key, //"AIzaSyCxAKDi4ZgokHWCYK_5sQ8Dg-nlcLT2myo"
                 connectionString = SQLiteDBMap.connectionString, //Stationsdb.db

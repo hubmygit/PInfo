@@ -15,6 +15,8 @@ namespace PumpInfo
         public frmRealCoordinates()
         {
             InitializeComponent();
+
+            cbLinesFilter.Items.AddRange(new object[] { "Προηγούμενη Εγγραφή", "Εγγραφές Ημέρας", "Όλα" }); 
         }
 
         public ImpData AcceptedLineData = new ImpData();
@@ -26,82 +28,9 @@ namespace PumpInfo
             AcceptedLineData = ((AcceptanceForm)this.Owner).obj;
             AllDataObjList = ((frmPumpInfo)this.Owner.Owner).objList;
 
-            List<ImpData> prevLine = AllDataObjList.Where(i => (i.dataGridViewRowIndex == AcceptedLineData.dataGridViewRowIndex || i.dataGridViewRowIndex == AcceptedLineData.dataGridViewRowIndex - 1) && i.date == AcceptedLineData.date).ToList();
-            
-            DbUtilities dbu = new DbUtilities();
-            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(prevLine);
-            GridViewUtils.ShowDataToDataGridView(dgvRealCoordinates, ObjRows);
-
-            //...if index of list is equal to index of datagridview
-            int indexOfDataGridView = prevLine.FindIndex(i => i.dataGridViewRowIndex == AcceptedLineData.dataGridViewRowIndex);
-            dgvRealCoordinates.Rows[indexOfDataGridView].DefaultCellStyle.Font = new Font(dgvRealCoordinates.DefaultCellStyle.Font, FontStyle.Italic);
-            dgvRealCoordinates.Rows[indexOfDataGridView].DefaultCellStyle.BackColor = Color.LightSteelBlue;
-
-            dgvRealCoordinates.ClearSelection();
-
-            if (prevLine.Count < 2)
-            {
-                MessageBox.Show("Δε βρέθηκε πιό πρόσφατη εγγραφή με ίδια ημερομηνία!");
-            }
+            cbLinesFilter.SelectedIndex = 0;  //default: "Προηγούμενη Εγγραφή"
         }
-
-        private void btnPrevLine_Click(object sender, EventArgs e)
-        {
-            dgvRealCoordinates.Rows.Clear();
-
-            List<ImpData> prevLine = AllDataObjList.Where(i => (i.dataGridViewRowIndex == AcceptedLineData.dataGridViewRowIndex || i.dataGridViewRowIndex == AcceptedLineData.dataGridViewRowIndex - 1) && i.date == AcceptedLineData.date).ToList();
-            
-            DbUtilities dbu = new DbUtilities();
-            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(prevLine);
-            GridViewUtils.ShowDataToDataGridView(dgvRealCoordinates, ObjRows);
-
-            //...if index of list is equal to index of datagridview
-            int indexOfDataGridView = prevLine.FindIndex(i => i.dataGridViewRowIndex == AcceptedLineData.dataGridViewRowIndex);
-            dgvRealCoordinates.Rows[indexOfDataGridView].DefaultCellStyle.Font = new Font(dgvRealCoordinates.DefaultCellStyle.Font, FontStyle.Italic);
-            dgvRealCoordinates.Rows[indexOfDataGridView].DefaultCellStyle.BackColor = Color.LightSteelBlue;
-
-            dgvRealCoordinates.ClearSelection();
-
-            if (prevLine.Count < 2)
-            {
-                MessageBox.Show("Δε βρέθηκε πιό πρόσφατη εγγραφή με ίδια ημερομηνία!");
-            }
-        }
-
-        private void btnSameDtLines_Click(object sender, EventArgs e)
-        {
-            dgvRealCoordinates.Rows.Clear();
-
-            List<ImpData> sameDateLines = AllDataObjList.Where(i => i.date == AcceptedLineData.date).ToList();
-            DbUtilities dbu = new DbUtilities();
-            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(sameDateLines);
-            GridViewUtils.ShowDataToDataGridView(dgvRealCoordinates, ObjRows);
-
-            //...if index of list is equal to index of datagridview
-            int indexOfDataGridView = sameDateLines.FindIndex(i => i.dataGridViewRowIndex == AcceptedLineData.dataGridViewRowIndex);
-            dgvRealCoordinates.Rows[indexOfDataGridView].DefaultCellStyle.Font = new Font(dgvRealCoordinates.DefaultCellStyle.Font, FontStyle.Italic);
-            dgvRealCoordinates.Rows[indexOfDataGridView].DefaultCellStyle.BackColor = Color.LightSteelBlue;
-            
-            dgvRealCoordinates.ClearSelection();
-        }
-
-        private void btnAllLines_Click(object sender, EventArgs e)
-        {
-            dgvRealCoordinates.Rows.Clear();
-
-            List<ImpData> allLines = AllDataObjList;
-            DbUtilities dbu = new DbUtilities();
-            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(allLines);
-            GridViewUtils.ShowDataToDataGridView(dgvRealCoordinates, ObjRows);
-
-            //...if index of list is equal to index of datagridview
-            int indexOfDataGridView = allLines.FindIndex(i => i.dataGridViewRowIndex == AcceptedLineData.dataGridViewRowIndex);
-            dgvRealCoordinates.Rows[indexOfDataGridView].DefaultCellStyle.Font = new Font(dgvRealCoordinates.DefaultCellStyle.Font, FontStyle.Italic);
-            dgvRealCoordinates.Rows[indexOfDataGridView].DefaultCellStyle.BackColor = Color.LightSteelBlue;
-
-            dgvRealCoordinates.ClearSelection();
-        }
-
+        
         private void dgvRealCoordinates_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
@@ -111,6 +40,38 @@ namespace PumpInfo
 
                 Close();
             }
+        }
+
+        private void cbLinesFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dgvRealCoordinates.Rows.Clear();
+            List<ImpData> filteredLines = new List<ImpData>();
+
+            if (cbLinesFilter.SelectedIndex == 0) //"Προηγούμενη Εγγραφή"
+            {
+                filteredLines = AllDataObjList.Where(i => (i.dataGridViewRowIndex == AcceptedLineData.dataGridViewRowIndex || i.dataGridViewRowIndex == AcceptedLineData.dataGridViewRowIndex - 1) && i.date == AcceptedLineData.date).ToList();
+                if (filteredLines.Count < 2)
+                {
+                    MessageBox.Show("Δε βρέθηκε πιό πρόσφατη εγγραφή με ίδια ημερομηνία!");
+                }
+            }
+            else if (cbLinesFilter.SelectedIndex == 1) //"Εγγραφές Ημέρας"
+            {
+                filteredLines = AllDataObjList.Where(i => i.date == AcceptedLineData.date).ToList();
+            }
+            else if (cbLinesFilter.SelectedIndex == 2) //"Όλα"
+            {
+                filteredLines = AllDataObjList;
+            }
+
+            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
+            GridViewUtils.ShowDataToDataGridView(dgvRealCoordinates, ObjRows);
+
+            //index of list 'filteredLines' is equal to index of datagridview (added in the same order) so...
+            int indexOfDataGridView = filteredLines.FindIndex(i => i.dataGridViewRowIndex == AcceptedLineData.dataGridViewRowIndex);
+            dgvRealCoordinates.Rows[indexOfDataGridView].DefaultCellStyle.Font = new Font(dgvRealCoordinates.DefaultCellStyle.Font, FontStyle.Italic);
+            dgvRealCoordinates.Rows[indexOfDataGridView].DefaultCellStyle.BackColor = Color.LightSteelBlue;
+            dgvRealCoordinates.ClearSelection();
         }
     }
 }

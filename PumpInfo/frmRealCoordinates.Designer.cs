@@ -43,9 +43,7 @@
             this.Temp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Density = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnPrevLine = new System.Windows.Forms.Button();
-            this.btnSameDtLines = new System.Windows.Forms.Button();
-            this.btnAllLines = new System.Windows.Forms.Button();
+            this.cbLinesFilter = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealCoordinates)).BeginInit();
             this.SuspendLayout();
             // 
@@ -179,53 +177,23 @@
             this.Volume.ReadOnly = true;
             this.Volume.Width = 80;
             // 
-            // btnPrevLine
+            // cbLinesFilter
             // 
-            this.btnPrevLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnPrevLine.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrevLine.Location = new System.Drawing.Point(13, 21);
-            this.btnPrevLine.Name = "btnPrevLine";
-            this.btnPrevLine.Size = new System.Drawing.Size(135, 40);
-            this.btnPrevLine.TabIndex = 28;
-            this.btnPrevLine.Text = "Προηγούμενη";
-            this.btnPrevLine.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPrevLine.UseVisualStyleBackColor = true;
-            this.btnPrevLine.Click += new System.EventHandler(this.btnPrevLine_Click);
-            // 
-            // btnSameDtLines
-            // 
-            this.btnSameDtLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSameDtLines.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSameDtLines.Location = new System.Drawing.Point(154, 21);
-            this.btnSameDtLines.Name = "btnSameDtLines";
-            this.btnSameDtLines.Size = new System.Drawing.Size(135, 40);
-            this.btnSameDtLines.TabIndex = 29;
-            this.btnSameDtLines.Text = "Ημέρας";
-            this.btnSameDtLines.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSameDtLines.UseVisualStyleBackColor = true;
-            this.btnSameDtLines.Click += new System.EventHandler(this.btnSameDtLines_Click);
-            // 
-            // btnAllLines
-            // 
-            this.btnAllLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnAllLines.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAllLines.Location = new System.Drawing.Point(295, 21);
-            this.btnAllLines.Name = "btnAllLines";
-            this.btnAllLines.Size = new System.Drawing.Size(135, 40);
-            this.btnAllLines.TabIndex = 30;
-            this.btnAllLines.Text = "Όλα";
-            this.btnAllLines.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAllLines.UseVisualStyleBackColor = true;
-            this.btnAllLines.Click += new System.EventHandler(this.btnAllLines_Click);
+            this.cbLinesFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLinesFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbLinesFilter.FormattingEnabled = true;
+            this.cbLinesFilter.Location = new System.Drawing.Point(12, 24);
+            this.cbLinesFilter.Name = "cbLinesFilter";
+            this.cbLinesFilter.Size = new System.Drawing.Size(280, 28);
+            this.cbLinesFilter.TabIndex = 32;
+            this.cbLinesFilter.SelectedIndexChanged += new System.EventHandler(this.cbLinesFilter_SelectedIndexChanged);
             // 
             // frmRealCoordinates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(906, 362);
-            this.Controls.Add(this.btnAllLines);
-            this.Controls.Add(this.btnSameDtLines);
-            this.Controls.Add(this.btnPrevLine);
+            this.Controls.Add(this.cbLinesFilter);
             this.Controls.Add(this.dgvRealCoordinates);
             this.Name = "frmRealCoordinates";
             this.Text = "Real Coordinates";
@@ -250,8 +218,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Temp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Density;
         private System.Windows.Forms.DataGridViewTextBoxColumn Volume;
-        public System.Windows.Forms.Button btnPrevLine;
-        public System.Windows.Forms.Button btnSameDtLines;
-        public System.Windows.Forms.Button btnAllLines;
+        private System.Windows.Forms.ComboBox cbLinesFilter;
     }
 }
