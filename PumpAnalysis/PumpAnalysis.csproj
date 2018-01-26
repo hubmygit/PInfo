@@ -111,5 +111,14 @@
   <ItemGroup>
     <None Include="Resources\ShowDbData_32x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddAttachment_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeleteAttachment_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenAttachment_16x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

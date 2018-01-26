@@ -55,9 +55,8 @@ namespace PumpAnalysis
             {
                 int receiptDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ReceiptDataId"].Value);
                 int extraDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value);
-
-
-                SampleFiles attachedFiles = new SampleFiles();
+                
+                SampleFiles attachedFiles = new SampleFiles(extraDataId);
                 attachedFiles.ShowDialog();
 
 
