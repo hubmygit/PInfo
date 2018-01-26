@@ -247,7 +247,7 @@ namespace PumpAnalysis
                         return;
                     }
                 }
-                else //path and filename from database into lv
+                else //path and filename from local dir into lv
                 //insert || update -> update ??? mixed files, check... 
                 {               
                     lvPath = lvAttachedFiles.SelectedItems[0].SubItems[1].Text;
@@ -302,6 +302,23 @@ namespace PumpAnalysis
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            //delete all & Insert OR flag:inactive & Insert...
+
+            //foreach (ListViewItem lvi in lvAttachedFiles.Items)
+            //{
+            //    if (lvAttachedFiles.SelectedItems[0].SubItems.Count == 1) //from db - only filename
+            //    {
+            //    }
+            //    else //locally - path and filename
+            //    {
+            //    }
+            //}
+
+            //OR save all attachments locally if any exists in db
+            //delete them from list (and from db or flag them)
+            //add them with name and path, this time
+            //follow the routine of insert!
+
             string action = "";
             if (action == "Insert") //new record into [dbo].[sampleFiles]
             {
