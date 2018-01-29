@@ -302,69 +302,100 @@ namespace PumpAnalysis
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //delete all & Insert OR flag:inactive & Insert...
-
-            //foreach (ListViewItem lvi in lvAttachedFiles.Items)
-            //{
-            //    if (lvAttachedFiles.SelectedItems[0].SubItems.Count == 1) //from db - only filename
-            //    {
-            //    }
-            //    else //locally - path and filename
-            //    {
-            //    }
-            //}
-
-            //OR save all attachments locally if any exists in db
-            //delete them from list (and from db or flag them)
-            //add them with name and path, this time
-            //follow the routine of insert!
-
-            string action = "";
-            if (action == "Insert") //new record into [dbo].[sampleFiles]
+            if (lvAttachedFiles.Items.Count > 0)
             {
-                //insert attachments into db
+                List<ListViewItem> newLvItems = new List<ListViewItem>();
+                
                 foreach (ListViewItem lvi in lvAttachedFiles.Items)
                 {
-                    string attFileName = lvi.SubItems[1].Text;
-                    List<string> AttFilesList = new List<string>();
-                    AttFilesList.Add(attFileName);
-                    byte[] attFileBytes = System.IO.File.ReadAllBytes(attFileName);
+                    if (lvi.SubItems.Count == 1) //only filename into lv -> from db
+                    {
+                        LvFileInfo lvfi = saveAttachmentLocally(extraDataId, lvi.SubItems[0].Text);
 
-                    //INSERT [dbo].[ProtokPdf]
+                        newLvItems.Add(new ListViewItem(new string[] { lvfi.FileName, lvfi.FilePath }));
+                    }
+                    else //path and filename into lv -> from local dir : ok
+                    {
+                        newLvItems.Add(lvi);
+                    }
+                }
+
+                Delete_SampleFiles(extraDataId); //delete from db
+
+                //lvAttachedFiles.Items.Clear();
+                //lvAttachedFiles.Items.AddRange(newLvItems.ToArray());
+
+                //insert attachments into db
+                foreach (ListViewItem lvi in newLvItems)
+                {
+                    byte[] attFileBytes = File.ReadAllBytes(lvi.SubItems[1].Text);
+
                     if (!InertIntoTable_SampleFiles(extraDataId, lvi.SubItems[0].Text, attFileBytes))
                     {
                         MessageBox.Show("Αποτυχία αποθήκευσης του αρχείου: " + lvi.SubItems[0].Text);
                     }
                 }
+                
+                Close();
             }
-            else if (action == "Update")
+            else
             {
-                //get 'Attachments' from SampleFiles and extract files to Temp
-                List<LvFileInfo> AttFilesPath = saveAttachmentsLocally(extraDataId);
-                addTmpFilesIntoListView(lvAttachedFiles, AttFilesPath);
+                MessageBox.Show("Δεν υπάρχουν αρχεία προς αποθήκευση!");
             }
         }
 
-        void addTmpFilesIntoListView(ListView myListView, List<LvFileInfo> fileNames)
+        private bool Delete_SampleFiles(int Id) 
         {
-            foreach (LvFileInfo thisFile in fileNames)
+            bool ret = false;
+
+            if (Id > 0)
             {
-                foreach (ListViewItem lvi in myListView.Items)
+                SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+                string InsSt = "DELETE FROM [dbo].[SampleFiles] WHERE ExtraDataId = @ExtraDataId ";
+                try
                 {
-                    if (lvi.SubItems[0].Text.ToUpper() == thisFile.FileName.ToUpper())
-                    {
-                        break;
-                    }
-                }
+                    sqlConn.Open();
+                    SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+                    cmd.Parameters.AddWithValue("@ExtraDataId", Id);
+                    cmd.CommandType = CommandType.Text;
+                    //int rowsAffected = cmd.ExecuteNonQuery();
 
-                ListViewItem lvItem = new ListViewItem(new string[] { thisFile.FileName, thisFile.FilePath });
-                myListView.Items.Add(lvItem);
+                    cmd.ExecuteNonQuery();
+
+                    //if (rowsAffected > 0)
+                    //{
+                    ret = true;
+                    //}
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
             }
+
+            return ret;
         }
 
-        List<LvFileInfo> saveAttachmentsLocally(int Id)
+        //void addTmpFilesIntoListView(ListView myListView, List<LvFileInfo> fileNames)
+        //{
+        //    foreach (LvFileInfo thisFile in fileNames)
+        //    {
+        //        foreach (ListViewItem lvi in myListView.Items)
+        //        {
+        //            if (lvi.SubItems[0].Text.ToUpper() == thisFile.FileName.ToUpper())
+        //            {
+        //                break;
+        //            }
+        //        }
+
+        //        ListViewItem lvItem = new ListViewItem(new string[] { thisFile.FileName, thisFile.FilePath });
+        //        myListView.Items.Add(lvItem);
+        //    }
+        //}
+
+        LvFileInfo saveAttachmentLocally(int Id, string Filename)
         {
-            List<LvFileInfo> ret = new List<LvFileInfo>();
+            LvFileInfo ret = new LvFileInfo();
             string tempPath = Path.GetTempPath(); //C:\Users\hkylidis\AppData\Local\Temp\
             try
             {
@@ -380,15 +411,16 @@ namespace PumpAnalysis
             }
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT [Filename], [FileCont] FROM [dbo].[SampleFiles] WHERE ExtraDataId = @ExtraDataId";
+            string SelectSt = "SELECT [Filename], [FileCont] FROM [dbo].[SampleFiles] WHERE ExtraDataId = @ExtraDataId and Filename = @Filename ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
                 sqlConn.Open();
                 cmd.Parameters.AddWithValue("@ExtraDataId", Id);
+                cmd.Parameters.AddWithValue("@Filename", Filename);
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read())
+                if (reader.Read())
                 {
                     string realFileName = reader["Filename"].ToString().Trim();
                     //string tempFile = Path.Combine(tempPath, Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + "~" + realFileName);
@@ -416,7 +448,7 @@ namespace PumpAnalysis
 
                     }
 
-                    ret.Add(new LvFileInfo { FileName = realFileName, FilePath = tempFile });
+                    ret = new LvFileInfo { FileName = realFileName, FilePath = tempFile };
                 }
                 reader.Close();
             }
@@ -428,6 +460,73 @@ namespace PumpAnalysis
 
             return ret;
         }
+
+        //List<LvFileInfo> saveAttachmentsLocally(int Id)
+        //{
+        //    List<LvFileInfo> ret = new List<LvFileInfo>();
+        //    string tempPath = Path.GetTempPath(); //C:\Users\hkylidis\AppData\Local\Temp\
+        //    try
+        //    {
+        //        if (!Directory.Exists(tempPath))
+        //        {
+        //            MessageBox.Show("Σφάλμα. Παρακαλώ ελέγξτε τα δικαιώματά σας στο " + tempPath);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("The following error occurred: " + ex.Message);
+        //        return ret;
+        //    }
+
+        //    SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+        //    string SelectSt = "SELECT [Filename], [FileCont] FROM [dbo].[SampleFiles] WHERE ExtraDataId = @ExtraDataId";
+        //    SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+        //    try
+        //    {
+        //        sqlConn.Open();
+        //        cmd.Parameters.AddWithValue("@ExtraDataId", Id);
+        //        SqlDataReader reader = cmd.ExecuteReader();
+
+        //        while (reader.Read())
+        //        {
+        //            string realFileName = reader["Filename"].ToString().Trim();
+        //            //string tempFile = Path.Combine(tempPath, Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + "~" + realFileName);
+        //            //temp file -> attachment name with temp name and tilda 'tmp123~ΦΕΚ123.pdf'
+        //            string tempFile = Path.Combine(tempPath, realFileName);
+        //            try
+        //            {
+        //                File.WriteAllBytes(tempFile, (byte[])reader["FileCont"]);
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show("Παρουσιάστηκε πρόβλημα κατά την προσωρινή αποθήκευση του συδεδεμένου Αρχείου: '" + realFileName +
+        //                    "'\r\n\r\n\r\nΛεπτομέρειες:\r\n" + ex.Message);
+        //                try
+        //                {
+        //                    tempFile = Path.Combine(tempPath, Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + "~" + realFileName);
+        //                    File.WriteAllBytes(tempFile, (byte[])reader["FileCont"]);
+
+        //                    MessageBox.Show("Προσοχή! Το αρχείο θα αποθηκευτεί με όνομα: " + tempFile);
+        //                }
+        //                catch (Exception ex2)
+        //                {
+        //                    MessageBox.Show("Προσοχή! Το αρχείο " + realFileName + " δε θα αποθηκευτεί!");
+        //                }
+
+        //            }
+
+        //            ret.Add(new LvFileInfo { FileName = realFileName, FilePath = tempFile });
+        //        }
+        //        reader.Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("The following error occurred: " + ex.Message);
+        //        return ret;
+        //    }
+
+        //    return ret;
+        //}
 
         private bool InertIntoTable_SampleFiles(int Id, string fileName, byte[] fileBytes) //INSERT [dbo].[SampleFiles]
         {

@@ -23,7 +23,6 @@ namespace PumpAnalysis
             List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(objList);
 
             GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
-
         }
 
         private void dgvReceiptData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
