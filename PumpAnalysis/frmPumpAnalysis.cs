@@ -24,6 +24,11 @@ namespace PumpAnalysis
         public string json_path;
         byte[] fileBytes;
         RowsCounter counters = new RowsCounter();
+
+        // VehicleTrace -->
+        public List<VehicleTrace> vtObjList = new List<VehicleTrace>();
+        // VehicleTrace <--
+
         private void btnImport_Click(object sender, EventArgs e)
         {
             DbUtilities dbu = new DbUtilities();
@@ -101,7 +106,8 @@ namespace PumpAnalysis
 
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
                 
-                lblImpFile.Text = "Αρχείο: " + json_filename;                
+                lblImpFile.Text = "Αρχείο: " + json_filename;
+                
             }
             else
             {
@@ -157,6 +163,12 @@ namespace PumpAnalysis
                     Output.WriteToFile(ex.Message, true);
                     insSuccess = false;
                 }
+
+                // VehicleTrace -->
+                //vtObjList -> insert to DB (dbo.VehicleTrace)
+                // VehicleTrace <--
+
+
 
                 if (insSuccess)
                 {

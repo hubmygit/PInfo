@@ -900,10 +900,10 @@ namespace PumpLib
                                             "isnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, B.Name as BName, ED.Dealer, ED.Address, ED.ProductId, P.Name as PName, ED.Pump, ED.PumpVolume, " +
                                             "isnull(ED.SampleNo,0) as SampleNo, isnull(RD.MachineNo,0) as MachineNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId, " +
                                             "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat " +
-                                            " FROM [receiptData] RD left outer join " + 
-                                            "[extraData] ED on RD.Id = ED.ReceiptDataId left outer join " + 
-                                            "[brand] B on B.id = ED.BrandId left outer join " +
-                                            "[product] P on P.id = ED.ProductId " +
+                                            " FROM [dbo].[receiptData] RD left outer join " +
+                                            "[dbo].[extraData] ED on RD.Id = ED.ReceiptDataId left outer join " +
+                                            "[dbo].[brand] B on B.id = ED.BrandId left outer join " +
+                                            "[dbo].[product] P on P.id = ED.ProductId " +
                                             " WHERE isnull(RD.Accepted, 0) = 1 ", sqlConn);
 
             try
@@ -1071,7 +1071,7 @@ namespace PumpLib
             int ret = -1;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id FROM [receiptData] WHERE ClientId = @ClientReceiptDataId and MachineNo = @MachineNo ";
+            string SelectSt = "SELECT Id FROM [dbo].[receiptData] WHERE ClientId = @ClientReceiptDataId and MachineNo = @MachineNo ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
 
             cmd.Parameters.AddWithValue("@ClientReceiptDataId", ClientReceiptDataId);
@@ -1367,7 +1367,7 @@ namespace PumpLib
             List<Brand> ret = new List<Brand>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, Name FROM [Brand] ORDER BY Name ";
+            string SelectSt = "SELECT Id, Name FROM [dbo].[Brand] ORDER BY Name ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1438,7 +1438,7 @@ namespace PumpLib
             List<Product> ret = new List<Product>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, Name FROM [Product] ORDER BY Name ";
+            string SelectSt = "SELECT Id, Name FROM [dbo].[Product] ORDER BY Name ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
