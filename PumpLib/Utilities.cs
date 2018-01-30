@@ -1102,14 +1102,12 @@ namespace PumpLib
             string ProcGroupIds = String.Join(",", ProcessGroupIds);
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
-            string SelectSt = "SELECT Id, ProcessedGroupId, MachineNo, VehicleNo, DtYear, DtMonth, Km FROM [VehicleTrace] WHERE ProcessedGroupId IN(@ProcessedGroupId) ";
+            string SelectSt = "SELECT Id, ProcessedGroupId, MachineNo, VehicleNo, DtYear, DtMonth, Km FROM [VehicleTrace] WHERE ProcessedGroupId IN ( " + ProcGroupIds + " ) ";
 
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
             {
                 sqlConn.Open();
-
-                cmd.Parameters.AddWithValue("@ProcessedGroupId", ProcGroupIds);
 
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -1193,6 +1191,13 @@ namespace PumpLib
             //**json to object list**
             //List<ImpData> desObjAll = new JavaScriptSerializer().Deserialize<List<ImpData>>(jsonAll);
             
+            return jsonAll;
+        }
+
+        public string ObjectListToJson(ImpData_And_VehicleTrace obj)
+        {
+            string jsonAll = new JavaScriptSerializer().Serialize(obj);
+
             return jsonAll;
         }
 
@@ -1973,6 +1978,11 @@ namespace PumpLib
         public DateTime InsDt { get; set; }
     }
 
+    public class ImpData_And_VehicleTrace
+    {
+        public List<ImpData> impData;
+        public List<VehicleTrace> vehicleTrace;
+    }
 
     //public class MapFormParams
     //{
