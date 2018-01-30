@@ -629,6 +629,8 @@ namespace PumpLib
 
             }
 
+            int haveData_Month = 0; //VehicleTrace
+
             foreach (ImpData thisLine in ImpDataList)
             {
                 if (InsertReceiptLineDataIntoSQLiteTable(thisLine, ProcessedGroupId))
@@ -648,6 +650,29 @@ namespace PumpLib
                         {
                             MessageBox.Show("Αποτυχία καταχώρησης συμπληρωματικών πληροφοριών! \r\nId Κύριας Εγγραφής: " + receiptId.ToString());
                         }
+
+                        // VehicleTrace -->
+                        else
+                        {
+                            thisLine.processedGroupId = ProcessedGroupId;
+                            //int PGroupId = thisLine.processedGroupId;
+                            //int VehicleNo = thisLine.vehicleNo;
+                            //int MachineNo = thisLine.machineNo;
+                            //int Year = thisLine.datetime.Year;
+                            int Month = thisLine.datetime.Month;
+                            //int Km = 12200;
+
+                            if (thisLine.datetime.Month != haveData_Month)
+                            {
+                                //Give final Km  -> new Form
+                                //Km = 12500;
+                                //Insert data --prGrId, veh, mach, date.month, km, 
+                                haveData_Month = thisLine.datetime.Month;
+                            }
+
+                        }
+                        // VehicleTrace <--
+
                     }
                 }
                 else

@@ -64,6 +64,12 @@
     <Compile Include="frmRealCoordinates.Designer.cs">
       <DependentUpon>frmRealCoordinates.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSetKm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSetKm.Designer.cs">
+      <DependentUpon>frmSetKm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AcceptanceForm.resx">
