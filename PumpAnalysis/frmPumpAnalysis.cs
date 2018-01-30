@@ -65,7 +65,13 @@ namespace PumpAnalysis
 
             //get byte[] ready to import into table
 
-            List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
+            // VehicleTrace -->
+            ImpData_And_VehicleTrace AllData = dbu.JsonToMultipleObject(read_data);
+            List<ImpData> DataToMigrateNew = AllData.impData;
+            List<VehicleTrace> VehicleTraceToMigrate = AllData.vehicleTrace;
+            // VehicleTrace <--
+
+            List <ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
 
             counters.fileRows = DataToMigrate.Count;
             counters.fileAccRows = DataToMigrate.Count(i => i.accepted == true);

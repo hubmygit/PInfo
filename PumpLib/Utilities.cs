@@ -1208,6 +1208,13 @@ namespace PumpLib
             return desObjAll;
         }
 
+        public ImpData_And_VehicleTrace JsonToMultipleObject(string jsonFile)
+        {
+            ImpData_And_VehicleTrace desObjAll = new JavaScriptSerializer().Deserialize<ImpData_And_VehicleTrace>(jsonFile);
+
+            return desObjAll;
+        }
+
         public T stringToGenericObject<T>(string jsonFile)
         {
             T desObjAll = new JavaScriptSerializer().Deserialize<T>(jsonFile);
@@ -1629,7 +1636,7 @@ namespace PumpLib
             return ret;
         }
 
-        public bool InsertInto_VehicleTrace(ImpData obj, int Km) //toDo: include into ImpData object
+        public bool InsertInto_VehicleTrace(ImpData obj, int Km)
         {
             bool ret = false;
 
@@ -1975,7 +1982,7 @@ namespace PumpLib
         public int DtYear { get; set; }
         public int DtMonth { get; set; }
         public int Km { get; set; }
-        public DateTime InsDt { get; set; }
+        //public DateTime InsDt { get; set; }
     }
 
     public class ImpData_And_VehicleTrace

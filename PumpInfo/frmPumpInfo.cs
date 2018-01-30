@@ -120,7 +120,7 @@ namespace PumpInfo
 
                         int GivenKm = Convert.ToInt32(setKmForm.txtKm.Text);
 
-                        if (!dbu.InsertInto_VehicleTrace(thisLine, GivenKm))//toDo: include into ImpData object
+                        if (!dbu.InsertInto_VehicleTrace(thisLine, GivenKm))
                         {
                             insSuccess = false;
                         }
