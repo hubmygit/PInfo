@@ -628,11 +628,11 @@ namespace PumpLib
                 }
 
             }
-
-            int haveData_Month = 0; //VehicleTrace
-
+            
             foreach (ImpData thisLine in ImpDataList)
             {
+                thisLine.processedGroupId = ProcessedGroupId;
+
                 if (InsertReceiptLineDataIntoSQLiteTable(thisLine, ProcessedGroupId))
                 {
                     if (thisLine.accepted)
@@ -650,29 +650,6 @@ namespace PumpLib
                         {
                             MessageBox.Show("Αποτυχία καταχώρησης συμπληρωματικών πληροφοριών! \r\nId Κύριας Εγγραφής: " + receiptId.ToString());
                         }
-
-                        // VehicleTrace -->
-                        else
-                        {
-                            thisLine.processedGroupId = ProcessedGroupId;
-                            //int PGroupId = thisLine.processedGroupId;
-                            //int VehicleNo = thisLine.vehicleNo;
-                            //int MachineNo = thisLine.machineNo;
-                            //int Year = thisLine.datetime.Year;
-                            int Month = thisLine.datetime.Month;
-                            //int Km = 12200;
-
-                            if (thisLine.datetime.Month != haveData_Month)
-                            {
-                                //Give final Km  -> new Form
-                                //Km = 12500;
-                                //Insert data --prGrId, veh, mach, date.month, km, 
-                                haveData_Month = thisLine.datetime.Month;
-                            }
-
-                        }
-                        // VehicleTrace <--
-
                     }
                 }
                 else
@@ -1118,6 +1095,46 @@ namespace PumpLib
             return ret;
         }
 
+        public List<VehicleTrace> Get_VehicleTrace_Data(List<int> ProcessGroupIds)
+        {
+            List<VehicleTrace> ret = new List<VehicleTrace>();
+
+            string ProcGroupIds = String.Join(",", ProcessGroupIds);
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT Id, ProcessedGroupId, MachineNo, VehicleNo, DtYear, DtMonth, Km FROM [VehicleTrace] WHERE ProcessedGroupId IN(@ProcessedGroupId) ";
+
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@ProcessedGroupId", ProcGroupIds);
+
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new VehicleTrace()
+                    {
+                        Id = Convert.ToInt32(reader["Id"].ToString()),
+                        ProcessedGroupId = Convert.ToInt32(reader["ProcessedGroupId"].ToString()),
+                        MachineNo = Convert.ToInt32(reader["MachineNo"].ToString()),
+                        VehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
+                        DtYear = Convert.ToInt32(reader["DtYear"].ToString()),
+                        DtMonth = Convert.ToInt32(reader["DtMonth"].ToString()),
+                        Km = Convert.ToInt32(reader["Km"].ToString())
+                    });
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public bool ObjectData_To_SQLServerExtraDataLines(ImpData obj)
         {
             bool ret = false;
@@ -1238,7 +1255,7 @@ namespace PumpLib
             return filename;
         }
 
-        private int getInstId()
+        public int getInstId()
         {
             int ret = 0;
 
@@ -1607,6 +1624,41 @@ namespace PumpLib
             return ret;
         }
 
+        public bool InsertInto_VehicleTrace(ImpData obj, int Km) //toDo: include into ImpData object
+        {
+            bool ret = false;
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+
+            string InsSt = "INSERT INTO [VehicleTrace] (ProcessedGroupId, MachineNo, VehicleNo, DtYear, DtMonth, Km, InsDt) VALUES " +
+                           "(@ProcessedGroupId, @MachineNo, @VehicleNo, @DtYear, @DtMonth, @Km, datetime('now', 'localtime'))";
+            try
+            {
+                sqlConn.Open();
+                SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@ProcessedGroupId", obj.processedGroupId);
+                cmd.Parameters.AddWithValue("@MachineNo", obj.machineNo);
+                cmd.Parameters.AddWithValue("@VehicleNo", obj.vehicleNo);
+                cmd.Parameters.AddWithValue("@DtYear", obj.datetime.Year);
+                cmd.Parameters.AddWithValue("@DtMonth", obj.datetime.Month);
+                cmd.Parameters.AddWithValue("@Km", Km);               
+
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            sqlConn.Close();
+
+            return ret;
+        }
+
     }
     
 
@@ -1904,6 +1956,23 @@ namespace PumpLib
             toSaveNAccRows = 0;
         }
     }
+
+    public class VehicleTrace
+    {
+        public VehicleTrace()
+        {
+        }
+
+        public int Id { get; set; }
+        public int ProcessedGroupId { get; set; }
+        public int MachineNo { get; set; }
+        public int VehicleNo { get; set; }
+        public int DtYear { get; set; }
+        public int DtMonth { get; set; }
+        public int Km { get; set; }
+        public DateTime InsDt { get; set; }
+    }
+
 
     //public class MapFormParams
     //{

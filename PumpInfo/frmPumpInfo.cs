@@ -55,7 +55,7 @@ namespace PumpInfo
             }
             else
             {
-                MessageBox.Show("Δε βρέθηκαν εγγραφές προς επεξεργασία! \r\n" + 
+                MessageBox.Show("Δε βρέθηκαν εγγραφές προς επεξεργασία! \r\n" +
                                 "Αρχείο: " + receiptFile_Path);
             }
         }
@@ -65,11 +65,11 @@ namespace PumpInfo
             if (e.RowIndex != -1)
             {
                 //MessageBox.Show("Row: " + e.RowIndex.ToString() + ", Column: " + e.ColumnIndex.ToString());
-                
+
                 int itemIndex = GridViewUtils.getItemIndex(dgvReceiptData, e.RowIndex);
                 //bool accepted = (bool)dgvReceiptData.Rows[e.RowIndex].Cells["Accepted"].Value;
                 ImpData selectedItem = objList.Find(i => i.dataGridViewRowIndex == itemIndex);
-                                
+
                 AcceptanceForm frmAcceptance = new AcceptanceForm(selectedItem);
                 frmAcceptance.ShowDialog(this);
 
@@ -92,7 +92,7 @@ namespace PumpInfo
                 //GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
                 dgvReceiptData["Accepted", e.RowIndex].Value = selectedItem.accepted;
-                
+
             }
         }
 
@@ -105,39 +105,39 @@ namespace PumpInfo
             {
                 bool insSuccess = dbu.InsertReceiptAllDataIntoSQLiteTable(objList);
 
+                // ***** Km - VehicleTrace *****
+                // VehicleTrace -->
+                string haveData_YearMonth = "";
+                int machNo = dbu.getInstId();
+                foreach (ImpData thisLine in objList)
+                {
+                    thisLine.machineNo = machNo;
+                    if (thisLine.datetime.ToString("yyyyMM") != haveData_YearMonth)
+                    {
+                        //Give final Km  -> new Form
+                        frmSetKm setKmForm = new frmSetKm(thisLine);
+                        setKmForm.ShowDialog();
+
+                        int GivenKm = Convert.ToInt32(setKmForm.txtKm.Text);
+
+                        if (!dbu.InsertInto_VehicleTrace(thisLine, GivenKm))//toDo: include into ImpData object
+                        {
+                            insSuccess = false;
+                        }
+
+                        haveData_YearMonth = thisLine.datetime.ToString("yyyyMM");
+                    }
+                }
+                // VehicleTrace <--
+
                 if (insSuccess)
                 {
-                    MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");                    
+                    MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
                 }
                 else
                 {
                     MessageBox.Show("Η καταχώρηση ολοκληρώθηκε με σφάλματα!");
                 }
-
-
-                // ***** Km - VehicleTrace *****
-                //-----------------------------------------------------------------------------------------------------
-                //List<ImpData> SortedData = objList.OrderBy(i => i.strDt).ToList();
-                //foreach (ImpData thisImpdata in SortedData)
-                //{
-                    //SELECT distinct strftime('%Y%m', r.dt), strftime('%Y', r.dt), strftime('%m', r.dt), 
-                    //       (select min(r2.dt) from receiptData r2 where strftime('%Y%m', r2.dt) = strftime('%Y%m', r.dt)),
-                    //       (select max(r2.dt) from receiptData r2 where strftime('%Y%m', r2.dt) = strftime('%Y%m', r.dt)) 
-                    //FROM [receiptData] r
-
-                    //int Exp_VehicleNo = thisImpdata.vehicleNo;
-                    //DateTime Exp_Dt = Convert.ToDateTime(thisImpdata.strDt);
-                    //int year = Exp_Dt.Year;
-                    //int month = Exp_Dt.Month;
-                //}
-                //int ExportedDataVehicle = DataToMigrate[0].vehicleNo;
-                //List<int> distinctMonths = DataToMigrate.Select(i => i.datetime.Month).Distinct().ToList();
-
-                // SELECT VehicleNo, LastDt FROM [VehicleTrace] ORDER BY LastDt desc
-                // get last VehicleNo from VehicleTrace order by lastDt
-                //-----------------------------------------------------------------------------------------------------
-
-
 
                 //refresh? / close form?
                 dgvReceiptData.Rows.Clear();
@@ -152,19 +152,21 @@ namespace PumpInfo
 
         }
 
+
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             int acceptedCnt = objList.Count(i => i.accepted == true);
 
             if (acceptedCnt > 0)
             {
-                DialogResult dialogResult = MessageBox.Show("Είστε σίγουροι ότι θέλετε να κλείσετε την εφαρμογή;\r\n" + 
-                                                            "Τα δεδομένα που έχετε αποθηκεύσει σε " + acceptedCnt.ToString() + " εγγραφές θα χαθούν!", 
+                DialogResult dialogResult = MessageBox.Show("Είστε σίγουροι ότι θέλετε να κλείσετε την εφαρμογή;\r\n" +
+                                                            "Τα δεδομένα που έχετε αποθηκεύσει σε " + acceptedCnt.ToString() + " εγγραφές θα χαθούν!",
                                                             "Έξοδος", MessageBoxButtons.YesNo);
 
                 e.Cancel = (dialogResult == DialogResult.No);
             }
-            
+
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -184,7 +186,7 @@ namespace PumpInfo
                     {
                         MessageBox.Show("Δεν έχουν αποθηκευτεί εγγραφές που επεξεργάζεστε. Η εξαγωγή θα πραγματοποιηθεί με τις αποθηκευμένες εγγραφές.");
                     }
-                    
+
                 }
                 else
                 {
@@ -198,12 +200,17 @@ namespace PumpInfo
                     {
                         MessageBox.Show("Δεν υπάρχουν νέες εγγραφές. Η εξαγωγή θα πραγματοποιηθεί με τις πιό πρόσφατες εγγραφές που έχουν αποθηκευτεί.");
                     }
-                    
 
-                    
+
+
                 }
 
                 List<ImpData> DataToMigrate = dbu.ReceiptDataLines_To_ObjectList(exportedGroupId, nextExportedGroupId);
+
+                List<int> DistinctProcessGroupIds = DataToMigrate.Select(i => i.processedGroupId).Distinct().ToList();
+                List<VehicleTrace> VehicleTraceToMigrate = dbu.Get_VehicleTrace_Data(DistinctProcessGroupIds);
+
+
 
                 string jsonData = dbu.ObjectListToJson(DataToMigrate);
                                 

@@ -81,6 +81,9 @@
     <EmbeddedResource Include="frmRealCoordinates.resx">
       <DependentUpon>frmRealCoordinates.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSetKm.resx">
+      <DependentUpon>frmSetKm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
