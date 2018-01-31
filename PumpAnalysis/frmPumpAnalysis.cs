@@ -165,10 +165,10 @@ namespace PumpAnalysis
                 }
 
                 // VehicleTrace -->
-                //vtObjList -> insert to DB (dbo.VehicleTrace)
+                //insert into dbo.VehicleTrace
+                dbu.Insert_List_Into_VehicleTrace(vtObjList);
                 // VehicleTrace <--
-
-
+                
 
                 if (insSuccess)
                 {

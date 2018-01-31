@@ -1178,6 +1178,57 @@ namespace PumpLib
             return ret;
         }
 
+        private bool InertIntoTable_VehicleTrace(VehicleTrace vehicleTrace) //INSERT [dbo].[VehicleTrace]
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[VehicleTrace] (ClientId, ProcessedGroupId, MachineNo, VehicleNo, DtYear, DtMonth, Km) VALUES " +
+                           "(@ClientId, @ProcessedGroupId, @MachineNo, @VehicleNo, @DtYear, @DtMonth, @Km) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+                cmd.Parameters.AddWithValue("@ClientId", vehicleTrace.Id);
+                cmd.Parameters.AddWithValue("@ProcessedGroupId", vehicleTrace.ProcessedGroupId);
+                cmd.Parameters.AddWithValue("@MachineNo", vehicleTrace.MachineNo);
+                cmd.Parameters.AddWithValue("@VehicleNo", vehicleTrace.VehicleNo);
+                cmd.Parameters.AddWithValue("@DtYear", vehicleTrace.DtYear);
+                cmd.Parameters.AddWithValue("@DtMonth", vehicleTrace.DtMonth);
+                cmd.Parameters.AddWithValue("@Km", vehicleTrace.Km);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public bool Insert_List_Into_VehicleTrace(List<VehicleTrace> objList)
+        {
+            bool ret = true;
+
+            foreach (VehicleTrace thisVTObj in objList)
+            {
+                if (!InertIntoTable_VehicleTrace(thisVTObj))
+                {
+                    ret = false;
+                }
+            }
+
+            return ret;
+        }
+
         public string ObjectListToJson(List<ImpData> ObjectList)
         {
             //one object to json and back
