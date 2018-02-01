@@ -74,9 +74,14 @@ namespace PumpAnalysis
             ImpData_And_VehicleTrace AllData = dbu.JsonToMultipleObject(read_data);
             List<ImpData> DataToMigrateNew = AllData.impData;
             List<VehicleTrace> VehicleTraceToMigrate = AllData.vehicleTrace;
+            vtObjList = VehicleTraceToMigrate;
             // VehicleTrace <--
 
             List <ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
+
+            // VehicleTrace -->
+            DataToMigrate = DataToMigrateNew;
+            // VehicleTrace <--
 
             counters.fileRows = DataToMigrate.Count;
             counters.fileAccRows = DataToMigrate.Count(i => i.accepted == true);
@@ -166,9 +171,10 @@ namespace PumpAnalysis
 
                 // VehicleTrace -->
                 //insert into dbo.VehicleTrace
+                Output.WriteToFile("Inserting Vehicle Trace data into Database.");
                 dbu.Insert_List_Into_VehicleTrace(vtObjList);
                 // VehicleTrace <--
-                
+
 
                 if (insSuccess)
                 {
