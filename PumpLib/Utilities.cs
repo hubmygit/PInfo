@@ -1741,7 +1741,8 @@ namespace PumpLib
     {
         static SQLiteDBMap()
         {
-            string dbFile = Application.StartupPath + "\\DBs\\Stationsdb.db";
+            //string dbFile = Application.StartupPath + "\\DBs\\Stationsdb.db";
+            string dbFile = Application.StartupPath + "\\DBs\\StationGeoData.db";
             connectionString = "Data Source=" + dbFile + ";Version=3;";
         }
 

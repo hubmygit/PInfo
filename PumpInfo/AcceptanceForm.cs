@@ -237,20 +237,28 @@ namespace PumpInfo
                 connectionString = SQLiteDBMap.connectionString, //Stationsdb.db
                 existsInternetConnection = NetworkConnections.CheckInternetConnection()
             };
-            
+
+            double cooLat = MapObj.latitude;
+            double cooLong = MapObj.longitude;
+            MapObj.latitude = cooLong;
+            MapObj.longitude = cooLat;
+
             //map form
             SearchPlace frmMap = new SearchPlace(MapObj);
             frmMap.ShowDialog();
 
-            int id = frmMap.mapFormGeoData.id;
-            string name = frmMap.mapFormGeoData.name;
-            string address = frmMap.mapFormGeoData.address;
-            
+            //int id = frmMap.mapFormGeoData.id;
+            //string name = frmMap.mapFormGeoData.name;
+            //string address = frmMap.mapFormGeoData.address;
+
             //MessageBox.Show(id.ToString() + "\r\n" + name + "\r\n" + address);
 
-            lblGeostationId.Text = frmMap.mapFormGeoData.id.ToString();
-            txtDealer.Text = frmMap.mapFormGeoData.name;
-            txtAddress.Text = frmMap.mapFormGeoData.address;
+            //lblGeostationId.Text = frmMap.mapFormGeoData.id.ToString();
+            //txtDealer.Text = frmMap.mapFormGeoData.name;
+            //txtAddress.Text = frmMap.mapFormGeoData.address;
+
+            lblGeostationId.Text = frmMap.GleoPass.id.ToString();
+            txtAddress.Text = frmMap.GleoPass.address;
         }
 
         private void btnRealLatLong_Click(object sender, EventArgs e)
