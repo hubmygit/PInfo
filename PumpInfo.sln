@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PumpInfo", "PumpInfo\PumpInfo.csproj", "{EDDD6DF1-F53B-4258-9B94-1C257BD0DB83}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PumpLib", "PumpLib\PumpLib.csproj", "{1C15EAA5-026C-4780-B1E5-CB98251E6064}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapForm", "MapForm\MapForm.csproj", "{12D2BE35-003D-4229-95B3-F3612FC224F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PumpData", "PumpData\PumpData.csproj", "{4660DA2A-D44F-422B-B18D-C26172E4A7E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{12D2BE35-003D-4229-95B3-F3612FC224F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12D2BE35-003D-4229-95B3-F3612FC224F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12D2BE35-003D-4229-95B3-F3612FC224F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4660DA2A-D44F-422B-B18D-C26172E4A7E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4660DA2A-D44F-422B-B18D-C26172E4A7E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4660DA2A-D44F-422B-B18D-C26172E4A7E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4660DA2A-D44F-422B-B18D-C26172E4A7E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

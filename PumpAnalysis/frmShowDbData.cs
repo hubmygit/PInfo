@@ -77,5 +77,15 @@ namespace PumpAnalysis
 
             }
         }
+
+        private void btnAddGeostation_Click(object sender, EventArgs e)
+        {
+            //
+        }
+
+        private void btnShowVehicleTrace_Click(object sender, EventArgs e)
+        {
+            //
+        }
     }
 }

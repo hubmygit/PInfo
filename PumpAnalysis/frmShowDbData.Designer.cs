@@ -58,6 +58,7 @@
             this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddFile = new System.Windows.Forms.Button();
             this.btnAddGeostation = new System.Windows.Forms.Button();
+            this.btnShowVehicleTrace = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -304,12 +305,24 @@
             this.btnAddGeostation.TabIndex = 17;
             this.btnAddGeostation.Text = "Geostation";
             this.btnAddGeostation.UseVisualStyleBackColor = true;
+            this.btnAddGeostation.Click += new System.EventHandler(this.btnAddGeostation_Click);
+            // 
+            // btnShowVehicleTrace
+            // 
+            this.btnShowVehicleTrace.Location = new System.Drawing.Point(259, 28);
+            this.btnShowVehicleTrace.Name = "btnShowVehicleTrace";
+            this.btnShowVehicleTrace.Size = new System.Drawing.Size(109, 23);
+            this.btnShowVehicleTrace.TabIndex = 18;
+            this.btnShowVehicleTrace.Text = "Vehicle Trace";
+            this.btnShowVehicleTrace.UseVisualStyleBackColor = true;
+            this.btnShowVehicleTrace.Click += new System.EventHandler(this.btnShowVehicleTrace_Click);
             // 
             // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 502);
+            this.Controls.Add(this.btnShowVehicleTrace);
             this.Controls.Add(this.btnAddGeostation);
             this.Controls.Add(this.btnAddFile);
             this.Controls.Add(this.dgvReceiptData);
@@ -351,5 +364,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLat;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLong;
+        private System.Windows.Forms.Button btnShowVehicleTrace;
     }
 }
