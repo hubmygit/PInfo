@@ -85,7 +85,8 @@ namespace PumpAnalysis
 
         private void btnShowVehicleTrace_Click(object sender, EventArgs e)
         {
-            //
+            frmVehicleTrace frmVehicleTrace = new frmVehicleTrace();
+            frmVehicleTrace.ShowDialog();
         }
     }
 }

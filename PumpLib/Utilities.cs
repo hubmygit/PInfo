@@ -1727,6 +1727,70 @@ namespace PumpLib
             return ret;
         }
 
+
+        public List<string[]> getVehicleTraceData(int vehicleNo, int year, int month)
+        {
+            List<string[]> ret = new List<string[]>();
+
+            string yyyymm = year.ToString();
+            if (month < 10)
+            {
+                yyyymm += "0";
+            }
+            yyyymm += month.ToString();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "select Dt, DtYear, DtMonth, Km, Vol, RealVol from " +
+                              "( " +
+                              "SELECT top(1) P.Dt, DtYear, DtMonth, Km, 0 as Vol, 0 as RealVol  " +
+                              "FROM[dbo].[vehicleTrace] V left outer join " +
+                              "     [dbo].[ProcessedGroup] P on V.ProcessedGroupId = P.Id left outer join " +
+                              "     [dbo].[receiptData] R on V.ProcessedGroupId = R.ProcessedGroupId and R.Accepted = 1 left outer join " +
+                              "     [dbo].[extraData] E on R.Id = E.ReceiptDataId " +
+                              "WHERE V.VehicleNo = @VehicleNo and convert(varchar, DtYear) + case when DtMonth < 10 then '0' + convert(varchar, DtMonth) else convert(varchar, DtMonth) end < @yyyymm " +
+                              "ORDER BY convert(varchar, DtYear) + case when DtMonth < 10 then '0' + convert(varchar, DtMonth) else convert(varchar, DtMonth) end desc, Km desc " +
+                              ")w " +
+                              "union " +
+                              "select * from  " +
+                              "( " +
+                              "SELECT top(1) P.Dt, DtYear, DtMonth, Km, sum(R.Volume) as Vol, sum(E.PumpVolume) as RealVol " +
+                              "FROM[dbo].[vehicleTrace] V left outer join " +
+                              "    [dbo].[ProcessedGroup] P on V.ProcessedGroupId = P.Id left outer join " +
+                              "    [dbo].[receiptData] R on V.ProcessedGroupId = R.ProcessedGroupId and R.Accepted = 1 left outer join " +
+                              "    [dbo].[extraData] E on R.Id = E.ReceiptDataId " +
+                              "WHERE V.VehicleNo = @VehicleNo and DtYear = @year and DtMonth = @month " +
+                              "GROUP BY P.Dt, DtYear, DtMonth, Km " +
+                              "ORDER BY Km desc " +
+                              ")q " +
+                              "order by Km asc ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+
+            cmd.Parameters.AddWithValue("@VehicleNo", vehicleNo);
+            cmd.Parameters.AddWithValue("@year", year);
+            cmd.Parameters.AddWithValue("@month", month);
+            cmd.Parameters.AddWithValue("@yyyymm", yyyymm);
+
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    //ret.Add(new string[] { reader["Dt"].ToString(), Convert.ToInt32(reader["DtYear"].ToString()), Convert.ToInt32(reader["DtMonth"].ToString()),
+                    //    Convert.ToInt32(reader["Km"].ToString()), Convert.ToDouble(reader["Vol"].ToString()), Convert.ToDouble(reader["RealVol"].ToString()) });
+
+                    ret.Add(new string[] { reader["Dt"].ToString(), reader["DtYear"].ToString(), reader["DtMonth"].ToString(),
+                        reader["Km"].ToString(), reader["Vol"].ToString(), reader["RealVol"].ToString() });
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
     }
     
 
