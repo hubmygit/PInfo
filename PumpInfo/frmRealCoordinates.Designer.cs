@@ -196,6 +196,7 @@
             this.Controls.Add(this.cbLinesFilter);
             this.Controls.Add(this.dgvRealCoordinates);
             this.Name = "frmRealCoordinates";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Real Coordinates";
             this.Load += new System.EventHandler(this.frmRealCoordinates_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRealCoordinates)).EndInit();

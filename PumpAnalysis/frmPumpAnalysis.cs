@@ -46,6 +46,7 @@ namespace PumpAnalysis
             //init
             lblImpFile.Text = "Αρχείο: -";
             objList.Clear();
+            vtObjList.Clear();
             dgvReceiptData.Rows.Clear();
             json_filename = "";
             //json_path = "";
@@ -106,6 +107,8 @@ namespace PumpAnalysis
                 counters.toSaveNAccRows = objList.Count(i => i.accepted == false);
 
                 Output.WriteToFile("To save - Accepted=true Rows: " + counters.toSaveAccRows.ToString() + ", Accepted=false Rows: " + counters.toSaveNAccRows.ToString());
+
+                counters.vehicleTraceRows = vtObjList.Count;
 
                 List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList, true);
 
@@ -171,11 +174,10 @@ namespace PumpAnalysis
 
                 // VehicleTrace -->
                 //insert into dbo.VehicleTrace
-                Output.WriteToFile("Inserting Vehicle Trace data into Database.");
+                Output.WriteToFile("Inserting Vehicle Trace data into Database. " + vtObjList.Count.ToString() + "records.");
                 dbu.Insert_List_Into_VehicleTrace(vtObjList);
                 // VehicleTrace <--
-
-
+                
                 if (insSuccess)
                 {
                     dbu.update_ImportedGroup_Table(ImportedGroupId);
@@ -192,6 +194,7 @@ namespace PumpAnalysis
                 //refresh? / close form?
                 dgvReceiptData.Rows.Clear();
                 objList.Clear();
+                vtObjList.Clear();
                 Array.Clear(fileBytes, 0, fileBytes.Length);
                 lblImpFile.Text = "Αρχείο: -";
                 json_filename = "";
@@ -224,6 +227,7 @@ namespace PumpAnalysis
                 //init
                 lblImpFile.Text = "Αρχείο: -";
                 objList.Clear();
+                vtObjList.Clear();
                 json_filename = "";
                 if (fileBytes != null)
                 {
@@ -274,7 +278,18 @@ namespace PumpAnalysis
                 }
                 Output.WriteToFile("ImportedGroupId: " + ImportedGroupId.ToString());
 
+                // VehicleTrace -->
+                ImpData_And_VehicleTrace AllData = dbu.JsonToMultipleObject(read_data);
+                List<ImpData> DataToMigrateNew = AllData.impData;
+                List<VehicleTrace> VehicleTraceToMigrate = AllData.vehicleTrace;
+                vtObjList = VehicleTraceToMigrate;
+                // VehicleTrace <--
+
                 List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
+
+                // VehicleTrace -->
+                DataToMigrate = DataToMigrateNew;
+                // VehicleTrace <--
 
                 counters.fileRows = DataToMigrate.Count;
                 counters.fileAccRows = DataToMigrate.Count(i => i.accepted == true);
@@ -294,6 +309,8 @@ namespace PumpAnalysis
                 }
                 Output.WriteToFile("To save - Accepted=true Rows: " + counters.toSaveAccRows.ToString() + ", Accepted=false Rows: " + counters.toSaveNAccRows.ToString());
 
+                counters.vehicleTraceRows = vtObjList.Count;
+
                 bool result = dbu.update_ImportedGroup_Counters(ImportedGroupId, counters);
                 Output.WriteToFile("Counters updated.");
 
@@ -306,6 +323,12 @@ namespace PumpAnalysis
                 
                 bool insSuccess = dbu.ObjectList_To_SQLServerReceiptDataLines(objList, ImportedGroupId);
 
+                // VehicleTrace -->
+                //insert into dbo.VehicleTrace
+                Output.WriteToFile("Inserting Vehicle Trace data into Database. " + vtObjList.Count.ToString() + "records.");
+                dbu.Insert_List_Into_VehicleTrace(vtObjList);
+                // VehicleTrace <--
+
                 if (insSuccess)
                 {
                     dbu.update_ImportedGroup_Table(ImportedGroupId);
@@ -314,6 +337,7 @@ namespace PumpAnalysis
                 Output.WriteToFile("Fineshed - File " + cnt.ToString() + "/" + fileEntries.Length);
 
                 objList.Clear();
+                vtObjList.Clear();
                 Array.Clear(fileBytes, 0, fileBytes.Length);
                 lblImpFile.Text = "Αρχείο: -";
                 json_filename = "";

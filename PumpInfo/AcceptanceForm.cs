@@ -237,12 +237,7 @@ namespace PumpInfo
                 connectionString = SQLiteDBMap.connectionString, //Stationsdb.db
                 existsInternetConnection = NetworkConnections.CheckInternetConnection()
             };
-
-            double cooLat = MapObj.latitude;
-            double cooLong = MapObj.longitude;
-            MapObj.latitude = cooLong;
-            MapObj.longitude = cooLat;
-
+                        
             //map form
             SearchPlace frmMap = new SearchPlace(MapObj);
             frmMap.ShowDialog();

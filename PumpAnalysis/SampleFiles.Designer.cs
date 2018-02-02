@@ -142,6 +142,7 @@
             this.Controls.Add(this.btnAddFiles);
             this.Controls.Add(this.lvAttachedFiles);
             this.Name = "SampleFiles";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Sample Files";
             this.ResumeLayout(false);
 

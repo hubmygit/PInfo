@@ -318,6 +318,7 @@
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.dgvReceiptData);
             this.Name = "frmPumpAnalysis";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pump Analysis";
             this.Load += new System.EventHandler(this.frmPumpAnalysis_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).EndInit();

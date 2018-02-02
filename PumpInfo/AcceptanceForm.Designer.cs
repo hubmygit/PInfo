@@ -499,6 +499,7 @@
             this.Controls.Add(this.dgvCurrentObj);
             this.MaximumSize = new System.Drawing.Size(922, 540);
             this.Name = "AcceptanceForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AcceptanceForm";
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).EndInit();
             this.ResumeLayout(false);

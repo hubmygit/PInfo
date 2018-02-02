@@ -201,6 +201,7 @@
             this.Controls.Add(this.gMap);
             this.MaximumSize = new System.Drawing.Size(800, 640);
             this.Name = "SearchPlace";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Επιλογή Πρατηρίου";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).EndInit();

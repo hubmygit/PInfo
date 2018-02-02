@@ -246,6 +246,7 @@
             this.Controls.Add(this.dgvReceiptData);
             this.Controls.Add(this.btnOpenFile);
             this.Name = "frmPumpInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pump Info";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).EndInit();

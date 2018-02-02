@@ -1551,8 +1551,10 @@ namespace PumpLib
             if (fileName.Trim().Length > 0 && fileBytes.Length > 0)
             {
                 SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-                string InsSt = "INSERT INTO [dbo].[ImportedGroup] (Dt, FileName, FileCont, Manually, FileRows, FileAccRows, FileNAccRows, ToSaveRows, ToSaveAccRows, ToSaveNAccRows) " +
-                               "VALUES (getdate(), @FileName, @FileCont, @Manually, @FileRows, @FileAccRows, @FileNAccRows, @ToSaveRows, @ToSaveAccRows, @ToSaveNAccRows) ";
+                string InsSt = "INSERT INTO [dbo].[ImportedGroup] (Dt, FileName, FileCont, Manually, FileRows, FileAccRows, FileNAccRows, ToSaveRows, " + 
+                                                                  "ToSaveAccRows, ToSaveNAccRows, VehicleTraceRows) " +
+                               "VALUES (getdate(), @FileName, @FileCont, @Manually, @FileRows, @FileAccRows, @FileNAccRows, @ToSaveRows, " + 
+                                       "@ToSaveAccRows, @ToSaveNAccRows, @VehicleTraceRows) ";
                 try
                 {
                     sqlConn.Open();
@@ -1566,6 +1568,7 @@ namespace PumpLib
                     cmd.Parameters.AddWithValue("@ToSaveRows", Convert.ToInt32(rowsCounter.toSaveRows));
                     cmd.Parameters.AddWithValue("@ToSaveAccRows", Convert.ToInt32(rowsCounter.toSaveAccRows));
                     cmd.Parameters.AddWithValue("@ToSaveNAccRows", Convert.ToInt32(rowsCounter.toSaveNAccRows));
+                    cmd.Parameters.AddWithValue("@VehicleTraceRows", Convert.ToInt32(rowsCounter.vehicleTraceRows));
 
                     cmd.CommandType = CommandType.Text;
                     int rowsAffected = cmd.ExecuteNonQuery();
@@ -1655,7 +1658,8 @@ namespace PumpLib
 
             string UpdSt = "UPDATE [dbo].[ImportedGroup] " +
                 "SET FileRows = @FileRows, FileAccRows = @FileAccRows, FileNAccRows = @FileNAccRows, " +
-                "ToSaveRows = @ToSaveRows, ToSaveAccRows = @ToSaveAccRows, ToSaveNAccRows = @ToSaveNAccRows " + 
+                "ToSaveRows = @ToSaveRows, ToSaveAccRows = @ToSaveAccRows, ToSaveNAccRows = @ToSaveNAccRows, " +
+                "VehicleTraceRows = @VehicleTraceRows " + 
                 "WHERE Id = @Id";
 
             try
@@ -1670,6 +1674,7 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@ToSaveRows", Convert.ToInt32(rowsCounter.toSaveRows));
                 cmd.Parameters.AddWithValue("@ToSaveAccRows", Convert.ToInt32(rowsCounter.toSaveAccRows));
                 cmd.Parameters.AddWithValue("@ToSaveNAccRows", Convert.ToInt32(rowsCounter.toSaveNAccRows));
+                cmd.Parameters.AddWithValue("@VehicleTraceRows", Convert.ToInt32(rowsCounter.vehicleTraceRows));
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -2009,6 +2014,7 @@ namespace PumpLib
         public int fileNAccRows { get; set; }
         public int toSaveAccRows { get; set; }
         public int toSaveNAccRows { get; set; }
+        public int vehicleTraceRows { get; set; }
 
         public void Clear()
         {
@@ -2018,6 +2024,7 @@ namespace PumpLib
             fileNAccRows = 0;
             toSaveAccRows = 0;
             toSaveNAccRows = 0;
+            vehicleTraceRows = 0;
         }
     }
 

@@ -314,6 +314,7 @@
             this.Controls.Add(this.btnAddFile);
             this.Controls.Add(this.dgvReceiptData);
             this.Name = "frmShowDbData";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Εμφάνιση Δεδομένων";
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).EndInit();
             this.ResumeLayout(false);

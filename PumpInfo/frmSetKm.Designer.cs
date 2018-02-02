@@ -145,6 +145,7 @@
             this.Controls.Add(this.txtVehicleNo);
             this.Controls.Add(this.lblVehicleNo);
             this.Name = "frmSetKm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Set Final Km";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSetKm_FormClosing);
             this.ResumeLayout(false);

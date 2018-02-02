@@ -34,6 +34,11 @@ namespace MapForm
 
         public SearchPlace(MapFormParams leo)
         {
+            double cooLat = leo.latitude;
+            double cooLong = leo.longitude;
+            leo.latitude = cooLong;
+            leo.longitude = cooLat;
+
             constructorFunctions();
             InitializeComponent();
             DispMap();
