@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using PumpLib;
+using MapForm;
 
 namespace PumpAnalysis
 {
@@ -80,7 +81,34 @@ namespace PumpAnalysis
 
         private void btnAddGeostation_Click(object sender, EventArgs e)
         {
-            //
+            if (dgvReceiptData.SelectedRows.Count > 0)
+            {
+                int extraDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value);
+                string Lat = dgvReceiptData.SelectedRows[0].Cells["Latitude"].Value.ToString().Trim().Replace('.', ',');
+                string Long = dgvReceiptData.SelectedRows[0].Cells["Longitude"].Value.ToString().Trim().Replace('.', ',');
+
+                MapFormParams MapObj = new MapFormParams()
+                {
+                    latitude = Convert.ToDouble(Lat), //dgvCurrentObj["latitude", 0].Value.ToString().Replace('.', ',')),   //38.2682,
+                    longitude = Convert.ToDouble(Long), //dgvCurrentObj["longitude", 0].Value.ToString().Replace('.', ',')), //21.755,
+                    radius = 150, //meters
+                    apiKey = MapsApi.key, //"AIzaSyCxAKDi4ZgokHWCYK_5sQ8Dg-nlcLT2myo"
+                    connectionString = SqlDBInfo.connectionString, //Stationsdb.db
+                    existsInternetConnection = NetworkConnections.CheckInternetConnection()
+                };
+
+                //map form
+                SearchPlace frmMap = new SearchPlace(MapObj, true);
+                frmMap.ShowDialog();
+                
+                MapFormGeoData mfGeoData = frmMap.GleoPass;
+
+                //DbUtilities dbu = new DbUtilities();
+                //if(dbu.update_extraData_geostationId(extraDataId, mfGeoData.id))
+                //{
+                //  MessageBox.Show("Το σημείο καταχωρήθηκε επιτυχώς!");
+                //}
+            }
         }
 
         private void btnShowVehicleTrace_Click(object sender, EventArgs e)

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 using System.Data.SQLite;
 using System.Globalization;
+using System.Data.SqlClient;
 
 namespace MapForm
 {
@@ -32,7 +33,7 @@ namespace MapForm
             DispMap();
         }
 
-        public SearchPlace(MapFormParams leo)
+        public SearchPlace(MapFormParams leo, bool sqlsrv = false)
         {
             double cooLat = leo.latitude;
             double cooLong = leo.longitude;
@@ -51,10 +52,23 @@ namespace MapForm
             numericUpDownZoom.Minimum = gMap.MinZoom;
             numericUpDownZoom.Maximum = gMap.MaxZoom;
 
-            ShowDataToGrid(dataGridView1, NonDispFields);
+            //ShowDataToGrid(dataGridView1, NonDispFields);
+
+            if (sqlsrv)
+            {
+                ShowDataToGridSQLSrv(dataGridView1, NonDispFields);
+            }
+            else
+            {
+                ShowDataToGrid(dataGridView1, NonDispFields);
+            }
+
+
             FilterLonLat(GlobIn.latitude, GlobIn.longitude, GlobIn.radius);
             SetMarkers2All();
         }
+
+        
 
         void constructorFunctions()
         {
@@ -105,12 +119,10 @@ namespace MapForm
         public void ShowDataToGrid(DataGridView Grid, List<string> NonDispFields)
         {
             SQLiteConnection sqlConn = new SQLiteConnection(GlobIn.connectionString);
-
             string SelectSt = "SELECT * FROM " + "Station_View";
-            
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
-
             SQLiteDataReader reader;
+            
             DataTable Schemadt;
             sqlConn.Open();
             reader = cmd.ExecuteReader();
@@ -127,6 +139,68 @@ namespace MapForm
                         dt.Columns.Add(myField["ColumnName"].ToString());
                     }
                     catch(Exception ex)
+                    {
+                        MessageBox.Show("The following error occurred: " + ex.Message);
+                    }
+                }
+
+                DataColumn[] keys = new DataColumn[1];
+                keys[0] = dt.Columns["id"];
+                dt.PrimaryKey = keys;
+
+                while (reader.Read())
+                {
+                    DataRow dr1 = dt.NewRow();
+                    for (int c = 0; c <= (reader.FieldCount - 1); c++)
+                        dr1[c] = reader[c].ToString();
+                    dt.Rows.Add(dr1);
+
+                }
+
+                DataView BS = new DataView(dt);
+                BS.ApplyDefaultSort = true;
+                GlobalDV = new DataView(dt);
+                Grid.DataSource = BS;
+                foreach (DataGridViewColumn t in Grid.Columns)
+                {
+                    if (NonDispFields.Contains(t.Name.ToUpper()))
+                    {
+                        t.Visible = false;
+                    }
+                    t.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+            sqlConn.Open();
+        }
+
+        public void ShowDataToGridSQLSrv(DataGridView Grid, List<string> NonDispFields)
+        {
+            SqlConnection sqlConn = new SqlConnection(GlobIn.connectionString);
+            string SelectSt = "SELECT * FROM Geostation ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            SqlDataReader reader;
+
+            DataTable Schemadt;
+            sqlConn.Open();
+            reader = cmd.ExecuteReader();
+            Schemadt = reader.GetSchemaTable();
+
+            try
+            {
+                DataTable dt = new DataTable();
+
+                foreach (DataRow myField in Schemadt.Rows)
+                {
+                    try
+                    {
+                        dt.Columns.Add(myField["ColumnName"].ToString());
+                    }
+                    catch (Exception ex)
                     {
                         MessageBox.Show("The following error occurred: " + ex.Message);
                     }

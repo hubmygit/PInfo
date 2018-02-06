@@ -1791,6 +1791,40 @@ namespace PumpLib
 
             return ret;
         }
+
+        public bool update_extraData_geostationId(int ExtraDataId, int GeostationId)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+
+            string UpdSt = "UPDATE [dbo].[extraData] SET geostationId = @geostationId WHERE Id = @Id";
+
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(UpdSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@geostationId", GeostationId);
+                cmd.Parameters.AddWithValue("@Id", ExtraDataId);
+                
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            sqlConn.Close();
+
+            return ret;
+        }
+
+
+
     }
     
 
