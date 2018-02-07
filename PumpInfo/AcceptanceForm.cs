@@ -23,6 +23,8 @@ namespace PumpInfo
         {
             InitializeComponent();
 
+            products = DbUtilities.GetProductsList(dataGridViewRow.vehicleNo);
+
             cbBrand.Items.AddRange(DbUtilities.GetBrandsComboboxItemsList(brands).ToArray<ComboboxItem>());
             cbProduct.Items.AddRange(DbUtilities.GetProductsComboboxItemsList(products).ToArray<ComboboxItem>());
 

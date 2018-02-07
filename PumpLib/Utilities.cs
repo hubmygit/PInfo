@@ -1484,6 +1484,34 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<Product> GetProductsList(int VehicleNo)
+        {
+            List<Product> ret = new List<Product>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT P.Id, P.Name FROM [Product] P LEFT OUTER JOIN [Vehicles] V ON P.ProductGroupId = V.ProductGroupId WHERE V.Id = @VehicleNo";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                cmd.Parameters.AddWithValue("@VehicleNo", VehicleNo);
+
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Product() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<Product> GetSqlProductsList()
         {
             List<Product> ret = new List<Product>();
@@ -1743,7 +1771,7 @@ namespace PumpLib
             string SelectSt = "select Dt, DtYear, DtMonth, Km, Vol, RealVol from " +
                               "( " +
                               "SELECT top(1) P.Dt, DtYear, DtMonth, Km, 0 as Vol, 0 as RealVol  " +
-                              "FROM[dbo].[vehicleTrace] V left outer join " +
+                              "FROM [dbo].[vehicleTrace] V left outer join " +
                               "     [dbo].[ProcessedGroup] P on V.ProcessedGroupId = P.Id left outer join " +
                               "     [dbo].[receiptData] R on V.ProcessedGroupId = R.ProcessedGroupId and R.Accepted = 1 left outer join " +
                               "     [dbo].[extraData] E on R.Id = E.ReceiptDataId " +
@@ -1754,10 +1782,10 @@ namespace PumpLib
                               "select * from  " +
                               "( " +
                               "SELECT top(1) P.Dt, DtYear, DtMonth, Km, sum(R.Volume) as Vol, sum(E.PumpVolume) as RealVol " +
-                              "FROM[dbo].[vehicleTrace] V left outer join " +
-                              "    [dbo].[ProcessedGroup] P on V.ProcessedGroupId = P.Id left outer join " +
-                              "    [dbo].[receiptData] R on V.ProcessedGroupId = R.ProcessedGroupId and R.Accepted = 1 left outer join " +
-                              "    [dbo].[extraData] E on R.Id = E.ReceiptDataId " +
+                              "FROM [dbo].[vehicleTrace] V left outer join " +
+                              "     [dbo].[ProcessedGroup] P on V.ProcessedGroupId = P.Id left outer join " +
+                              "     [dbo].[receiptData] R on V.ProcessedGroupId = R.ProcessedGroupId and R.Accepted = 1 left outer join " +
+                              "     [dbo].[extraData] E on R.Id = E.ReceiptDataId " +
                               "WHERE V.VehicleNo = @VehicleNo and DtYear = @year and DtMonth = @month " +
                               "GROUP BY P.Dt, DtYear, DtMonth, Km " +
                               "ORDER BY Km desc " +
