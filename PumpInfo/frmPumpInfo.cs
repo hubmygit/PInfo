@@ -103,47 +103,52 @@ namespace PumpInfo
 
             if (objList.Count > 0)
             {
-                bool insSuccess = dbu.InsertReceiptAllDataIntoSQLiteTable(objList);
-
-                // ***** Km - VehicleTrace *****
-                // VehicleTrace -->
-                string haveData_YearMonth = "";
-                int machNo = dbu.getInstId();
-                foreach (ImpData thisLine in objList)
+                DialogResult dialogResult = MessageBox.Show("Είστε σίγουροι ότι θέλετε να αποθηκεύσετε όλες τις εγγραφές; \r\n" +
+                "Προσοχή! Μετά την αποθήκευση δεν θα μπορείτε πλέον να εμφανίσετε και να επεξεργαστείτε τις εγγραφές!", "Αποθήκευση", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
                 {
-                    thisLine.machineNo = machNo;
-                    if (thisLine.datetime.ToString("yyyyMM") != haveData_YearMonth)
+                    bool insSuccess = dbu.InsertReceiptAllDataIntoSQLiteTable(objList);
+
+                    // ***** Km - VehicleTrace *****
+                    // VehicleTrace -->
+                    string haveData_YearMonth = "";
+                    int machNo = dbu.getInstId();
+                    foreach (ImpData thisLine in objList)
                     {
-                        //Give final Km  -> new Form
-                        frmSetKm setKmForm = new frmSetKm(thisLine);
-                        setKmForm.ShowDialog();
-
-                        int GivenKm = Convert.ToInt32(setKmForm.txtKm.Text);
-
-                        if (!dbu.InsertInto_VehicleTrace(thisLine, GivenKm))
+                        thisLine.machineNo = machNo;
+                        if (thisLine.datetime.ToString("yyyyMM") != haveData_YearMonth)
                         {
-                            insSuccess = false;
+                            //Give final Km  -> new Form
+                            frmSetKm setKmForm = new frmSetKm(thisLine);
+                            setKmForm.ShowDialog();
+
+                            int GivenKm = Convert.ToInt32(setKmForm.txtKm.Text);
+
+                            if (!dbu.InsertInto_VehicleTrace(thisLine, GivenKm))
+                            {
+                                insSuccess = false;
+                            }
+
+                            haveData_YearMonth = thisLine.datetime.ToString("yyyyMM");
                         }
-
-                        haveData_YearMonth = thisLine.datetime.ToString("yyyyMM");
                     }
-                }
-                // VehicleTrace <--
+                    // VehicleTrace <--
 
-                if (insSuccess)
-                {
-                    MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
-                }
-                else
-                {
-                    MessageBox.Show("Η καταχώρηση ολοκληρώθηκε με σφάλματα!");
-                }
+                    if (insSuccess)
+                    {
+                        MessageBox.Show("Η καταχώρηση ολοκληρώθηκε επιτυχώς!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Η καταχώρηση ολοκληρώθηκε με σφάλματα!");
+                    }
 
-                //refresh? / close form?
-                dgvReceiptData.Rows.Clear();
-                objList.Clear();
+                    //refresh? / close form?
+                    dgvReceiptData.Rows.Clear();
+                    objList.Clear();
 
-                ExpCounterToLblText(lblCountExported);
+                    ExpCounterToLblText(lblCountExported);
+                }
             }
             else
             {

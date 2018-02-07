@@ -181,7 +181,7 @@ namespace MapForm
         public void ShowDataToGridSQLSrv(DataGridView Grid, List<string> NonDispFields)
         {
             SqlConnection sqlConn = new SqlConnection(GlobIn.connectionString);
-            string SelectSt = "SELECT * FROM Geostation ";
+            string SelectSt = "SELECT * FROM [dbo].[Station_View]"; //Geostation ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             SqlDataReader reader;
 
