@@ -1557,8 +1557,96 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<Vehicle> GetSqlVehiclesList()
+        {
+            List<Vehicle> ret = new List<Vehicle>();
 
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT V.Id, P.Name FROM [dbo].[Vehicles] V LEFT OUTER JOIN [dbo].[ProductGroup] P ON V.ProductGroupId = P.Id ORDER BY V.Id ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Vehicle() { Id = Convert.ToInt32(reader["Id"].ToString()), ProductGroupName = reader["Name"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
 
+            return ret;
+        }
+
+        public static List<ComboboxItem> GetVehiclesComboboxItemsList(List<Vehicle> Vehicles)
+        {
+            List<ComboboxItem> ret = new List<ComboboxItem>();
+
+            foreach (Vehicle v in Vehicles)
+            {
+                ret.Add(new ComboboxItem() { Value = v, Text = v.Id.ToString() + ". " + v.ProductGroupName });
+            }
+
+            return ret;
+        }
+
+        public static Vehicle getComboboxItem_Vehicle(ComboBox cb)
+        {
+            Vehicle ret = ((Vehicle)((ComboboxItem)cb.SelectedItem).Value);
+
+            return ret;
+        }
+
+        public static List<int> GetSqlVehicleTraceYearList(int VehicleNo)
+        {
+            List<int> ret = new List<int>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT DISTINCT DtYear FROM [dbo].[vehicleTrace] WHERE DtMonth > 0 and VehicleNo = @VehicleNo ORDER BY DtYear DESC ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                cmd.Parameters.AddWithValue("@VehicleNo", VehicleNo);
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add( Convert.ToInt32(reader["DtYear"].ToString()) );
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<ComboboxItem> GetVehicleTraceYearsComboboxItemsList(List<int> VehicleTraceYears)
+        {
+            List<ComboboxItem> ret = new List<ComboboxItem>();
+
+            foreach (int vty in VehicleTraceYears)
+            {
+                ret.Add(new ComboboxItem() { Value = vty, Text = vty.ToString() });
+            }
+
+            return ret;
+        }
+
+        public static int getComboboxItem_VehicleTraceYear(ComboBox cb)
+        {
+            int ret = ((int)((ComboboxItem)cb.SelectedItem).Value);
+
+            return ret;
+        }
 
         public bool InsertImportedFileIntoTable(string fileName, byte[] fileBytes, RowsCounter rowsCounter, bool manually) 
         {
@@ -2074,6 +2162,16 @@ namespace PumpLib
         public string Name { get; set; }
 
         public Product()
+        {
+        }
+    }
+
+    public class Vehicle
+    {
+        public int Id { get; set; }
+        public string ProductGroupName { get; set; }
+
+        public Vehicle()
         {
         }
     }

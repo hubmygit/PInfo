@@ -15,35 +15,52 @@ namespace PumpAnalysis
     {
         public frmVehicleTrace()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            cbVehicleNo.Items.AddRange(DbUtilities.GetVehiclesComboboxItemsList(vehicles).ToArray<ComboboxItem>());
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public List<Vehicle> vehicles = DbUtilities.GetSqlVehiclesList();
+        public List<int> VehicleTraceYear = new List<int>();
+
+
+        private void cbVehicleNo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int veh = Convert.ToInt32(textBox13.Text);
-            int yyyy = Convert.ToInt32(textBox14.Text);
-            int mm = Convert.ToInt32(textBox15.Text);
+            dgvVehicleTraceList.Rows.Clear();
+
+            int VehicleNo = DbUtilities.getComboboxItem_Vehicle(cbVehicleNo).Id;
+
+            VehicleTraceYear = DbUtilities.GetSqlVehicleTraceYearList(VehicleNo);
+
+            cbYear.Items.Clear();
+            cbYear.Items.AddRange(DbUtilities.GetVehicleTraceYearsComboboxItemsList(VehicleTraceYear).ToArray<ComboboxItem>()); 
+        }
+
+        private void cbYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dgvVehicleTraceList.Rows.Clear();
+
+            int VehicleNo = DbUtilities.getComboboxItem_Vehicle(cbVehicleNo).Id;
+            int year = DbUtilities.getComboboxItem_VehicleTraceYear(cbYear);
 
             DbUtilities dbu = new DbUtilities();
-            List<string[]> results = dbu.getVehicleTraceData(veh, yyyy, mm);
+            List<string[]> results = new List<string[]>();
+            for (int month = 1; month <= 12; month++)
+            {
+                results = dbu.getVehicleTraceData(VehicleNo, year, month);
 
-            textBox1.Text = results[0][0].ToString();
-            textBox2.Text = results[0][1].ToString();
-            textBox3.Text = results[0][2].ToString();
-            textBox4.Text = results[0][3].ToString();
-            textBox5.Text = results[0][4].ToString();
-            textBox6.Text = results[0][5].ToString();
+                if (results.Count > 1)
+                {
+                    dgvVehicleTraceList.Rows.Add(new object[] { results[0][1], results[0][2], results[0][0], results[0][3],
+                                                                results[1][1], results[1][2], results[1][0], results[1][3],
+                                                                (Convert.ToInt32(results[1][3]) - Convert.ToInt32(results[0][3])).ToString()});
+                }
 
-            textBox7.Text = results[1][0].ToString();
-            textBox8.Text = results[1][1].ToString();
-            textBox9.Text = results[1][2].ToString();
-            textBox10.Text = results[1][3].ToString();
-            textBox11.Text = results[1][4].ToString();
-            textBox12.Text = results[1][5].ToString();
-            
-            textBox16.Text = (Convert.ToInt32(results[1][3]) - Convert.ToInt32(results[0][3])).ToString();
-            textBox17.Text = "0.00"; //(Convert.ToInt32(results[0][4]) + Convert.ToInt32(results[1][4])).ToString();
-            textBox18.Text = "0.00"; //(Convert.ToInt32(results[0][5]) + Convert.ToInt32(results[1][5])).ToString();
+                //ret.Add(new string[] { reader["Dt"].ToString(), reader["DtYear"].ToString(), reader["DtMonth"].ToString(),
+                //reader["Km"].ToString(), reader["Vol"].ToString(), reader["RealVol"].ToString() });
+            }
         }
+
+        
     }
 }
