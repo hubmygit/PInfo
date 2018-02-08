@@ -247,7 +247,7 @@ namespace MapForm
             string stfromLon, sttoLon;
             string stfromLat, sttoLat;
             double radpm;
-            radpm = Math.Round((radmeter / 12000.0), 4);
+            radpm = Math.Round((radmeter / 130000.0), 4);
 
             fromLon = Lon - (double)radpm;
             fromLat = Lat - (double)radpm;
