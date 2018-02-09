@@ -1562,7 +1562,7 @@ namespace PumpLib
             List<Vehicle> ret = new List<Vehicle>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT V.Id, P.Name FROM [dbo].[Vehicles] V LEFT OUTER JOIN [dbo].[ProductGroup] P ON V.ProductGroupId = P.Id ORDER BY V.Id ";
+            string SelectSt = "SELECT V.Id, P.Name, V.Consumption FROM [dbo].[Vehicles] V LEFT OUTER JOIN [dbo].[ProductGroup] P ON V.ProductGroupId = P.Id ORDER BY V.Id ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1570,7 +1570,7 @@ namespace PumpLib
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    ret.Add(new Vehicle() { Id = Convert.ToInt32(reader["Id"].ToString()), ProductGroupName = reader["Name"].ToString() });
+                    ret.Add(new Vehicle() { Id = Convert.ToInt32(reader["Id"].ToString()), ProductGroupName = reader["Name"].ToString(), Consumption = Convert.ToInt32(reader["Consumption"].ToString()) });
                 }
                 reader.Close();
                 sqlConn.Close();
@@ -2170,6 +2170,7 @@ namespace PumpLib
     {
         public int Id { get; set; }
         public string ProductGroupName { get; set; }
+        public int Consumption { get; set; }
 
         public Vehicle()
         {
