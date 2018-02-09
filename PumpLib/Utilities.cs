@@ -2269,10 +2269,22 @@ namespace PumpLib
         //public DateTime InsDt { get; set; }
     }
 
+    public class Station
+    {
+        public int Id { get; set; }
+        public DateTime UpdDate { get; set; } //convert ????????
+        public bool Current_Rec { get; set; } //check 0,1 or 1,2 ????????
+        public string Comp_Name { get; set; }
+        public int Company_Id { get; set; }
+    }
+
     public class ImpData_And_VehicleTrace
     {
         public List<ImpData> impData;
         public List<VehicleTrace> vehicleTrace;
+
+        public List<Station> stationData; //serialize / deserialize !!!!!!!!!!!!!!
+        //SELECT * FROM Station_TimeDependData WHERE UpdDate >= '2018-01-27' and UpdDate <= '2018-02-04'
     }
 
     //public class MapFormParams
