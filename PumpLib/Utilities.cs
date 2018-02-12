@@ -1441,7 +1441,7 @@ namespace PumpLib
                     MessageBox.Show("The following error occurred: " + ex.Message);
                 }
 
-                Output.WriteToFile(ex.Message, true);
+                Output.WriteToFile(ex.Message, true);                                
             }
             return desObjAll;
         }
@@ -2485,11 +2485,11 @@ namespace PumpLib
 
     public class ImpData_And_VehicleTrace
     {
-        public List<ImpData> impData;
+        public List<ImpData> impData = new List<ImpData>();
 
-        public List<VehicleTrace> vehicleTrace;
+        public List<VehicleTrace> vehicleTrace = new List<VehicleTrace>();
 
-        public List<Station> stationData;
+        public List<Station> stationData = new List<Station>();
     }
 
     //public class MapFormParams
