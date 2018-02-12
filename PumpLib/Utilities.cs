@@ -215,6 +215,8 @@ namespace PumpLib
 
         public string fileName;
 
+        public bool automaticMode = false;
+
         public DbUtilities()
         {
             //
@@ -684,8 +686,8 @@ namespace PumpLib
             List<ImpData> ret = new List<ImpData>();
             int RowIndex = 0;
 
-            List<Brand> brands = GetSqlBrandsList();
-            List<Product> products = GetSqlProductsList();
+            List<Brand> brands = GetSqlBrandsList(automaticMode);
+            List<Product> products = GetSqlProductsList(automaticMode);
 
             foreach (ImpData thisLine in ImpDataList)
             {
@@ -807,7 +809,10 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (!automaticMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
             }
 
             return ret;
@@ -1057,7 +1062,11 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (!automaticMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
+                
                 Output.WriteToFile(ex.Message, true);
             }
 
@@ -1207,7 +1216,11 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (!automaticMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
+                
                 Output.WriteToFile(ex.Message, true);
             }
 
@@ -1245,7 +1258,11 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (!automaticMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
+                Output.WriteToFile(ex.Message, true);
             }
             sqlConn.Close();
 
@@ -1289,7 +1306,12 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (!automaticMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
+
+                Output.WriteToFile(ex.Message, true);
             }
 
             sqlConn.Close();
@@ -1324,7 +1346,11 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (!automaticMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
+                Output.WriteToFile(ex.Message, true);
             }
             sqlConn.Close();
             
@@ -1547,7 +1573,7 @@ namespace PumpLib
             return ret;
         }
 
-        public static List<Brand> GetSqlBrandsList()
+        public static List<Brand> GetSqlBrandsList(bool autoMode = false)
         {
             List<Brand> ret = new List<Brand>();
 
@@ -1567,7 +1593,10 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (!autoMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }  
             }
 
             return ret;
@@ -1646,7 +1675,7 @@ namespace PumpLib
             return ret;
         }
 
-        public static List<Product> GetSqlProductsList()
+        public static List<Product> GetSqlProductsList(bool autoMode = false)
         {
             List<Product> ret = new List<Product>();
 
@@ -1666,7 +1695,10 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (!autoMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
             }
 
             return ret;
@@ -1831,7 +1863,11 @@ namespace PumpLib
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("The following error occurred: " + ex.Message);
+                    if (!automaticMode)
+                    {
+                        MessageBox.Show("The following error occurred: " + ex.Message);
+                    }
+
                     Output.WriteToFile("(" + fileName + " ) " + ex.Message, true);
                 }
             }
@@ -1862,7 +1898,11 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (!automaticMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
+                
                 Output.WriteToFile(ex.Message, true);
             }
 
@@ -1892,7 +1932,11 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (!automaticMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
+                
                 Output.WriteToFile(ex.Message, true);
             }
 
@@ -1934,7 +1978,11 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (!automaticMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
+                
                 Output.WriteToFile(ex.Message, true);
             }
 

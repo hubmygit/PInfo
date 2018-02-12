@@ -246,6 +246,8 @@ namespace PumpAnalysis
                 counters.Clear();
 
                 DbUtilities dbu = new DbUtilities();
+                dbu.automaticMode = true;
+
                 json_path = fileName;
                 Output.WriteToFile("Filename: " + json_path);
 
