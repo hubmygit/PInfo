@@ -1407,8 +1407,16 @@ namespace PumpLib
 
         public string ObjectListToJson(ImpData_And_VehicleTrace obj)
         {
-            string jsonAll = new JavaScriptSerializer().Serialize(obj);
+            string jsonAll = "";
 
+            try
+            {
+                jsonAll = new JavaScriptSerializer().Serialize(obj);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
             return jsonAll;
         }
 
@@ -1421,8 +1429,20 @@ namespace PumpLib
 
         public ImpData_And_VehicleTrace JsonToMultipleObject(string jsonFile)
         {
-            ImpData_And_VehicleTrace desObjAll = new JavaScriptSerializer().Deserialize<ImpData_And_VehicleTrace>(jsonFile);
+            ImpData_And_VehicleTrace desObjAll = new ImpData_And_VehicleTrace();
+            try
+            {
+                desObjAll = new JavaScriptSerializer().Deserialize<ImpData_And_VehicleTrace>(jsonFile);
+            }
+            catch (Exception ex)
+            {
+                if (!automaticMode)
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
 
+                Output.WriteToFile(ex.Message, true);
+            }
             return desObjAll;
         }
 
