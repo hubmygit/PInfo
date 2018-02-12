@@ -1133,6 +1133,44 @@ namespace PumpLib
             return ret;
         }
 
+        public List<Station> Get_Station_Data(DateTime fromDate, DateTime toDate)
+        {
+            List<Station> ret = new List<Station>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT Id, UpdDate, Current_Rec, Comp_Name, Company_Id FROM Station_TimeDependData WHERE UpdDate >= @fromDate and UpdDate <= @toDate ";
+
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+
+            try
+            {
+                sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@fromDate", fromDate);
+                cmd.Parameters.AddWithValue("@toDate", toDate);
+
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Station()
+                    {
+                        Id = Convert.ToInt32(reader["Id"].ToString()),
+                        UpdDate = Convert.ToDateTime(reader["UpdDate"].ToString()),
+                        Current_Rec = Convert.ToBoolean(reader["Current_Rec"].ToString()),
+                        Comp_Name = reader["Comp_Name"].ToString(),
+                        Company_Id = Convert.ToInt32(reader["Company_Id"].ToString())
+                    });
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public bool ObjectData_To_SQLServerExtraDataLines(ImpData obj)
         {
             bool ret = false;
@@ -1147,7 +1185,7 @@ namespace PumpLib
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
 
-                cmd.Parameters.AddWithValue("@ReceiptDataId", getSQLReceiptDataId(obj.receiptDataId, obj.machineNo)); 
+                cmd.Parameters.AddWithValue("@ReceiptDataId", getSQLReceiptDataId(obj.receiptDataId, obj.machineNo));
                 cmd.Parameters.AddWithValue("@ClientId", obj.extraDataId);
                 cmd.Parameters.AddWithValue("@ClientReceiptDataId", obj.receiptDataId);
                 cmd.Parameters.AddWithValue("@BrandId", obj.brand.Id);
@@ -1221,6 +1259,102 @@ namespace PumpLib
             foreach (VehicleTrace thisVTObj in objList)
             {
                 if (!InertIntoTable_VehicleTrace(thisVTObj))
+                {
+                    ret = false;
+                }
+            }
+
+            return ret;
+        }
+        
+        private bool UpdateTable_Station_TimeDependData(int Id)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+
+            string UpdSt = "UPDATE [dbo].[Station_TimeDependData] SET Current_Rec = 0 WHERE Id = @Id";
+
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(UpdSt, sqlConn);
+
+                cmd.Parameters.AddWithValue("@Id", Id);
+
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        private bool InsertIntoTable_Station_TimeDependData(Station station) //INSERT [dbo].[Station_TimeDependData]
+        {   
+            bool ret = false;
+            
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[Station_TimeDependData] (Id, UpdDate, Current_Rec, Comp_Name, Company_Id) VALUES " +
+                           "(@Id, @UpdDate, @Current_Rec, @Comp_Name, @Company_Id) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+                cmd.Parameters.AddWithValue("@Id", station.Id);
+                cmd.Parameters.AddWithValue("@UpdDate", station.UpdDate);
+                cmd.Parameters.AddWithValue("@Current_Rec", station.Current_Rec);
+                cmd.Parameters.AddWithValue("@Comp_Name", station.Comp_Name);
+                cmd.Parameters.AddWithValue("@Company_Id", station.Company_Id);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+            
+            return ret;
+        }
+
+        private bool NewDataInto_Station_TimeDependData(Station station)
+        {
+            bool ret = true;
+
+            if (!UpdateTable_Station_TimeDependData(station.Id))
+            {
+                ret = false;
+            }
+            
+            if (!InsertIntoTable_Station_TimeDependData(station))
+            {
+                ret = false;
+            }
+
+            return ret;
+        }
+
+        public bool Insert_List_Into_Station(List<Station> objList)
+        {
+            bool ret = true;
+
+            foreach (Station thisStationObj in objList)
+            {
+                if (!NewDataInto_Station_TimeDependData(thisStationObj))
                 {
                     ret = false;
                 }
@@ -1667,10 +1801,10 @@ namespace PumpLib
             if (fileName.Trim().Length > 0 && fileBytes.Length > 0)
             {
                 SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-                string InsSt = "INSERT INTO [dbo].[ImportedGroup] (Dt, FileName, FileCont, Manually, FileRows, FileAccRows, FileNAccRows, ToSaveRows, " + 
-                                                                  "ToSaveAccRows, ToSaveNAccRows, VehicleTraceRows) " +
-                               "VALUES (getdate(), @FileName, @FileCont, @Manually, @FileRows, @FileAccRows, @FileNAccRows, @ToSaveRows, " + 
-                                       "@ToSaveAccRows, @ToSaveNAccRows, @VehicleTraceRows) ";
+                string InsSt = "INSERT INTO [dbo].[ImportedGroup] (Dt, FileName, FileCont, Manually, FileRows, FileAccRows, FileNAccRows, ToSaveRows, " +
+                                                                  "ToSaveAccRows, ToSaveNAccRows, VehicleTraceRows, StationsUpdRows) " +
+                               "VALUES (getdate(), @FileName, @FileCont, @Manually, @FileRows, @FileAccRows, @FileNAccRows, @ToSaveRows, " +
+                                       "@ToSaveAccRows, @ToSaveNAccRows, @VehicleTraceRows, @StationsUpdRows) ";
                 try
                 {
                     sqlConn.Open();
@@ -1685,6 +1819,7 @@ namespace PumpLib
                     cmd.Parameters.AddWithValue("@ToSaveAccRows", Convert.ToInt32(rowsCounter.toSaveAccRows));
                     cmd.Parameters.AddWithValue("@ToSaveNAccRows", Convert.ToInt32(rowsCounter.toSaveNAccRows));
                     cmd.Parameters.AddWithValue("@VehicleTraceRows", Convert.ToInt32(rowsCounter.vehicleTraceRows));
+                    cmd.Parameters.AddWithValue("@StationsUpdRows", Convert.ToInt32(rowsCounter.stationsUpdRows));
 
                     cmd.CommandType = CommandType.Text;
                     int rowsAffected = cmd.ExecuteNonQuery();
@@ -2240,6 +2375,7 @@ namespace PumpLib
         public int toSaveAccRows { get; set; }
         public int toSaveNAccRows { get; set; }
         public int vehicleTraceRows { get; set; }
+        public int stationsUpdRows { get; set; }
 
         public void Clear()
         {
@@ -2250,6 +2386,7 @@ namespace PumpLib
             toSaveAccRows = 0;
             toSaveNAccRows = 0;
             vehicleTraceRows = 0;
+            stationsUpdRows = 0;
         }
     }
 
@@ -2281,10 +2418,10 @@ namespace PumpLib
     public class ImpData_And_VehicleTrace
     {
         public List<ImpData> impData;
+
         public List<VehicleTrace> vehicleTrace;
 
-        public List<Station> stationData; //serialize / deserialize !!!!!!!!!!!!!!
-        //SELECT * FROM Station_TimeDependData WHERE UpdDate >= '2018-01-27' and UpdDate <= '2018-02-04'
+        public List<Station> stationData;
     }
 
     //public class MapFormParams

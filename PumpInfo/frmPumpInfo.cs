@@ -215,9 +215,16 @@ namespace PumpInfo
                 // VehicleTrace -->
                 List<int> DistinctProcessGroupIds = DataToMigrate.Select(i => i.processedGroupId).Distinct().ToList();
                 List<VehicleTrace> VehicleTraceToMigrate = dbu.Get_VehicleTrace_Data(DistinctProcessGroupIds);
+
+                DateTime fromDate = DataToMigrate.Min(i => i.datetime);
+                DateTime toDate = DataToMigrate.Max(i => i.datetime);
+                List<Station> StationsToMigrate = dbu.Get_Station_Data(fromDate, toDate);
+
+
                 ImpData_And_VehicleTrace newDataToMigrate = new ImpData_And_VehicleTrace();
                 newDataToMigrate.impData = DataToMigrate;
                 newDataToMigrate.vehicleTrace = VehicleTraceToMigrate;
+                newDataToMigrate.stationData = StationsToMigrate;
                 string newJsonData = dbu.ObjectListToJson(newDataToMigrate);
                 // VehicleTrace <--
 

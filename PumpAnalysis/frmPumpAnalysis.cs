@@ -28,6 +28,7 @@ namespace PumpAnalysis
         // VehicleTrace -->
         public List<VehicleTrace> vtObjList = new List<VehicleTrace>();
         // VehicleTrace <--
+        public List<Station> stationsObjList = new List<Station>();
 
         private void btnImport_Click(object sender, EventArgs e)
         {
@@ -47,6 +48,7 @@ namespace PumpAnalysis
             lblImpFile.Text = "Αρχείο: -";
             objList.Clear();
             vtObjList.Clear();
+            stationsObjList.Clear();
             dgvReceiptData.Rows.Clear();
             json_filename = "";
             //json_path = "";
@@ -76,6 +78,8 @@ namespace PumpAnalysis
             List<ImpData> DataToMigrateNew = AllData.impData;
             List<VehicleTrace> VehicleTraceToMigrate = AllData.vehicleTrace;
             vtObjList = VehicleTraceToMigrate;
+            List<Station> StationToMigrate = AllData.stationData;
+            stationsObjList = StationToMigrate;
             // VehicleTrace <--
 
             List <ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
@@ -109,6 +113,7 @@ namespace PumpAnalysis
                 Output.WriteToFile("To save - Accepted=true Rows: " + counters.toSaveAccRows.ToString() + ", Accepted=false Rows: " + counters.toSaveNAccRows.ToString());
 
                 counters.vehicleTraceRows = vtObjList.Count;
+                counters.stationsUpdRows = stationsObjList.Count;
 
                 List<object[]> ObjRows = GridViewUtils.ImpDataListToGridViewRowList(objList, true);
 
@@ -177,7 +182,10 @@ namespace PumpAnalysis
                 Output.WriteToFile("Inserting Vehicle Trace data into Database. " + vtObjList.Count.ToString() + "records.");
                 dbu.Insert_List_Into_VehicleTrace(vtObjList);
                 // VehicleTrace <--
-                
+
+                Output.WriteToFile("Inserting Stations data into Database. " + stationsObjList.Count.ToString() + "records.");
+                dbu.Insert_List_Into_Station(stationsObjList);
+
                 if (insSuccess)
                 {
                     dbu.update_ImportedGroup_Table(ImportedGroupId);
@@ -195,6 +203,7 @@ namespace PumpAnalysis
                 dgvReceiptData.Rows.Clear();
                 objList.Clear();
                 vtObjList.Clear();
+                stationsObjList.Clear();
                 Array.Clear(fileBytes, 0, fileBytes.Length);
                 lblImpFile.Text = "Αρχείο: -";
                 json_filename = "";
@@ -228,6 +237,7 @@ namespace PumpAnalysis
                 lblImpFile.Text = "Αρχείο: -";
                 objList.Clear();
                 vtObjList.Clear();
+                stationsObjList.Clear();
                 json_filename = "";
                 if (fileBytes != null)
                 {
@@ -283,6 +293,9 @@ namespace PumpAnalysis
                 List<ImpData> DataToMigrateNew = AllData.impData;
                 List<VehicleTrace> VehicleTraceToMigrate = AllData.vehicleTrace;
                 vtObjList = VehicleTraceToMigrate;
+                List<Station> StationToMigrate = AllData.stationData;
+                stationsObjList = StationToMigrate;
+
                 // VehicleTrace <--
 
                 List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
@@ -310,6 +323,7 @@ namespace PumpAnalysis
                 Output.WriteToFile("To save - Accepted=true Rows: " + counters.toSaveAccRows.ToString() + ", Accepted=false Rows: " + counters.toSaveNAccRows.ToString());
 
                 counters.vehicleTraceRows = vtObjList.Count;
+                counters.stationsUpdRows = stationsObjList.Count;
 
                 bool result = dbu.update_ImportedGroup_Counters(ImportedGroupId, counters);
                 Output.WriteToFile("Counters updated.");
@@ -329,6 +343,9 @@ namespace PumpAnalysis
                 dbu.Insert_List_Into_VehicleTrace(vtObjList);
                 // VehicleTrace <--
 
+                Output.WriteToFile("Inserting Stations data into Database. " + stationsObjList.Count.ToString() + "records.");
+                dbu.Insert_List_Into_Station(stationsObjList);
+
                 if (insSuccess)
                 {
                     dbu.update_ImportedGroup_Table(ImportedGroupId);
@@ -338,6 +355,7 @@ namespace PumpAnalysis
 
                 objList.Clear();
                 vtObjList.Clear();
+                stationsObjList.Clear();
                 Array.Clear(fileBytes, 0, fileBytes.Length);
                 lblImpFile.Text = "Αρχείο: -";
                 json_filename = "";
