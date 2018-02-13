@@ -31,6 +31,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
+            this.btnAddFile = new System.Windows.Forms.Button();
+            this.btnAddGeostation = new System.Windows.Forms.Button();
+            this.btnShowVehicleTrace = new System.Windows.Forms.Button();
             this.ReceiptDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExtraDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -56,9 +59,7 @@
             this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnAddFile = new System.Windows.Forms.Button();
-            this.btnAddGeostation = new System.Windows.Forms.Button();
-            this.btnShowVehicleTrace = new System.Windows.Forms.Button();
+            this.btnGridFields = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,6 +123,36 @@
             this.dgvReceiptData.TabIndex = 15;
             this.dgvReceiptData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReceiptData_CellDoubleClick);
             // 
+            // btnAddFile
+            // 
+            this.btnAddFile.Location = new System.Drawing.Point(12, 28);
+            this.btnAddFile.Name = "btnAddFile";
+            this.btnAddFile.Size = new System.Drawing.Size(123, 23);
+            this.btnAddFile.TabIndex = 16;
+            this.btnAddFile.Text = "Sample File(s)";
+            this.btnAddFile.UseVisualStyleBackColor = true;
+            this.btnAddFile.Click += new System.EventHandler(this.btnAddFile_Click);
+            // 
+            // btnAddGeostation
+            // 
+            this.btnAddGeostation.Location = new System.Drawing.Point(853, 28);
+            this.btnAddGeostation.Name = "btnAddGeostation";
+            this.btnAddGeostation.Size = new System.Drawing.Size(109, 23);
+            this.btnAddGeostation.TabIndex = 17;
+            this.btnAddGeostation.Text = "Geostation";
+            this.btnAddGeostation.UseVisualStyleBackColor = true;
+            this.btnAddGeostation.Click += new System.EventHandler(this.btnAddGeostation_Click);
+            // 
+            // btnShowVehicleTrace
+            // 
+            this.btnShowVehicleTrace.Location = new System.Drawing.Point(259, 28);
+            this.btnShowVehicleTrace.Name = "btnShowVehicleTrace";
+            this.btnShowVehicleTrace.Size = new System.Drawing.Size(109, 23);
+            this.btnShowVehicleTrace.TabIndex = 18;
+            this.btnShowVehicleTrace.Text = "Vehicle Trace";
+            this.btnShowVehicleTrace.UseVisualStyleBackColor = true;
+            this.btnShowVehicleTrace.Click += new System.EventHandler(this.btnShowVehicleTrace_Click);
+            // 
             // ReceiptDataId
             // 
             this.ReceiptDataId.HeaderText = "ReceiptDataId";
@@ -149,6 +180,7 @@
             this.Vehicle.HeaderText = "VehicleNo";
             this.Vehicle.Name = "Vehicle";
             this.Vehicle.ReadOnly = true;
+            this.Vehicle.Visible = false;
             this.Vehicle.Width = 90;
             // 
             // Date
@@ -169,6 +201,7 @@
             this.Latitude.HeaderText = "Latitude";
             this.Latitude.Name = "Latitude";
             this.Latitude.ReadOnly = true;
+            this.Latitude.Visible = false;
             this.Latitude.Width = 90;
             // 
             // Longitude
@@ -176,6 +209,7 @@
             this.Longitude.HeaderText = "Longitude";
             this.Longitude.Name = "Longitude";
             this.Longitude.ReadOnly = true;
+            this.Longitude.Visible = false;
             this.Longitude.Width = 90;
             // 
             // Weight
@@ -241,6 +275,7 @@
             this.Pump.HeaderText = "Pump";
             this.Pump.Name = "Pump";
             this.Pump.ReadOnly = true;
+            this.Pump.Visible = false;
             this.Pump.Width = 70;
             // 
             // PumpVol
@@ -262,66 +297,52 @@
             this.Remarks.HeaderText = "Remarks";
             this.Remarks.Name = "Remarks";
             this.Remarks.ReadOnly = true;
+            this.Remarks.Visible = false;
             // 
             // MachineNo
             // 
             this.MachineNo.HeaderText = "MachineNo";
             this.MachineNo.Name = "MachineNo";
             this.MachineNo.ReadOnly = true;
+            this.MachineNo.Visible = false;
             // 
             // GeostationId
             // 
             this.GeostationId.HeaderText = "GeostationId";
             this.GeostationId.Name = "GeostationId";
             this.GeostationId.ReadOnly = true;
+            this.GeostationId.Visible = false;
             // 
             // RealLat
             // 
             this.RealLat.HeaderText = "RealLat";
             this.RealLat.Name = "RealLat";
             this.RealLat.ReadOnly = true;
+            this.RealLat.Visible = false;
             // 
             // RealLong
             // 
             this.RealLong.HeaderText = "RealLong";
             this.RealLong.Name = "RealLong";
             this.RealLong.ReadOnly = true;
+            this.RealLong.Visible = false;
             // 
-            // btnAddFile
+            // btnGridFields
             // 
-            this.btnAddFile.Location = new System.Drawing.Point(12, 28);
-            this.btnAddFile.Name = "btnAddFile";
-            this.btnAddFile.Size = new System.Drawing.Size(123, 23);
-            this.btnAddFile.TabIndex = 16;
-            this.btnAddFile.Text = "Sample File(s)";
-            this.btnAddFile.UseVisualStyleBackColor = true;
-            this.btnAddFile.Click += new System.EventHandler(this.btnAddFile_Click);
-            // 
-            // btnAddGeostation
-            // 
-            this.btnAddGeostation.Location = new System.Drawing.Point(853, 28);
-            this.btnAddGeostation.Name = "btnAddGeostation";
-            this.btnAddGeostation.Size = new System.Drawing.Size(109, 23);
-            this.btnAddGeostation.TabIndex = 17;
-            this.btnAddGeostation.Text = "Geostation";
-            this.btnAddGeostation.UseVisualStyleBackColor = true;
-            this.btnAddGeostation.Click += new System.EventHandler(this.btnAddGeostation_Click);
-            // 
-            // btnShowVehicleTrace
-            // 
-            this.btnShowVehicleTrace.Location = new System.Drawing.Point(259, 28);
-            this.btnShowVehicleTrace.Name = "btnShowVehicleTrace";
-            this.btnShowVehicleTrace.Size = new System.Drawing.Size(109, 23);
-            this.btnShowVehicleTrace.TabIndex = 18;
-            this.btnShowVehicleTrace.Text = "Vehicle Trace";
-            this.btnShowVehicleTrace.UseVisualStyleBackColor = true;
-            this.btnShowVehicleTrace.Click += new System.EventHandler(this.btnShowVehicleTrace_Click);
+            this.btnGridFields.Location = new System.Drawing.Point(535, 28);
+            this.btnGridFields.Name = "btnGridFields";
+            this.btnGridFields.Size = new System.Drawing.Size(109, 23);
+            this.btnGridFields.TabIndex = 19;
+            this.btnGridFields.Text = "Grid Fields";
+            this.btnGridFields.UseVisualStyleBackColor = true;
+            this.btnGridFields.Click += new System.EventHandler(this.btnGridFields_Click);
             // 
             // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 502);
+            this.Controls.Add(this.btnGridFields);
             this.Controls.Add(this.btnShowVehicleTrace);
             this.Controls.Add(this.btnAddGeostation);
             this.Controls.Add(this.btnAddFile);
@@ -339,6 +360,7 @@
         private System.Windows.Forms.DataGridView dgvReceiptData;
         private System.Windows.Forms.Button btnAddFile;
         private System.Windows.Forms.Button btnAddGeostation;
+        private System.Windows.Forms.Button btnShowVehicleTrace;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptDataId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExtraDataId;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
@@ -364,6 +386,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLat;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLong;
-        private System.Windows.Forms.Button btnShowVehicleTrace;
+        private System.Windows.Forms.Button btnGridFields;
     }
 }

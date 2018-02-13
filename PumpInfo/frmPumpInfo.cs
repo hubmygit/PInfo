@@ -218,6 +218,7 @@ namespace PumpInfo
 
                 DateTime fromDate = DataToMigrate.Min(i => i.datetime);
                 DateTime toDate = DataToMigrate.Max(i => i.datetime);
+
                 List<Station> StationsToMigrate = dbu.Get_Station_Data(fromDate, toDate);
 
 
@@ -230,10 +231,11 @@ namespace PumpInfo
 
 
 
-                string jsonData = dbu.ObjectListToJson(DataToMigrate);
-                                
+                //string jsonData = dbu.ObjectListToJson(DataToMigrate);
+
                 //string jsonFile = dbu.createJsonFile(jsonData);
-                string jsonFile = dbu.createDefaultJsonFile(jsonData);
+                //string jsonFile = dbu.createDefaultJsonFile(jsonData);
+                string jsonFile = dbu.createDefaultJsonFile(newJsonData);
 
                 if (exportedGroupId == 0) //nulls
                 {

@@ -852,7 +852,7 @@ namespace PumpLib
                     ImpData objLine = new ImpData()
                     {   receiptDataId = Convert.ToInt32(reader["Id"].ToString()),
                         vehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
-                        //datetime = Convert.ToDateTime(reader["Dt"].ToString()),
+                        datetime = Convert.ToDateTime(reader["Dt"].ToString()), //????????????
                         strDt = reader["Dt"].ToString(),
                         coordinates = new Coordinates() { longitude = reader["CooLong"].ToString().Replace(",","."), latitude = reader["CooLat"].ToString().Replace(",", ".") },
                         weight = Convert.ToDouble(reader["Weight"].ToString()),
@@ -909,7 +909,8 @@ namespace PumpLib
                                             "[dbo].[extraData] ED on RD.Id = ED.ReceiptDataId left outer join " +
                                             "[dbo].[brand] B on B.id = ED.BrandId left outer join " +
                                             "[dbo].[product] P on P.id = ED.ProductId " +
-                                            " WHERE isnull(RD.Accepted, 0) = 1 ", sqlConn);
+                                            " WHERE isnull(RD.Accepted, 0) = 1 " +
+                                            " ORDER BY RD.Dt DESC ", sqlConn);
 
             try
             {
@@ -1146,7 +1147,7 @@ namespace PumpLib
         {
             List<Station> ret = new List<Station>();
 
-            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
             string SelectSt = "SELECT Id, UpdDate, Current_Rec, Comp_Name, Company_Id FROM Station_TimeDependData WHERE UpdDate >= @fromDate and UpdDate <= @toDate ";
 
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);

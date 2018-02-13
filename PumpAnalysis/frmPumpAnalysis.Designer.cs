@@ -31,6 +31,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
+            this.lblImpFile = new System.Windows.Forms.Label();
+            this.btnShowDbData = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,10 +56,9 @@
             this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MachineNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblImpFile = new System.Windows.Forms.Label();
-            this.btnShowDbData = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnImport = new System.Windows.Forms.Button();
+            this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RealLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,7 +100,10 @@
             this.PumpVol,
             this.SampleNo,
             this.Remarks,
-            this.MachineNo});
+            this.MachineNo,
+            this.GeostationId,
+            this.RealLat,
+            this.RealLong});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -113,6 +119,59 @@
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvReceiptData.Size = new System.Drawing.Size(950, 410);
             this.dgvReceiptData.TabIndex = 14;
+            // 
+            // lblImpFile
+            // 
+            this.lblImpFile.AutoSize = true;
+            this.lblImpFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblImpFile.Location = new System.Drawing.Point(12, 55);
+            this.lblImpFile.Name = "lblImpFile";
+            this.lblImpFile.Size = new System.Drawing.Size(59, 16);
+            this.lblImpFile.TabIndex = 18;
+            this.lblImpFile.Text = "Αρχείο: -";
+            // 
+            // btnShowDbData
+            // 
+            this.btnShowDbData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnShowDbData.Image = global::PumpAnalysis.Properties.Resources.ShowDbData_32x;
+            this.btnShowDbData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnShowDbData.Location = new System.Drawing.Point(425, 12);
+            this.btnShowDbData.Name = "btnShowDbData";
+            this.btnShowDbData.Size = new System.Drawing.Size(135, 40);
+            this.btnShowDbData.TabIndex = 19;
+            this.btnShowDbData.Text = "Εμφάνιση";
+            this.btnShowDbData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnShowDbData.UseVisualStyleBackColor = true;
+            this.btnShowDbData.Click += new System.EventHandler(this.btnShowDbData_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSave.Image = global::PumpAnalysis.Properties.Resources.Save_32x;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(827, 12);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(135, 40);
+            this.btnSave.TabIndex = 16;
+            this.btnSave.Text = "Αποθήκευση";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnImport.Image = global::PumpAnalysis.Properties.Resources.Document_32x;
+            this.btnImport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnImport.Location = new System.Drawing.Point(12, 12);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(135, 40);
+            this.btnImport.TabIndex = 15;
+            this.btnImport.Text = "Εισαγωγή";
+            this.btnImport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // Index
             // 
@@ -254,58 +313,23 @@
             this.MachineNo.Name = "MachineNo";
             this.MachineNo.ReadOnly = true;
             // 
-            // lblImpFile
+            // GeostationId
             // 
-            this.lblImpFile.AutoSize = true;
-            this.lblImpFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblImpFile.Location = new System.Drawing.Point(12, 55);
-            this.lblImpFile.Name = "lblImpFile";
-            this.lblImpFile.Size = new System.Drawing.Size(59, 16);
-            this.lblImpFile.TabIndex = 18;
-            this.lblImpFile.Text = "Αρχείο: -";
+            this.GeostationId.HeaderText = "GeostationId";
+            this.GeostationId.Name = "GeostationId";
+            this.GeostationId.ReadOnly = true;
             // 
-            // btnShowDbData
+            // RealLat
             // 
-            this.btnShowDbData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnShowDbData.Image = global::PumpAnalysis.Properties.Resources.ShowDbData_32x;
-            this.btnShowDbData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnShowDbData.Location = new System.Drawing.Point(425, 12);
-            this.btnShowDbData.Name = "btnShowDbData";
-            this.btnShowDbData.Size = new System.Drawing.Size(135, 40);
-            this.btnShowDbData.TabIndex = 19;
-            this.btnShowDbData.Text = "Εμφάνιση";
-            this.btnShowDbData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnShowDbData.UseVisualStyleBackColor = true;
-            this.btnShowDbData.Click += new System.EventHandler(this.btnShowDbData_Click);
+            this.RealLat.HeaderText = "RealLat";
+            this.RealLat.Name = "RealLat";
+            this.RealLat.ReadOnly = true;
             // 
-            // btnSave
+            // RealLong
             // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSave.Image = global::PumpAnalysis.Properties.Resources.Save_32x;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(827, 12);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(135, 40);
-            this.btnSave.TabIndex = 16;
-            this.btnSave.Text = "Αποθήκευση";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnImport
-            // 
-            this.btnImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnImport.Image = global::PumpAnalysis.Properties.Resources.Document_32x;
-            this.btnImport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImport.Location = new System.Drawing.Point(12, 12);
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(135, 40);
-            this.btnImport.TabIndex = 15;
-            this.btnImport.Text = "Εισαγωγή";
-            this.btnImport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnImport.UseVisualStyleBackColor = true;
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            this.RealLong.HeaderText = "RealLong";
+            this.RealLong.Name = "RealLong";
+            this.RealLong.ReadOnly = true;
             // 
             // frmPumpAnalysis
             // 
@@ -333,6 +357,7 @@
         private System.Windows.Forms.DataGridView dgvReceiptData;
         public System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblImpFile;
+        public System.Windows.Forms.Button btnShowDbData;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
@@ -354,7 +379,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
         private System.Windows.Forms.DataGridViewTextBoxColumn MachineNo;
-        public System.Windows.Forms.Button btnShowDbData;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RealLat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RealLong;
     }
 }
 
