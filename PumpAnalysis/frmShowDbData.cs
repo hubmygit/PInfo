@@ -119,7 +119,15 @@ namespace PumpAnalysis
 
         private void btnGridFields_Click(object sender, EventArgs e)
         {
+            //DataGridViewColumnCollection columns = dgvReceiptData.Columns;
 
+            //foreach (DataGridViewColumn thisCol in columns)
+            //{
+            //    MessageBox.Show(thisCol.Index.ToString() + " - " + thisCol.HeaderText + " - (" + thisCol.Name +  ") - " + thisCol.Visible.ToString());
+            //}
+            
+            GridFieldsSelector frmGridFieldsSelector = new GridFieldsSelector(dgvReceiptData.Columns);
+            frmGridFieldsSelector.ShowDialog();
         }
     }
 }
