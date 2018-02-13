@@ -16,10 +16,13 @@ namespace PumpAnalysis
             InitializeComponent();
         }
 
+        DataGridViewColumnCollection dgvColumnsRef;
+
         public GridFieldsSelector(DataGridViewColumnCollection dgvColumns)
         {
             InitializeComponent();
 
+            dgvColumnsRef = dgvColumns;
             foreach (DataGridViewColumn thisCol in dgvColumns)
             {
                 //    MessageBox.Show(thisCol.Index.ToString() + " - " + thisCol.HeaderText + " - " + thisCol.Visible.ToString());
@@ -27,7 +30,25 @@ namespace PumpAnalysis
 
                 dgvReceiptData.Rows.Add(new object[] { thisCol.Visible, thisCol.Index, thisCol.HeaderText });
             }
+
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {            
+            for (int i = 0; i < dgvReceiptData.Rows.Count; i++)
+            {
+                dgvColumnsRef[i].Visible = Convert.ToBoolean(dgvReceiptData["Visible", i].Value);
+            }
+
+            Close();
+        }
+
+        private void cbSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dgvReceiptData.Rows.Count; i++)
+            {
+                dgvReceiptData["Visible", i].Value = cbSelectAll.Checked;
+            }
+        }
     }
 }
