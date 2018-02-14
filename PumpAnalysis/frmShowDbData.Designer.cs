@@ -34,6 +34,7 @@
             this.btnAddFile = new System.Windows.Forms.Button();
             this.btnAddGeostation = new System.Windows.Forms.Button();
             this.btnShowVehicleTrace = new System.Windows.Forms.Button();
+            this.btnGridFields = new System.Windows.Forms.Button();
             this.ReceiptDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExtraDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -59,7 +60,6 @@
             this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnGridFields = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -153,6 +153,16 @@
             this.btnShowVehicleTrace.UseVisualStyleBackColor = true;
             this.btnShowVehicleTrace.Click += new System.EventHandler(this.btnShowVehicleTrace_Click);
             // 
+            // btnGridFields
+            // 
+            this.btnGridFields.Location = new System.Drawing.Point(535, 28);
+            this.btnGridFields.Name = "btnGridFields";
+            this.btnGridFields.Size = new System.Drawing.Size(109, 23);
+            this.btnGridFields.TabIndex = 19;
+            this.btnGridFields.Text = "Grid Fields";
+            this.btnGridFields.UseVisualStyleBackColor = true;
+            this.btnGridFields.Click += new System.EventHandler(this.btnGridFields_Click);
+            // 
             // ReceiptDataId
             // 
             this.ReceiptDataId.HeaderText = "ReceiptDataId";
@@ -173,6 +183,7 @@
             this.Accepted.HeaderText = "";
             this.Accepted.Name = "Accepted";
             this.Accepted.ReadOnly = true;
+            this.Accepted.Visible = false;
             this.Accepted.Width = 50;
             // 
             // Vehicle
@@ -327,16 +338,6 @@
             this.RealLong.ReadOnly = true;
             this.RealLong.Visible = false;
             // 
-            // btnGridFields
-            // 
-            this.btnGridFields.Location = new System.Drawing.Point(535, 28);
-            this.btnGridFields.Name = "btnGridFields";
-            this.btnGridFields.Size = new System.Drawing.Size(109, 23);
-            this.btnGridFields.TabIndex = 19;
-            this.btnGridFields.Text = "Grid Fields";
-            this.btnGridFields.UseVisualStyleBackColor = true;
-            this.btnGridFields.Click += new System.EventHandler(this.btnGridFields_Click);
-            // 
             // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -361,6 +362,7 @@
         private System.Windows.Forms.Button btnAddFile;
         private System.Windows.Forms.Button btnAddGeostation;
         private System.Windows.Forms.Button btnShowVehicleTrace;
+        private System.Windows.Forms.Button btnGridFields;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptDataId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExtraDataId;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
@@ -386,6 +388,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLat;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLong;
-        private System.Windows.Forms.Button btnGridFields;
     }
 }

@@ -912,6 +912,20 @@ namespace PumpLib
                                             " WHERE isnull(RD.Accepted, 0) = 1 " +
                                             " ORDER BY RD.Dt DESC ", sqlConn);
 
+            //SELECT RD.Id, RD.VehicleNo, RD.Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, 
+            //isnull(RD.Accepted, 0) as Accepted, isnull(RD.ProcessedGroupId, 0) as ProcessedGroupId, isnull(RD.ExportedGroupId, 0) as ExportedGroupId, 
+            //isnull(ED.Id, 0) as EDId, ED.ReceiptDataId, ED.BrandId, B.Name as BName, ED.Dealer, ED.Address, ED.ProductId, P.Name as PName, ED.Pump, ED.PumpVolume, 
+            //isnull(ED.SampleNo, 0) as SampleNo, isnull(RD.MachineNo, 0) as MachineNo, ED.Remarks, isnull(ED.GeostationId, 0) as GeostationId, 
+            //ED.CooLong as RealCooLong, ED.CooLat as RealCooLat, 
+            //==> SV.Address, SV.Address2, SV.Address3, SV.[Postal - Code], SV.Country, SV.Latitude, SV.Longitude, SV.UpdDate, SV.Comp_Name
+            //FROM[dbo].[receiptData] RD left outer join
+            //[dbo].[extraData] ED on RD.Id = ED.ReceiptDataId left outer join
+            //[dbo].[brand] B on B.id = ED.BrandId left outer join
+            //[dbo].[product] P on P.id = ED.ProductId left outer join
+            //==>[dbo].[Station_View] SV on SV.id = ED.GeostationId
+            //WHERE isnull(RD.Accepted, 0) = 1 
+            //ORDER BY RD.Dt DESC
+
             try
             {
                 sqlConn.Open();
