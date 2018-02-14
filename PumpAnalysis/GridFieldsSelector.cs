@@ -25,12 +25,8 @@ namespace PumpAnalysis
             dgvColumnsRef = dgvColumns;
             foreach (DataGridViewColumn thisCol in dgvColumns)
             {
-                //    MessageBox.Show(thisCol.Index.ToString() + " - " + thisCol.HeaderText + " - " + thisCol.Visible.ToString());
-
-
                 dgvReceiptData.Rows.Add(new object[] { thisCol.Visible, thisCol.Index, thisCol.HeaderText });
             }
-
         }
 
         private void btnSave_Click(object sender, EventArgs e)
