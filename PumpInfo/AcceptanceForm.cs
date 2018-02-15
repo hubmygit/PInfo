@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 using PumpLib;
 using MapForm;
+using Maps;
 
 namespace PumpInfo
 {
@@ -242,6 +243,8 @@ namespace PumpInfo
             //map form
             //SearchPlace frmMap = new SearchPlace(MapObj); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             //frmMap.ShowDialog(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            Form2 frmMap = new Form2(MapObj);
+            frmMap.ShowDialog();
 
             //int id = frmMap.mapFormGeoData.id;
             //string name = frmMap.mapFormGeoData.name;
@@ -254,16 +257,16 @@ namespace PumpInfo
             //txtAddress.Text = frmMap.mapFormGeoData.address;
 
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //if (frmMap.GleoPass.id > 0)
-            //{
-            //    lblGeostationId.Text = frmMap.GleoPass.id.ToString();
-            //    txtAddress.Text = frmMap.GleoPass.address;
+            if (frmMap.GleoPass.id > 0)
+            {
+                lblGeostationId.Text = frmMap.GleoPass.id.ToString();
+                txtAddress.Text = frmMap.GleoPass.address;
 
-            //    if (brands.Exists(i => i.Id == frmMap.GleoPass.brand_id))
-            //    {
-            //        cbBrand.SelectedIndex = cbBrand.FindStringExact(brands.Where(i => i.Id == frmMap.GleoPass.brand_id).First().Name); //OK!
-            //    }
-            //}
+                if (brands.Exists(i => i.Id == frmMap.GleoPass.brand_id))
+                {
+                    cbBrand.SelectedIndex = cbBrand.FindStringExact(brands.Where(i => i.Id == frmMap.GleoPass.brand_id).First().Name); //OK!
+                }
+            }
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
 

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 using PumpLib;
 using MapForm;
+using Maps;
 
 namespace PumpAnalysis
 {
@@ -99,6 +100,7 @@ namespace PumpAnalysis
 
                 //map form
                 //   SearchPlace frmMap = new SearchPlace(MapObj, true); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //   Form2 frmMap = new Form2( ????????????? )
                 //   frmMap.ShowDialog(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 //   MapFormGeoData mfGeoData = frmMap.GleoPass; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
