@@ -426,7 +426,7 @@ namespace PumpAnalysis
                         }
                         catch (Exception ex2)
                         {
-                            MessageBox.Show("Προσοχή! Το αρχείο " + realFileName + " δε θα αποθηκευτεί!");
+                            MessageBox.Show("Προσοχή! Το αρχείο " + realFileName + " δε θα αποθηκευτεί!\r\n" + ex2.Message);
                         }
 
                     }

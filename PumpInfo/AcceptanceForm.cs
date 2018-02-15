@@ -238,10 +238,10 @@ namespace PumpInfo
                 connectionString = SQLiteDBMap.connectionString, //Stationsdb.db
                 existsInternetConnection = NetworkConnections.CheckInternetConnection()
             };
-                        
+
             //map form
-            SearchPlace frmMap = new SearchPlace(MapObj);
-            frmMap.ShowDialog();
+            //SearchPlace frmMap = new SearchPlace(MapObj); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //frmMap.ShowDialog(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
             //int id = frmMap.mapFormGeoData.id;
             //string name = frmMap.mapFormGeoData.name;
@@ -253,17 +253,18 @@ namespace PumpInfo
             //txtDealer.Text = frmMap.mapFormGeoData.name;
             //txtAddress.Text = frmMap.mapFormGeoData.address;
 
-            if (frmMap.GleoPass.id > 0)
-            {
-                lblGeostationId.Text = frmMap.GleoPass.id.ToString();
-                txtAddress.Text = frmMap.GleoPass.address;
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //if (frmMap.GleoPass.id > 0)
+            //{
+            //    lblGeostationId.Text = frmMap.GleoPass.id.ToString();
+            //    txtAddress.Text = frmMap.GleoPass.address;
 
-                if (brands.Exists(i => i.Id == frmMap.GleoPass.brand_id))
-                {
-                    cbBrand.SelectedIndex = cbBrand.FindStringExact(brands.Where(i => i.Id == frmMap.GleoPass.brand_id).First().Name); //OK!
-                }
-            }
-
+            //    if (brands.Exists(i => i.Id == frmMap.GleoPass.brand_id))
+            //    {
+            //        cbBrand.SelectedIndex = cbBrand.FindStringExact(brands.Where(i => i.Id == frmMap.GleoPass.brand_id).First().Name); //OK!
+            //    }
+            //}
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
 
         private void btnRealLatLong_Click(object sender, EventArgs e)

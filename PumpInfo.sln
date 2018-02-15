@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapForm", "MapForm\MapForm.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PumpData", "PumpData\PumpData.csproj", "{4660DA2A-D44F-422B-B18D-C26172E4A7E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maps", "Maps\Maps.csproj", "{7454AA21-A043-496A-B038-99D244631F8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4660DA2A-D44F-422B-B18D-C26172E4A7E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4660DA2A-D44F-422B-B18D-C26172E4A7E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4660DA2A-D44F-422B-B18D-C26172E4A7E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7454AA21-A043-496A-B038-99D244631F8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7454AA21-A043-496A-B038-99D244631F8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7454AA21-A043-496A-B038-99D244631F8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7454AA21-A043-496A-B038-99D244631F8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
