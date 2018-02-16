@@ -21,8 +21,8 @@ namespace MapsExec
             String DecSep = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
             if (DecSep == ",")
             {
-                textBox1.Text = "37.9641";
-                textBox2.Text = "23.5660";
+                textBox1.Text = "37,9641";
+                textBox2.Text = "23,5660";
             }
             else
             {
