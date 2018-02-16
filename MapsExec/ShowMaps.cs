@@ -40,8 +40,8 @@ namespace MapsExec
             //LeoPass.latitude = 23.5660;
             double LeoPasslongitude, LeoPasslatitude;
             int Leoradius;
-            double.TryParse(textBox1.Text.ToString().Trim(), out LeoPasslongitude);
-            double.TryParse(textBox2.Text.ToString().Trim(), out LeoPasslatitude);
+            double.TryParse(textBox2.Text.ToString().Trim(), out LeoPasslongitude);
+            double.TryParse(textBox1.Text.ToString().Trim(), out LeoPasslatitude);
             int.TryParse(textBox3.Text.ToString().Trim(), out Leoradius);
             LeoPass.longitude = LeoPasslongitude;
             LeoPass.latitude  = LeoPasslatitude;

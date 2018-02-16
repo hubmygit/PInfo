@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+
 using PumpLib;
 using MapForm;
 using Maps;
+using System.Globalization;
 
 namespace PumpInfo
 {
@@ -218,7 +220,7 @@ namespace PumpInfo
             string realLat = "";
             string realLong = "";
 
-            if ((txtRealLat.Text.Trim() == "0" && txtRealLong.Text.Trim() == "0") || (txtRealLat.Text.Trim() == "" && txtRealLong.Text.Trim() == ""))
+            /*if ((txtRealLat.Text.Trim() == "0" && txtRealLong.Text.Trim() == "0") || (txtRealLat.Text.Trim() == "" && txtRealLong.Text.Trim() == ""))
             {
                 realLat = dgvCurrentObj["latitude", 0].Value.ToString().Replace('.', ',');
                 realLong = dgvCurrentObj["longitude", 0].Value.ToString().Replace('.', ',');
@@ -227,14 +229,38 @@ namespace PumpInfo
             {
                 realLat = txtRealLat.Text.Trim().Replace('.', ',');
                 realLong = txtRealLong.Text.Trim().Replace('.', ',');
+            }*/
+
+            if ((txtRealLat.Text.Trim() == "0" && txtRealLong.Text.Trim() == "0") || (txtRealLat.Text.Trim() == "" && txtRealLong.Text.Trim() == ""))
+            {
+                realLat = dgvCurrentObj["latitude", 0].Value.ToString();
+                realLong = dgvCurrentObj["longitude", 0].Value.ToString();
             }
+            else
+            {
+                realLat = txtRealLat.Text.Trim();
+                realLong = txtRealLong.Text.Trim();
+            }
+
+            String DecSep = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+            if (DecSep == ",")
+            {
+                realLat = realLat.Replace('.', ',');
+                realLong = realLong.Replace('.', ',');
+            }
+            else
+            {
+                realLat = realLat.Replace(',', '.');
+                realLong = realLong.Replace(',', '.');
+            }
+
 
 
             MapFormParams MapObj = new MapFormParams()
             {
                 latitude = Convert.ToDouble(realLat), //dgvCurrentObj["latitude", 0].Value.ToString().Replace('.', ',')),   //38.2682,
                 longitude = Convert.ToDouble(realLong), //dgvCurrentObj["longitude", 0].Value.ToString().Replace('.', ',')), //21.755,
-                radius = 150, //meters
+                radius = 350, //meters
                 apiKey = MapsApi.key, //"AIzaSyCxAKDi4ZgokHWCYK_5sQ8Dg-nlcLT2myo"
                 connectionString = SQLiteDBMap.connectionString, //Stationsdb.db
                 existsInternetConnection = NetworkConnections.CheckInternetConnection()

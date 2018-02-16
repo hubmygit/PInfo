@@ -212,7 +212,7 @@ namespace Maps
                         CName = row.Cells["Comp_Name"].Value.ToString();
                         SForm.txtCompName.Text = CName;
 
-                        CBrandId = row.Cells["Other_id"].Value.ToString();
+                        CBrandId = row.Cells["Company_id"].Value.ToString();
 
                         string CoName = row.Cells["Company"].Value.ToString().Trim();
                         int leo = SForm.cbCompany.FindStringExact(CoName);
@@ -493,7 +493,7 @@ namespace Maps
                 if (comid < 0)
                 { comid = 0; };
 
-                loc = drrow.Cells["Longitude"].Value.ToString() + " , " + drrow.Cells["Latitude"].Value.ToString();
+                loc = drrow.Cells["Latitude"].Value.ToString() + " , "  + drrow.Cells["Longitude"].Value.ToString();
                 GMap.NET.WindowsForms.GMapMarker marker1 = (
                 new GMap.NET.WindowsForms.Markers.GMarkerGoogle(
                     new GMap.NET.PointLatLng(la, lo), BitList[comid]));
@@ -508,10 +508,10 @@ namespace Maps
             markers1.Markers.Add(MarkerInInitialPos());
             gMap.Overlays.Add(markers1);
             if (loc.Trim() == "")
-            { loc = GlobLon.ToString() + " , " + GlobLat.ToString();
+            { loc = GlobLat.ToString() + " , " + GlobLon.ToString();
                 gMap.SetPositionByKeywords(loc);
                 gMap.ZoomAndCenterMarkers(loc);
-                gMap.Position = new GMap.NET.PointLatLng(GlobLon, GlobLat);
+                gMap.Position = new GMap.NET.PointLatLng(GlobLat, GlobLon);
 
             }
             else
@@ -527,7 +527,7 @@ namespace Maps
         {
             GMap.NET.WindowsForms.GMapMarker marker1 = (
             new GMap.NET.WindowsForms.Markers.GMarkerGoogle(
-                new GMap.NET.PointLatLng(GlobLon, GlobLat), 
+                new GMap.NET.PointLatLng(GlobLat, GlobLon), 
                 GMap.NET.WindowsForms.Markers.GMarkerGoogleType.purple_small));
             marker1.Tag = 0;
             return marker1;
@@ -591,7 +591,7 @@ namespace Maps
 
 
 
-        private void FilterLonLat(double Lon, double Lat, int radmeter = 150)
+        private void FilterLonLat(double Lat, double Lon, int radmeter = 150)
         {
             double fromLon, toLon;
             double fromLat, toLat;
