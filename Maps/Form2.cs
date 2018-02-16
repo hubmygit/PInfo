@@ -307,8 +307,10 @@ namespace Maps
                     {
                         dt.Columns.Add(myField["ColumnName"].ToString());
                     }
-                    catch
-                    { };
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
 
                     //else
                     //{
