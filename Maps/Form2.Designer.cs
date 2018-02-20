@@ -255,7 +255,6 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private GMap.NET.WindowsForms.GMapControl gMap;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
@@ -263,5 +262,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label lblZoom;
         private System.Windows.Forms.Label lblRadius;
+        private GMap.NET.WindowsForms.GMapControl gMap;
     }
 }

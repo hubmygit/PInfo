@@ -171,7 +171,6 @@ namespace PumpInfo
 
                 e.Cancel = (dialogResult == DialogResult.No);
             }
-
         }
 
         private void btnExport_Click(object sender, EventArgs e)

@@ -161,8 +161,14 @@ namespace Maps
               gMap_StationDetail(item.Tag.ToString());
             }
         }
-        
 
+        public void Dispose_gMap()
+        {
+            if (gMap != null)
+            {
+                gMap.Dispose();
+            }
+        }
 
         private void gMap_StationDetail(string words)
         {
@@ -244,6 +250,7 @@ namespace Maps
                 GleoPass.address = SAddr;
                 int.TryParse(CBrandId, out CBrandIdint);
                 GleoPass.brand_id = GetOtherCompanyId(CBrandIdint);
+
                 this.Close();
             }
             if (result == DialogResult.Yes)
@@ -258,6 +265,7 @@ namespace Maps
                 //GleoPass.brand_id = CBrandIdint;
                 GleoPass.brand_id = GetOtherCompanyId(SForm.cbCompany.SelectedIndex + 1);
                 UpdateTimeDepend(PopupId, CName, NewCompId);
+
                 this.Close();
             }
         }

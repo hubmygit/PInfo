@@ -286,6 +286,7 @@ namespace PumpInfo
             {
                 lblGeostationId.Text = frmMap.GleoPass.id.ToString();
                 txtAddress.Text = frmMap.GleoPass.address;
+                txtDealer.Text = frmMap.GleoPass.name;
 
                 if (brands.Exists(i => i.Id == frmMap.GleoPass.brand_id))
                 {
@@ -293,6 +294,7 @@ namespace PumpInfo
                 }
             }
 
+            frmMap.Dispose_gMap();
         }
 
         private void btnRealLatLong_Click(object sender, EventArgs e)
