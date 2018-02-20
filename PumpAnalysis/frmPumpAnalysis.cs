@@ -300,10 +300,10 @@ namespace PumpAnalysis
 
                 // VehicleTrace <--
 
-                List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
+                //List<ImpData> DataToMigrate = dbu.JsonToObjectList(read_data);
 
                 // VehicleTrace -->
-                DataToMigrate = DataToMigrateNew;
+                List<ImpData> DataToMigrate = DataToMigrateNew;
                 // VehicleTrace <--
 
                 counters.fileRows = DataToMigrate.Count;

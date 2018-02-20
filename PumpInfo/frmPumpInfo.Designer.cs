@@ -245,6 +245,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dgvReceiptData);
             this.Controls.Add(this.btnOpenFile);
+            this.MinimumSize = new System.Drawing.Size(930, 540);
             this.Name = "frmPumpInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pump Info";

@@ -282,7 +282,6 @@ namespace PumpInfo
             //txtDealer.Text = frmMap.mapFormGeoData.name;
             //txtAddress.Text = frmMap.mapFormGeoData.address;
 
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             if (frmMap.GleoPass.id > 0)
             {
                 lblGeostationId.Text = frmMap.GleoPass.id.ToString();
@@ -293,7 +292,7 @@ namespace PumpInfo
                     cbBrand.SelectedIndex = cbBrand.FindStringExact(brands.Where(i => i.Id == frmMap.GleoPass.brand_id).First().Name); //OK!
                 }
             }
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         }
 
         private void btnRealLatLong_Click(object sender, EventArgs e)

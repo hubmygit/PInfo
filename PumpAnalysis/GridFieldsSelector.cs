@@ -36,7 +36,7 @@ namespace PumpAnalysis
                 dgvColumnsRef[i].Visible = Convert.ToBoolean(dgvReceiptData["Visible", i].Value);
             }
 
-            Close();
+            Close();            
         }
 
         private void cbSelectAll_CheckedChanged(object sender, EventArgs e)

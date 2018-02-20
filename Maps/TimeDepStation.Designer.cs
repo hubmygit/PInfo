@@ -42,9 +42,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(17, 31);
+            this.pictureBox1.Location = new System.Drawing.Point(34, 63);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(64, 52);
+            this.pictureBox1.Size = new System.Drawing.Size(45, 45);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -67,9 +67,10 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(49, 174);
+            this.btnOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnOK.Location = new System.Drawing.Point(17, 173);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(100, 25);
             this.btnOK.TabIndex = 6;
             this.btnOK.Text = "Επιλογή";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -77,9 +78,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(147, 174);
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnCancel.Location = new System.Drawing.Point(123, 173);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(100, 25);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Ακύρωση";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -87,9 +89,10 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(243, 174);
+            this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnEdit.Location = new System.Drawing.Point(229, 173);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.Size = new System.Drawing.Size(100, 25);
             this.btnEdit.TabIndex = 8;
             this.btnEdit.Text = "Ενημέρωση";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -97,9 +100,10 @@
             // 
             // btnUpdPost
             // 
-            this.btnUpdPost.Location = new System.Drawing.Point(349, 174);
+            this.btnUpdPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnUpdPost.Location = new System.Drawing.Point(335, 173);
             this.btnUpdPost.Name = "btnUpdPost";
-            this.btnUpdPost.Size = new System.Drawing.Size(94, 23);
+            this.btnUpdPost.Size = new System.Drawing.Size(100, 25);
             this.btnUpdPost.TabIndex = 9;
             this.btnUpdPost.Text = "Καταχώρηση ";
             this.btnUpdPost.UseVisualStyleBackColor = true;
@@ -107,9 +111,10 @@
             // 
             // btnUpdCancel
             // 
-            this.btnUpdCancel.Location = new System.Drawing.Point(449, 174);
+            this.btnUpdCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnUpdCancel.Location = new System.Drawing.Point(441, 173);
             this.btnUpdCancel.Name = "btnUpdCancel";
-            this.btnUpdCancel.Size = new System.Drawing.Size(91, 23);
+            this.btnUpdCancel.Size = new System.Drawing.Size(100, 25);
             this.btnUpdCancel.TabIndex = 10;
             this.btnUpdCancel.Text = "Απόρριψη";
             this.btnUpdCancel.UseVisualStyleBackColor = true;
@@ -129,7 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(562, 229);
+            this.ClientSize = new System.Drawing.Size(564, 227);
             this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.btnUpdCancel);
             this.Controls.Add(this.btnUpdPost);
@@ -139,7 +144,10 @@
             this.Controls.Add(this.cbCompany);
             this.Controls.Add(this.txtCompName);
             this.Controls.Add(this.pictureBox1);
+            this.MaximumSize = new System.Drawing.Size(580, 265);
+            this.MinimumSize = new System.Drawing.Size(580, 265);
             this.Name = "TimeDepStation";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Στοιχεία Πρατηρίου";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
