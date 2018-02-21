@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TimeDepStation));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtCompName = new System.Windows.Forms.TextBox();
             this.cbCompany = new System.Windows.Forms.ComboBox();
@@ -144,6 +145,7 @@
             this.Controls.Add(this.cbCompany);
             this.Controls.Add(this.txtCompName);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(580, 265);
             this.MinimumSize = new System.Drawing.Size(580, 265);
             this.Name = "TimeDepStation";

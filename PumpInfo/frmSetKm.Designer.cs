@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSetKm));
             this.txtVehicleNo = new System.Windows.Forms.TextBox();
             this.lblVehicleNo = new System.Windows.Forms.Label();
             this.txtDtYear = new System.Windows.Forms.TextBox();
@@ -46,7 +47,7 @@
             this.txtVehicleNo.Name = "txtVehicleNo";
             this.txtVehicleNo.ReadOnly = true;
             this.txtVehicleNo.Size = new System.Drawing.Size(280, 22);
-            this.txtVehicleNo.TabIndex = 1;
+            this.txtVehicleNo.TabIndex = 2;
             // 
             // lblVehicleNo
             // 
@@ -65,7 +66,7 @@
             this.txtDtYear.Name = "txtDtYear";
             this.txtDtYear.ReadOnly = true;
             this.txtDtYear.Size = new System.Drawing.Size(280, 22);
-            this.txtDtYear.TabIndex = 2;
+            this.txtDtYear.TabIndex = 3;
             // 
             // lblDtYear
             // 
@@ -84,7 +85,7 @@
             this.txtDtMonth.Name = "txtDtMonth";
             this.txtDtMonth.ReadOnly = true;
             this.txtDtMonth.Size = new System.Drawing.Size(280, 22);
-            this.txtDtMonth.TabIndex = 3;
+            this.txtDtMonth.TabIndex = 4;
             // 
             // lblDtMonth
             // 
@@ -102,7 +103,7 @@
             this.txtKm.Location = new System.Drawing.Point(142, 159);
             this.txtKm.Name = "txtKm";
             this.txtKm.Size = new System.Drawing.Size(280, 22);
-            this.txtKm.TabIndex = 38;
+            this.txtKm.TabIndex = 1;
             this.txtKm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKm_KeyPress);
             // 
             // lblKm
@@ -144,6 +145,7 @@
             this.Controls.Add(this.lblDtYear);
             this.Controls.Add(this.txtVehicleNo);
             this.Controls.Add(this.lblVehicleNo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSetKm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Set Final Km";
