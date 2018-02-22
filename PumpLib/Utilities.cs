@@ -1179,7 +1179,8 @@ namespace PumpLib
                     ret.Add(new Station()
                     {
                         Id = Convert.ToInt32(reader["Id"].ToString()),
-                        UpdDate = Convert.ToDateTime(reader["UpdDate"].ToString()),
+                        //UpdDate = Convert.ToDateTime(reader["UpdDate"].ToString()),
+                        UpdDate = Convert.ToDateTime(reader["UpdDate"].ToString()).ToString("yyyy-MM-dd HH:mm:ss.000"),
                         Current_Rec = Convert.ToBoolean(reader["Current_Rec"].ToString()),
                         Comp_Name = reader["Comp_Name"].ToString(),
                         Company_Id = Convert.ToInt32(reader["Company_Id"].ToString())
@@ -2493,7 +2494,8 @@ namespace PumpLib
     public class Station
     {
         public int Id { get; set; }
-        public DateTime UpdDate { get; set; } //convert ????????
+        //public DateTime UpdDate { get; set; } //convert ????????
+        public string UpdDate { get; set; }
         public bool Current_Rec { get; set; } //check 0,1 or 1,2 ????????
         public string Comp_Name { get; set; }
         public int Company_Id { get; set; }
