@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PumpInfo.ico" />
+    <None Include="Resources\GetFileHH_32x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

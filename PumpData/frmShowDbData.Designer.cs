@@ -1,6 +1,6 @@
-﻿namespace PumpAnalysis
+﻿namespace PumpData
 {
-    partial class frmPumpAnalysis
+    partial class frmShowDbData
     {
         /// <summary>
         /// Required designer variable.
@@ -30,9 +30,10 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPumpAnalysis));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmShowDbData));
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
-            this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReceiptDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ExtraDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,10 +57,9 @@
             this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblImpFile = new System.Windows.Forms.Label();
-            this.btnShowDbData = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnImport = new System.Windows.Forms.Button();
+            this.btnAddFile = new System.Windows.Forms.Button();
+            this.btnAddGeostation = new System.Windows.Forms.Button();
+            this.btnGridFields = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,7 +81,8 @@
             this.dgvReceiptData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvReceiptData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvReceiptData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Index,
+            this.ReceiptDataId,
+            this.ExtraDataId,
             this.Accepted,
             this.Vehicle,
             this.Date,
@@ -119,21 +120,30 @@
             this.dgvReceiptData.ReadOnly = true;
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvReceiptData.Size = new System.Drawing.Size(950, 410);
-            this.dgvReceiptData.TabIndex = 14;
+            this.dgvReceiptData.TabIndex = 15;
+            this.dgvReceiptData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReceiptData_CellDoubleClick);
             // 
-            // Index
+            // ReceiptDataId
             // 
-            this.Index.HeaderText = "Index";
-            this.Index.Name = "Index";
-            this.Index.ReadOnly = true;
-            this.Index.Visible = false;
-            this.Index.Width = 60;
+            this.ReceiptDataId.HeaderText = "ReceiptDataId";
+            this.ReceiptDataId.Name = "ReceiptDataId";
+            this.ReceiptDataId.ReadOnly = true;
+            this.ReceiptDataId.Visible = false;
+            this.ReceiptDataId.Width = 60;
+            // 
+            // ExtraDataId
+            // 
+            this.ExtraDataId.HeaderText = "ExtraDataId";
+            this.ExtraDataId.Name = "ExtraDataId";
+            this.ExtraDataId.ReadOnly = true;
+            this.ExtraDataId.Visible = false;
             // 
             // Accepted
             // 
             this.Accepted.HeaderText = "";
             this.Accepted.Name = "Accepted";
             this.Accepted.ReadOnly = true;
+            this.Accepted.Visible = false;
             this.Accepted.Width = 50;
             // 
             // Vehicle
@@ -141,6 +151,7 @@
             this.Vehicle.HeaderText = "VehicleNo";
             this.Vehicle.Name = "Vehicle";
             this.Vehicle.ReadOnly = true;
+            this.Vehicle.Visible = false;
             this.Vehicle.Width = 90;
             // 
             // Date
@@ -161,6 +172,7 @@
             this.Latitude.HeaderText = "Latitude";
             this.Latitude.Name = "Latitude";
             this.Latitude.ReadOnly = true;
+            this.Latitude.Visible = false;
             this.Latitude.Width = 90;
             // 
             // Longitude
@@ -168,6 +180,7 @@
             this.Longitude.HeaderText = "Longitude";
             this.Longitude.Name = "Longitude";
             this.Longitude.ReadOnly = true;
+            this.Longitude.Visible = false;
             this.Longitude.Width = 90;
             // 
             // Weight
@@ -233,6 +246,7 @@
             this.Pump.HeaderText = "Pump";
             this.Pump.Name = "Pump";
             this.Pump.ReadOnly = true;
+            this.Pump.Visible = false;
             this.Pump.Width = 70;
             // 
             // PumpVol
@@ -254,113 +268,92 @@
             this.Remarks.HeaderText = "Remarks";
             this.Remarks.Name = "Remarks";
             this.Remarks.ReadOnly = true;
+            this.Remarks.Visible = false;
             // 
             // MachineNo
             // 
             this.MachineNo.HeaderText = "MachineNo";
             this.MachineNo.Name = "MachineNo";
             this.MachineNo.ReadOnly = true;
+            this.MachineNo.Visible = false;
             // 
             // GeostationId
             // 
             this.GeostationId.HeaderText = "GeostationId";
             this.GeostationId.Name = "GeostationId";
             this.GeostationId.ReadOnly = true;
+            this.GeostationId.Visible = false;
             // 
             // RealLat
             // 
             this.RealLat.HeaderText = "RealLat";
             this.RealLat.Name = "RealLat";
             this.RealLat.ReadOnly = true;
+            this.RealLat.Visible = false;
             // 
             // RealLong
             // 
             this.RealLong.HeaderText = "RealLong";
             this.RealLong.Name = "RealLong";
             this.RealLong.ReadOnly = true;
+            this.RealLong.Visible = false;
             // 
-            // lblImpFile
+            // btnAddFile
             // 
-            this.lblImpFile.AutoSize = true;
-            this.lblImpFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblImpFile.Location = new System.Drawing.Point(12, 55);
-            this.lblImpFile.Name = "lblImpFile";
-            this.lblImpFile.Size = new System.Drawing.Size(59, 16);
-            this.lblImpFile.TabIndex = 18;
-            this.lblImpFile.Text = "Αρχείο: -";
+            this.btnAddFile.Location = new System.Drawing.Point(12, 28);
+            this.btnAddFile.Name = "btnAddFile";
+            this.btnAddFile.Size = new System.Drawing.Size(123, 23);
+            this.btnAddFile.TabIndex = 16;
+            this.btnAddFile.Text = "Sample File(s)";
+            this.btnAddFile.UseVisualStyleBackColor = true;
+            this.btnAddFile.Click += new System.EventHandler(this.btnAddFile_Click);
             // 
-            // btnShowDbData
+            // btnAddGeostation
             // 
-            this.btnShowDbData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnShowDbData.Image = global::PumpAnalysis.Properties.Resources.ShowDbData_32x;
-            this.btnShowDbData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnShowDbData.Location = new System.Drawing.Point(425, 12);
-            this.btnShowDbData.Name = "btnShowDbData";
-            this.btnShowDbData.Size = new System.Drawing.Size(135, 40);
-            this.btnShowDbData.TabIndex = 19;
-            this.btnShowDbData.Text = "Εμφάνιση";
-            this.btnShowDbData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnShowDbData.UseVisualStyleBackColor = true;
-            this.btnShowDbData.Click += new System.EventHandler(this.btnShowDbData_Click);
+            this.btnAddGeostation.Location = new System.Drawing.Point(853, 28);
+            this.btnAddGeostation.Name = "btnAddGeostation";
+            this.btnAddGeostation.Size = new System.Drawing.Size(109, 23);
+            this.btnAddGeostation.TabIndex = 17;
+            this.btnAddGeostation.Text = "Geostation";
+            this.btnAddGeostation.UseVisualStyleBackColor = true;
+            this.btnAddGeostation.Click += new System.EventHandler(this.btnAddGeostation_Click);
             // 
-            // btnSave
+            // btnGridFields
             // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSave.Image = global::PumpAnalysis.Properties.Resources.Save_32x;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(827, 12);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(135, 40);
-            this.btnSave.TabIndex = 16;
-            this.btnSave.Text = "Αποθήκευση";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnGridFields.Location = new System.Drawing.Point(535, 28);
+            this.btnGridFields.Name = "btnGridFields";
+            this.btnGridFields.Size = new System.Drawing.Size(109, 23);
+            this.btnGridFields.TabIndex = 19;
+            this.btnGridFields.Text = "Grid Fields";
+            this.btnGridFields.UseVisualStyleBackColor = true;
+            this.btnGridFields.Click += new System.EventHandler(this.btnGridFields_Click);
             // 
-            // btnImport
-            // 
-            this.btnImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnImport.Image = global::PumpAnalysis.Properties.Resources.GetFileHH_32x;
-            this.btnImport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImport.Location = new System.Drawing.Point(12, 12);
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(135, 40);
-            this.btnImport.TabIndex = 15;
-            this.btnImport.Text = "Εισαγωγή";
-            this.btnImport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnImport.UseVisualStyleBackColor = true;
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
-            // 
-            // frmPumpAnalysis
+            // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 502);
-            this.Controls.Add(this.btnShowDbData);
-            this.Controls.Add(this.lblImpFile);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnImport);
+            this.Controls.Add(this.btnGridFields);
+            this.Controls.Add(this.btnAddGeostation);
+            this.Controls.Add(this.btnAddFile);
             this.Controls.Add(this.dgvReceiptData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmPumpAnalysis";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Pump Analysis";
-            this.Load += new System.EventHandler(this.frmPumpAnalysis_Load);
+            this.Name = "frmShowDbData";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Εμφάνιση Δεδομένων";
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        public System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.DataGridView dgvReceiptData;
-        public System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label lblImpFile;
-        public System.Windows.Forms.Button btnShowDbData;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Index;
+        private System.Windows.Forms.Button btnAddFile;
+        private System.Windows.Forms.Button btnAddGeostation;
+        private System.Windows.Forms.Button btnGridFields;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptDataId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ExtraDataId;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
@@ -386,4 +379,3 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLong;
     }
 }
-
