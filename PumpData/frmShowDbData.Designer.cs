@@ -57,9 +57,9 @@
             this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnAddFile = new System.Windows.Forms.Button();
-            this.btnAddGeostation = new System.Windows.Forms.Button();
             this.btnGridFields = new System.Windows.Forms.Button();
+            this.btnGeostation = new System.Windows.Forms.Button();
+            this.btnSampleFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -298,44 +298,56 @@
             this.RealLong.ReadOnly = true;
             this.RealLong.Visible = false;
             // 
-            // btnAddFile
-            // 
-            this.btnAddFile.Location = new System.Drawing.Point(12, 28);
-            this.btnAddFile.Name = "btnAddFile";
-            this.btnAddFile.Size = new System.Drawing.Size(123, 23);
-            this.btnAddFile.TabIndex = 16;
-            this.btnAddFile.Text = "Sample File(s)";
-            this.btnAddFile.UseVisualStyleBackColor = true;
-            this.btnAddFile.Click += new System.EventHandler(this.btnAddFile_Click);
-            // 
-            // btnAddGeostation
-            // 
-            this.btnAddGeostation.Location = new System.Drawing.Point(853, 28);
-            this.btnAddGeostation.Name = "btnAddGeostation";
-            this.btnAddGeostation.Size = new System.Drawing.Size(109, 23);
-            this.btnAddGeostation.TabIndex = 17;
-            this.btnAddGeostation.Text = "Geostation";
-            this.btnAddGeostation.UseVisualStyleBackColor = true;
-            this.btnAddGeostation.Click += new System.EventHandler(this.btnAddGeostation_Click);
-            // 
             // btnGridFields
             // 
-            this.btnGridFields.Location = new System.Drawing.Point(535, 28);
+            this.btnGridFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnGridFields.Image = global::PumpData.Properties.Resources.CheckboxFieldColumn_32x;
+            this.btnGridFields.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGridFields.Location = new System.Drawing.Point(802, 19);
             this.btnGridFields.Name = "btnGridFields";
-            this.btnGridFields.Size = new System.Drawing.Size(109, 23);
-            this.btnGridFields.TabIndex = 19;
-            this.btnGridFields.Text = "Grid Fields";
+            this.btnGridFields.Size = new System.Drawing.Size(160, 40);
+            this.btnGridFields.TabIndex = 22;
+            this.btnGridFields.Text = "Επιλογή Πεδίων";
+            this.btnGridFields.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGridFields.UseVisualStyleBackColor = true;
             this.btnGridFields.Click += new System.EventHandler(this.btnGridFields_Click);
+            // 
+            // btnGeostation
+            // 
+            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnGeostation.Image = global::PumpData.Properties.Resources.GeoLocation_32x;
+            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGeostation.Location = new System.Drawing.Point(178, 19);
+            this.btnGeostation.Name = "btnGeostation";
+            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
+            this.btnGeostation.TabIndex = 21;
+            this.btnGeostation.Text = "Γεωγραφική Θέση";
+            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGeostation.UseVisualStyleBackColor = true;
+            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
+            // 
+            // btnSampleFile
+            // 
+            this.btnSampleFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSampleFile.Image = global::PumpData.Properties.Resources.CheckboxFieldColumn_32x;
+            this.btnSampleFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSampleFile.Location = new System.Drawing.Point(12, 19);
+            this.btnSampleFile.Name = "btnSampleFile";
+            this.btnSampleFile.Size = new System.Drawing.Size(160, 40);
+            this.btnSampleFile.TabIndex = 23;
+            this.btnSampleFile.Text = "Αρχεία Δειγμάτων";
+            this.btnSampleFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSampleFile.UseVisualStyleBackColor = true;
+            this.btnSampleFile.Click += new System.EventHandler(this.btnSampleFile_Click);
             // 
             // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 502);
+            this.Controls.Add(this.btnSampleFile);
             this.Controls.Add(this.btnGridFields);
-            this.Controls.Add(this.btnAddGeostation);
-            this.Controls.Add(this.btnAddFile);
+            this.Controls.Add(this.btnGeostation);
             this.Controls.Add(this.dgvReceiptData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmShowDbData";
@@ -349,9 +361,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvReceiptData;
-        private System.Windows.Forms.Button btnAddFile;
-        private System.Windows.Forms.Button btnAddGeostation;
-        private System.Windows.Forms.Button btnGridFields;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptDataId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExtraDataId;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
@@ -377,5 +386,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLat;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLong;
+        public System.Windows.Forms.Button btnGeostation;
+        public System.Windows.Forms.Button btnGridFields;
+        public System.Windows.Forms.Button btnSampleFile;
     }
 }

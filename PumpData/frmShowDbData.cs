@@ -50,38 +50,12 @@ namespace PumpData
             */
         }
 
-        private void btnAddFile_Click(object sender, EventArgs e)
+
+        private void btnGeostation_Click(object sender, EventArgs e)
         {
-            if (dgvReceiptData.SelectedRows.Count > 0)
-            {
-                int receiptDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ReceiptDataId"].Value);
-                int extraDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value);
-                
-                SampleFiles attachedFiles = new SampleFiles(extraDataId);
-                attachedFiles.ShowDialog();
-
-
-
-                //check -> "void addFilesIntoListView(ListView myListView, string[] fileNames)" from "protocol" project
-                ////Open File Dialog...
-                //OpenFileDialog ofd = new OpenFileDialog();
-                //ofd.Title = "Add Files";
-                //ofd.Multiselect = true; //array of files
-                //DialogResult result = ofd.ShowDialog();  //ofd.ShowDialog();
-
-                //if (ofd.FileName.Trim() == "" || result != DialogResult.OK)
-                //{
-                //    return;
-                //}
-
-
-
-
-            }
-        }
-
-        private void btnAddGeostation_Click(object sender, EventArgs e)
-        {
+            //Αν είναι 0, με τις συντεταγμένες ψάξε πρατήρια όπως στο PumpInfo
+            //Αν έχει Id, δείξε το χάρτη και βάλε το marker στο πρατήριο που έχει επιλέξει
+            //      Αν το αλλάξει κράτα το νέο, αλλιώς μην κάνεις τίποτα
             if (dgvReceiptData.SelectedRows.Count > 0)
             {
                 int extraDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value);
@@ -120,9 +94,38 @@ namespace PumpData
             //{
             //    MessageBox.Show(thisCol.Index.ToString() + " - " + thisCol.HeaderText + " - (" + thisCol.Name +  ") - " + thisCol.Visible.ToString());
             //}
-            
+
             GridFieldsSelector frmGridFieldsSelector = new GridFieldsSelector(dgvReceiptData.Columns);
             frmGridFieldsSelector.ShowDialog();
+        }
+
+        private void btnSampleFile_Click(object sender, EventArgs e)
+        {
+            if (dgvReceiptData.SelectedRows.Count > 0)
+            {
+                int receiptDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ReceiptDataId"].Value);
+                int extraDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value);
+
+                SampleFiles attachedFiles = new SampleFiles(extraDataId);
+                attachedFiles.ShowDialog();
+
+
+
+                //check -> "void addFilesIntoListView(ListView myListView, string[] fileNames)" from "protocol" project
+                ////Open File Dialog...
+                //OpenFileDialog ofd = new OpenFileDialog();
+                //ofd.Title = "Add Files";
+                //ofd.Multiselect = true; //array of files
+                //DialogResult result = ofd.ShowDialog();  //ofd.ShowDialog();
+
+                //if (ofd.FileName.Trim() == "" || result != DialogResult.OK)
+                //{
+                //    return;
+                //}
+
+            
+
+            }
         }
     }
 }

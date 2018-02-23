@@ -48,9 +48,10 @@ namespace PumpInfo
                 cbProduct.SelectedIndex = cbProduct.FindStringExact(obj.product.Name);
                 txtPump.Text = obj.pump;
                 txtPumpVol.Text = obj.pumpVolume.ToString();
-                
+
                 //show diff
-                txtPumpVol_Leave(null, null);
+                //txtPumpVol_Leave(null, null);
+                txtPumpVol_Leave(this, EventArgs.Empty);
 
                 txtSampleNo.Text = obj.sampleNo.ToString();
                 txtRemarks.Text = obj.remarks;
@@ -176,11 +177,24 @@ namespace PumpInfo
 
 
             lblVolDiffPerc.Text = "Volume Difference: " + percDiff.ToString() + " %";
-
+            
             if (Math.Abs(percDiff) > maxVolumeDiffPerc && maxVolumeDiffPerc > 0.0)
             {
-                MessageBox.Show("Προσοχή! \r\nΕντοπίστηκε μεγάλη διαφορά στο πεδίο των λίτρων.");
+                if (percDiff > 0)
+                {
+                    lblVolDiffPerc.ForeColor = Color.Green;
+                }
+                else if (percDiff < 0)
+                {
+                    lblVolDiffPerc.ForeColor = Color.Red;
+                }
+
+                if (((Control)sender).GetType().Name.ToUpper() == "TEXTBOX")
+                {
+                    MessageBox.Show("Προσοχή! \r\nΕντοπίστηκε μεγάλη διαφορά στο πεδίο των λίτρων.");
+                }
             }
+            
         }
 
         private void txtPumpVol_KeyPress(object sender, KeyPressEventArgs e)
