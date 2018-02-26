@@ -119,7 +119,7 @@
             this.dgvReceiptData.Name = "dgvReceiptData";
             this.dgvReceiptData.ReadOnly = true;
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReceiptData.Size = new System.Drawing.Size(950, 410);
+            this.dgvReceiptData.Size = new System.Drawing.Size(990, 410);
             this.dgvReceiptData.TabIndex = 15;
             this.dgvReceiptData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReceiptData_CellDoubleClick);
             // 
@@ -300,6 +300,7 @@
             // 
             // btnGridFields
             // 
+            this.btnGridFields.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGridFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnGridFields.Image = global::PumpData.Properties.Resources.CheckboxFieldColumn_32x;
             this.btnGridFields.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -329,7 +330,7 @@
             // btnSampleFile
             // 
             this.btnSampleFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSampleFile.Image = global::PumpData.Properties.Resources.CheckboxFieldColumn_32x;
+            this.btnSampleFile.Image = global::PumpData.Properties.Resources.PerformanceLog_32x;
             this.btnSampleFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSampleFile.Location = new System.Drawing.Point(12, 19);
             this.btnSampleFile.Name = "btnSampleFile";
@@ -344,12 +345,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 502);
+            this.ClientSize = new System.Drawing.Size(1024, 502);
             this.Controls.Add(this.btnSampleFile);
             this.Controls.Add(this.btnGridFields);
             this.Controls.Add(this.btnGeostation);
             this.Controls.Add(this.dgvReceiptData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1040, 540);
             this.Name = "frmShowDbData";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Εμφάνιση Δεδομένων";

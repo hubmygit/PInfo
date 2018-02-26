@@ -115,6 +115,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PumpInfo.ico" />
+    <None Include="Resources\IntelliTrace_48x.png" />
+    <None Include="Resources\DatabaseAuditSpecification_48x.png" />
+    <None Include="Resources\PerformanceLog_32x.png" />
+    <None Include="Resources\MeasureCalculate_32x.png" />
     <None Include="Resources\CheckboxFieldColumn_32x.png" />
     <None Include="Resources\GeoLocation_32x.png" />
     <None Include="Resources\Save_32x.png" />

@@ -83,6 +83,16 @@ namespace PumpData.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DatabaseAuditSpecification_48x {
+            get {
+                object obj = ResourceManager.GetObject("DatabaseAuditSpecification_48x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DeleteAttachment_16x {
             get {
                 object obj = ResourceManager.GetObject("DeleteAttachment_16x", resourceCulture);
@@ -103,9 +113,39 @@ namespace PumpData.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IntelliTrace_48x {
+            get {
+                object obj = ResourceManager.GetObject("IntelliTrace_48x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MeasureCalculate_32x {
+            get {
+                object obj = ResourceManager.GetObject("MeasureCalculate_32x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap OpenAttachment_16x {
             get {
                 object obj = ResourceManager.GetObject("OpenAttachment_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PerformanceLog_32x {
+            get {
+                object obj = ResourceManager.GetObject("PerformanceLog_32x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

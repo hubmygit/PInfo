@@ -141,6 +141,8 @@
             this.Controls.Add(this.btnRemoveFile);
             this.Controls.Add(this.btnAddFiles);
             this.Controls.Add(this.lvAttachedFiles);
+            this.MaximumSize = new System.Drawing.Size(500, 300);
+            this.MinimumSize = new System.Drawing.Size(500, 300);
             this.Name = "SampleFiles";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Sample Files";

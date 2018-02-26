@@ -35,12 +35,13 @@
             // 
             // btnShowConsumption
             // 
-            this.btnShowConsumption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnShowConsumption.Image = global::PumpData.Properties.Resources.ShowDbData_32x;
+            this.btnShowConsumption.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnShowConsumption.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnShowConsumption.Image = global::PumpData.Properties.Resources.IntelliTrace_48x;
             this.btnShowConsumption.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnShowConsumption.Location = new System.Drawing.Point(75, 148);
+            this.btnShowConsumption.Location = new System.Drawing.Point(380, 80);
             this.btnShowConsumption.Name = "btnShowConsumption";
-            this.btnShowConsumption.Size = new System.Drawing.Size(135, 40);
+            this.btnShowConsumption.Size = new System.Drawing.Size(225, 75);
             this.btnShowConsumption.TabIndex = 21;
             this.btnShowConsumption.Text = "Κατανάλωση";
             this.btnShowConsumption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -49,12 +50,13 @@
             // 
             // btnShowDbData
             // 
-            this.btnShowDbData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnShowDbData.Image = global::PumpData.Properties.Resources.ShowDbData_32x;
+            this.btnShowDbData.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnShowDbData.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnShowDbData.Image = global::PumpData.Properties.Resources.DatabaseAuditSpecification_48x;
             this.btnShowDbData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnShowDbData.Location = new System.Drawing.Point(75, 75);
+            this.btnShowDbData.Location = new System.Drawing.Point(80, 80);
             this.btnShowDbData.Name = "btnShowDbData";
-            this.btnShowDbData.Size = new System.Drawing.Size(135, 40);
+            this.btnShowDbData.Size = new System.Drawing.Size(225, 75);
             this.btnShowDbData.TabIndex = 20;
             this.btnShowDbData.Text = "Δεδομένα";
             this.btnShowDbData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -65,10 +67,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(684, 237);
             this.Controls.Add(this.btnShowConsumption);
             this.Controls.Add(this.btnShowDbData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(700, 275);
+            this.MinimumSize = new System.Drawing.Size(700, 275);
             this.Name = "frmPumpData";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pump Data";

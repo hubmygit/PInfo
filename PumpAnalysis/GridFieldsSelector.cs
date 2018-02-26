@@ -33,7 +33,7 @@ namespace PumpAnalysis
         {            
             for (int i = 0; i < dgvReceiptData.Rows.Count; i++)
             {
-                dgvColumnsRef[i].Visible = Convert.ToBoolean(dgvReceiptData["Visible", i].Value);
+                dgvColumnsRef[i].Visible = Convert.ToBoolean(dgvReceiptData["Visibility", i].Value);
             }
 
             Close();            
@@ -43,7 +43,7 @@ namespace PumpAnalysis
         {
             for (int i = 0; i < dgvReceiptData.Rows.Count; i++)
             {
-                dgvReceiptData["Visible", i].Value = cbSelectAll.Checked;
+                dgvReceiptData["Visibility", i].Value = cbSelectAll.Checked;
             }
         }
     }

@@ -260,12 +260,14 @@
             // 
             // btnCalc
             // 
+            this.btnCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCalc.Enabled = false;
-            this.btnCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnCalc.Image = global::PumpData.Properties.Resources.MeasureCalculate_32x;
             this.btnCalc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCalc.Location = new System.Drawing.Point(938, 43);
+            this.btnCalc.Location = new System.Drawing.Point(932, 43);
             this.btnCalc.Name = "btnCalc";
-            this.btnCalc.Size = new System.Drawing.Size(75, 40);
+            this.btnCalc.Size = new System.Drawing.Size(80, 40);
             this.btnCalc.TabIndex = 39;
             this.btnCalc.Text = "Calc";
             this.btnCalc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -290,6 +292,7 @@
             this.Controls.Add(this.lblVehicleNo);
             this.Controls.Add(this.cbVehicleNo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1040, 520);
             this.Name = "frmVehicleTrace";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Vehicle Trace";

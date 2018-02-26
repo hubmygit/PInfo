@@ -32,11 +32,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GridFieldsSelector));
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
-            this.Visible = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSave = new System.Windows.Forms.Button();
             this.cbSelectAll = new System.Windows.Forms.CheckBox();
+            this.Visibility = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +58,7 @@
             this.dgvReceiptData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvReceiptData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvReceiptData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Visible,
+            this.Visibility,
             this.Index,
             this.Column});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -75,27 +75,6 @@
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvReceiptData.Size = new System.Drawing.Size(324, 396);
             this.dgvReceiptData.TabIndex = 16;
-            // 
-            // Visible
-            // 
-            this.Visible.HeaderText = "Visible";
-            this.Visible.Name = "Visible";
-            this.Visible.Width = 80;
-            // 
-            // Index
-            // 
-            this.Index.HeaderText = "Index";
-            this.Index.Name = "Index";
-            this.Index.ReadOnly = true;
-            this.Index.Visible = false;
-            this.Index.Width = 80;
-            // 
-            // Column
-            // 
-            this.Column.HeaderText = "Column";
-            this.Column.Name = "Column";
-            this.Column.ReadOnly = true;
-            this.Column.Width = 160;
             // 
             // btnSave
             // 
@@ -124,6 +103,27 @@
             this.cbSelectAll.UseVisualStyleBackColor = true;
             this.cbSelectAll.CheckedChanged += new System.EventHandler(this.cbSelectAll_CheckedChanged);
             // 
+            // Visibility
+            // 
+            this.Visibility.HeaderText = "Visible";
+            this.Visibility.Name = "Visibility";
+            this.Visibility.Width = 80;
+            // 
+            // Index
+            // 
+            this.Index.HeaderText = "Index";
+            this.Index.Name = "Index";
+            this.Index.ReadOnly = true;
+            this.Index.Visible = false;
+            this.Index.Width = 80;
+            // 
+            // Column
+            // 
+            this.Column.HeaderText = "Column";
+            this.Column.Name = "Column";
+            this.Column.ReadOnly = true;
+            this.Column.Width = 160;
+            // 
             // GridFieldsSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -148,7 +148,7 @@
         private System.Windows.Forms.DataGridView dgvReceiptData;
         public System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.CheckBox cbSelectAll;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Visible;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Visibility;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column;
     }

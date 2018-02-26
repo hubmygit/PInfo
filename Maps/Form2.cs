@@ -12,6 +12,7 @@ using System.Collections;
 using System.Data.SQLite;
 using System.Globalization;
 using MsgBox;
+using System.Data.SqlClient;
 
 namespace Maps
 {
@@ -30,7 +31,7 @@ namespace Maps
         DataView GlobalDVCompany;
         List<string> NonDispFieldsCompany;
 
-
+        public bool SqlServerConnection = false;
 
         public Form2()
         {
@@ -106,7 +107,7 @@ namespace Maps
             FilterLonLat(Lon, Lat, radiusmeter);
             SetMarkers2All();
         }
-        public Form2(MapFormParams leo) : this()
+        public Form2(MapFormParams leo, bool sqlsrv = false) : this()
         {
             GlobIn = leo;
             GlobLat = GlobIn.latitude;
@@ -116,10 +117,28 @@ namespace Maps
             numericUpDown2.Minimum = gMap.MinZoom;
             numericUpDown2.Maximum = gMap.MaxZoom;
 
-            ShowDataToGrid(dataGridView1, NonDispFields);
-            FilterLonLat(GlobIn.latitude, GlobIn.longitude, GlobIn.radius);
-            SetMarkers2All();
-            GlobalDVCompany = PopulateDataView(NonDispFieldsCompany);
+            if (sqlsrv)
+            {
+                SqlServerConnection = true;
+
+                ShowDataToGridSQLSrv(dataGridView1, NonDispFields);
+
+                FilterLonLat(GlobIn.latitude, GlobIn.longitude, GlobIn.radius);
+                SetMarkers2All();
+                //GlobalDVCompany = PopulateDataView(NonDispFieldsCompany);
+                GlobalDVCompany = PopulateSQLDataView(NonDispFieldsCompany);
+            }
+            else
+            {
+                ShowDataToGrid(dataGridView1, NonDispFields);
+
+                FilterLonLat(GlobIn.latitude, GlobIn.longitude, GlobIn.radius);
+                SetMarkers2All();
+                GlobalDVCompany = PopulateDataView(NonDispFieldsCompany);
+            }
+
+            
+
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -249,7 +268,15 @@ namespace Maps
                 GleoPass.name = CName;
                 GleoPass.address = SAddr;
                 int.TryParse(CBrandId, out CBrandIdint);
-                GleoPass.brand_id = GetOtherCompanyId(CBrandIdint);
+
+                if (SqlServerConnection)
+                {
+                    GleoPass.brand_id = GetSQLOtherCompanyId(CBrandIdint);
+                }
+                else
+                {
+                    GleoPass.brand_id = GetOtherCompanyId(CBrandIdint);
+                }
 
                 this.Close();
             }
@@ -263,9 +290,18 @@ namespace Maps
                 GleoPass.name = CName;
                 GleoPass.address = SAddr;
                 //GleoPass.brand_id = CBrandIdint;
-                GleoPass.brand_id = GetOtherCompanyId(SForm.cbCompany.SelectedIndex + 1);
-                UpdateTimeDepend(PopupId, CName, NewCompId);
-
+                
+                if (SqlServerConnection)
+                {
+                    GleoPass.brand_id = GetSQLOtherCompanyId(SForm.cbCompany.SelectedIndex + 1);
+                    UpdateSQLTimeDepend(PopupId, CName, NewCompId);
+                }
+                else
+                {
+                    GleoPass.brand_id = GetOtherCompanyId(SForm.cbCompany.SelectedIndex + 1);
+                    UpdateTimeDepend(PopupId, CName, NewCompId);
+                }
+                
                 this.Close();
             }
         }
@@ -433,6 +469,69 @@ namespace Maps
 
 
         }
+
+        public void ShowDataToGridSQLSrv(DataGridView Grid, List<string> NonDispFields)
+        {
+            SqlConnection sqlConn = new SqlConnection(GlobIn.connectionString);
+            string SelectSt = "SELECT * FROM [dbo].[Station_View]"; //Geostation ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            SqlDataReader reader;
+
+            DataTable Schemadt;
+            sqlConn.Open();
+            reader = cmd.ExecuteReader();
+            Schemadt = reader.GetSchemaTable();
+            
+            try
+            {
+                DataTable dt = new DataTable();
+
+                foreach (DataRow myField in Schemadt.Rows)
+                {
+                    try
+                    {
+                        dt.Columns.Add(myField["ColumnName"].ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("The following error occurred: " + ex.Message);
+                    }
+                }
+
+                DataColumn[] keys = new DataColumn[1];
+                keys[0] = dt.Columns["id"];
+                dt.PrimaryKey = keys;
+
+                while (reader.Read())
+                {
+                    DataRow dr1 = dt.NewRow();
+                    for (int c = 0; c <= (reader.FieldCount - 1); c++)
+                        dr1[c] = reader[c].ToString();
+                    dt.Rows.Add(dr1);
+
+                }
+
+                DataView BS = new DataView(dt);
+                BS.ApplyDefaultSort = true;
+                GlobalDV = new DataView(dt);
+                Grid.DataSource = BS;
+                foreach (DataGridViewColumn t in Grid.Columns)
+                {
+                    if (NonDispFields.Contains(t.Name.ToUpper()))
+                    {
+                        t.Visible = false;
+                    }
+                    t.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+            sqlConn.Open();
+        }
+
         private void button1_Click_1(object sender, EventArgs e)
         {
             button1_Click_1old(sender, e);
@@ -765,10 +864,12 @@ namespace Maps
         {
             DataView DV;
             DV = new DataView();
+
             SQLiteConnection sqlConn = new SQLiteConnection(GlobIn.connectionString);
             string SelectSt = "SELECT * FROM " + TableName;
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             SQLiteDataReader reader;
+            
             DataTable Schemadt;
             sqlConn.Open();
             reader = cmd.ExecuteReader();
@@ -787,7 +888,7 @@ namespace Maps
                     catch (Exception ex)
                     {
                         MessageBox.Show("The following error occurred: " + ex.Message);
-                    };
+                    }
                 }
                 DataColumn[] keys = new DataColumn[1];
                 keys[0] = dt.Columns["id"];
@@ -817,6 +918,63 @@ namespace Maps
 
         }
 
+        public DataView PopulateSQLDataView(List<string> NonDispFields, string TableName = "[dbo].[Station_Companies]")
+        {
+            DataView DV;
+            DV = new DataView();
+
+            SqlConnection sqlConn = new SqlConnection(GlobIn.connectionString);
+            string SelectSt = "SELECT * FROM " + TableName;
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            SqlDataReader reader;
+
+            DataTable Schemadt;
+            sqlConn.Open();
+            reader = cmd.ExecuteReader();
+            Schemadt = reader.GetSchemaTable();
+
+            try
+            {
+                DataTable dt = new DataTable();
+
+                foreach (DataRow myField in Schemadt.Rows)
+                {
+                    try
+                    {
+                        dt.Columns.Add(myField["ColumnName"].ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("The following error occurred: " + ex.Message);
+                    }
+                }
+                DataColumn[] keys = new DataColumn[1];
+                keys[0] = dt.Columns["id"];
+                dt.PrimaryKey = keys;
+
+                while (reader.Read())
+                {
+                    DataRow dr1 = dt.NewRow();
+                    for (int c = 0; c <= (reader.FieldCount - 1); c++)
+                        dr1[c] = reader[c].ToString();
+                    dt.Rows.Add(dr1);
+
+                }
+                DataView BS = new DataView(dt);
+                BS.ApplyDefaultSort = true;
+                DV = new DataView(dt);
+            }
+
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+            sqlConn.Open();
+            return DV;
+
+        }
         public void UpdateTimeDepend(int Statid,string NewName,int NewCompany)
         {
             DateTime dt = new DateTime();
@@ -833,7 +991,26 @@ namespace Maps
             sqlConn.Open();
             cmdupd.ExecuteNonQuery();
             cmdins.ExecuteNonQuery();
-            sqlConn.Clone();
+            sqlConn.Close();
+        }
+
+        public void UpdateSQLTimeDepend(int Statid, string NewName, int NewCompany)
+        {
+            DateTime dt = new DateTime();
+            dt = DateTime.Now;
+            string dstring = dt.ToString("yyyy-MM-dd HH:mm:ss.000");// + " 00:00:00.000";
+            SqlConnection sqlConn = new SqlConnection(GlobIn.connectionString);
+            string UpdateSt = "Update [dbo].[Station_TimeDependData] SET Current_Rec = 0 WHERE id =" + Statid.ToString();
+
+            string InsertSt = "Insert Into [dbo].[Station_TimeDependData] Values (" + Statid.ToString() + ", '" + dstring + "' ,1, '" + NewName.ToString().Trim() + "'," + NewCompany.ToString().Trim() + ")";
+
+            SqlCommand cmdupd = new SqlCommand(UpdateSt, sqlConn);
+            SqlCommand cmdins = new SqlCommand(InsertSt, sqlConn);
+
+            sqlConn.Open();
+            cmdupd.ExecuteNonQuery();
+            cmdins.ExecuteNonQuery();
+            sqlConn.Close();
         }
 
         public int GetOtherCompanyId(int GeoCompanyId)
@@ -843,6 +1020,31 @@ namespace Maps
             string SelectSt = "SELECT Other_id  FROM Companies WHERE Id = " + GeoCompanyId.ToString();
 
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+
+            //SQLiteDataReader reader;
+            sqlConn.Open();
+
+            try
+            {
+                a = cmd.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+            sqlConn.Open();
+            return ((int)a);
+
+        }
+
+        public int GetSQLOtherCompanyId(int GeoCompanyId)
+        {
+            object a = new object();
+            SqlConnection sqlConn = new SqlConnection(GlobIn.connectionString);
+            string SelectSt = "SELECT Other_id  FROM [dbo].[Station_Companies] WHERE Id = " + GeoCompanyId.ToString();
+
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
 
             //SQLiteDataReader reader;
             sqlConn.Open();

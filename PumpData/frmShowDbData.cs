@@ -73,10 +73,11 @@ namespace PumpData
                 };
 
                 //map form
-                //   SearchPlace frmMap = new SearchPlace(MapObj, true); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //   Form2 frmMap = new Form2( ????????????? )
-                //   frmMap.ShowDialog(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //   MapFormGeoData mfGeoData = frmMap.GleoPass; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //SearchPlace frmMap = new SearchPlace(MapObj, true); 
+                Form2 frmMap = new Form2(MapObj, true);
+                frmMap.ShowDialog();
+
+                MapFormGeoData mfGeoData = frmMap.GleoPass;
 
                 //DbUtilities dbu = new DbUtilities();
                 //if(dbu.update_extraData_geostationId(extraDataId, mfGeoData.id))
