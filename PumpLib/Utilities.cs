@@ -642,7 +642,7 @@ namespace PumpLib
                         int receiptId = GetMaxReceiptId();
                         if (receiptId == -1)
                         {
-                            //MessageBox.Show("Δε βρέθηκε Id Κύριας Εγγραφής!\r\nΗμ/νία-Ώρα εγγραφής: " + thisLine.datetime.ToString("dd.MM.yyyy hh:mm:ss"));
+                            //MessageBox.Show("Δε βρέθηκε Id Κύριας Εγγραφής!\r\nΗμ/νία-Ώρα εγγραφής: " + thisLine.datetime.ToString("dd.MM.yyyy HH:mm:ss"));
                             MessageBox.Show("Δε βρέθηκε καταχωρημένη κύρια Εγγραφή!");
                             ret = false;
                             continue;
@@ -942,7 +942,7 @@ namespace PumpLib
                         datetime = Convert.ToDateTime(reader["Dt"].ToString()),
                         strDt = reader["Dt"].ToString(),
                         date = Convert.ToDateTime(reader["Dt"].ToString()).ToString("dd.MM.yyyy"),
-                        time = Convert.ToDateTime(reader["Dt"].ToString()).ToString("hh:mm"),
+                        time = Convert.ToDateTime(reader["Dt"].ToString()).ToString("HH:mm"),
                         coordinates = new Coordinates() { longitude = reader["CooLong"].ToString().Replace(",", "."), latitude = reader["CooLat"].ToString().Replace(",", ".") },
                         weight = Convert.ToDouble(reader["Weight"].ToString()),
                         temp = Convert.ToDouble(reader["Temp"].ToString()),

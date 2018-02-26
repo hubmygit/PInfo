@@ -59,8 +59,11 @@ namespace PumpData
             if (dgvReceiptData.SelectedRows.Count > 0)
             {
                 int extraDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value);
-                string Lat = dgvReceiptData.SelectedRows[0].Cells["Latitude"].Value.ToString().Trim().Replace('.', ',');
-                string Long = dgvReceiptData.SelectedRows[0].Cells["Longitude"].Value.ToString().Trim().Replace('.', ',');
+                //string Lat = dgvReceiptData.SelectedRows[0].Cells["Latitude"].Value.ToString().Trim().Replace('.', ',');
+                //string Long = dgvReceiptData.SelectedRows[0].Cells["Longitude"].Value.ToString().Trim().Replace('.', ',');
+
+                string Lat = dgvReceiptData.SelectedRows[0].Cells["RealLat"].Value.ToString().Trim().Replace('.', ',');
+                string Long = dgvReceiptData.SelectedRows[0].Cells["RealLong"].Value.ToString().Trim().Replace('.', ',');
 
                 MapFormParams MapObj = new MapFormParams()
                 {
@@ -84,6 +87,8 @@ namespace PumpData
                 //{
                 //  MessageBox.Show("Το σημείο καταχωρήθηκε επιτυχώς!");
                 //}
+
+                frmMap.Dispose_gMap();
             }
         }
 
