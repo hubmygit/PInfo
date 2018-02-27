@@ -55,8 +55,6 @@
             this.lblProduct = new System.Windows.Forms.Label();
             this.cbBrand = new System.Windows.Forms.ComboBox();
             this.cbProduct = new System.Windows.Forms.ComboBox();
-            this.btnDel = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
             this.lblVolDiffPerc = new System.Windows.Forms.Label();
             this.lblSampleNo = new System.Windows.Forms.Label();
             this.txtSampleNo = new System.Windows.Forms.TextBox();
@@ -70,6 +68,9 @@
             this.txtRealLat = new System.Windows.Forms.TextBox();
             this.txtRealLong = new System.Windows.Forms.TextBox();
             this.btnRealLatLong = new System.Windows.Forms.Button();
+            this.btnNewGeostation = new System.Windows.Forms.Button();
+            this.btnDel = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).BeginInit();
             this.SuspendLayout();
             // 
@@ -216,6 +217,7 @@
             this.txtDealer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.txtDealer.Location = new System.Drawing.Point(555, 276);
             this.txtDealer.Name = "txtDealer";
+            this.txtDealer.ReadOnly = true;
             this.txtDealer.Size = new System.Drawing.Size(280, 22);
             this.txtDealer.TabIndex = 15;
             // 
@@ -223,7 +225,7 @@
             // 
             this.lblAddress.AutoSize = true;
             this.lblAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblAddress.Location = new System.Drawing.Point(490, 214);
+            this.lblAddress.Location = new System.Drawing.Point(490, 229);
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(59, 16);
             this.lblAddress.TabIndex = 18;
@@ -232,8 +234,9 @@
             // txtAddress
             // 
             this.txtAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtAddress.Location = new System.Drawing.Point(555, 211);
+            this.txtAddress.Location = new System.Drawing.Point(555, 226);
             this.txtAddress.Name = "txtAddress";
+            this.txtAddress.ReadOnly = true;
             this.txtAddress.Size = new System.Drawing.Size(280, 22);
             this.txtAddress.TabIndex = 17;
             // 
@@ -288,6 +291,7 @@
             // cbBrand
             // 
             this.cbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBrand.Enabled = false;
             this.cbBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbBrand.FormattingEnabled = true;
             this.cbBrand.Location = new System.Drawing.Point(137, 276);
@@ -304,35 +308,6 @@
             this.cbProduct.Name = "cbProduct";
             this.cbProduct.Size = new System.Drawing.Size(280, 24);
             this.cbProduct.TabIndex = 29;
-            // 
-            // btnDel
-            // 
-            this.btnDel.Enabled = false;
-            this.btnDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnDel.Image = global::PumpInfo.Properties.Resources.Cancel_32x;
-            this.btnDel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDel.Location = new System.Drawing.Point(192, 23);
-            this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(135, 40);
-            this.btnDel.TabIndex = 26;
-            this.btnDel.Text = "Ακύρωση";
-            this.btnDel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnDel.UseVisualStyleBackColor = true;
-            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnAdd.Image = global::PumpInfo.Properties.Resources.Save_32x;
-            this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdd.Location = new System.Drawing.Point(12, 23);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(135, 40);
-            this.btnAdd.TabIndex = 25;
-            this.btnAdd.Text = "Καταχώρηση";
-            this.btnAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // lblVolDiffPerc
             // 
@@ -386,7 +361,7 @@
             // 
             // btnMap
             // 
-            this.btnMap.Location = new System.Drawing.Point(841, 210);
+            this.btnMap.Location = new System.Drawing.Point(841, 225);
             this.btnMap.Name = "btnMap";
             this.btnMap.Size = new System.Drawing.Size(23, 23);
             this.btnMap.TabIndex = 35;
@@ -399,7 +374,7 @@
             this.lblGeostationIdTitle.AutoSize = true;
             this.lblGeostationIdTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.lblGeostationIdTitle.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lblGeostationIdTitle.Location = new System.Drawing.Point(552, 236);
+            this.lblGeostationIdTitle.Location = new System.Drawing.Point(552, 251);
             this.lblGeostationIdTitle.Name = "lblGeostationIdTitle";
             this.lblGeostationIdTitle.Size = new System.Drawing.Size(92, 15);
             this.lblGeostationIdTitle.TabIndex = 37;
@@ -410,7 +385,7 @@
             this.lblGeostationId.AutoSize = true;
             this.lblGeostationId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.lblGeostationId.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lblGeostationId.Location = new System.Drawing.Point(650, 236);
+            this.lblGeostationId.Location = new System.Drawing.Point(650, 251);
             this.lblGeostationId.Name = "lblGeostationId";
             this.lblGeostationId.Size = new System.Drawing.Size(15, 15);
             this.lblGeostationId.TabIndex = 38;
@@ -464,12 +439,56 @@
             this.btnRealLatLong.UseVisualStyleBackColor = true;
             this.btnRealLatLong.Click += new System.EventHandler(this.btnRealLatLong_Click);
             // 
+            // btnNewGeostation
+            // 
+            this.btnNewGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnNewGeostation.Image = global::PumpInfo.Properties.Resources.Edit_16x;
+            this.btnNewGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNewGeostation.Location = new System.Drawing.Point(640, 185);
+            this.btnNewGeostation.Name = "btnNewGeostation";
+            this.btnNewGeostation.Size = new System.Drawing.Size(110, 30);
+            this.btnNewGeostation.TabIndex = 44;
+            this.btnNewGeostation.Text = "Νέο Σημείο";
+            this.btnNewGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNewGeostation.UseVisualStyleBackColor = true;
+            this.btnNewGeostation.Click += new System.EventHandler(this.btnNewGeostation_Click);
+            // 
+            // btnDel
+            // 
+            this.btnDel.Enabled = false;
+            this.btnDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnDel.Image = global::PumpInfo.Properties.Resources.Cancel_32x;
+            this.btnDel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDel.Location = new System.Drawing.Point(192, 23);
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(135, 40);
+            this.btnDel.TabIndex = 26;
+            this.btnDel.Text = "Ακύρωση";
+            this.btnDel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnAdd.Image = global::PumpInfo.Properties.Resources.Save_32x;
+            this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdd.Location = new System.Drawing.Point(12, 23);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(135, 40);
+            this.btnAdd.TabIndex = 25;
+            this.btnAdd.Text = "Καταχώρηση";
+            this.btnAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // AcceptanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(904, 502);
+            this.Controls.Add(this.btnNewGeostation);
             this.Controls.Add(this.btnRealLatLong);
             this.Controls.Add(this.txtRealLong);
             this.Controls.Add(this.txtRealLat);
@@ -551,5 +570,6 @@
         private System.Windows.Forms.TextBox txtRealLat;
         private System.Windows.Forms.TextBox txtRealLong;
         private System.Windows.Forms.Button btnRealLatLong;
+        public System.Windows.Forms.Button btnNewGeostation;
     }
 }

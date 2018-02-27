@@ -19,7 +19,7 @@ namespace PumpInfo
     {
         public AcceptanceForm()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
 
         public AcceptanceForm(ImpData dataGridViewRow)
@@ -62,7 +62,7 @@ namespace PumpInfo
                 txtRealLat.Text = obj.realCoordinates.latitude;
                 txtRealLong.Text = obj.realCoordinates.longitude;
             }
-            
+
         }
 
         public ImpData obj;
@@ -306,6 +306,10 @@ namespace PumpInfo
                 {
                     cbBrand.SelectedIndex = cbBrand.FindStringExact(brands.Where(i => i.Id == frmMap.GleoPass.brand_id).First().Name); //OK!
                 }
+                
+                txtAddress.ReadOnly = true;
+                txtDealer.ReadOnly = true;
+                cbBrand.Enabled = false;
             }
 
             frmMap.Dispose_gMap();
@@ -321,6 +325,20 @@ namespace PumpInfo
 
             txtRealLat.Text = frmRealCoordinates.realCoordinates.latitude; //obj.realCoordinates.latitude;
             txtRealLong.Text = frmRealCoordinates.realCoordinates.longitude; //obj.realCoordinates.longitude;
+        }
+
+        private void btnNewGeostation_Click(object sender, EventArgs e)
+        {
+            txtAddress.Text = "";
+            txtAddress.ReadOnly = false;
+
+            txtDealer.Text = "";
+            txtDealer.ReadOnly = false;
+                        
+            cbBrand.Enabled = true;
+            cbBrand.SelectedItem = null; //.Text = "";
+
+            lblGeostationId.Text = "10"; //Id 10 = new gas station
         }
     }
 }
