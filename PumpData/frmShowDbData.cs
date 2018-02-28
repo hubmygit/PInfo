@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using PumpLib;
-using MapForm;
+//using MapForm;
 using Maps;
 
 namespace PumpData

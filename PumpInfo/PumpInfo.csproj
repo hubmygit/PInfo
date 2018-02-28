@@ -124,10 +124,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MapForm\MapForm.csproj">
-      <Project>{12d2be35-003d-4229-95b3-f3612fc224f0}</Project>
-      <Name>MapForm</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Maps\Maps.csproj">
       <Project>{7454aa21-a043-496a-b038-99d244631f8b}</Project>
       <Name>Maps</Name>

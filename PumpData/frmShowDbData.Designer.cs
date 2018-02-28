@@ -304,7 +304,7 @@
             this.btnGridFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnGridFields.Image = global::PumpData.Properties.Resources.CheckboxFieldColumn_32x;
             this.btnGridFields.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGridFields.Location = new System.Drawing.Point(802, 19);
+            this.btnGridFields.Location = new System.Drawing.Point(842, 19);
             this.btnGridFields.Name = "btnGridFields";
             this.btnGridFields.Size = new System.Drawing.Size(160, 40);
             this.btnGridFields.TabIndex = 22;
