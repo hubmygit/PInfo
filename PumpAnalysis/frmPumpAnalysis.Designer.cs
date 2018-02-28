@@ -57,7 +57,6 @@
             this.RealLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblImpFile = new System.Windows.Forms.Label();
-            this.btnShowDbData = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
@@ -289,20 +288,6 @@
             this.lblImpFile.TabIndex = 18;
             this.lblImpFile.Text = "Αρχείο: -";
             // 
-            // btnShowDbData
-            // 
-            this.btnShowDbData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnShowDbData.Image = global::PumpAnalysis.Properties.Resources.ShowDbData_32x;
-            this.btnShowDbData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnShowDbData.Location = new System.Drawing.Point(425, 12);
-            this.btnShowDbData.Name = "btnShowDbData";
-            this.btnShowDbData.Size = new System.Drawing.Size(135, 40);
-            this.btnShowDbData.TabIndex = 19;
-            this.btnShowDbData.Text = "Εμφάνιση";
-            this.btnShowDbData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnShowDbData.UseVisualStyleBackColor = true;
-            this.btnShowDbData.Click += new System.EventHandler(this.btnShowDbData_Click);
-            // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -337,7 +322,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 502);
-            this.Controls.Add(this.btnShowDbData);
             this.Controls.Add(this.lblImpFile);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnImport);
@@ -359,7 +343,6 @@
         private System.Windows.Forms.DataGridView dgvReceiptData;
         public System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblImpFile;
-        public System.Windows.Forms.Button btnShowDbData;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
