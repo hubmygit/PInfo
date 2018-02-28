@@ -29,9 +29,24 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPumpData));
+            this.btnStationScheduler = new System.Windows.Forms.Button();
             this.btnShowConsumption = new System.Windows.Forms.Button();
             this.btnShowDbData = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // btnStationScheduler
+            // 
+            this.btnStationScheduler.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnStationScheduler.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnStationScheduler.Image = global::PumpData.Properties.Resources.TemporalTable_48x;
+            this.btnStationScheduler.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStationScheduler.Location = new System.Drawing.Point(80, 214);
+            this.btnStationScheduler.Name = "btnStationScheduler";
+            this.btnStationScheduler.Size = new System.Drawing.Size(225, 75);
+            this.btnStationScheduler.TabIndex = 22;
+            this.btnStationScheduler.Text = "Πλάνο Επαναλήψεων";
+            this.btnStationScheduler.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnStationScheduler.UseVisualStyleBackColor = true;
             // 
             // btnShowConsumption
             // 
@@ -39,7 +54,7 @@
             this.btnShowConsumption.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnShowConsumption.Image = global::PumpData.Properties.Resources.IntelliTrace_48x;
             this.btnShowConsumption.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnShowConsumption.Location = new System.Drawing.Point(380, 80);
+            this.btnShowConsumption.Location = new System.Drawing.Point(380, 74);
             this.btnShowConsumption.Name = "btnShowConsumption";
             this.btnShowConsumption.Size = new System.Drawing.Size(225, 75);
             this.btnShowConsumption.TabIndex = 21;
@@ -54,7 +69,7 @@
             this.btnShowDbData.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnShowDbData.Image = global::PumpData.Properties.Resources.DatabaseAuditSpecification_48x;
             this.btnShowDbData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnShowDbData.Location = new System.Drawing.Point(80, 80);
+            this.btnShowDbData.Location = new System.Drawing.Point(80, 74);
             this.btnShowDbData.Name = "btnShowDbData";
             this.btnShowDbData.Size = new System.Drawing.Size(225, 75);
             this.btnShowDbData.TabIndex = 20;
@@ -67,12 +82,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 237);
+            this.ClientSize = new System.Drawing.Size(684, 362);
+            this.Controls.Add(this.btnStationScheduler);
             this.Controls.Add(this.btnShowConsumption);
             this.Controls.Add(this.btnShowDbData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(700, 275);
-            this.MinimumSize = new System.Drawing.Size(700, 275);
+            this.MaximumSize = new System.Drawing.Size(700, 400);
+            this.MinimumSize = new System.Drawing.Size(700, 400);
             this.Name = "frmPumpData";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pump Data";
@@ -84,6 +100,7 @@
 
         public System.Windows.Forms.Button btnShowDbData;
         public System.Windows.Forms.Button btnShowConsumption;
+        public System.Windows.Forms.Button btnStationScheduler;
     }
 }
 

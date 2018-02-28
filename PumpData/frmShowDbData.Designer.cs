@@ -57,10 +57,10 @@
             this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbGeoFilter = new System.Windows.Forms.ComboBox();
+            this.btnSampleFile = new System.Windows.Forms.Button();
             this.btnGridFields = new System.Windows.Forms.Button();
             this.btnGeostation = new System.Windows.Forms.Button();
-            this.btnSampleFile = new System.Windows.Forms.Button();
-            this.cbGeoFilter = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -299,6 +299,31 @@
             this.RealLong.ReadOnly = true;
             this.RealLong.Visible = false;
             // 
+            // cbGeoFilter
+            // 
+            this.cbGeoFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGeoFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbGeoFilter.FormattingEnabled = true;
+            this.cbGeoFilter.Location = new System.Drawing.Point(344, 31);
+            this.cbGeoFilter.Name = "cbGeoFilter";
+            this.cbGeoFilter.Size = new System.Drawing.Size(190, 28);
+            this.cbGeoFilter.TabIndex = 33;
+            this.cbGeoFilter.SelectedIndexChanged += new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
+            // 
+            // btnSampleFile
+            // 
+            this.btnSampleFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSampleFile.Image = global::PumpData.Properties.Resources.PerformanceLog_32x;
+            this.btnSampleFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSampleFile.Location = new System.Drawing.Point(12, 19);
+            this.btnSampleFile.Name = "btnSampleFile";
+            this.btnSampleFile.Size = new System.Drawing.Size(160, 40);
+            this.btnSampleFile.TabIndex = 23;
+            this.btnSampleFile.Text = "Αρχεία Δειγμάτων";
+            this.btnSampleFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSampleFile.UseVisualStyleBackColor = true;
+            this.btnSampleFile.Click += new System.EventHandler(this.btnSampleFile_Click);
+            // 
             // btnGridFields
             // 
             this.btnGridFields.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -327,31 +352,6 @@
             this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGeostation.UseVisualStyleBackColor = true;
             this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
-            // 
-            // btnSampleFile
-            // 
-            this.btnSampleFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSampleFile.Image = global::PumpData.Properties.Resources.PerformanceLog_32x;
-            this.btnSampleFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSampleFile.Location = new System.Drawing.Point(12, 19);
-            this.btnSampleFile.Name = "btnSampleFile";
-            this.btnSampleFile.Size = new System.Drawing.Size(160, 40);
-            this.btnSampleFile.TabIndex = 23;
-            this.btnSampleFile.Text = "Αρχεία Δειγμάτων";
-            this.btnSampleFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSampleFile.UseVisualStyleBackColor = true;
-            this.btnSampleFile.Click += new System.EventHandler(this.btnSampleFile_Click);
-            // 
-            // cbGeoFilter
-            // 
-            this.cbGeoFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbGeoFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbGeoFilter.FormattingEnabled = true;
-            this.cbGeoFilter.Location = new System.Drawing.Point(344, 31);
-            this.cbGeoFilter.Name = "cbGeoFilter";
-            this.cbGeoFilter.Size = new System.Drawing.Size(190, 28);
-            this.cbGeoFilter.TabIndex = 33;
-            this.cbGeoFilter.SelectedIndexChanged += new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
             // 
             // frmShowDbData
             // 

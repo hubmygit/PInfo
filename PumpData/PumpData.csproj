@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PumpInfo.ico" />
+    <None Include="Resources\TemporalTable_48x.png" />
     <None Include="Resources\IntelliTrace_48x.png" />
     <None Include="Resources\DatabaseAuditSpecification_48x.png" />
     <None Include="Resources\PerformanceLog_32x.png" />
