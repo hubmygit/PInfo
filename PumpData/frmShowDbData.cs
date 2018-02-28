@@ -20,12 +20,16 @@ namespace PumpData
             InitializeComponent();
 
             DbUtilities dbu = new DbUtilities();
-            List<ImpData> objList = dbu.ReceiptDBLines_To_ObjectList();
+            objList = dbu.ReceiptDBLines_To_ObjectList();
 
             List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(objList);
 
             GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+
+            cbGeoFilter.Items.AddRange(new object[] { "Όλα", "Χωρίς Γεωγρ. Σημείο", "Νέα Σημεία Πρατηρίων" });
         }
+
+        List<ImpData> objList = new List<ImpData>();
 
         private void dgvReceiptData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -132,6 +136,33 @@ namespace PumpData
             
 
             }
+        }
+
+        private void cbGeoFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dgvReceiptData.Rows.Clear();
+            List<ImpData> filteredLines = new List<ImpData>();
+
+            if (cbGeoFilter.SelectedIndex == 0) //"Όλα"
+            {
+                filteredLines = objList;
+            }
+            else if (cbGeoFilter.SelectedIndex == 1) //"Χωρίς Γεωγρ. Σημείο"
+            {
+                filteredLines = objList.Where(i => i.geostationId == 0).ToList();
+            }
+            else if (cbGeoFilter.SelectedIndex == 2) //"Νέα Σημεία Πρατηρίων"
+            {
+                filteredLines = objList.Where(i => i.geostationId == 10).ToList();
+            }
+
+            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
+            GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+        }
+
+        private void frmShowDbData_Load(object sender, EventArgs e)
+        {
+            cbGeoFilter.SelectedIndex = 0;  //default: "Όλα"
         }
     }
 }

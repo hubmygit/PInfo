@@ -60,6 +60,7 @@
             this.btnGridFields = new System.Windows.Forms.Button();
             this.btnGeostation = new System.Windows.Forms.Button();
             this.btnSampleFile = new System.Windows.Forms.Button();
+            this.cbGeoFilter = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -322,7 +323,7 @@
             this.btnGeostation.Name = "btnGeostation";
             this.btnGeostation.Size = new System.Drawing.Size(160, 40);
             this.btnGeostation.TabIndex = 21;
-            this.btnGeostation.Text = "Γεωγραφική Θέση";
+            this.btnGeostation.Text = "Θέση στο Χάρτη";
             this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGeostation.UseVisualStyleBackColor = true;
             this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
@@ -341,11 +342,23 @@
             this.btnSampleFile.UseVisualStyleBackColor = true;
             this.btnSampleFile.Click += new System.EventHandler(this.btnSampleFile_Click);
             // 
+            // cbGeoFilter
+            // 
+            this.cbGeoFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGeoFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbGeoFilter.FormattingEnabled = true;
+            this.cbGeoFilter.Location = new System.Drawing.Point(344, 31);
+            this.cbGeoFilter.Name = "cbGeoFilter";
+            this.cbGeoFilter.Size = new System.Drawing.Size(190, 28);
+            this.cbGeoFilter.TabIndex = 33;
+            this.cbGeoFilter.SelectedIndexChanged += new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
+            // 
             // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 502);
+            this.Controls.Add(this.cbGeoFilter);
             this.Controls.Add(this.btnSampleFile);
             this.Controls.Add(this.btnGridFields);
             this.Controls.Add(this.btnGeostation);
@@ -355,6 +368,7 @@
             this.Name = "frmShowDbData";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Εμφάνιση Δεδομένων";
+            this.Load += new System.EventHandler(this.frmShowDbData_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).EndInit();
             this.ResumeLayout(false);
 
@@ -391,5 +405,6 @@
         public System.Windows.Forms.Button btnGeostation;
         public System.Windows.Forms.Button btnGridFields;
         public System.Windows.Forms.Button btnSampleFile;
+        private System.Windows.Forms.ComboBox cbGeoFilter;
     }
 }
