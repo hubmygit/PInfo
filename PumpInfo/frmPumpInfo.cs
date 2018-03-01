@@ -41,6 +41,7 @@ namespace PumpInfo
             DbUtilities DBU = new DbUtilities(receiptFile_Path);
 
             List<ImpData> receiptObjList = DBU.FillListFromReceipt();
+            //receiptObjList = DBU.ReceiptDBLines_To_ObjectList(); //Only for Testing get data from receipt 
 
             objList = DBU.GetDataNotExistsInSQLiteTable(receiptObjList);
 

@@ -20,7 +20,12 @@ namespace PumpInfo
         public AcceptanceForm()
         {
             InitializeComponent();
+
+            
         }
+
+        ToolTip tpRealLatLong = new ToolTip();
+        ToolTip tpGeostation = new ToolTip();
 
         public AcceptanceForm(ImpData dataGridViewRow)
         {
@@ -339,6 +344,12 @@ namespace PumpInfo
             cbBrand.SelectedItem = null; //.Text = "";
 
             lblGeostationId.Text = "10"; //Id 10 = new gas station
+        }
+
+        private void AcceptanceForm_Load(object sender, EventArgs e)
+        {
+            tpRealLatLong.SetToolTip(btnRealLatLong, "Εύρεση Πραγματικών Συντεταγμένων");
+            tpGeostation.SetToolTip(btnMap, "Εύρεση Πρατηρίου στο Χάρτη");
         }
     }
 }

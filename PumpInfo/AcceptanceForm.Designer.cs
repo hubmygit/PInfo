@@ -523,6 +523,7 @@
             this.Name = "AcceptanceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Acceptance Form";
+            this.Load += new System.EventHandler(this.AcceptanceForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
