@@ -58,6 +58,7 @@
             this.RealLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbGeoFilter = new System.Windows.Forms.ComboBox();
+            this.btnNewGeoPoint = new System.Windows.Forms.Button();
             this.btnSampleFile = new System.Windows.Forms.Button();
             this.btnGridFields = new System.Windows.Forms.Button();
             this.btnGeostation = new System.Windows.Forms.Button();
@@ -310,6 +311,20 @@
             this.cbGeoFilter.TabIndex = 33;
             this.cbGeoFilter.SelectedIndexChanged += new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
             // 
+            // btnNewGeoPoint
+            // 
+            this.btnNewGeoPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnNewGeoPoint.Image = global::PumpData.Properties.Resources.NewGeoPoint_32x;
+            this.btnNewGeoPoint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNewGeoPoint.Location = new System.Drawing.Point(540, 19);
+            this.btnNewGeoPoint.Name = "btnNewGeoPoint";
+            this.btnNewGeoPoint.Size = new System.Drawing.Size(160, 40);
+            this.btnNewGeoPoint.TabIndex = 34;
+            this.btnNewGeoPoint.Text = "Νέο Πρατήριο";
+            this.btnNewGeoPoint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNewGeoPoint.UseVisualStyleBackColor = true;
+            this.btnNewGeoPoint.Click += new System.EventHandler(this.btnNewGeoPoint_Click);
+            // 
             // btnSampleFile
             // 
             this.btnSampleFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -358,6 +373,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 502);
+            this.Controls.Add(this.btnNewGeoPoint);
             this.Controls.Add(this.cbGeoFilter);
             this.Controls.Add(this.btnSampleFile);
             this.Controls.Add(this.btnGridFields);
@@ -406,5 +422,6 @@
         public System.Windows.Forms.Button btnGridFields;
         public System.Windows.Forms.Button btnSampleFile;
         private System.Windows.Forms.ComboBox cbGeoFilter;
+        public System.Windows.Forms.Button btnNewGeoPoint;
     }
 }

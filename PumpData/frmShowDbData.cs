@@ -63,17 +63,82 @@ namespace PumpData
             if (dgvReceiptData.SelectedRows.Count > 0)
             {
                 int extraDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value);
-                //string Lat = dgvReceiptData.SelectedRows[0].Cells["Latitude"].Value.ToString().Trim().Replace('.', ',');
-                //string Long = dgvReceiptData.SelectedRows[0].Cells["Longitude"].Value.ToString().Trim().Replace('.', ',');
 
-                string Lat = dgvReceiptData.SelectedRows[0].Cells["RealLat"].Value.ToString().Trim().Replace('.', ',');
-                string Long = dgvReceiptData.SelectedRows[0].Cells["RealLong"].Value.ToString().Trim().Replace('.', ',');
+                int geostId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["GeostationId"].Value.ToString().Trim());
+
+                /*
+                if (geostId == 10) //New Station
+                {
+                    //...Φόρμα νέου σημείου / πρατηρίου
+                    //btnNewGeoPoint_Click(this, EventArgs.Empty);
+                    //if (((Control)sender).GetType().Name.ToUpper() == "TEXTBOX")
+
+                    string Latitude = dgvReceiptData.SelectedRows[0].Cells["RealLat"].Value.ToString().Trim();
+                    string Longitude = dgvReceiptData.SelectedRows[0].Cells["RealLong"].Value.ToString().Trim();
+                    String DecSep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+                    if (DecSep == ",")
+                    {
+                        Latitude = Latitude.Replace('.', ',');
+                        Longitude = Longitude.Replace('.', ',');
+                    }
+                    else
+                    {
+                        Latitude = Latitude.Replace(',', '.');
+                        Longitude = Longitude.Replace(',', '.');
+                    }
+                    CreateNewGeoPoint(Convert.ToDouble(Latitude), Convert.ToDouble(Longitude));
+
+                    //GeoData
+                    //Id = from "select max id + 1 "
+                    //Address, Address2, Address3, Postal-Code, Country = from "geocoding"
+                    //Latitude = dgvReceiptData.SelectedRows[0].Cells["RealLat"].Value.ToString().Trim() //+ replace
+                    //Longitude = dgvReceiptData.SelectedRows[0].Cells["RealLong"].Value.ToString().Trim() //+ replace
+                    //Active = 1
+
+                    //TimeDependData
+                    //Id = from "select max id + 1 "
+                    //upddate = getdate()
+                    //current_rec = 1
+                    //comp_name = dgvReceiptData.SelectedRows[0].Cells["Dealer"].Value.ToString()
+                    //company_id = ?????? - id from station_Companies
+                }
+                */
+                //else //xxxx=Defined & 0=Not Defined
+                //{
+                string Lat = "", Long = "";
+
+                if (geostId > 0 && geostId != 10)
+                {
+                    //geostation lat long
+                    Coordinates GeoLatLong = DbUtilities.GetGeostationLatLong(geostId);
+                    Lat = GeoLatLong.latitude;
+                    Long = GeoLatLong.longitude;
+                }
+                else //0 & 10
+                {
+                    //string Lat = dgvReceiptData.SelectedRows[0].Cells["Latitude"].Value.ToString().Trim().Replace('.', ',');
+                    //string Long = dgvReceiptData.SelectedRows[0].Cells["Longitude"].Value.ToString().Trim().Replace('.', ',');
+                    Lat = dgvReceiptData.SelectedRows[0].Cells["RealLat"].Value.ToString().Trim(); //.Replace('.', ',');
+                    Long = dgvReceiptData.SelectedRows[0].Cells["RealLong"].Value.ToString().Trim(); //.Replace('.', ',');
+                }
+
+                String DecSep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+                if (DecSep == ",")
+                {
+                    Lat = Lat.Replace('.', ',');
+                    Long = Long.Replace('.', ',');
+                }
+                else
+                {
+                    Lat = Lat.Replace(',', '.');
+                    Long = Long.Replace(',', '.');
+                }
 
                 MapFormParams MapObj = new MapFormParams()
                 {
                     latitude = Convert.ToDouble(Lat), //dgvCurrentObj["latitude", 0].Value.ToString().Replace('.', ',')),   //38.2682,
                     longitude = Convert.ToDouble(Long), //dgvCurrentObj["longitude", 0].Value.ToString().Replace('.', ',')), //21.755,
-                    radius = 150, //meters
+                    radius = 350, //meters
                     apiKey = MapsApi.key, //"AIzaSyCxAKDi4ZgokHWCYK_5sQ8Dg-nlcLT2myo"
                     connectionString = SqlDBInfo.connectionString, //Stationsdb.db
                     existsInternetConnection = NetworkConnections.CheckInternetConnection()
@@ -84,15 +149,25 @@ namespace PumpData
                 Form2 frmMap = new Form2(MapObj, true);
                 frmMap.ShowDialog();
 
-                MapFormGeoData mfGeoData = frmMap.GleoPass;
-
-                //DbUtilities dbu = new DbUtilities();
-                //if(dbu.update_extraData_geostationId(extraDataId, mfGeoData.id))
-                //{
-                //  MessageBox.Show("Το σημείο καταχωρήθηκε επιτυχώς!");
-                //}
+                if (frmMap.GleoPass.id > 0) //point selected
+                {
+                    DialogResult dialogResult = MessageBox.Show("Είστε σίγουροι ότι θέλετε να καταχωρηθεί το πρατήριο στη συγκεκριμένη εγγραφή;", "Καταχώρηση Πρατηρίου", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        DbUtilities dbu = new DbUtilities();
+                        if (dbu.update_extraData_geostationId(extraDataId, frmMap.GleoPass.id))
+                        {
+                            MessageBox.Show("Το σημείο καταχωρήθηκε επιτυχώς!");
+                        }
+                    }
+                }
+                else if (geostId == 10) //new point (gas station)
+                {
+                    CreateNewGeoPoint();
+                }
 
                 frmMap.Dispose_gMap();
+                //}
             }
         }
 
@@ -163,6 +238,54 @@ namespace PumpData
         private void frmShowDbData_Load(object sender, EventArgs e)
         {
             cbGeoFilter.SelectedIndex = 0;  //default: "Όλα"
+        }
+
+        private void CreateNewGeoPoint() //create new point from gridRow and connect it with this Row
+        {
+            string Lat = dgvReceiptData.SelectedRows[0].Cells["RealLat"].Value.ToString().Trim(); //.Replace('.', ',');
+            string Long = dgvReceiptData.SelectedRows[0].Cells["RealLong"].Value.ToString().Trim(); //.Replace('.', ',');
+
+            String DecSep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+            if (DecSep == ",")
+            {
+                Lat = Lat.Replace('.', ',');
+                Long = Long.Replace('.', ',');
+            }
+            else
+            {
+                Lat = Lat.Replace(',', '.');
+                Long = Long.Replace(',', '.');
+            }
+
+            string Address = dgvReceiptData.SelectedRows[0].Cells["Address"].Value.ToString().Trim();
+            string Dealer = dgvReceiptData.SelectedRows[0].Cells["Dealer"].Value.ToString().Trim();
+            string Brand = dgvReceiptData.SelectedRows[0].Cells["Brand"].Value.ToString().Trim();
+
+            NewGasStation frmGasStation = new NewGasStation();
+            frmGasStation.txtLat.Text = Lat;
+            frmGasStation.txtLong.Text = Long;
+            frmGasStation.txtAddress.Text = Address;
+            frmGasStation.txtDealer.Text = Dealer;
+
+            List<Brand> brands = DbUtilities.GetSqlBrandsList();
+            frmGasStation.cbBrand.Items.AddRange(DbUtilities.GetBrandsComboboxItemsList(brands).ToArray<ComboboxItem>());
+
+            frmGasStation.cbBrand.SelectedIndex = frmGasStation.cbBrand.FindStringExact(Brand);
+
+            frmGasStation.txtExtraDataId.Text = dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value.ToString();
+
+            frmGasStation.ShowDialog();
+
+            //(refresh grid or) update geostationId 
+            dgvReceiptData.SelectedRows[0].Cells["GeostationId"].Value = frmGasStation.txtNewGeostationId.Text;
+        }
+
+        private void btnNewGeoPoint_Click(object sender, EventArgs e)
+        {
+            if (dgvReceiptData.SelectedRows.Count > 0)
+            {
+                CreateNewGeoPoint();
+            }
         }
     }
 }

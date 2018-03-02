@@ -124,6 +124,9 @@
   <data name="CheckboxFieldColumn_32x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CheckboxFieldColumn_32x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TemporalTable_48x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TemporalTable_48x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="MeasureCalculate_32x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MeasureCalculate_32x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -151,7 +154,7 @@
   <data name="PerformanceLog_32x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PerformanceLog_32x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TemporalTable_48x" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TemporalTable_48x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NewGeoPoint_32x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewGeoPoint_32x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

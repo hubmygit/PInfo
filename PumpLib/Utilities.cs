@@ -2149,6 +2149,84 @@ namespace PumpLib
             return ret;
         }
 
+        public static Coordinates GetGeostationLatLong(int GeostationId)
+        {
+            Coordinates ret = new Coordinates();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Latitude, Longitude FROM [dbo].[Station_View] WHERE id = " + GeostationId.ToString();
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.latitude = reader["Latitude"].ToString();
+                    ret.longitude = reader["Longitude"].ToString();
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static int GetStation_GeoDataNextId()
+        {
+            int ret = 1;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT isnull(max(id), 0) + 1 as NextId from [dbo].[Station_GeoData] ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["NextId"].ToString());
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static int GetStationCompaniesId(int BrandId)
+        {
+            int ret = 0;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT isnull(Id, 0) as Id FROM [dbo].[Station_Companies] WHERE Other_Id = " + BrandId.ToString();
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = Convert.ToInt32(reader["Id"].ToString());
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
 
 
     }
