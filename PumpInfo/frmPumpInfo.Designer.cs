@@ -103,6 +103,7 @@
             this.dgvReceiptData.Size = new System.Drawing.Size(880, 410);
             this.dgvReceiptData.TabIndex = 11;
             this.dgvReceiptData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReceiptData_CellDoubleClick);
+            this.dgvReceiptData.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvReceiptData_SortCompare);
             // 
             // Index
             // 
