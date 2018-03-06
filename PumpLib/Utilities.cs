@@ -233,6 +233,7 @@ namespace PumpLib
 
             List<ImpData> ret = new List<ImpData>();
 
+            int records = 0;
             try
             {
                 using (StreamReader sr = new StreamReader(File_Name))
@@ -293,6 +294,7 @@ namespace PumpLib
                         if (cnt == 8)
                         {
                             ret.Add(new ImpData(lines));
+                            records++;
 
                             cnt = 0;
                         }
@@ -302,7 +304,7 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("File could not be read:" + ex.Message);
+                MessageBox.Show("Record: " + records.ToString() + ".\r\nFile could not be read:" + ex.Message);
             }
 
             return ret;
