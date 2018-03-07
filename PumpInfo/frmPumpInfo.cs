@@ -252,28 +252,12 @@ namespace PumpInfo
             ExpCounterToLblText(lblCountExported);
         }
 
-        private void dgvReceiptData_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            MessageBox.Show(e.ColumnIndex.ToString() + ") " +  dgvReceiptData.Columns[e.ColumnIndex].Name + " - " + dgvReceiptData.Columns[e.ColumnIndex].SortMode.ToString() + " / " + dgvReceiptData.SortedColumn.Name);
-
-        }
-
         private void dgvReceiptData_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
-            //if (dgvReceiptData.SortedColumn == null)
-            //{
-            //    int a = 0;
-            //}
-
             if (e.Column.Name == "Date")
             {
-                SortOrder test = dgvReceiptData.SortOrder;
-                //dgvReceiptData.Columns["Date"].SortMode = DataGridViewColumnSortMode.Programmatic;
-
                 e.SortResult = System.String.Compare(Convert.ToDateTime(e.CellValue1.ToString()).ToString("yyyyMMdd"),
                                                      Convert.ToDateTime(e.CellValue2.ToString()).ToString("yyyyMMdd"));
-                //e.SortResult = System.String.Compare(Convert.ToDateTime(e.CellValue1.ToString()).ToString("yyyyMMdd") + dgvReceiptData["Time", e.RowIndex1].Value.ToString(), 
-                //                                     Convert.ToDateTime(e.CellValue2.ToString()).ToString("yyyyMMdd") + dgvReceiptData["Time", e.RowIndex2].Value.ToString());
 
                 if (e.SortResult == 0 && e.Column.Name != "Time")
                 {
@@ -282,12 +266,9 @@ namespace PumpInfo
                 }
 
                 e.Handled = true;
-                //dgvReceiptData.Columns["Date"].SortMode = DataGridViewColumnSortMode.Automatic;
             }
-            //else
-            //{
-            //    dgvReceiptData.Columns["Date"].SortMode = DataGridViewColumnSortMode.Automatic;
-            //}
+
         }
+
     }
 }

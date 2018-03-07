@@ -71,6 +71,14 @@
             this.btnNewGeostation = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.txtPumpDex = new System.Windows.Forms.TextBox();
+            this.txtPumpAntlia = new System.Windows.Forms.TextBox();
+            this.txtPumpAkrof = new System.Windows.Forms.TextBox();
+            this.lblPumpSep1 = new System.Windows.Forms.Label();
+            this.lblPumpSep2 = new System.Windows.Forms.Label();
+            this.lblPumpDex = new System.Windows.Forms.Label();
+            this.lblPumpAntlia = new System.Windows.Forms.Label();
+            this.lblPumpAkrof = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).BeginInit();
             this.SuspendLayout();
             // 
@@ -275,7 +283,7 @@
             this.txtPump.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.txtPump.Location = new System.Drawing.Point(555, 328);
             this.txtPump.Name = "txtPump";
-            this.txtPump.Size = new System.Drawing.Size(280, 22);
+            this.txtPump.Size = new System.Drawing.Size(31, 22);
             this.txtPump.TabIndex = 21;
             // 
             // lblProduct
@@ -482,12 +490,97 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // txtPumpDex
+            // 
+            this.txtPumpDex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtPumpDex.Location = new System.Drawing.Point(597, 328);
+            this.txtPumpDex.Name = "txtPumpDex";
+            this.txtPumpDex.Size = new System.Drawing.Size(50, 22);
+            this.txtPumpDex.TabIndex = 45;
+            this.txtPumpDex.Text = "WWW";
+            // 
+            // txtPumpAntlia
+            // 
+            this.txtPumpAntlia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtPumpAntlia.Location = new System.Drawing.Point(688, 328);
+            this.txtPumpAntlia.Name = "txtPumpAntlia";
+            this.txtPumpAntlia.Size = new System.Drawing.Size(50, 22);
+            this.txtPumpAntlia.TabIndex = 46;
+            this.txtPumpAntlia.Text = "WWW";
+            // 
+            // txtPumpAkrof
+            // 
+            this.txtPumpAkrof.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtPumpAkrof.Location = new System.Drawing.Point(776, 328);
+            this.txtPumpAkrof.Name = "txtPumpAkrof";
+            this.txtPumpAkrof.Size = new System.Drawing.Size(50, 22);
+            this.txtPumpAkrof.TabIndex = 47;
+            this.txtPumpAkrof.Text = "WWW";
+            // 
+            // lblPumpSep1
+            // 
+            this.lblPumpSep1.AutoSize = true;
+            this.lblPumpSep1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblPumpSep1.Location = new System.Drawing.Point(664, 331);
+            this.lblPumpSep1.Name = "lblPumpSep1";
+            this.lblPumpSep1.Size = new System.Drawing.Size(12, 16);
+            this.lblPumpSep1.TabIndex = 48;
+            this.lblPumpSep1.Text = "/";
+            // 
+            // lblPumpSep2
+            // 
+            this.lblPumpSep2.AutoSize = true;
+            this.lblPumpSep2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblPumpSep2.Location = new System.Drawing.Point(748, 331);
+            this.lblPumpSep2.Name = "lblPumpSep2";
+            this.lblPumpSep2.Size = new System.Drawing.Size(12, 16);
+            this.lblPumpSep2.TabIndex = 49;
+            this.lblPumpSep2.Text = "/";
+            // 
+            // lblPumpDex
+            // 
+            this.lblPumpDex.AutoSize = true;
+            this.lblPumpDex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblPumpDex.Location = new System.Drawing.Point(593, 309);
+            this.lblPumpDex.Name = "lblPumpDex";
+            this.lblPumpDex.Size = new System.Drawing.Size(58, 15);
+            this.lblPumpDex.TabIndex = 50;
+            this.lblPumpDex.Text = "Δεξαμενή";
+            // 
+            // lblPumpAntlia
+            // 
+            this.lblPumpAntlia.AutoSize = true;
+            this.lblPumpAntlia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblPumpAntlia.Location = new System.Drawing.Point(693, 309);
+            this.lblPumpAntlia.Name = "lblPumpAntlia";
+            this.lblPumpAntlia.Size = new System.Drawing.Size(40, 15);
+            this.lblPumpAntlia.TabIndex = 51;
+            this.lblPumpAntlia.Text = "Αντλία";
+            // 
+            // lblPumpAkrof
+            // 
+            this.lblPumpAkrof.AutoSize = true;
+            this.lblPumpAkrof.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblPumpAkrof.Location = new System.Drawing.Point(768, 309);
+            this.lblPumpAkrof.Name = "lblPumpAkrof";
+            this.lblPumpAkrof.Size = new System.Drawing.Size(67, 15);
+            this.lblPumpAkrof.TabIndex = 52;
+            this.lblPumpAkrof.Text = "Ακροφύσιο";
+            // 
             // AcceptanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(904, 502);
+            this.Controls.Add(this.lblPumpAkrof);
+            this.Controls.Add(this.lblPumpAntlia);
+            this.Controls.Add(this.lblPumpDex);
+            this.Controls.Add(this.lblPumpSep2);
+            this.Controls.Add(this.lblPumpSep1);
+            this.Controls.Add(this.txtPumpAkrof);
+            this.Controls.Add(this.txtPumpAntlia);
+            this.Controls.Add(this.txtPumpDex);
             this.Controls.Add(this.btnNewGeostation);
             this.Controls.Add(this.btnRealLatLong);
             this.Controls.Add(this.txtRealLong);
@@ -572,5 +665,13 @@
         private System.Windows.Forms.TextBox txtRealLong;
         private System.Windows.Forms.Button btnRealLatLong;
         public System.Windows.Forms.Button btnNewGeostation;
+        private System.Windows.Forms.TextBox txtPumpDex;
+        private System.Windows.Forms.TextBox txtPumpAntlia;
+        private System.Windows.Forms.TextBox txtPumpAkrof;
+        private System.Windows.Forms.Label lblPumpSep1;
+        private System.Windows.Forms.Label lblPumpSep2;
+        private System.Windows.Forms.Label lblPumpDex;
+        private System.Windows.Forms.Label lblPumpAntlia;
+        private System.Windows.Forms.Label lblPumpAkrof;
     }
 }
