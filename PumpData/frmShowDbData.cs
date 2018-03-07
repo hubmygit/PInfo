@@ -65,7 +65,7 @@ namespace PumpData
                 int extraDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value);
 
                 int geostId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["GeostationId"].Value.ToString().Trim());
-
+                                
                 /*
                 if (geostId == 10) //New Station
                 {
