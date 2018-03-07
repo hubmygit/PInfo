@@ -51,7 +51,12 @@ namespace PumpInfo
                 txtDealer.Text = obj.dealer;
                 txtAddress.Text = obj.address;
                 cbProduct.SelectedIndex = cbProduct.FindStringExact(obj.product.Name);
-                txtPump.Text = obj.pump;
+                //txtPump.Text = obj.pump;
+                
+                txtPumpDex.Text = DbUtilities.GetSplittedField(obj.pump, new char[] { '/' }, 0); 
+                txtPumpAntlia.Text = DbUtilities.GetSplittedField(obj.pump, new char[] { '/' }, 1); 
+                txtPumpAkrof.Text = DbUtilities.GetSplittedField(obj.pump, new char[] { '/' }, 2); 
+
                 txtPumpVol.Text = obj.pumpVolume.ToString();
 
                 //show diff
@@ -78,8 +83,11 @@ namespace PumpInfo
         
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            //if (cbBrand.Text.Trim() == "" || txtDealer.Text.Trim() == "" || txtAddress.Text.Trim() == "" || cbProduct.Text.Trim() == "" || 
+            //    txtPump.Text.Trim() == "" || txtPumpVol.Text.Trim() == "") //SampleNo: can be empty - Remarks: no need to check...
             if (cbBrand.Text.Trim() == "" || txtDealer.Text.Trim() == "" || txtAddress.Text.Trim() == "" || cbProduct.Text.Trim() == "" || 
-                txtPump.Text.Trim() == "" || txtPumpVol.Text.Trim() == "") //SampleNo: can be empty - Remarks: no need to check...
+                (txtPumpDex.Text.Trim() == "" && txtPumpAntlia.Text.Trim() == "" && txtPumpAkrof.Text.Trim() == "") || 
+                txtPumpVol.Text.Trim() == "")
             {
                 MessageBox.Show("Προσοχή! Δεν έχετε συμπληρώσει όλα τα πεδία.");
                 return;
@@ -106,7 +114,8 @@ namespace PumpInfo
                 //obj.removeExtraData();
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
                 obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct),
-                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text,
+                                 txtPumpDex.Text + "/" + txtPumpAntlia.Text + "/" + txtPumpAkrof.Text, //txtPump.Text, 
+                                 Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text,
                                  Convert.ToInt32(lblGeostationId.Text), new Coordinates() { latitude = txtRealLat.Text, longitude = txtRealLong.Text });
                 //getComboboxItem_Brand
 
@@ -124,8 +133,9 @@ namespace PumpInfo
                 }
 
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
-                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct), 
-                                 txtPump.Text, Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text, 
+                obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct),
+                                 txtPumpDex.Text + "/" + txtPumpAntlia.Text + "/" + txtPumpAkrof.Text, //txtPump.Text, 
+                                 Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text, 
                                  Convert.ToInt32(lblGeostationId.Text), new Coordinates() { latitude = txtRealLat.Text, longitude = txtRealLong.Text });
 
                 recordAction = RecordAction.Insert;

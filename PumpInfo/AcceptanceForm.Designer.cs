@@ -51,7 +51,6 @@
             this.lblPumpVol = new System.Windows.Forms.Label();
             this.txtPumpVol = new System.Windows.Forms.TextBox();
             this.lblPump = new System.Windows.Forms.Label();
-            this.txtPump = new System.Windows.Forms.TextBox();
             this.lblProduct = new System.Windows.Forms.Label();
             this.cbBrand = new System.Windows.Forms.ComboBox();
             this.cbProduct = new System.Windows.Forms.ComboBox();
@@ -278,14 +277,6 @@
             this.lblPump.TabIndex = 22;
             this.lblPump.Text = "Pump";
             // 
-            // txtPump
-            // 
-            this.txtPump.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtPump.Location = new System.Drawing.Point(555, 328);
-            this.txtPump.Name = "txtPump";
-            this.txtPump.Size = new System.Drawing.Size(31, 22);
-            this.txtPump.TabIndex = 21;
-            // 
             // lblProduct
             // 
             this.lblProduct.AutoSize = true;
@@ -493,35 +484,32 @@
             // txtPumpDex
             // 
             this.txtPumpDex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtPumpDex.Location = new System.Drawing.Point(597, 328);
+            this.txtPumpDex.Location = new System.Drawing.Point(594, 328);
             this.txtPumpDex.Name = "txtPumpDex";
             this.txtPumpDex.Size = new System.Drawing.Size(50, 22);
             this.txtPumpDex.TabIndex = 45;
-            this.txtPumpDex.Text = "WWW";
             // 
             // txtPumpAntlia
             // 
             this.txtPumpAntlia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtPumpAntlia.Location = new System.Drawing.Point(688, 328);
+            this.txtPumpAntlia.Location = new System.Drawing.Point(668, 328);
             this.txtPumpAntlia.Name = "txtPumpAntlia";
             this.txtPumpAntlia.Size = new System.Drawing.Size(50, 22);
             this.txtPumpAntlia.TabIndex = 46;
-            this.txtPumpAntlia.Text = "WWW";
             // 
             // txtPumpAkrof
             // 
             this.txtPumpAkrof.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtPumpAkrof.Location = new System.Drawing.Point(776, 328);
+            this.txtPumpAkrof.Location = new System.Drawing.Point(742, 328);
             this.txtPumpAkrof.Name = "txtPumpAkrof";
             this.txtPumpAkrof.Size = new System.Drawing.Size(50, 22);
             this.txtPumpAkrof.TabIndex = 47;
-            this.txtPumpAkrof.Text = "WWW";
             // 
             // lblPumpSep1
             // 
             this.lblPumpSep1.AutoSize = true;
             this.lblPumpSep1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblPumpSep1.Location = new System.Drawing.Point(664, 331);
+            this.lblPumpSep1.Location = new System.Drawing.Point(650, 331);
             this.lblPumpSep1.Name = "lblPumpSep1";
             this.lblPumpSep1.Size = new System.Drawing.Size(12, 16);
             this.lblPumpSep1.TabIndex = 48;
@@ -531,7 +519,7 @@
             // 
             this.lblPumpSep2.AutoSize = true;
             this.lblPumpSep2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblPumpSep2.Location = new System.Drawing.Point(748, 331);
+            this.lblPumpSep2.Location = new System.Drawing.Point(724, 331);
             this.lblPumpSep2.Name = "lblPumpSep2";
             this.lblPumpSep2.Size = new System.Drawing.Size(12, 16);
             this.lblPumpSep2.TabIndex = 49;
@@ -541,7 +529,7 @@
             // 
             this.lblPumpDex.AutoSize = true;
             this.lblPumpDex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblPumpDex.Location = new System.Drawing.Point(593, 309);
+            this.lblPumpDex.Location = new System.Drawing.Point(590, 309);
             this.lblPumpDex.Name = "lblPumpDex";
             this.lblPumpDex.Size = new System.Drawing.Size(58, 15);
             this.lblPumpDex.TabIndex = 50;
@@ -551,7 +539,7 @@
             // 
             this.lblPumpAntlia.AutoSize = true;
             this.lblPumpAntlia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblPumpAntlia.Location = new System.Drawing.Point(693, 309);
+            this.lblPumpAntlia.Location = new System.Drawing.Point(673, 309);
             this.lblPumpAntlia.Name = "lblPumpAntlia";
             this.lblPumpAntlia.Size = new System.Drawing.Size(40, 15);
             this.lblPumpAntlia.TabIndex = 51;
@@ -561,7 +549,7 @@
             // 
             this.lblPumpAkrof.AutoSize = true;
             this.lblPumpAkrof.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblPumpAkrof.Location = new System.Drawing.Point(768, 309);
+            this.lblPumpAkrof.Location = new System.Drawing.Point(734, 309);
             this.lblPumpAkrof.Name = "lblPumpAkrof";
             this.lblPumpAkrof.Size = new System.Drawing.Size(67, 15);
             this.lblPumpAkrof.TabIndex = 52;
@@ -602,7 +590,6 @@
             this.Controls.Add(this.lblPumpVol);
             this.Controls.Add(this.txtPumpVol);
             this.Controls.Add(this.lblPump);
-            this.Controls.Add(this.txtPump);
             this.Controls.Add(this.lblProduct);
             this.Controls.Add(this.lblAddress);
             this.Controls.Add(this.txtAddress);
@@ -645,7 +632,6 @@
         private System.Windows.Forms.Label lblPumpVol;
         private System.Windows.Forms.TextBox txtPumpVol;
         private System.Windows.Forms.Label lblPump;
-        private System.Windows.Forms.TextBox txtPump;
         private System.Windows.Forms.Label lblProduct;
         public System.Windows.Forms.Button btnAdd;
         public System.Windows.Forms.Button btnDel;

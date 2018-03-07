@@ -2230,7 +2230,19 @@ namespace PumpLib
             return ret;
         }
 
+        public static string GetSplittedField(string field, char[] separator, int splittedFieldNo) //splittedFieldNo: ZeroBased
+        {
+            string ret = "";
+                        
+            string[] SplittedFieldArray = field.Split(separator);
 
+            if (splittedFieldNo < SplittedFieldArray.Length)
+            {
+                ret = SplittedFieldArray[splittedFieldNo];
+            }
+            
+            return ret;
+        }
     }
     
 
