@@ -187,7 +187,7 @@ namespace PumpLib
         {
             double ret = 0.0;
 
-            ret = Convert.ToDouble(str.Replace(".", ","));
+            ret = Convert.ToDouble(str.Replace(".", ",").Replace("-", "0"));
 
             return ret;
         }
@@ -304,7 +304,7 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Record: " + records.ToString() + ".\r\nFile could not be read:" + ex.Message);
+                MessageBox.Show("Record: " + records.ToString() + ".\r\nFile could not be read: " + ex.Message);
             }
 
             return ret;
