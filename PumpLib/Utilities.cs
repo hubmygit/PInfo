@@ -2243,6 +2243,101 @@ namespace PumpLib
             
             return ret;
         }
+
+
+
+        /*
+        public static void Migration()
+        {
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+
+            string st = " select DENSE_RANK() OVER (ORDER BY Dt asc, CooLong, CooLat, [realweight]) AS Id " + //ClientId, " + //--ReceiptDataId --ClientId --ClientReceiptId
+            "vehicle as VehicleNo, Dt,  isnull(CooLong, '00.0000') as CooLong, isnull(CooLat, '00.0000') as CooLat, " + //--CooLong --CooLat
+            "isnull(RealWeight, 0.0) as [Weight], isnull(RealTemp, 0.0) as Temp, isnull(RealDensity, 0.0) as Density, RealVolume as Volume, " +
+            //-----
+            "BrandId, Dealer, [Address], ProductId, Pump, Volume as PumpVolume, Remarks, GeostationId " +
+            "from [dbo].[MigrationTable] ";
+            
+            SqlCommand cmd = new SqlCommand(st, sqlConn);
+
+            try
+            {
+                sqlConn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    //ins1
+                    SqlConnection sqlConn1 = new SqlConnection(SqlDBInfo.connectionString);
+                    string InsSt1 = "INSERT INTO [dbo].[receiptData] (ClientId, VehicleNo, Dt, CooLong, CooLat, Weight, Temp, Density, Volume, Accepted, ProcessedGroupId, ExportedGroupId, ImportedGroupId, MachineNo, InsDate) " +
+                           " VALUES (@ClientId, @VehicleNo, @Dt, @CooLong, @CooLat, @Weight, @Temp, @Density, @Volume, 1, 0, 0, 0, 0, '2018-01-01 00:00:00.000' ) ";
+                    
+                    //ins2
+                    SqlConnection sqlConn2 = new SqlConnection(SqlDBInfo.connectionString);
+                    string InsSt2 = "INSERT INTO [dbo].[extraData] (ReceiptDataId, ClientId, ClientReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId, CooLong, CooLat) " +
+                        " VALUES (@ReceiptDataId, @ClientId, @ClientReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, 0, @Remarks, @GeostationId, @CooLong, @CooLat ) ";
+
+                    try
+                    {
+                        sqlConn1.Open();
+                        SqlCommand cmd1 = new SqlCommand(InsSt1, sqlConn1);
+                        sqlConn2.Open();
+                        SqlCommand cmd2 = new SqlCommand(InsSt2, sqlConn2);
+
+                        //cmd1.Parameters.AddWithValue("@ClientId", Convert.ToInt32(reader["Id"].ToString()));
+                        //cmd1.Parameters.AddWithValue("@VehicleNo", obj.vehicleNo);
+                        //cmd1.Parameters.AddWithValue("@Dt", obj.strDt); //????????
+                        //cmd1.Parameters.AddWithValue("@CooLong", obj.coordinates.longitude);
+                        //cmd1.Parameters.AddWithValue("@CooLat", obj.coordinates.latitude);
+                        //cmd1.Parameters.AddWithValue("@Weight", obj.weight);
+                        //cmd1.Parameters.AddWithValue("@Temp", obj.temp);
+                        //cmd1.Parameters.AddWithValue("@Density", obj.density);
+                        //cmd1.Parameters.AddWithValue("@Volume", obj.volume);
+                        //cmd1.Parameters.AddWithValue("@Accepted", obj.accepted);
+                        //cmd1.Parameters.AddWithValue("@ProcessedGroupId", obj.processedGroupId);
+                        //cmd1.Parameters.AddWithValue("@ExportedGroupId", obj.exportedGroupId);
+                        //cmd1.Parameters.AddWithValue("@ImportedGroupId", ImportedGroupId);
+                        //cmd1.Parameters.AddWithValue("@MachineNo", obj.machineNo);
+                        ///////////////////////////////////////////////////////////////
+                        //cmd2Parameters.AddWithValue("@ReceiptDataId", Convert.ToInt32(reader["Id"].ToString()));
+                        //cmd2Parameters.AddWithValue("@ClientId", Convert.ToInt32(reader["Id"].ToString()));
+                        //cmd2Parameters.AddWithValue("@ClientReceiptDataId", Convert.ToInt32(reader["Id"].ToString()));
+                        //cmd2Parameters.AddWithValue("@BrandId", obj.brand.Id);
+                        //cmd2Parameters.AddWithValue("@Dealer", obj.dealer);
+                        //cmd2Parameters.AddWithValue("@Address", obj.address);
+                        //cmd2Parameters.AddWithValue("@ProductId", obj.product.Id);
+                        //cmd2Parameters.AddWithValue("@Pump", obj.pump);
+                        //cmd2Parameters.AddWithValue("@PumpVolume", obj.pumpVolume);
+                        //cmd2Parameters.AddWithValue("@SampleNo", obj.sampleNo);
+                        //cmd2Parameters.AddWithValue("@Remarks", obj.remarks);
+                        //cmd2Parameters.AddWithValue("@GeostationId", obj.geostationId);
+                        //cmd2Parameters.AddWithValue("@CooLong", obj.realCoordinates.longitude);
+                        //cmd2.Parameters.AddWithValue("@CooLat", obj.realCoordinates.latitude);
+
+                        cmd1.CommandType = CommandType.Text;
+                        cmd1.ExecuteNonQuery();
+                        cmd2.CommandType = CommandType.Text;
+                        cmd2.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("The following error occurred: " + ex.Message);
+                    }
+
+                    sqlConn1.Close();
+                    sqlConn2.Close();
+                }
+
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+        }
+        */
     }
     
 
