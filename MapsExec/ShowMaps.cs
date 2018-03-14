@@ -68,5 +68,28 @@ namespace MapsExec
             MessageBox.Show(tex.GleoPass.address + " " + tex.GleoPass.name + " " + tex.GleoPass.brand_id.ToString() + " " + tex.GleoPass.id.ToString());
             
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            MapFormParams LeoPass = new MapFormParams();
+            LeoPass.longitude = 0;
+            LeoPass.latitude = 0;
+            LeoPass.radius = 50;
+            LeoPass.apiKey = "AIzaSyCxAKDi4ZgokHWCYK_5sQ8Dg-nlcLT2myo";
+
+            LeoPass.connectionString = "Data Source=StationGeoData.db";
+
+            int StationId;
+            int.TryParse(textBox4.Text.ToString().Trim(), out StationId);
+
+            Maps.Form2 tex = new Maps.Form2(LeoPass, StationId);
+            tex.ShowDialog();
+            //tex.GleoPass.address
+
+            MessageBox.Show(tex.GleoPass.address + " " + tex.GleoPass.name + " " + tex.GleoPass.brand_id.ToString() + " " + tex.GleoPass.id.ToString());
+
+        }
     }
 }
+

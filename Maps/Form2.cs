@@ -95,6 +95,39 @@ namespace Maps
             FilterLonLat(Lat, Lon, radiusmeter);
         }
 
+        public Form2(MapFormParams leo , int StationId, bool sqlsrv = false) : this()
+        {
+
+            GlobIn = leo;
+            GlobLat = GlobIn.latitude;
+            GlobLon = GlobIn.longitude;
+            numericUpDown1.Value = GlobIn.radius;
+            numericUpDown2.Value = (int)gMap.Zoom;
+            numericUpDown2.Minimum = gMap.MinZoom;
+            numericUpDown2.Maximum = gMap.MaxZoom;
+
+            if (sqlsrv)
+            {
+                SqlServerConnection = true;
+
+                ShowDataToGridSQLSrv(dataGridView1, NonDispFields);
+
+                FilterStaId(StationId);
+                SetMarkers2All();
+                //GlobalDVCompany = PopulateDataView(NonDispFieldsCompany);
+                GlobalDVCompany = PopulateSQLDataView(NonDispFieldsCompany);
+            }
+            else
+            {
+                ShowDataToGrid(dataGridView1, NonDispFields);
+
+                FilterStaId(StationId);
+                SetMarkers2All();
+                GlobalDVCompany = PopulateDataView(NonDispFieldsCompany);
+            }
+
+        }
+
         public Form2(double Lon, double Lat, int radiusmeter, StationInterop leo) : this()
         {
             Gleo = leo;
@@ -136,8 +169,6 @@ namespace Maps
                 SetMarkers2All();
                 GlobalDVCompany = PopulateDataView(NonDispFieldsCompany);
             }
-
-            
 
         }
 
@@ -1064,5 +1095,40 @@ namespace Maps
         }
 
 
+        private void FilterStaId(int StaId)
+        {
+            String aaa = "id = " + StaId;
+            if (GlobalDV.RowFilter is null)
+            {
+                GlobalDV.RowFilter = aaa;
+            }
+            else
+            {
+                GlobalDV.RowFilter = aaa;
+            }
+
+            dataGridView1.DataSource = GlobalDV;
+            if (GlobalDV.Count > 0)
+            {
+                lblFound.Text = "Stations Found " + GlobalDV.Count.ToString();
+                string Leo;
+                double tmpd;
+
+                double.TryParse(GlobalDV[0][1].ToString(), out tmpd);
+                GlobIn.latitude = tmpd;
+                GlobLat = tmpd;
+
+
+                double.TryParse(GlobalDV[0][2].ToString(), out tmpd);
+                GlobIn.longitude = tmpd;
+                GlobLon = tmpd;
+
+            }
+            else
+            { lblFound.Text = "No Stations Found "; }
+        }
+
+
+
     }
-    }
+}
