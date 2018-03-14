@@ -50,6 +50,12 @@
             this.PumpVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbVehicle = new System.Windows.Forms.ComboBox();
+            this.dtFrom = new System.Windows.Forms.DateTimePicker();
+            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.lblDtFrom = new System.Windows.Forms.Label();
+            this.lblDtTo = new System.Windows.Forms.Label();
+            this.btnGeostation = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +66,7 @@
             this.dgvReceiptData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -95,7 +101,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvReceiptData.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvReceiptData.Location = new System.Drawing.Point(12, 100);
+            this.dgvReceiptData.Location = new System.Drawing.Point(12, 83);
             this.dgvReceiptData.MultiSelect = false;
             this.dgvReceiptData.Name = "dgvReceiptData";
             this.dgvReceiptData.ReadOnly = true;
@@ -107,8 +113,9 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvReceiptData.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvReceiptData.RowHeadersWidth = 25;
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReceiptData.Size = new System.Drawing.Size(1234, 231);
+            this.dgvReceiptData.Size = new System.Drawing.Size(1170, 278);
             this.dgvReceiptData.TabIndex = 12;
             // 
             // Index
@@ -124,38 +131,42 @@
             this.Accepted.HeaderText = "";
             this.Accepted.Name = "Accepted";
             this.Accepted.ReadOnly = true;
-            this.Accepted.Width = 40;
+            this.Accepted.Width = 20;
             // 
             // Vehicle
             // 
             this.Vehicle.HeaderText = "Vehicle";
             this.Vehicle.Name = "Vehicle";
             this.Vehicle.ReadOnly = true;
-            this.Vehicle.Width = 80;
+            this.Vehicle.Width = 64;
             // 
             // DateTime
             // 
             this.DateTime.HeaderText = "DateTime";
             this.DateTime.Name = "DateTime";
             this.DateTime.ReadOnly = true;
+            this.DateTime.Width = 136;
             // 
             // Brand
             // 
             this.Brand.HeaderText = "Brand";
             this.Brand.Name = "Brand";
             this.Brand.ReadOnly = true;
+            this.Brand.Width = 84;
             // 
             // Dealer
             // 
             this.Dealer.HeaderText = "Dealer";
             this.Dealer.Name = "Dealer";
             this.Dealer.ReadOnly = true;
+            this.Dealer.Width = 140;
             // 
             // Address
             // 
             this.Address.HeaderText = "Address";
             this.Address.Name = "Address";
             this.Address.ReadOnly = true;
+            this.Address.Width = 140;
             // 
             // GeostationId
             // 
@@ -175,64 +186,143 @@
             this.Weight.HeaderText = "Weight";
             this.Weight.Name = "Weight";
             this.Weight.ReadOnly = true;
-            this.Weight.Width = 80;
+            this.Weight.Width = 64;
             // 
             // Temp
             // 
             this.Temp.HeaderText = "Temp";
             this.Temp.Name = "Temp";
             this.Temp.ReadOnly = true;
-            this.Temp.Width = 80;
+            this.Temp.Width = 60;
             // 
             // Density
             // 
             this.Density.HeaderText = "Density";
             this.Density.Name = "Density";
             this.Density.ReadOnly = true;
-            this.Density.Width = 80;
+            this.Density.Width = 66;
             // 
             // Volume
             // 
             this.Volume.HeaderText = "Volume";
             this.Volume.Name = "Volume";
             this.Volume.ReadOnly = true;
-            this.Volume.Width = 80;
+            this.Volume.Width = 66;
             // 
             // Pump
             // 
             this.Pump.HeaderText = "Pump";
             this.Pump.Name = "Pump";
             this.Pump.ReadOnly = true;
+            this.Pump.Width = 60;
             // 
             // PumpVolume
             // 
             this.PumpVolume.HeaderText = "PumpVolume";
             this.PumpVolume.Name = "PumpVolume";
             this.PumpVolume.ReadOnly = true;
+            this.PumpVolume.Width = 105;
             // 
             // SampleNo
             // 
             this.SampleNo.HeaderText = "SampleNo";
             this.SampleNo.Name = "SampleNo";
             this.SampleNo.ReadOnly = true;
+            this.SampleNo.Width = 84;
             // 
             // Remarks
             // 
             this.Remarks.HeaderText = "Remarks";
             this.Remarks.Name = "Remarks";
             this.Remarks.ReadOnly = true;
+            this.Remarks.Width = 75;
+            // 
+            // cbVehicle
+            // 
+            this.cbVehicle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbVehicle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbVehicle.FormattingEnabled = true;
+            this.cbVehicle.Items.AddRange(new object[] {
+            "Όλα τα οχήματα",
+            "Όχημα 1 - Βενζίνη",
+            "Όχημα 2 - Diesel"});
+            this.cbVehicle.Location = new System.Drawing.Point(12, 28);
+            this.cbVehicle.Name = "cbVehicle";
+            this.cbVehicle.Size = new System.Drawing.Size(200, 24);
+            this.cbVehicle.TabIndex = 29;
+            this.cbVehicle.SelectedIndexChanged += new System.EventHandler(this.cbVehicle_SelectedIndexChanged);
+            // 
+            // dtFrom
+            // 
+            this.dtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtFrom.Location = new System.Drawing.Point(285, 29);
+            this.dtFrom.Name = "dtFrom";
+            this.dtFrom.Size = new System.Drawing.Size(234, 22);
+            this.dtFrom.TabIndex = 30;
+            this.dtFrom.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.dtFrom.ValueChanged += new System.EventHandler(this.dtFrom_ValueChanged);
+            // 
+            // dtTo
+            // 
+            this.dtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtTo.Location = new System.Drawing.Point(564, 29);
+            this.dtTo.Name = "dtTo";
+            this.dtTo.Size = new System.Drawing.Size(234, 22);
+            this.dtTo.TabIndex = 31;
+            this.dtTo.ValueChanged += new System.EventHandler(this.dtTo_ValueChanged);
+            // 
+            // lblDtFrom
+            // 
+            this.lblDtFrom.AutoSize = true;
+            this.lblDtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDtFrom.Location = new System.Drawing.Point(246, 32);
+            this.lblDtFrom.Name = "lblDtFrom";
+            this.lblDtFrom.Size = new System.Drawing.Size(33, 16);
+            this.lblDtFrom.TabIndex = 32;
+            this.lblDtFrom.Text = "Από";
+            // 
+            // lblDtTo
+            // 
+            this.lblDtTo.AutoSize = true;
+            this.lblDtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDtTo.Location = new System.Drawing.Point(525, 32);
+            this.lblDtTo.Name = "lblDtTo";
+            this.lblDtTo.Size = new System.Drawing.Size(33, 16);
+            this.lblDtTo.TabIndex = 33;
+            this.lblDtTo.Text = "Έως";
+            // 
+            // btnGeostation
+            // 
+            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnGeostation.Image = global::PumpInfo.Properties.Resources.GeoLocation_32x;
+            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGeostation.Location = new System.Drawing.Point(1022, 19);
+            this.btnGeostation.Name = "btnGeostation";
+            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
+            this.btnGeostation.TabIndex = 34;
+            this.btnGeostation.Text = "Θέση στο Χάρτη";
+            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGeostation.UseVisualStyleBackColor = true;
+            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
             // 
             // ArchivedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1258, 373);
+            this.ClientSize = new System.Drawing.Size(1194, 373);
+            this.Controls.Add(this.btnGeostation);
+            this.Controls.Add(this.lblDtTo);
+            this.Controls.Add(this.lblDtFrom);
+            this.Controls.Add(this.dtTo);
+            this.Controls.Add(this.dtFrom);
+            this.Controls.Add(this.cbVehicle);
             this.Controls.Add(this.dgvReceiptData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ArchivedForm";
-            this.Text = "ArchivedForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -256,5 +346,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PumpVolume;
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
+        private System.Windows.Forms.ComboBox cbVehicle;
+        private System.Windows.Forms.DateTimePicker dtFrom;
+        private System.Windows.Forms.DateTimePicker dtTo;
+        private System.Windows.Forms.Label lblDtFrom;
+        private System.Windows.Forms.Label lblDtTo;
+        public System.Windows.Forms.Button btnGeostation;
     }
 }

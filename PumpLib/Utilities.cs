@@ -2340,19 +2340,20 @@ namespace PumpLib
         */
 
 
-        public static List<object[]> ArcivedData()
+        public static List<ImpData> ArchivedData()
         {
-            List<object[]> ret = new List<object[]>();
+            List<ImpData> ret = new List<ImpData>();
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
-            string SelectSt = "SELECT R.Id, R.Accepted, R.VehicleNo, R.Dt, B.Name as Brand, E.Dealer, E.Address, E.GeostationId, P.Name as Product, " +
-            "R.Weight, R.Temp, R.Density, R.Volume, E.Pump, E.PumpVolume, E.SampleNo, E.Remarks " +
+            string SelectSt = "SELECT R.Id, R.Accepted, R.VehicleNo, datetime(R.Dt) as Dt, B.Name as Brand, E.Dealer, E.Address, " + 
+            "ifnull(E.GeostationId,0) as GeostationId, P.Name as Product, " +
+            "R.Weight, R.Temp, R.Density, R.Volume, E.Pump, ifnull(E.PumpVolume,0) as PumpVolume, ifnull(E.SampleNo,0) as SampleNo, E.Remarks " +
             "FROM receiptData R left outer join " +
             "extraData E on R.Id = E.ReceiptDataId left outer join " +
             "Brand B on E.BrandId = B.Id left outer join " +
             "Product P on E.ProductId = P.Id " +
-            "ORDER BY R.Dt, R.Id ";
+            "ORDER BY R.Dt desc, R.Id ";
 
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
@@ -2361,7 +2362,51 @@ namespace PumpLib
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    ret.Add(new object[] { Convert.ToInt32(reader["Id"].ToString()), Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())), reader["VehicleNo"].ToString() });
+                    //ret.Add(new object[]
+                    //{                        
+                    //    Convert.ToInt32(reader["Id"].ToString()),
+                    //    Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())),
+                    //    reader["VehicleNo"].ToString(),
+                    //    Convert.ToDateTime(reader["Dt"].ToString()).ToString("dd.MM.yyyy HH:mm"),
+                    //    reader["Brand"].ToString(),
+                    //    reader["Dealer"].ToString(),
+                    //    reader["Address"].ToString(),
+                    //    Convert.ToInt32(reader["GeostationId"].ToString()),
+                    //    reader["Product"].ToString(),
+                    //    Convert.ToDouble(reader["Weight"].ToString()),
+                    //    Convert.ToDouble(reader["Temp"].ToString()),
+                    //    Convert.ToDouble(reader["Density"].ToString()),
+                    //    Convert.ToDouble(reader["Volume"].ToString()),
+                    //    reader["Pump"].ToString(),
+                    //    Convert.ToDouble(reader["PumpVolume"].ToString()),
+                    //    Convert.ToInt32(reader["SampleNo"].ToString()),
+                    //    reader["Remarks"].ToString()
+                    //});
+
+                    ImpData objLine = new ImpData()
+                    {
+                        receiptDataId = Convert.ToInt32(reader["Id"].ToString()),
+                        accepted = Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())),
+                        vehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
+                        strDt = Convert.ToDateTime(reader["Dt"].ToString()).ToString("dd.MM.yyyy HH:mm"),
+                        brand = new Brand() { Name = reader["Brand"].ToString() },
+                        dealer = reader["Dealer"].ToString(),
+                        address = reader["Address"].ToString(),
+                        geostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
+                        product = new Product() { Name = reader["Product"].ToString() },
+                        weight = Convert.ToDouble(reader["Weight"].ToString()),
+                        temp = Convert.ToDouble(reader["Temp"].ToString()),
+                        density = Convert.ToDouble(reader["Density"].ToString()),
+                        volume = Convert.ToDouble(reader["Volume"].ToString()),
+                        pump = reader["Pump"].ToString(),
+                        pumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString()),
+                        sampleNo = Convert.ToInt32(reader["SampleNo"].ToString()),
+                        remarks = reader["Remarks"].ToString(),
+
+                        datetime = Convert.ToDateTime(reader["Dt"].ToString())
+                    };
+
+                    ret.Add(objLine);
                 }
                 reader.Close();
                 sqlConn.Close();
@@ -2563,6 +2608,21 @@ namespace PumpLib
                                      obj.geostationId, obj.realCoordinates.latitude, obj.realCoordinates.longitude };
             }
             
+            return ret;
+        }
+
+        public static List<object[]> ArchivedDataToObjectList(List<ImpData> objList)
+        {
+            List<object[]> ret = new List<object[]>();
+
+            foreach (ImpData thisObj in objList)
+            {                
+                ret.Add(new object[] { thisObj.receiptDataId, thisObj.accepted, thisObj.vehicleNo, thisObj.strDt,
+                    thisObj.brand.Name , thisObj.dealer, thisObj.address, thisObj.geostationId, thisObj.product.Name,
+                    thisObj.weight, thisObj.temp, thisObj.density, thisObj.volume, thisObj.pump, thisObj.pumpVolume,
+                    thisObj.sampleNo, thisObj.remarks });
+            }
+
             return ret;
         }
 
