@@ -182,7 +182,7 @@ namespace Maps
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
             sqlConn.Close();
-            sqlConn.Open();
+            //sqlConn.Open();
 
             //reader = cmd.ExecuteReader(CommandBehavior.KeyInfo);
             //Schemadt = reader.GetSchemaTable();
