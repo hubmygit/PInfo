@@ -460,7 +460,6 @@ namespace Maps
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
             sqlConn.Close();
-            sqlConn.Open();
 
             //reader = cmd.ExecuteReader(CommandBehavior.KeyInfo);
             //Schemadt = reader.GetSchemaTable();
@@ -529,7 +528,6 @@ namespace Maps
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
             sqlConn.Close();
-            sqlConn.Open();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -913,7 +911,7 @@ namespace Maps
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
             sqlConn.Close();
-            sqlConn.Open();
+
             return DV;
 
         }
@@ -971,7 +969,6 @@ namespace Maps
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
             sqlConn.Close();
-            sqlConn.Open();
             return DV;
 
         }
@@ -1033,7 +1030,7 @@ namespace Maps
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
             sqlConn.Close();
-            sqlConn.Open();
+
             return ((int)a);
 
         }
@@ -1058,7 +1055,7 @@ namespace Maps
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
             sqlConn.Close();
-            sqlConn.Open();
+
             return ((int)a);
 
         }
