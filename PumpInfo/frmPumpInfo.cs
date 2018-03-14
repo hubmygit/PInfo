@@ -270,5 +270,10 @@ namespace PumpInfo
 
         }
 
+        private void btnArchived_Click(object sender, EventArgs e)
+        {
+            ArchivedForm ArchFrm = new ArchivedForm();
+            ArchFrm.ShowDialog();
+        }
     }
 }

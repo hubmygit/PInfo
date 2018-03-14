@@ -2338,6 +2338,42 @@ namespace PumpLib
             }
         }
         */
+
+
+        public static List<object[]> ArcivedData()
+        {
+            List<object[]> ret = new List<object[]>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+
+            string SelectSt = "SELECT R.Id, R.Accepted, R.VehicleNo, R.Dt, B.Name as Brand, E.Dealer, E.Address, E.GeostationId, P.Name as Product, " +
+            "R.Weight, R.Temp, R.Density, R.Volume, E.Pump, E.PumpVolume, E.SampleNo, E.Remarks " +
+            "FROM receiptData R left outer join " +
+            "extraData E on R.Id = E.ReceiptDataId left outer join " +
+            "Brand B on E.BrandId = B.Id left outer join " +
+            "Product P on E.ProductId = P.Id " +
+            "ORDER BY R.Dt, R.Id ";
+
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new object[] { Convert.ToInt32(reader["Id"].ToString()), Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())), reader["VehicleNo"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
     }
     
 

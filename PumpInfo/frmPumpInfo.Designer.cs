@@ -44,10 +44,11 @@
             this.Temp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Density = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblCountExported = new System.Windows.Forms.Label();
+            this.btnArchived = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
-            this.lblCountExported = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -182,6 +183,31 @@
             this.Volume.ReadOnly = true;
             this.Volume.Width = 80;
             // 
+            // lblCountExported
+            // 
+            this.lblCountExported.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCountExported.AutoSize = true;
+            this.lblCountExported.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblCountExported.Location = new System.Drawing.Point(787, 55);
+            this.lblCountExported.Name = "lblCountExported";
+            this.lblCountExported.Size = new System.Drawing.Size(82, 16);
+            this.lblCountExported.TabIndex = 14;
+            this.lblCountExported.Text = "Εγγραφές: 0";
+            // 
+            // btnArchived
+            // 
+            this.btnArchived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnArchived.Image = global::PumpInfo.Properties.Resources.IntelliTrace_32x;
+            this.btnArchived.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnArchived.Location = new System.Drawing.Point(315, 12);
+            this.btnArchived.Name = "btnArchived";
+            this.btnArchived.Size = new System.Drawing.Size(135, 40);
+            this.btnArchived.TabIndex = 15;
+            this.btnArchived.Text = "Ιστορικό";
+            this.btnArchived.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnArchived.UseVisualStyleBackColor = true;
+            this.btnArchived.Click += new System.EventHandler(this.btnArchived_Click);
+            // 
             // btnExport
             // 
             this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -226,22 +252,12 @@
             this.btnOpenFile.UseVisualStyleBackColor = true;
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
-            // lblCountExported
-            // 
-            this.lblCountExported.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCountExported.AutoSize = true;
-            this.lblCountExported.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblCountExported.Location = new System.Drawing.Point(787, 55);
-            this.lblCountExported.Name = "lblCountExported";
-            this.lblCountExported.Size = new System.Drawing.Size(82, 16);
-            this.lblCountExported.TabIndex = 14;
-            this.lblCountExported.Text = "Εγγραφές: 0";
-            // 
             // frmPumpInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(914, 502);
+            this.Controls.Add(this.btnArchived);
             this.Controls.Add(this.lblCountExported);
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnSave);
@@ -277,6 +293,7 @@
         public System.Windows.Forms.Button btnSave;
         public System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Label lblCountExported;
+        public System.Windows.Forms.Button btnArchived;
     }
 }
 
