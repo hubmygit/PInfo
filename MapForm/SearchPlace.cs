@@ -175,7 +175,7 @@ namespace MapForm
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
             sqlConn.Close();
-            sqlConn.Open();
+            //sqlConn.Open();
         }
 
         public void ShowDataToGridSQLSrv(DataGridView Grid, List<string> NonDispFields)
@@ -237,7 +237,7 @@ namespace MapForm
                 MessageBox.Show("The following error occurred: " + ex.Message);
             }
             sqlConn.Close();
-            sqlConn.Open();
+            //sqlConn.Open();
         }
 
         private void FilterLonLat(double Lon, double Lat, int radmeter = 150)

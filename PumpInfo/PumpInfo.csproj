@@ -163,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PumpInfo.ico" />
+    <None Include="Resources\GeoLocation_32x.png" />
     <None Include="Resources\IntelliTrace_32x.png" />
     <None Include="Resources\Edit_16x.png" />
   </ItemGroup>
