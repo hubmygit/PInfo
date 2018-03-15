@@ -1108,7 +1108,7 @@ namespace Maps
             if (GlobalDV.Count > 0)
             {
                 lblFound.Text = "Stations Found " + GlobalDV.Count.ToString();
-                string Leo;
+                //string Leo;
                 double tmpd;
 
                 double.TryParse(GlobalDV[0][1].ToString(), out tmpd);

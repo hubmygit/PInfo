@@ -33,10 +33,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArchivedForm));
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
+            this.cbVehicle = new System.Windows.Forms.ComboBox();
+            this.dtFrom = new System.Windows.Forms.DateTimePicker();
+            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.lblDtFrom = new System.Windows.Forms.Label();
+            this.lblDtTo = new System.Windows.Forms.Label();
+            this.btnGeostation = new System.Windows.Forms.Button();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Brand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dealer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,12 +56,6 @@
             this.PumpVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cbVehicle = new System.Windows.Forms.ComboBox();
-            this.dtFrom = new System.Windows.Forms.DateTimePicker();
-            this.dtTo = new System.Windows.Forms.DateTimePicker();
-            this.lblDtFrom = new System.Windows.Forms.Label();
-            this.lblDtTo = new System.Windows.Forms.Label();
-            this.btnGeostation = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,7 +79,7 @@
             this.Index,
             this.Accepted,
             this.Vehicle,
-            this.DateTime,
+            this.gridDateTime,
             this.Brand,
             this.Dealer,
             this.Address,
@@ -115,8 +115,76 @@
             this.dgvReceiptData.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvReceiptData.RowHeadersWidth = 25;
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReceiptData.Size = new System.Drawing.Size(1170, 278);
+            this.dgvReceiptData.Size = new System.Drawing.Size(1160, 407);
             this.dgvReceiptData.TabIndex = 12;
+            // 
+            // cbVehicle
+            // 
+            this.cbVehicle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbVehicle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbVehicle.FormattingEnabled = true;
+            this.cbVehicle.Items.AddRange(new object[] {
+            "Όλα τα οχήματα",
+            "Όχημα 1 - Βενζίνη",
+            "Όχημα 2 - Diesel"});
+            this.cbVehicle.Location = new System.Drawing.Point(12, 28);
+            this.cbVehicle.Name = "cbVehicle";
+            this.cbVehicle.Size = new System.Drawing.Size(200, 24);
+            this.cbVehicle.TabIndex = 29;
+            this.cbVehicle.SelectedIndexChanged += new System.EventHandler(this.cbVehicle_SelectedIndexChanged);
+            // 
+            // dtFrom
+            // 
+            this.dtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtFrom.Location = new System.Drawing.Point(285, 29);
+            this.dtFrom.Name = "dtFrom";
+            this.dtFrom.Size = new System.Drawing.Size(234, 22);
+            this.dtFrom.TabIndex = 30;
+            this.dtFrom.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.dtFrom.ValueChanged += new System.EventHandler(this.dtFrom_ValueChanged);
+            // 
+            // dtTo
+            // 
+            this.dtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtTo.Location = new System.Drawing.Point(564, 29);
+            this.dtTo.Name = "dtTo";
+            this.dtTo.Size = new System.Drawing.Size(234, 22);
+            this.dtTo.TabIndex = 31;
+            this.dtTo.ValueChanged += new System.EventHandler(this.dtTo_ValueChanged);
+            // 
+            // lblDtFrom
+            // 
+            this.lblDtFrom.AutoSize = true;
+            this.lblDtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDtFrom.Location = new System.Drawing.Point(246, 32);
+            this.lblDtFrom.Name = "lblDtFrom";
+            this.lblDtFrom.Size = new System.Drawing.Size(33, 16);
+            this.lblDtFrom.TabIndex = 32;
+            this.lblDtFrom.Text = "Από";
+            // 
+            // lblDtTo
+            // 
+            this.lblDtTo.AutoSize = true;
+            this.lblDtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDtTo.Location = new System.Drawing.Point(525, 32);
+            this.lblDtTo.Name = "lblDtTo";
+            this.lblDtTo.Size = new System.Drawing.Size(33, 16);
+            this.lblDtTo.TabIndex = 33;
+            this.lblDtTo.Text = "Έως";
+            // 
+            // btnGeostation
+            // 
+            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnGeostation.Image = global::PumpInfo.Properties.Resources.GeoLocation_32x;
+            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGeostation.Location = new System.Drawing.Point(1012, 22);
+            this.btnGeostation.Name = "btnGeostation";
+            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
+            this.btnGeostation.TabIndex = 34;
+            this.btnGeostation.Text = "Θέση στο Χάρτη";
+            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGeostation.UseVisualStyleBackColor = true;
+            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
             // 
             // Index
             // 
@@ -140,12 +208,12 @@
             this.Vehicle.ReadOnly = true;
             this.Vehicle.Width = 64;
             // 
-            // DateTime
+            // gridDateTime
             // 
-            this.DateTime.HeaderText = "DateTime";
-            this.DateTime.Name = "DateTime";
-            this.DateTime.ReadOnly = true;
-            this.DateTime.Width = 136;
+            this.gridDateTime.HeaderText = "DateTime";
+            this.gridDateTime.Name = "gridDateTime";
+            this.gridDateTime.ReadOnly = true;
+            this.gridDateTime.Width = 136;
             // 
             // Brand
             // 
@@ -237,79 +305,11 @@
             this.Remarks.ReadOnly = true;
             this.Remarks.Width = 75;
             // 
-            // cbVehicle
-            // 
-            this.cbVehicle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVehicle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbVehicle.FormattingEnabled = true;
-            this.cbVehicle.Items.AddRange(new object[] {
-            "Όλα τα οχήματα",
-            "Όχημα 1 - Βενζίνη",
-            "Όχημα 2 - Diesel"});
-            this.cbVehicle.Location = new System.Drawing.Point(12, 28);
-            this.cbVehicle.Name = "cbVehicle";
-            this.cbVehicle.Size = new System.Drawing.Size(200, 24);
-            this.cbVehicle.TabIndex = 29;
-            this.cbVehicle.SelectedIndexChanged += new System.EventHandler(this.cbVehicle_SelectedIndexChanged);
-            // 
-            // dtFrom
-            // 
-            this.dtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dtFrom.Location = new System.Drawing.Point(285, 29);
-            this.dtFrom.Name = "dtFrom";
-            this.dtFrom.Size = new System.Drawing.Size(234, 22);
-            this.dtFrom.TabIndex = 30;
-            this.dtFrom.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
-            this.dtFrom.ValueChanged += new System.EventHandler(this.dtFrom_ValueChanged);
-            // 
-            // dtTo
-            // 
-            this.dtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dtTo.Location = new System.Drawing.Point(564, 29);
-            this.dtTo.Name = "dtTo";
-            this.dtTo.Size = new System.Drawing.Size(234, 22);
-            this.dtTo.TabIndex = 31;
-            this.dtTo.ValueChanged += new System.EventHandler(this.dtTo_ValueChanged);
-            // 
-            // lblDtFrom
-            // 
-            this.lblDtFrom.AutoSize = true;
-            this.lblDtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDtFrom.Location = new System.Drawing.Point(246, 32);
-            this.lblDtFrom.Name = "lblDtFrom";
-            this.lblDtFrom.Size = new System.Drawing.Size(33, 16);
-            this.lblDtFrom.TabIndex = 32;
-            this.lblDtFrom.Text = "Από";
-            // 
-            // lblDtTo
-            // 
-            this.lblDtTo.AutoSize = true;
-            this.lblDtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDtTo.Location = new System.Drawing.Point(525, 32);
-            this.lblDtTo.Name = "lblDtTo";
-            this.lblDtTo.Size = new System.Drawing.Size(33, 16);
-            this.lblDtTo.TabIndex = 33;
-            this.lblDtTo.Text = "Έως";
-            // 
-            // btnGeostation
-            // 
-            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnGeostation.Image = global::PumpInfo.Properties.Resources.GeoLocation_32x;
-            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGeostation.Location = new System.Drawing.Point(1022, 19);
-            this.btnGeostation.Name = "btnGeostation";
-            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
-            this.btnGeostation.TabIndex = 34;
-            this.btnGeostation.Text = "Θέση στο Χάρτη";
-            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGeostation.UseVisualStyleBackColor = true;
-            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
-            // 
             // ArchivedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1194, 373);
+            this.ClientSize = new System.Drawing.Size(1184, 502);
             this.Controls.Add(this.btnGeostation);
             this.Controls.Add(this.lblDtTo);
             this.Controls.Add(this.lblDtFrom);
@@ -318,6 +318,7 @@
             this.Controls.Add(this.cbVehicle);
             this.Controls.Add(this.dgvReceiptData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1200, 540);
             this.Name = "ArchivedForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).EndInit();
@@ -329,10 +330,16 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvReceiptData;
+        private System.Windows.Forms.ComboBox cbVehicle;
+        private System.Windows.Forms.DateTimePicker dtFrom;
+        private System.Windows.Forms.DateTimePicker dtTo;
+        private System.Windows.Forms.Label lblDtFrom;
+        private System.Windows.Forms.Label lblDtTo;
+        public System.Windows.Forms.Button btnGeostation;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gridDateTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn Brand;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dealer;
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
@@ -346,11 +353,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PumpVolume;
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
-        private System.Windows.Forms.ComboBox cbVehicle;
-        private System.Windows.Forms.DateTimePicker dtFrom;
-        private System.Windows.Forms.DateTimePicker dtTo;
-        private System.Windows.Forms.Label lblDtFrom;
-        private System.Windows.Forms.Label lblDtTo;
-        public System.Windows.Forms.Button btnGeostation;
     }
 }

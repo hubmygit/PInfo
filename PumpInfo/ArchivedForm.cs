@@ -17,9 +17,7 @@ namespace PumpInfo
         public ArchivedForm()
         {
             InitializeComponent();
-
-            cbVehicle.SelectedIndex = 0;
-
+            
             //select R.Id, R.Accepted, R.VehicleNo, R.Dt, B.Name, E.Dealer, E.Address, E.GeostationId, P.Name, 
             //R.Weight, R.Temp, R.Density, R.Volume, E.Pump, E.PumpVolume, E.SampleNo, E.Remarks
             //from receiptData R left outer join
@@ -29,17 +27,28 @@ namespace PumpInfo
 
             archivedDataList = DbUtilities.ArchivedData();
 
-            List<object[]> objList = GridViewUtils.ArchivedDataToObjectList(archivedDataList);
-            GridViewUtils.ShowDataToDataGridView(dgvReceiptData, objList);
+            cbVehicle.SelectedIndex = 0;
+            DateTime dtToday = DateTime.Now.Date;
+            dtFrom.Value = new DateTime(dtToday.Year, dtToday.Month, 1).AddMonths(-1);
 
-            dgvReceiptData.ClearSelection();
+            applyFilterEvents = true;
+            ApplyFilters();
+
+            //List<object[]> objList = GridViewUtils.ArchivedDataToObjectList(archivedDataList);
+            //GridViewUtils.ShowDataToDataGridView(dgvReceiptData, objList);
+            //dgvReceiptData.ClearSelection();
         }
 
         List<ImpData> archivedDataList = new List<ImpData>();
-
+        bool applyFilterEvents = false;
 
         private void ApplyFilters()
         {
+            if (applyFilterEvents == false)
+            {
+                return;
+            }
+
             List<ImpData> NewList = archivedDataList;
 
             int cbVehicleIndex = cbVehicle.SelectedIndex;
@@ -83,32 +92,32 @@ namespace PumpInfo
             {
                 int geostId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["GeostationId"].Value.ToString().Trim());
 
-                //--to replace -->
-                Coordinates Coo = DbUtilities.GetGeostationLatLong(geostId);
-                String DecSep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
-                if (DecSep == ",")
-                {
-                    Coo.latitude = Coo.latitude.Replace('.', ',');
-                    Coo.longitude = Coo.longitude.Replace('.', ',');
-                }
-                else
-                {
-                    Coo.latitude = Coo.latitude.Replace(',', '.');
-                    Coo.longitude = Coo.longitude.Replace(',', '.');
-                }
-                //--to replace <--
+                ////--in case we need coordinates -->
+                //Coordinates Coo = DbUtilities.GetGeostationLatLong(geostId);
+                //String DecSep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+                //if (DecSep == ",")
+                //{
+                //    Coo.latitude = Coo.latitude.Replace('.', ',');
+                //    Coo.longitude = Coo.longitude.Replace('.', ',');
+                //}
+                //else
+                //{
+                //    Coo.latitude = Coo.latitude.Replace(',', '.');
+                //    Coo.longitude = Coo.longitude.Replace(',', '.');
+                //}
+                ////--in case we need coordinates <--
 
                 MapFormParams MapObj = new MapFormParams()
                 {
-                    latitude = Convert.ToDouble(Coo.latitude), //0,    //--to replace
-                    longitude = Convert.ToDouble(Coo.longitude), //0,  //--to replace
+                    latitude = 0, 
+                    longitude = 0, 
                     radius = 350, //meters
                     apiKey = MapsApi.key, //"AIzaSyCxAKDi4ZgokHWCYK_5sQ8Dg-nlcLT2myo"
                     connectionString = SQLiteDBMap.connectionString, //Stationsdb.db
                     existsInternetConnection = NetworkConnections.CheckInternetConnection()
                 };
 
-                Form2 frmMap = new Form2(MapObj); //ToDo: (MapObj, geostId); //--to replace
+                Form2 frmMap = new Form2(MapObj, geostId);
                 frmMap.ShowDialog();
 
                 frmMap.Dispose_gMap();
