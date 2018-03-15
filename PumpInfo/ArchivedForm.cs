@@ -83,17 +83,32 @@ namespace PumpInfo
             {
                 int geostId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["GeostationId"].Value.ToString().Trim());
 
+                //--to replace -->
+                Coordinates Coo = DbUtilities.GetGeostationLatLong(geostId);
+                String DecSep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+                if (DecSep == ",")
+                {
+                    Coo.latitude = Coo.latitude.Replace('.', ',');
+                    Coo.longitude = Coo.longitude.Replace('.', ',');
+                }
+                else
+                {
+                    Coo.latitude = Coo.latitude.Replace(',', '.');
+                    Coo.longitude = Coo.longitude.Replace(',', '.');
+                }
+                //--to replace <--
+
                 MapFormParams MapObj = new MapFormParams()
                 {
-                    latitude = 0,
-                    longitude = 0, 
+                    latitude = Convert.ToDouble(Coo.latitude), //0,    //--to replace
+                    longitude = Convert.ToDouble(Coo.longitude), //0,  //--to replace
                     radius = 350, //meters
                     apiKey = MapsApi.key, //"AIzaSyCxAKDi4ZgokHWCYK_5sQ8Dg-nlcLT2myo"
                     connectionString = SQLiteDBMap.connectionString, //Stationsdb.db
                     existsInternetConnection = NetworkConnections.CheckInternetConnection()
                 };
 
-                Form2 frmMap = new Form2(MapObj); //ToDo: (MapObj, geostId);
+                Form2 frmMap = new Form2(MapObj); //ToDo: (MapObj, geostId); //--to replace
                 frmMap.ShowDialog();
 
                 frmMap.Dispose_gMap();
