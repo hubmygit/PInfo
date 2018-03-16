@@ -173,6 +173,7 @@ namespace PumpData
                         if (dbu.update_extraData_geostationId(extraDataId, frmMap.GleoPass.id))
                         {
                             MessageBox.Show("Το σημείο καταχωρήθηκε επιτυχώς!");
+                            dgvReceiptData.SelectedRows[0].Cells["GeostationId"].Value = frmMap.GleoPass.id;
                         }
                     }
                 }
