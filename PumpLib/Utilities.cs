@@ -1631,6 +1631,32 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<PostalCode> GetSqlPostalCodesList()
+        {
+            List<PostalCode> ret = new List<PostalCode>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT [TK] as PostalCode, [TK_NoSpace] as TK_NoSpace, [Geo_Nomos.Name] as Nomos, [Geo_Perioxh.Name] as Perioxi FROM [PumpInfo].[dbo].[V_All_TK] ORDER BY [TK_NoSpace] ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new PostalCode() { TK = reader["PostalCode"].ToString(), TK_NoSpace = reader["TK_NoSpace"].ToString(), Nomos = reader["Nomos"].ToString(), Perioxi = reader["Perioxi"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<ComboboxItem> GetBrandsComboboxItemsList(List<Brand> Brands)
         {
             List<ComboboxItem> ret = new List<ComboboxItem>();
@@ -1638,6 +1664,18 @@ namespace PumpLib
             foreach (Brand br in Brands)
             {
                 ret.Add(new ComboboxItem() { Value = br, Text = br.Name });
+            }
+
+            return ret;
+        }
+
+        public static List<ComboboxItem> GetPostalCodesComboboxItemsList(List<PostalCode> PostalCodes)
+        {
+            List<ComboboxItem> ret = new List<ComboboxItem>();
+
+            foreach (PostalCode pk in PostalCodes)
+            {
+                ret.Add(new ComboboxItem() { Value = pk, Text = pk.TK });
             }
 
             return ret;
@@ -2783,6 +2821,60 @@ namespace PumpLib
         public List<Station> stationData = new List<Station>();
     }
 
+    public static class Conversions
+    {
+        public static double stringToDouble(string param)
+        {
+            double ret = 0;
+
+            String DecSep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+
+            if (DecSep == ",")
+            {
+                param = param.Replace('.', ',');
+            }
+            else
+            {
+                param = param.Replace(',', '.');
+            }
+
+            ret = Convert.ToDouble(param);
+
+            return ret;
+        }
+    }
+    public class Station_GeoData
+    {
+        public int Id { get; set; }
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string PostalCode { get; set; }
+        public string Country { get; set; }
+        public float Latitude { get; set; }
+        public float Longitude { get; set; }
+        public int Active { get; set; }
+    }
+
+
+    public class Station_TimeDependData
+    {
+        public int Id { get; set; }
+        public int Current_Rec { get; set; }
+        public string Comp_Name { get; set; }
+        public int Company_Id { get; set; }
+    }
+    public class PostalCode
+    {
+        public string TK { get; set; }
+        public string TK_NoSpace { get; set; }
+        public string Nomos { get; set; }
+        public string Perioxi { get; set; }
+
+        public PostalCode()
+        {
+        }
+    }
     //public class MapFormParams
     //{
     //    public double latitude { get; set; }

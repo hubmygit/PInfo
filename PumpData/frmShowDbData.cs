@@ -285,17 +285,20 @@ namespace PumpData
 
             List<Brand> brands = DbUtilities.GetSqlBrandsList();
             frmGasStation.cbBrand.Items.AddRange(DbUtilities.GetBrandsComboboxItemsList(brands).ToArray<ComboboxItem>());
-
             frmGasStation.cbBrand.SelectedIndex = frmGasStation.cbBrand.FindStringExact(Brand);
 
-            frmGasStation.txtExtraDataId.Text = dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value.ToString();
+            //frmGasStation.txtExtraDataId.Text = dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value.ToString();
+            frmGasStation.ExtraDataId = Convert.ToInt32(dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value);
 
+            List<PostalCode> postalCodes = DbUtilities.GetSqlPostalCodesList();
+            frmGasStation.cbPostalCode.Items.AddRange(DbUtilities.GetPostalCodesComboboxItemsList(postalCodes).ToArray<ComboboxItem>());
+            
             DialogResult dlgRes = frmGasStation.ShowDialog();
 
             if (dlgRes == DialogResult.Yes)
             {
                 //(refresh grid or) update geostationId 
-                dgvReceiptData.SelectedRows[0].Cells["GeostationId"].Value = frmGasStation.txtNewGeostationId.Text;
+                dgvReceiptData.SelectedRows[0].Cells["GeostationId"].Value = frmGasStation.NewGeostationId;
             }
         }
 
