@@ -78,6 +78,12 @@ namespace PumpData
         {
             if (e.RowIndex != -1 && txtConsumption.Text.Trim() != "")
             {
+                if (Convert.ToInt32(dgvVehicleTraceList["Km", e.RowIndex].Value.ToString()) <= 0 || Convert.ToInt32(dgvVehicleTraceList["PrevKm", e.RowIndex].Value.ToString()) <= 0)
+                {
+                    MessageBox.Show("Προσοχή! \r\nΔεν είναι ακόμα συμπληρωμένες οι ενδείξεις χιλιομέτρων για τον υπολογισμό κατανάλωσης της επιλεγμένης εγγραφής.");
+                    return;
+                }
+
                 //MessageBox.Show(e.RowIndex.ToString() + "," + e.ColumnIndex.ToString());
                 txtKm.Text = dgvVehicleTraceList["KmDiff", e.RowIndex].Value.ToString();
                 //lblMonth.Text = "Month: " + System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName( Convert.ToInt32(dgvVehicleTraceList["Month", e.RowIndex].Value.ToString()) );

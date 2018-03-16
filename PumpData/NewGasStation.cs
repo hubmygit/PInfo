@@ -42,6 +42,7 @@ namespace PumpData
                     if (dbu.update_extraData_geostationId(extraDataId, Id))
                     {
                         MessageBox.Show("Το σημείο καταχωρήθηκε επιτυχώς!");
+                        DialogResult = DialogResult.Yes;
                     }
                 }
             }

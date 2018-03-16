@@ -52,6 +52,21 @@ namespace PumpData
                 
             }
             */
+
+            if (e.RowIndex != -1)
+            {
+                if (dgvReceiptData.GetCellCount(DataGridViewElementStates.Selected) > 0)
+                {
+                    try
+                    {
+                        Clipboard.SetDataObject(dgvReceiptData.GetClipboardContent());
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
         }
 
 
@@ -274,10 +289,13 @@ namespace PumpData
 
             frmGasStation.txtExtraDataId.Text = dgvReceiptData.SelectedRows[0].Cells["ExtraDataId"].Value.ToString();
 
-            frmGasStation.ShowDialog();
+            DialogResult dlgRes = frmGasStation.ShowDialog();
 
-            //(refresh grid or) update geostationId 
-            dgvReceiptData.SelectedRows[0].Cells["GeostationId"].Value = frmGasStation.txtNewGeostationId.Text;
+            if (dlgRes == DialogResult.Yes)
+            {
+                //(refresh grid or) update geostationId 
+                dgvReceiptData.SelectedRows[0].Cells["GeostationId"].Value = frmGasStation.txtNewGeostationId.Text;
+            }
         }
 
         private void btnNewGeoPoint_Click(object sender, EventArgs e)
