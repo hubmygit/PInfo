@@ -762,7 +762,8 @@ namespace Maps
 
             if (GlobalDV.RowFilter is null)
             {
-                GlobalDV.RowFilter = aaa;
+                //GlobalDV.RowFilter = aaa;
+                GlobalDV = new DataView();
             }
             else
             {

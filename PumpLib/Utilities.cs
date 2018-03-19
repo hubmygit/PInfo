@@ -2457,6 +2457,77 @@ namespace PumpLib
             return ret;
         }
 
+        public static bool insert_into_StationGeoData(Station_GeoData data)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[Station_GeoData] (Id, Address, Address2, Address3, Postal-Code, Country, Latitude, Longitude, Active) VALUES " +
+                           "(@Id, @Address, @Address2, @Address3, @PostalCode, @Country, @Latitude, @Longitude, @Active) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+                cmd.Parameters.AddWithValue("@Id", data.Id);
+                cmd.Parameters.AddWithValue("@Address", data.Address);
+                cmd.Parameters.AddWithValue("@Address2", data.Address2);
+                cmd.Parameters.AddWithValue("@Address3", data.Address3);
+                cmd.Parameters.AddWithValue("@PostalCode", data.PostalCode);
+                cmd.Parameters.AddWithValue("@Country", data.Country);
+                cmd.Parameters.AddWithValue("@Latitude", data.Latitude);
+                cmd.Parameters.AddWithValue("@Longitude", data.Longitude);
+                cmd.Parameters.AddWithValue("@Active", data.Active);
+                
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public static bool insert_into_StationTimeDependData(Station_TimeDependData data)
+        {
+            bool ret = false;
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string InsSt = "INSERT INTO [dbo].[Station_TimeDependData] (Id, UpdDate, Current_Rec, Comp_Name, Company_Id) VALUES " +
+                           "(@Id, getdate(), @Current_Rec, @Comp_Name, @Company_Id) ";
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand(InsSt, sqlConn);
+                cmd.Parameters.AddWithValue("@Id", data.Id);
+                cmd.Parameters.AddWithValue("@Current_Rec", data.Current_Rec);
+                cmd.Parameters.AddWithValue("@Comp_Name", data.Comp_Name);
+                cmd.Parameters.AddWithValue("@Company_Id", data.Company_Id);
+
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            sqlConn.Close();
+
+            return ret;
+        }
+
     }
     
 

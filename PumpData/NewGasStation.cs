@@ -32,6 +32,7 @@ namespace PumpData
             //BrandId -> CompanyId
             int companyId = DbUtilities.GetStationCompaniesId(brandId); //id from station_Companies
 
+            bool succeeded = false;
 
             //insert into: [Station_GeoData] & [Station_TimeDependData]
             Station_GeoData stationGeoData = new Station_GeoData()
@@ -48,21 +49,23 @@ namespace PumpData
             };
 
             //insert_xxxxxxx_(stationGeoData)
-
-            Station_TimeDependData stationTimeDependData = new Station_TimeDependData()
+            if (DbUtilities.insert_into_StationGeoData(stationGeoData))
             {
-                Id = GeoDataNextId,
-                Current_Rec = 1,
-                Comp_Name = txtDealer.Text,
-                Company_Id = DbUtilities.GetStationCompaniesId(brandId) //BrandId to Company_Id
-            };
+                Station_TimeDependData stationTimeDependData = new Station_TimeDependData()
+                {
+                    Id = GeoDataNextId,
+                    Current_Rec = 1,
+                    Comp_Name = txtDealer.Text,
+                    Company_Id = DbUtilities.GetStationCompaniesId(brandId) //BrandId to Company_Id
+                };
 
-            //insert_yyyyyyy_(stationTimeDependData)
-
+                //insert_yyyyyyy_(stationTimeDependData)
+                succeeded = DbUtilities.insert_into_StationTimeDependData(stationTimeDependData);
+            }
             //....................................
 
             //update: [extraData]
-            if (GeoDataNextId > 0) //point selected
+            if (GeoDataNextId > 0 && succeeded) //point selected
             {
                 DialogResult dialogResult = MessageBox.Show("Είστε σίγουροι ότι θέλετε να καταχωρηθεί το νέο πρατήριο στη συγκεκριμένη εγγραφή;", "Καταχώρηση Πρατηρίου", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
@@ -74,8 +77,17 @@ namespace PumpData
                         DialogResult = DialogResult.Yes;
                         NewGeostationId = GeoDataNextId;
                     }
+                    else
+                    {
+                        MessageBox.Show("Προσοχή!\r\nΑπέτυχε η καταχώρηση νέου σημείου.");
+                    }
                 }
             }
+            else
+            {
+                MessageBox.Show("Προσοχή!\r\nΑπέτυχε η καταχώρηση νέου σημείου.");
+            }
+
             Close();
         }
 
