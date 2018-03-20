@@ -2462,7 +2462,7 @@ namespace PumpLib
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[Station_GeoData] (Id, Address, Address2, Address3, Postal-Code, Country, Latitude, Longitude, Active) VALUES " +
+            string InsSt = "INSERT INTO [dbo].[Station_GeoData] (Id, Address, Address2, Address3, [Postal-Code], Country, Latitude, Longitude, Active) VALUES " +
                            "(@Id, @Address, @Address2, @Address3, @PostalCode, @Country, @Latitude, @Longitude, @Active) ";
             try
             {
@@ -2474,8 +2474,8 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@Address3", data.Address3);
                 cmd.Parameters.AddWithValue("@PostalCode", data.PostalCode);
                 cmd.Parameters.AddWithValue("@Country", data.Country);
-                cmd.Parameters.AddWithValue("@Latitude", data.Latitude);
-                cmd.Parameters.AddWithValue("@Longitude", data.Longitude);
+                cmd.Parameters.AddWithValue("@Latitude", data.Latitude); //.ToString().Replace(",", "."));
+                cmd.Parameters.AddWithValue("@Longitude", data.Longitude); //.ToString().Replace(",", "."));
                 cmd.Parameters.AddWithValue("@Active", data.Active);
                 
                 cmd.CommandType = CommandType.Text;
