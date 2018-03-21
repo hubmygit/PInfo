@@ -341,11 +341,11 @@ namespace PumpAnalysis
 
                 // VehicleTrace -->
                 //insert into dbo.VehicleTrace
-                Output.WriteToFile("Inserting Vehicle Trace data into Database. " + vtObjList.Count.ToString() + "records.");
+                Output.WriteToFile("Inserting Vehicle Trace data into Database. " + vtObjList.Count.ToString() + " records.");
                 dbu.Insert_List_Into_VehicleTrace(vtObjList);
                 // VehicleTrace <--
 
-                Output.WriteToFile("Inserting Stations data into Database. " + stationsObjList.Count.ToString() + "records.");
+                Output.WriteToFile("Inserting Stations data into Database. " + stationsObjList.Count.ToString() + " records.");
                 dbu.Insert_List_Into_Station(stationsObjList);
 
                 if (insSuccess)

@@ -117,7 +117,8 @@ namespace PumpInfo
                     foreach (ImpData thisLine in objList)
                     {
                         thisLine.machineNo = machNo;
-                        if (thisLine.datetime.ToString("yyyyMM") != haveData_YearMonth)
+                        //if (thisLine.datetime.ToString("yyyyMM") != haveData_YearMonth) 
+                        if (thisLine.datetime.ToString("yyyyMM") != haveData_YearMonth) // && thisLine.accepted == true) ????
                         {
                             //Give final Km  -> new Form
                             frmSetKm setKmForm = new frmSetKm(thisLine);

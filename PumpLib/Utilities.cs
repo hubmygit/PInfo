@@ -785,7 +785,7 @@ namespace PumpLib
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            SqlCommand cmd = new SqlCommand("SELECT Id FROM [dbo].[receiptData] " +
+            SqlCommand cmd = new SqlCommand("SELECT Id, Accepted FROM [dbo].[receiptData] " +
                 "WHERE [VehicleNo] = @VehicleNo AND [Dt] = @Dt AND [CooLong] = @CooLong AND [CooLat] = @CooLat AND [Weight] = @Weight ", sqlConn);
 
             try
@@ -803,7 +803,16 @@ namespace PumpLib
                 if (reader.Read())
                 {
                     //string Id = reader["Id"].ToString();
+                    
                     ret = true;
+
+                    if (receiptData.accepted)
+                    {
+                        if (reader["Accepted"].ToString() == "1")
+                        {
+                            ret = false;
+                        }
+                    }
                 }
 
                 reader.Close();
