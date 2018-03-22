@@ -340,5 +340,22 @@ namespace PumpData
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
             }
         }
+
+        private void dgvReceiptData_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            if (e.Column.Name == "Date")
+            {
+                e.SortResult = System.String.Compare(Convert.ToDateTime(e.CellValue1.ToString()).ToString("yyyyMMdd"),
+                                                     Convert.ToDateTime(e.CellValue2.ToString()).ToString("yyyyMMdd"));
+
+                if (e.SortResult == 0 && e.Column.Name != "Time")
+                {
+                    e.SortResult = System.String.Compare(dgvReceiptData.Rows[e.RowIndex1].Cells["Time"].Value.ToString(),
+                                                         dgvReceiptData.Rows[e.RowIndex2].Cells["Time"].Value.ToString());
+                }
+
+                e.Handled = true;
+            }
+        }
     }
 }
