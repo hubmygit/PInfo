@@ -22,7 +22,7 @@ namespace PumpData
 
         public List<Vehicle> vehicles = DbUtilities.GetSqlVehiclesList();
         public List<int> VehicleTraceYear = new List<int>();
-
+        List<Consumption> results = new List<Consumption>();
 
         private void cbVehicleNo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -35,8 +35,10 @@ namespace PumpData
             VehicleTraceYear = DbUtilities.GetSqlVehicleTraceYearList(VehicleNo);
 
             txtKm.Text = "";
-            lblMonth.Text = "Month: -";
-            lblTotConsumption.Text = "Total Lt: -";
+            txtMonth.Text = "";
+            txtTotCons.Text = "";
+            txtPumpVol.Text = "";
+            txtVehVol.Text = "";
 
             cbYear.Items.Clear();
             cbYear.Items.AddRange(DbUtilities.GetVehicleTraceYearsComboboxItemsList(VehicleTraceYear).ToArray<ComboboxItem>());
@@ -53,16 +55,20 @@ namespace PumpData
             int year = DbUtilities.getComboboxItem_VehicleTraceYear(cbYear);
 
             DbUtilities dbu = new DbUtilities();
-            List<string[]> results = new List<string[]>();
+
             for (int month = 1; month <= 12; month++)
             {
                 results = dbu.getVehicleTraceData(VehicleNo, year, month);
 
                 if (results.Count > 1)
                 {
-                    dgvVehicleTraceList.Rows.Add(new object[] { results[0][1], results[0][2], results[0][0], results[0][3],
-                                                                results[1][1], results[1][2], results[1][0], results[1][3],
-                                                                (Convert.ToInt32(results[1][3]) - Convert.ToInt32(results[0][3])).ToString()});
+                    //dgvVehicleTraceList.Rows.Add(new object[] { results[0][1], results[0][2], results[0][0], results[0][3],
+                    //                                            results[1][1], results[1][2], results[1][0], results[1][3],
+                    //                                            (Convert.ToInt32(results[1][3]) - Convert.ToInt32(results[0][3])).ToString()});
+
+                    dgvVehicleTraceList.Rows.Add(new object[] { results[1].Year, results[1].Month,
+                                results[0].MaxDt.ToString("dd.MM.yyyy"), results[1].MinDt.ToString("dd.MM.yyyy"), results[1].MaxDt.ToString("dd.MM.yyyy"),
+                                results[0].Km, results[1].Km, (results[1].Km - results[0].Km).ToString(), results[1].PumpVolume, results[1].ControllerVolume });
 
                     btnCalc.Enabled = true;
                 }
@@ -87,11 +93,14 @@ namespace PumpData
                 //MessageBox.Show(e.RowIndex.ToString() + "," + e.ColumnIndex.ToString());
                 txtKm.Text = dgvVehicleTraceList["KmDiff", e.RowIndex].Value.ToString();
                 //lblMonth.Text = "Month: " + System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName( Convert.ToInt32(dgvVehicleTraceList["Month", e.RowIndex].Value.ToString()) );
-                lblMonth.Text = "Month: " + Convert.ToInt32(dgvVehicleTraceList["Month", e.RowIndex].Value.ToString());
+                //lblMonth.Text = "Month: " + Convert.ToInt32(dgvVehicleTraceList["Month", e.RowIndex].Value.ToString());
+                txtMonth.Text = dgvVehicleTraceList["Month", e.RowIndex].Value.ToString();
 
                 double TotConsumption = Convert.ToDouble(txtKm.Text) / 100.0 * Convert.ToDouble(txtConsumption.Text);
 
-                lblTotConsumption.Text = "Total Lt: " + TotConsumption.ToString();
+                txtTotCons.Text = TotConsumption.ToString();
+                txtPumpVol.Text = dgvVehicleTraceList["PumpVol", e.RowIndex].Value.ToString();
+                txtVehVol.Text = dgvVehicleTraceList["VehicleVol", e.RowIndex].Value.ToString();
             }
         }
 
@@ -133,11 +142,10 @@ namespace PumpData
 
         private void btnCalc_Click(object sender, EventArgs e)
         {
-
             if (txtKm.Text.Trim() != "" && txtConsumption.Text.Trim() != "")
             {
                 double TotConsumption = Convert.ToDouble(txtKm.Text) / 100.0 * Convert.ToDouble(txtConsumption.Text);
-                lblTotConsumption.Text = "Total Lt: " + TotConsumption.ToString();
+                txtTotCons.Text = TotConsumption.ToString();
             }
             
         }
