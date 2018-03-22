@@ -32,6 +32,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmShowDbData));
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
+            this.cbGeoFilter = new System.Windows.Forms.ComboBox();
+            this.btnNewGeoPoint = new System.Windows.Forms.Button();
+            this.btnSampleFile = new System.Windows.Forms.Button();
+            this.btnGridFields = new System.Windows.Forms.Button();
+            this.btnGeostation = new System.Windows.Forms.Button();
+            this.lblDtTo = new System.Windows.Forms.Label();
+            this.lblDtFrom = new System.Windows.Forms.Label();
+            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.ReceiptDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExtraDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -57,15 +66,7 @@
             this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cbGeoFilter = new System.Windows.Forms.ComboBox();
-            this.btnNewGeoPoint = new System.Windows.Forms.Button();
-            this.btnSampleFile = new System.Windows.Forms.Button();
-            this.btnGridFields = new System.Windows.Forms.Button();
-            this.btnGeostation = new System.Windows.Forms.Button();
-            this.lblDtTo = new System.Windows.Forms.Label();
-            this.lblDtFrom = new System.Windows.Forms.Label();
-            this.dtTo = new System.Windows.Forms.DateTimePicker();
-            this.dtFrom = new System.Windows.Forms.DateTimePicker();
+            this.ProductGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -111,7 +112,8 @@
             this.MachineNo,
             this.GeostationId,
             this.RealLat,
-            this.RealLong});
+            this.RealLong,
+            this.ProductGroup});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -129,181 +131,6 @@
             this.dgvReceiptData.TabIndex = 15;
             this.dgvReceiptData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReceiptData_CellDoubleClick);
             this.dgvReceiptData.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvReceiptData_SortCompare);
-            // 
-            // ReceiptDataId
-            // 
-            this.ReceiptDataId.HeaderText = "ReceiptDataId";
-            this.ReceiptDataId.Name = "ReceiptDataId";
-            this.ReceiptDataId.ReadOnly = true;
-            this.ReceiptDataId.Visible = false;
-            this.ReceiptDataId.Width = 60;
-            // 
-            // ExtraDataId
-            // 
-            this.ExtraDataId.HeaderText = "ExtraDataId";
-            this.ExtraDataId.Name = "ExtraDataId";
-            this.ExtraDataId.ReadOnly = true;
-            this.ExtraDataId.Visible = false;
-            // 
-            // Accepted
-            // 
-            this.Accepted.HeaderText = "";
-            this.Accepted.Name = "Accepted";
-            this.Accepted.ReadOnly = true;
-            this.Accepted.Visible = false;
-            this.Accepted.Width = 50;
-            // 
-            // Vehicle
-            // 
-            this.Vehicle.HeaderText = "VehicleNo";
-            this.Vehicle.Name = "Vehicle";
-            this.Vehicle.ReadOnly = true;
-            this.Vehicle.Visible = false;
-            this.Vehicle.Width = 90;
-            // 
-            // Date
-            // 
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            // 
-            // Time
-            // 
-            this.Time.HeaderText = "Time";
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            this.Time.Width = 60;
-            // 
-            // Latitude
-            // 
-            this.Latitude.HeaderText = "Latitude";
-            this.Latitude.Name = "Latitude";
-            this.Latitude.ReadOnly = true;
-            this.Latitude.Visible = false;
-            this.Latitude.Width = 90;
-            // 
-            // Longitude
-            // 
-            this.Longitude.HeaderText = "Longitude";
-            this.Longitude.Name = "Longitude";
-            this.Longitude.ReadOnly = true;
-            this.Longitude.Visible = false;
-            this.Longitude.Width = 90;
-            // 
-            // Weight
-            // 
-            this.Weight.HeaderText = "Weight";
-            this.Weight.Name = "Weight";
-            this.Weight.ReadOnly = true;
-            this.Weight.Width = 80;
-            // 
-            // Temp
-            // 
-            this.Temp.HeaderText = "Temp";
-            this.Temp.Name = "Temp";
-            this.Temp.ReadOnly = true;
-            this.Temp.Width = 80;
-            // 
-            // Density
-            // 
-            this.Density.HeaderText = "Density";
-            this.Density.Name = "Density";
-            this.Density.ReadOnly = true;
-            this.Density.Width = 80;
-            // 
-            // Volume
-            // 
-            this.Volume.HeaderText = "Volume";
-            this.Volume.Name = "Volume";
-            this.Volume.ReadOnly = true;
-            this.Volume.Width = 80;
-            // 
-            // VolDiffPerc
-            // 
-            this.VolDiffPerc.HeaderText = "VolDiff%";
-            this.VolDiffPerc.Name = "VolDiffPerc";
-            this.VolDiffPerc.ReadOnly = true;
-            // 
-            // Brand
-            // 
-            this.Brand.HeaderText = "Brand";
-            this.Brand.Name = "Brand";
-            this.Brand.ReadOnly = true;
-            // 
-            // Dealer
-            // 
-            this.Dealer.HeaderText = "Dealer";
-            this.Dealer.Name = "Dealer";
-            this.Dealer.ReadOnly = true;
-            // 
-            // Address
-            // 
-            this.Address.HeaderText = "Address";
-            this.Address.Name = "Address";
-            this.Address.ReadOnly = true;
-            // 
-            // Product
-            // 
-            this.Product.HeaderText = "Product";
-            this.Product.Name = "Product";
-            this.Product.ReadOnly = true;
-            // 
-            // Pump
-            // 
-            this.Pump.HeaderText = "Pump";
-            this.Pump.Name = "Pump";
-            this.Pump.ReadOnly = true;
-            this.Pump.Visible = false;
-            this.Pump.Width = 70;
-            // 
-            // PumpVol
-            // 
-            this.PumpVol.HeaderText = "PumpVolume";
-            this.PumpVol.Name = "PumpVol";
-            this.PumpVol.ReadOnly = true;
-            this.PumpVol.Width = 110;
-            // 
-            // SampleNo
-            // 
-            this.SampleNo.HeaderText = "SampleNo";
-            this.SampleNo.Name = "SampleNo";
-            this.SampleNo.ReadOnly = true;
-            this.SampleNo.Width = 90;
-            // 
-            // Remarks
-            // 
-            this.Remarks.HeaderText = "Remarks";
-            this.Remarks.Name = "Remarks";
-            this.Remarks.ReadOnly = true;
-            this.Remarks.Visible = false;
-            // 
-            // MachineNo
-            // 
-            this.MachineNo.HeaderText = "MachineNo";
-            this.MachineNo.Name = "MachineNo";
-            this.MachineNo.ReadOnly = true;
-            this.MachineNo.Visible = false;
-            // 
-            // GeostationId
-            // 
-            this.GeostationId.HeaderText = "GeostationId";
-            this.GeostationId.Name = "GeostationId";
-            this.GeostationId.ReadOnly = true;
-            this.GeostationId.Visible = false;
-            // 
-            // RealLat
-            // 
-            this.RealLat.HeaderText = "RealLat";
-            this.RealLat.Name = "RealLat";
-            this.RealLat.ReadOnly = true;
-            this.RealLat.Visible = false;
-            // 
-            // RealLong
-            // 
-            this.RealLong.HeaderText = "RealLong";
-            this.RealLong.Name = "RealLong";
-            this.RealLong.ReadOnly = true;
-            this.RealLong.Visible = false;
             // 
             // cbGeoFilter
             // 
@@ -414,6 +241,191 @@
             this.dtFrom.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             this.dtFrom.ValueChanged += new System.EventHandler(this.dtFrom_ValueChanged);
             // 
+            // ReceiptDataId
+            // 
+            this.ReceiptDataId.HeaderText = "ReceiptDataId";
+            this.ReceiptDataId.Name = "ReceiptDataId";
+            this.ReceiptDataId.ReadOnly = true;
+            this.ReceiptDataId.Visible = false;
+            this.ReceiptDataId.Width = 60;
+            // 
+            // ExtraDataId
+            // 
+            this.ExtraDataId.HeaderText = "ExtraDataId";
+            this.ExtraDataId.Name = "ExtraDataId";
+            this.ExtraDataId.ReadOnly = true;
+            this.ExtraDataId.Visible = false;
+            // 
+            // Accepted
+            // 
+            this.Accepted.HeaderText = "";
+            this.Accepted.Name = "Accepted";
+            this.Accepted.ReadOnly = true;
+            this.Accepted.Visible = false;
+            this.Accepted.Width = 50;
+            // 
+            // Vehicle
+            // 
+            this.Vehicle.HeaderText = "VehicleNo";
+            this.Vehicle.Name = "Vehicle";
+            this.Vehicle.ReadOnly = true;
+            this.Vehicle.Visible = false;
+            this.Vehicle.Width = 90;
+            // 
+            // Date
+            // 
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            // 
+            // Time
+            // 
+            this.Time.HeaderText = "Time";
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
+            this.Time.Width = 60;
+            // 
+            // Latitude
+            // 
+            this.Latitude.HeaderText = "Latitude";
+            this.Latitude.Name = "Latitude";
+            this.Latitude.ReadOnly = true;
+            this.Latitude.Visible = false;
+            this.Latitude.Width = 90;
+            // 
+            // Longitude
+            // 
+            this.Longitude.HeaderText = "Longitude";
+            this.Longitude.Name = "Longitude";
+            this.Longitude.ReadOnly = true;
+            this.Longitude.Visible = false;
+            this.Longitude.Width = 90;
+            // 
+            // Weight
+            // 
+            this.Weight.HeaderText = "Weight";
+            this.Weight.Name = "Weight";
+            this.Weight.ReadOnly = true;
+            this.Weight.Width = 75;
+            // 
+            // Temp
+            // 
+            this.Temp.HeaderText = "Temp";
+            this.Temp.Name = "Temp";
+            this.Temp.ReadOnly = true;
+            this.Temp.Width = 75;
+            // 
+            // Density
+            // 
+            this.Density.HeaderText = "Density";
+            this.Density.Name = "Density";
+            this.Density.ReadOnly = true;
+            this.Density.Width = 75;
+            // 
+            // Volume
+            // 
+            this.Volume.HeaderText = "Volume";
+            this.Volume.Name = "Volume";
+            this.Volume.ReadOnly = true;
+            this.Volume.Width = 75;
+            // 
+            // VolDiffPerc
+            // 
+            this.VolDiffPerc.HeaderText = "VolDiff%";
+            this.VolDiffPerc.Name = "VolDiffPerc";
+            this.VolDiffPerc.ReadOnly = true;
+            this.VolDiffPerc.Width = 90;
+            // 
+            // Brand
+            // 
+            this.Brand.HeaderText = "Brand";
+            this.Brand.Name = "Brand";
+            this.Brand.ReadOnly = true;
+            this.Brand.Width = 90;
+            // 
+            // Dealer
+            // 
+            this.Dealer.HeaderText = "Dealer";
+            this.Dealer.Name = "Dealer";
+            this.Dealer.ReadOnly = true;
+            this.Dealer.Width = 150;
+            // 
+            // Address
+            // 
+            this.Address.HeaderText = "Address";
+            this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
+            this.Address.Width = 150;
+            // 
+            // Product
+            // 
+            this.Product.HeaderText = "Product";
+            this.Product.Name = "Product";
+            this.Product.ReadOnly = true;
+            // 
+            // Pump
+            // 
+            this.Pump.HeaderText = "Pump";
+            this.Pump.Name = "Pump";
+            this.Pump.ReadOnly = true;
+            this.Pump.Visible = false;
+            this.Pump.Width = 70;
+            // 
+            // PumpVol
+            // 
+            this.PumpVol.HeaderText = "PumpVolume";
+            this.PumpVol.Name = "PumpVol";
+            this.PumpVol.ReadOnly = true;
+            this.PumpVol.Width = 110;
+            // 
+            // SampleNo
+            // 
+            this.SampleNo.HeaderText = "SampleNo";
+            this.SampleNo.Name = "SampleNo";
+            this.SampleNo.ReadOnly = true;
+            this.SampleNo.Width = 90;
+            // 
+            // Remarks
+            // 
+            this.Remarks.HeaderText = "Remarks";
+            this.Remarks.Name = "Remarks";
+            this.Remarks.ReadOnly = true;
+            this.Remarks.Width = 80;
+            // 
+            // MachineNo
+            // 
+            this.MachineNo.HeaderText = "MachineNo";
+            this.MachineNo.Name = "MachineNo";
+            this.MachineNo.ReadOnly = true;
+            this.MachineNo.Visible = false;
+            // 
+            // GeostationId
+            // 
+            this.GeostationId.HeaderText = "Geostation";
+            this.GeostationId.Name = "GeostationId";
+            this.GeostationId.ReadOnly = true;
+            this.GeostationId.Width = 95;
+            // 
+            // RealLat
+            // 
+            this.RealLat.HeaderText = "RealLat";
+            this.RealLat.Name = "RealLat";
+            this.RealLat.ReadOnly = true;
+            this.RealLat.Visible = false;
+            // 
+            // RealLong
+            // 
+            this.RealLong.HeaderText = "RealLong";
+            this.RealLong.Name = "RealLong";
+            this.RealLong.ReadOnly = true;
+            this.RealLong.Visible = false;
+            // 
+            // ProductGroup
+            // 
+            this.ProductGroup.HeaderText = "VehicleType";
+            this.ProductGroup.Name = "ProductGroup";
+            this.ProductGroup.ReadOnly = true;
+            // 
             // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -444,6 +456,15 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvReceiptData;
+        public System.Windows.Forms.Button btnGeostation;
+        public System.Windows.Forms.Button btnGridFields;
+        public System.Windows.Forms.Button btnSampleFile;
+        private System.Windows.Forms.ComboBox cbGeoFilter;
+        public System.Windows.Forms.Button btnNewGeoPoint;
+        private System.Windows.Forms.Label lblDtTo;
+        private System.Windows.Forms.Label lblDtFrom;
+        private System.Windows.Forms.DateTimePicker dtTo;
+        private System.Windows.Forms.DateTimePicker dtFrom;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptDataId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExtraDataId;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
@@ -469,14 +490,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLat;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLong;
-        public System.Windows.Forms.Button btnGeostation;
-        public System.Windows.Forms.Button btnGridFields;
-        public System.Windows.Forms.Button btnSampleFile;
-        private System.Windows.Forms.ComboBox cbGeoFilter;
-        public System.Windows.Forms.Button btnNewGeoPoint;
-        private System.Windows.Forms.Label lblDtTo;
-        private System.Windows.Forms.Label lblDtFrom;
-        private System.Windows.Forms.DateTimePicker dtTo;
-        private System.Windows.Forms.DateTimePicker dtFrom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductGroup;
     }
 }

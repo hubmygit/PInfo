@@ -54,6 +54,7 @@ namespace PumpLib
         public string strDt = "";
 
         public int machineNo = 0;
+        public string productGroup = "";
 
         public ImpData()
         {
@@ -915,13 +916,15 @@ namespace PumpLib
                                             "isnull(RD.Accepted,0) as Accepted, isnull(RD.ProcessedGroupId,0) as ProcessedGroupId, isnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
                                             "isnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, B.Name as BName, ED.Dealer, ED.Address, ED.ProductId, P.Name as PName, ED.Pump, ED.PumpVolume, " +
                                             "isnull(ED.SampleNo,0) as SampleNo, isnull(RD.MachineNo,0) as MachineNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId, " +
-                                            "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat " +
+                                            "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat, PG.Name as ProductGroup " +
                                             //" ,SV.Address as GeoAddr1, SV.Address2 as GeoAddr2, SV.Address3 as GeoAddr3, SV.[Postal-Code] as PostalCode, SV.Country, SV.Latitude as GeoLat, SV.Longitude as GeoLong, SV.UpdDate as GeoDt, SV.Comp_Name " + 
                                             " FROM [dbo].[receiptData] RD left outer join " +
                                             "[dbo].[extraData] ED on RD.Id = ED.ReceiptDataId left outer join " +
                                             "[dbo].[brand] B on B.id = ED.BrandId left outer join " +
                                             "[dbo].[product] P on P.id = ED.ProductId " + //left outer join " +
                                             //"[dbo].[Station_View] SV on SV.id = ED.GeostationId " +
+                                            "left outer join [dbo].[Vehicles] V on RD.VehicleNo = V.Id left outer join " + 
+                                            " ProductGroup PG on V.ProductGroupId = PG.Id " +
                                             " WHERE isnull(RD.Accepted, 0) = 1 " +
                                             " ORDER BY RD.Dt DESC ", sqlConn);
                         
@@ -952,7 +955,8 @@ namespace PumpLib
                         accepted = Convert.ToBoolean(reader["Accepted"].ToString()),
                         processedGroupId = Convert.ToInt32(reader["ProcessedGroupId"].ToString()),
                         exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString()),
-                        machineNo = Convert.ToInt32(reader["MachineNo"].ToString())
+                        machineNo = Convert.ToInt32(reader["MachineNo"].ToString()),
+                        productGroup = reader["ProductGroup"].ToString()
                     };
 
                     if (Convert.ToInt32(reader["EDId"].ToString()) > 0) //has extra data
@@ -2771,7 +2775,7 @@ namespace PumpLib
                                  obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
                                  obj.temp, obj.density, obj.volume, percDiff,
                                  obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo,
-                                 obj.geostationId, obj.realCoordinates.latitude, obj.realCoordinates.longitude };
+                                 obj.geostationId, obj.realCoordinates.latitude, obj.realCoordinates.longitude, obj.productGroup };
 
             return ret;
         }

@@ -19,17 +19,36 @@ namespace PumpData
         {
             InitializeComponent();
 
+            DateTime dtToday = DateTime.Now.Date;
+            dtFrom.Value = new DateTime(dtToday.Year, dtToday.Month, 1).AddMonths(-1);
+
             DbUtilities dbu = new DbUtilities();
             objList = dbu.ReceiptDBLines_To_ObjectList();
 
-            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(objList);
-
+            //List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(objList);
+            List<ImpData> filteredLines = objList.Where(i => i.datetime >= dtFrom.Value.Date && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
+            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
             GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
             cbGeoFilter.Items.AddRange(new object[] { "Όλα", "Χωρίς Γεωγρ. Σημείο", "Νέα Σημεία Πρατηρίων" });
 
-            DateTime dtToday = DateTime.Now.Date;
-            dtFrom.Value = new DateTime(dtToday.Year, dtToday.Month, 1).AddMonths(-1);
+            dgvReceiptData.Columns["Date"].DisplayIndex = 1;
+            dgvReceiptData.Columns["Time"].DisplayIndex = 2;
+            dgvReceiptData.Columns["ProductGroup"].DisplayIndex = 3;
+            dgvReceiptData.Columns["Weight"].DisplayIndex = 4;
+            dgvReceiptData.Columns["Temp"].DisplayIndex = 5;
+            dgvReceiptData.Columns["Density"].DisplayIndex = 6;
+            dgvReceiptData.Columns["Volume"].DisplayIndex = 7;
+            dgvReceiptData.Columns["PumpVol"].DisplayIndex = 8;
+            dgvReceiptData.Columns["VolDiffPerc"].DisplayIndex = 9;
+            dgvReceiptData.Columns["Brand"].DisplayIndex = 10;
+            dgvReceiptData.Columns["Product"].DisplayIndex = 11;
+            dgvReceiptData.Columns["Dealer"].DisplayIndex = 12;
+            dgvReceiptData.Columns["Address"].DisplayIndex = 13;
+            dgvReceiptData.Columns["GeostationId"].DisplayIndex = 14;
+            dgvReceiptData.Columns["SampleNo"].DisplayIndex = 15;
+            dgvReceiptData.Columns["Remarks"].DisplayIndex = 16;
+
         }
 
         List<ImpData> objList = new List<ImpData>();
@@ -233,7 +252,7 @@ namespace PumpData
         }
 
         private void cbGeoFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {            
             dgvReceiptData.Rows.Clear();
             List<ImpData> filteredLines = new List<ImpData>();
 
@@ -256,7 +275,10 @@ namespace PumpData
 
         private void frmShowDbData_Load(object sender, EventArgs e)
         {
+            //dont trigger event
+            this.cbGeoFilter.SelectedIndexChanged -= new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
             cbGeoFilter.SelectedIndex = 0;  //default: "Όλα"
+            this.cbGeoFilter.SelectedIndexChanged += new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
         }
 
         private void CreateNewGeoPoint() //create new point from gridRow and connect it with this Row
@@ -319,9 +341,7 @@ namespace PumpData
             {
                 dgvReceiptData.Rows.Clear();
                 List<ImpData> filteredLines = new List<ImpData>();
-                
-                filteredLines = objList.Where(i => i.datetime >= dtFrom.Value && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
-                MessageBox.Show(dtFrom.Value.ToString() + " - " + dtTo.Value.Date.AddDays(1).ToString());
+                filteredLines = objList.Where(i => i.datetime >= dtFrom.Value.Date && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
                 List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
             }
@@ -333,9 +353,7 @@ namespace PumpData
             {
                 dgvReceiptData.Rows.Clear();
                 List<ImpData> filteredLines = new List<ImpData>();
-
-                filteredLines = objList.Where(i => i.datetime >= dtFrom.Value && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
-                MessageBox.Show(dtFrom.Value.ToString() + " - " + dtTo.Value.Date.AddDays(1).ToString());
+                filteredLines = objList.Where(i => i.datetime >= dtFrom.Value.Date && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
                 List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
                 GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
             }
