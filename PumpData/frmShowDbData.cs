@@ -27,6 +27,9 @@ namespace PumpData
             GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
             cbGeoFilter.Items.AddRange(new object[] { "Όλα", "Χωρίς Γεωγρ. Σημείο", "Νέα Σημεία Πρατηρίων" });
+
+            DateTime dtToday = DateTime.Now.Date;
+            dtFrom.Value = new DateTime(dtToday.Year, dtToday.Month, 1).AddMonths(-1);
         }
 
         List<ImpData> objList = new List<ImpData>();
@@ -307,6 +310,34 @@ namespace PumpData
             if (dgvReceiptData.SelectedRows.Count > 0)
             {
                 CreateNewGeoPoint();
+            }
+        }
+
+        private void dtFrom_ValueChanged(object sender, EventArgs e)
+        {
+            if (((Control)sender).Visible) //dont run on init //Focused
+            {
+                dgvReceiptData.Rows.Clear();
+                List<ImpData> filteredLines = new List<ImpData>();
+                
+                filteredLines = objList.Where(i => i.datetime >= dtFrom.Value && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
+                MessageBox.Show(dtFrom.Value.ToString() + " - " + dtTo.Value.Date.AddDays(1).ToString());
+                List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
+                GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+            }
+        }
+
+        private void dtTo_ValueChanged(object sender, EventArgs e)
+        {
+            if (((Control)sender).Visible) //dont run on init //Focused
+            {
+                dgvReceiptData.Rows.Clear();
+                List<ImpData> filteredLines = new List<ImpData>();
+
+                filteredLines = objList.Where(i => i.datetime >= dtFrom.Value && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
+                MessageBox.Show(dtFrom.Value.ToString() + " - " + dtTo.Value.Date.AddDays(1).ToString());
+                List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
+                GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
             }
         }
     }

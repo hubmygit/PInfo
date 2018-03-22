@@ -62,6 +62,10 @@
             this.btnSampleFile = new System.Windows.Forms.Button();
             this.btnGridFields = new System.Windows.Forms.Button();
             this.btnGeostation = new System.Windows.Forms.Button();
+            this.lblDtTo = new System.Windows.Forms.Label();
+            this.lblDtFrom = new System.Windows.Forms.Label();
+            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.dtFrom = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -121,7 +125,7 @@
             this.dgvReceiptData.Name = "dgvReceiptData";
             this.dgvReceiptData.ReadOnly = true;
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReceiptData.Size = new System.Drawing.Size(990, 410);
+            this.dgvReceiptData.Size = new System.Drawing.Size(1050, 410);
             this.dgvReceiptData.TabIndex = 15;
             this.dgvReceiptData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReceiptData_CellDoubleClick);
             // 
@@ -345,7 +349,7 @@
             this.btnGridFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnGridFields.Image = global::PumpData.Properties.Resources.CheckboxFieldColumn_32x;
             this.btnGridFields.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGridFields.Location = new System.Drawing.Point(842, 19);
+            this.btnGridFields.Location = new System.Drawing.Point(902, 19);
             this.btnGridFields.Name = "btnGridFields";
             this.btnGridFields.Size = new System.Drawing.Size(160, 40);
             this.btnGridFields.TabIndex = 22;
@@ -368,11 +372,56 @@
             this.btnGeostation.UseVisualStyleBackColor = true;
             this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
             // 
+            // lblDtTo
+            // 
+            this.lblDtTo.AutoSize = true;
+            this.lblDtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDtTo.Location = new System.Drawing.Point(706, 43);
+            this.lblDtTo.Name = "lblDtTo";
+            this.lblDtTo.Size = new System.Drawing.Size(33, 16);
+            this.lblDtTo.TabIndex = 38;
+            this.lblDtTo.Text = "Έως";
+            // 
+            // lblDtFrom
+            // 
+            this.lblDtFrom.AutoSize = true;
+            this.lblDtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDtFrom.Location = new System.Drawing.Point(706, 19);
+            this.lblDtFrom.Name = "lblDtFrom";
+            this.lblDtFrom.Size = new System.Drawing.Size(33, 16);
+            this.lblDtFrom.TabIndex = 37;
+            this.lblDtFrom.Text = "Από";
+            // 
+            // dtTo
+            // 
+            this.dtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtTo.Location = new System.Drawing.Point(745, 38);
+            this.dtTo.Name = "dtTo";
+            this.dtTo.Size = new System.Drawing.Size(123, 22);
+            this.dtTo.TabIndex = 36;
+            this.dtTo.ValueChanged += new System.EventHandler(this.dtTo_ValueChanged);
+            // 
+            // dtFrom
+            // 
+            this.dtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtFrom.Location = new System.Drawing.Point(745, 14);
+            this.dtFrom.Name = "dtFrom";
+            this.dtFrom.Size = new System.Drawing.Size(123, 22);
+            this.dtFrom.TabIndex = 35;
+            this.dtFrom.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.dtFrom.ValueChanged += new System.EventHandler(this.dtFrom_ValueChanged);
+            // 
             // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 502);
+            this.ClientSize = new System.Drawing.Size(1084, 502);
+            this.Controls.Add(this.lblDtTo);
+            this.Controls.Add(this.lblDtFrom);
+            this.Controls.Add(this.dtTo);
+            this.Controls.Add(this.dtFrom);
             this.Controls.Add(this.btnNewGeoPoint);
             this.Controls.Add(this.cbGeoFilter);
             this.Controls.Add(this.btnSampleFile);
@@ -380,13 +429,14 @@
             this.Controls.Add(this.btnGeostation);
             this.Controls.Add(this.dgvReceiptData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1040, 540);
+            this.MinimumSize = new System.Drawing.Size(1100, 540);
             this.Name = "frmShowDbData";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Εμφάνιση Δεδομένων";
             this.Load += new System.EventHandler(this.frmShowDbData_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -423,5 +473,9 @@
         public System.Windows.Forms.Button btnSampleFile;
         private System.Windows.Forms.ComboBox cbGeoFilter;
         public System.Windows.Forms.Button btnNewGeoPoint;
+        private System.Windows.Forms.Label lblDtTo;
+        private System.Windows.Forms.Label lblDtFrom;
+        private System.Windows.Forms.DateTimePicker dtTo;
+        private System.Windows.Forms.DateTimePicker dtFrom;
     }
 }
