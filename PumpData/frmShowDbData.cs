@@ -26,32 +26,73 @@ namespace PumpData
             objList = dbu.ReceiptDBLines_To_ObjectList();
 
             //List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(objList);
-            List<ImpData> filteredLines = objList.Where(i => i.datetime >= dtFrom.Value.Date && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
-            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
-            GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
+            //List<ImpData> filteredLines = objList.Where(i => i.datetime >= dtFrom.Value.Date && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
+            //List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
+            //GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+            
             cbGeoFilter.Items.AddRange(new object[] { "Όλα", "Χωρίς Γεωγρ. Σημείο", "Νέα Σημεία Πρατηρίων" });
+            cbGeoFilter.SelectedIndex = 0;
 
-            dgvReceiptData.Columns["Date"].DisplayIndex = 1;
-            dgvReceiptData.Columns["Time"].DisplayIndex = 2;
-            dgvReceiptData.Columns["ProductGroup"].DisplayIndex = 3;
-            dgvReceiptData.Columns["Weight"].DisplayIndex = 4;
-            dgvReceiptData.Columns["Temp"].DisplayIndex = 5;
-            dgvReceiptData.Columns["Density"].DisplayIndex = 6;
-            dgvReceiptData.Columns["Volume"].DisplayIndex = 7;
-            dgvReceiptData.Columns["PumpVol"].DisplayIndex = 8;
-            dgvReceiptData.Columns["VolDiffPerc"].DisplayIndex = 9;
-            dgvReceiptData.Columns["Brand"].DisplayIndex = 10;
-            dgvReceiptData.Columns["Product"].DisplayIndex = 11;
-            dgvReceiptData.Columns["Dealer"].DisplayIndex = 12;
-            dgvReceiptData.Columns["Address"].DisplayIndex = 13;
-            dgvReceiptData.Columns["GeostationId"].DisplayIndex = 14;
-            dgvReceiptData.Columns["SampleNo"].DisplayIndex = 15;
-            dgvReceiptData.Columns["Remarks"].DisplayIndex = 16;
+            reorderGridViewColumns(dgvReceiptData);
 
+            applyFilterEvents = true;
+            ApplyFilters();
         }
 
         List<ImpData> objList = new List<ImpData>();
+        bool applyFilterEvents = false;
+
+        private void reorderGridViewColumns(DataGridView dgv)
+        {
+            dgv.Columns["Date"].DisplayIndex = 1;
+            dgv.Columns["Time"].DisplayIndex = 2;
+            dgv.Columns["ProductGroup"].DisplayIndex = 3;
+            dgv.Columns["Weight"].DisplayIndex = 4;
+            dgv.Columns["Temp"].DisplayIndex = 5;
+            dgv.Columns["Density"].DisplayIndex = 6;
+            dgv.Columns["Volume"].DisplayIndex = 7;
+            dgv.Columns["PumpVol"].DisplayIndex = 8;
+            dgv.Columns["VolDiffPerc"].DisplayIndex = 9;
+            dgv.Columns["Brand"].DisplayIndex = 10;
+            dgv.Columns["Product"].DisplayIndex = 11;
+            dgv.Columns["Dealer"].DisplayIndex = 12;
+            dgv.Columns["Address"].DisplayIndex = 13;
+            dgv.Columns["GeostationId"].DisplayIndex = 14;
+            dgv.Columns["SampleNo"].DisplayIndex = 15;
+            dgv.Columns["Remarks"].DisplayIndex = 16;
+        }
+
+        private void ApplyFilters()
+        {
+            if (applyFilterEvents == false)
+            {
+                return;
+            }
+
+            dgvReceiptData.Rows.Clear();
+            List < ImpData > filteredLines = new List<ImpData>();
+
+            //cbGeoFilter
+            if (cbGeoFilter.SelectedIndex == 0) //"Όλα"
+            {
+                filteredLines = objList;
+            }
+            else if (cbGeoFilter.SelectedIndex == 1) //"Χωρίς Γεωγρ. Σημείο"
+            {
+                filteredLines = objList.Where(i => i.geostationId == 0).ToList();
+            }
+            else if (cbGeoFilter.SelectedIndex == 2) //"Νέα Σημεία Πρατηρίων"
+            {
+                filteredLines = objList.Where(i => i.geostationId == 10).ToList();
+            }
+
+            //dtFrom & dtTo
+            filteredLines = filteredLines.Where(i => i.datetime >= dtFrom.Value.Date && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
+
+            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
+            GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+        }
 
         private void dgvReceiptData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -252,33 +293,35 @@ namespace PumpData
         }
 
         private void cbGeoFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {            
-            dgvReceiptData.Rows.Clear();
-            List<ImpData> filteredLines = new List<ImpData>();
+        {
+            //dgvReceiptData.Rows.Clear();
+            //List<ImpData> filteredLines = new List<ImpData>();
 
-            if (cbGeoFilter.SelectedIndex == 0) //"Όλα"
-            {
-                filteredLines = objList;
-            }
-            else if (cbGeoFilter.SelectedIndex == 1) //"Χωρίς Γεωγρ. Σημείο"
-            {
-                filteredLines = objList.Where(i => i.geostationId == 0).ToList();
-            }
-            else if (cbGeoFilter.SelectedIndex == 2) //"Νέα Σημεία Πρατηρίων"
-            {
-                filteredLines = objList.Where(i => i.geostationId == 10).ToList();
-            }
+            //if (cbGeoFilter.SelectedIndex == 0) //"Όλα"
+            //{
+            //    filteredLines = objList;
+            //}
+            //else if (cbGeoFilter.SelectedIndex == 1) //"Χωρίς Γεωγρ. Σημείο"
+            //{
+            //    filteredLines = objList.Where(i => i.geostationId == 0).ToList();
+            //}
+            //else if (cbGeoFilter.SelectedIndex == 2) //"Νέα Σημεία Πρατηρίων"
+            //{
+            //    filteredLines = objList.Where(i => i.geostationId == 10).ToList();
+            //}
 
-            List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
-            GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+            //List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
+            //GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+
+            ApplyFilters();
         }
 
         private void frmShowDbData_Load(object sender, EventArgs e)
         {
             //dont trigger event
-            this.cbGeoFilter.SelectedIndexChanged -= new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
-            cbGeoFilter.SelectedIndex = 0;  //default: "Όλα"
-            this.cbGeoFilter.SelectedIndexChanged += new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
+            //this.cbGeoFilter.SelectedIndexChanged -= new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
+            //cbGeoFilter.SelectedIndex = 0;  //default: "Όλα"
+            //this.cbGeoFilter.SelectedIndexChanged += new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
         }
 
         private void CreateNewGeoPoint() //create new point from gridRow and connect it with this Row
@@ -337,26 +380,30 @@ namespace PumpData
 
         private void dtFrom_ValueChanged(object sender, EventArgs e)
         {
-            if (((Control)sender).Visible) //dont run on init //Focused
-            {
-                dgvReceiptData.Rows.Clear();
-                List<ImpData> filteredLines = new List<ImpData>();
-                filteredLines = objList.Where(i => i.datetime >= dtFrom.Value.Date && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
-                List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
-                GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
-            }
+            //if (((Control)sender).Visible) //dont run on init //Focused
+            //{
+            //    dgvReceiptData.Rows.Clear();
+            //    List<ImpData> filteredLines = new List<ImpData>();
+            //    filteredLines = objList.Where(i => i.datetime >= dtFrom.Value.Date && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
+            //    List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
+            //    GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+            //}
+
+            ApplyFilters();
         }
 
         private void dtTo_ValueChanged(object sender, EventArgs e)
         {
-            if (((Control)sender).Visible) //dont run on init //Focused
-            {
-                dgvReceiptData.Rows.Clear();
-                List<ImpData> filteredLines = new List<ImpData>();
-                filteredLines = objList.Where(i => i.datetime >= dtFrom.Value.Date && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
-                List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
-                GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
-            }
+            //if (((Control)sender).Visible) //dont run on init //Focused
+            //{
+            //    dgvReceiptData.Rows.Clear();
+            //    List<ImpData> filteredLines = new List<ImpData>();
+            //    filteredLines = objList.Where(i => i.datetime >= dtFrom.Value.Date && i.datetime < dtTo.Value.Date.AddDays(1)).ToList();
+            //    List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
+            //    GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+            //}
+
+            ApplyFilters();
         }
 
         private void dgvReceiptData_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
