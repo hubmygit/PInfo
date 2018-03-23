@@ -27,5 +27,11 @@ namespace PumpData
             frmVehicleTrace frmVehicleTrace = new frmVehicleTrace();
             frmVehicleTrace.ShowDialog();
         }
+
+        private void btnStationScheduler_Click(object sender, EventArgs e)
+        {
+            StationScheduler frmScheduler = new StationScheduler();
+            frmScheduler.ShowDialog();
+        }
     }
 }

@@ -47,6 +47,7 @@
             this.btnStationScheduler.Text = "Πλάνο Επαναλήψεων";
             this.btnStationScheduler.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnStationScheduler.UseVisualStyleBackColor = true;
+            this.btnStationScheduler.Click += new System.EventHandler(this.btnStationScheduler_Click);
             // 
             // btnShowConsumption
             // 

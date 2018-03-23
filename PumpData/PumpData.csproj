@@ -99,6 +99,12 @@
     <Compile Include="SampleFiles.Designer.cs">
       <DependentUpon>SampleFiles.cs</DependentUpon>
     </Compile>
+    <Compile Include="StationScheduler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StationScheduler.Designer.cs">
+      <DependentUpon>StationScheduler.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmPumpData.resx">
       <DependentUpon>frmPumpData.cs</DependentUpon>
     </EmbeddedResource>
@@ -126,6 +132,9 @@
     </Compile>
     <EmbeddedResource Include="SampleFiles.resx">
       <DependentUpon>SampleFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StationScheduler.resx">
+      <DependentUpon>StationScheduler.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">

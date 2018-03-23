@@ -327,6 +327,7 @@
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.dgvReceiptData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1000, 540);
             this.Name = "frmPumpAnalysis";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pump Analysis";
