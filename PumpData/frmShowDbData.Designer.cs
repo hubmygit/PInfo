@@ -32,15 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmShowDbData));
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
-            this.cbGeoFilter = new System.Windows.Forms.ComboBox();
-            this.btnNewGeoPoint = new System.Windows.Forms.Button();
-            this.btnSampleFile = new System.Windows.Forms.Button();
-            this.btnGridFields = new System.Windows.Forms.Button();
-            this.btnGeostation = new System.Windows.Forms.Button();
-            this.lblDtTo = new System.Windows.Forms.Label();
-            this.lblDtFrom = new System.Windows.Forms.Label();
-            this.dtTo = new System.Windows.Forms.DateTimePicker();
-            this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.ReceiptDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExtraDataId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -67,6 +58,16 @@
             this.RealLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbGeoFilter = new System.Windows.Forms.ComboBox();
+            this.btnNewGeoPoint = new System.Windows.Forms.Button();
+            this.btnSampleFile = new System.Windows.Forms.Button();
+            this.btnGridFields = new System.Windows.Forms.Button();
+            this.btnGeostation = new System.Windows.Forms.Button();
+            this.lblDtTo = new System.Windows.Forms.Label();
+            this.lblDtFrom = new System.Windows.Forms.Label();
+            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.dtFrom = new System.Windows.Forms.DateTimePicker();
+            this.lblGridCounter = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -131,115 +132,6 @@
             this.dgvReceiptData.TabIndex = 15;
             this.dgvReceiptData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReceiptData_CellDoubleClick);
             this.dgvReceiptData.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvReceiptData_SortCompare);
-            // 
-            // cbGeoFilter
-            // 
-            this.cbGeoFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbGeoFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbGeoFilter.FormattingEnabled = true;
-            this.cbGeoFilter.Location = new System.Drawing.Point(344, 31);
-            this.cbGeoFilter.Name = "cbGeoFilter";
-            this.cbGeoFilter.Size = new System.Drawing.Size(190, 28);
-            this.cbGeoFilter.TabIndex = 33;
-            this.cbGeoFilter.SelectedIndexChanged += new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
-            // 
-            // btnNewGeoPoint
-            // 
-            this.btnNewGeoPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnNewGeoPoint.Image = global::PumpData.Properties.Resources.NewGeoPoint_32x;
-            this.btnNewGeoPoint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNewGeoPoint.Location = new System.Drawing.Point(540, 19);
-            this.btnNewGeoPoint.Name = "btnNewGeoPoint";
-            this.btnNewGeoPoint.Size = new System.Drawing.Size(160, 40);
-            this.btnNewGeoPoint.TabIndex = 34;
-            this.btnNewGeoPoint.Text = "Νέο Πρατήριο";
-            this.btnNewGeoPoint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNewGeoPoint.UseVisualStyleBackColor = true;
-            this.btnNewGeoPoint.Click += new System.EventHandler(this.btnNewGeoPoint_Click);
-            // 
-            // btnSampleFile
-            // 
-            this.btnSampleFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSampleFile.Image = global::PumpData.Properties.Resources.PerformanceLog_32x;
-            this.btnSampleFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSampleFile.Location = new System.Drawing.Point(12, 19);
-            this.btnSampleFile.Name = "btnSampleFile";
-            this.btnSampleFile.Size = new System.Drawing.Size(160, 40);
-            this.btnSampleFile.TabIndex = 23;
-            this.btnSampleFile.Text = "Αρχεία Δειγμάτων";
-            this.btnSampleFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSampleFile.UseVisualStyleBackColor = true;
-            this.btnSampleFile.Click += new System.EventHandler(this.btnSampleFile_Click);
-            // 
-            // btnGridFields
-            // 
-            this.btnGridFields.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGridFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnGridFields.Image = global::PumpData.Properties.Resources.CheckboxFieldColumn_32x;
-            this.btnGridFields.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGridFields.Location = new System.Drawing.Point(902, 19);
-            this.btnGridFields.Name = "btnGridFields";
-            this.btnGridFields.Size = new System.Drawing.Size(160, 40);
-            this.btnGridFields.TabIndex = 22;
-            this.btnGridFields.Text = "Επιλογή Πεδίων";
-            this.btnGridFields.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGridFields.UseVisualStyleBackColor = true;
-            this.btnGridFields.Click += new System.EventHandler(this.btnGridFields_Click);
-            // 
-            // btnGeostation
-            // 
-            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnGeostation.Image = global::PumpData.Properties.Resources.GeoLocation_32x;
-            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGeostation.Location = new System.Drawing.Point(178, 19);
-            this.btnGeostation.Name = "btnGeostation";
-            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
-            this.btnGeostation.TabIndex = 21;
-            this.btnGeostation.Text = "Θέση στο Χάρτη";
-            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGeostation.UseVisualStyleBackColor = true;
-            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
-            // 
-            // lblDtTo
-            // 
-            this.lblDtTo.AutoSize = true;
-            this.lblDtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDtTo.Location = new System.Drawing.Point(706, 43);
-            this.lblDtTo.Name = "lblDtTo";
-            this.lblDtTo.Size = new System.Drawing.Size(33, 16);
-            this.lblDtTo.TabIndex = 38;
-            this.lblDtTo.Text = "Έως";
-            // 
-            // lblDtFrom
-            // 
-            this.lblDtFrom.AutoSize = true;
-            this.lblDtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDtFrom.Location = new System.Drawing.Point(706, 19);
-            this.lblDtFrom.Name = "lblDtFrom";
-            this.lblDtFrom.Size = new System.Drawing.Size(33, 16);
-            this.lblDtFrom.TabIndex = 37;
-            this.lblDtFrom.Text = "Από";
-            // 
-            // dtTo
-            // 
-            this.dtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtTo.Location = new System.Drawing.Point(745, 38);
-            this.dtTo.Name = "dtTo";
-            this.dtTo.Size = new System.Drawing.Size(123, 22);
-            this.dtTo.TabIndex = 36;
-            this.dtTo.ValueChanged += new System.EventHandler(this.dtTo_ValueChanged);
-            // 
-            // dtFrom
-            // 
-            this.dtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtFrom.Location = new System.Drawing.Point(745, 14);
-            this.dtFrom.Name = "dtFrom";
-            this.dtFrom.Size = new System.Drawing.Size(123, 22);
-            this.dtFrom.TabIndex = 35;
-            this.dtFrom.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
-            this.dtFrom.ValueChanged += new System.EventHandler(this.dtFrom_ValueChanged);
             // 
             // ReceiptDataId
             // 
@@ -426,11 +318,131 @@
             this.ProductGroup.Name = "ProductGroup";
             this.ProductGroup.ReadOnly = true;
             // 
+            // cbGeoFilter
+            // 
+            this.cbGeoFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGeoFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbGeoFilter.FormattingEnabled = true;
+            this.cbGeoFilter.Location = new System.Drawing.Point(344, 31);
+            this.cbGeoFilter.Name = "cbGeoFilter";
+            this.cbGeoFilter.Size = new System.Drawing.Size(190, 28);
+            this.cbGeoFilter.TabIndex = 33;
+            this.cbGeoFilter.SelectedIndexChanged += new System.EventHandler(this.cbGeoFilter_SelectedIndexChanged);
+            // 
+            // btnNewGeoPoint
+            // 
+            this.btnNewGeoPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnNewGeoPoint.Image = global::PumpData.Properties.Resources.NewGeoPoint_32x;
+            this.btnNewGeoPoint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNewGeoPoint.Location = new System.Drawing.Point(540, 19);
+            this.btnNewGeoPoint.Name = "btnNewGeoPoint";
+            this.btnNewGeoPoint.Size = new System.Drawing.Size(160, 40);
+            this.btnNewGeoPoint.TabIndex = 34;
+            this.btnNewGeoPoint.Text = "Νέο Πρατήριο";
+            this.btnNewGeoPoint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNewGeoPoint.UseVisualStyleBackColor = true;
+            this.btnNewGeoPoint.Click += new System.EventHandler(this.btnNewGeoPoint_Click);
+            // 
+            // btnSampleFile
+            // 
+            this.btnSampleFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSampleFile.Image = global::PumpData.Properties.Resources.PerformanceLog_32x;
+            this.btnSampleFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSampleFile.Location = new System.Drawing.Point(12, 19);
+            this.btnSampleFile.Name = "btnSampleFile";
+            this.btnSampleFile.Size = new System.Drawing.Size(160, 40);
+            this.btnSampleFile.TabIndex = 23;
+            this.btnSampleFile.Text = "Αρχεία Δειγμάτων";
+            this.btnSampleFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSampleFile.UseVisualStyleBackColor = true;
+            this.btnSampleFile.Click += new System.EventHandler(this.btnSampleFile_Click);
+            // 
+            // btnGridFields
+            // 
+            this.btnGridFields.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGridFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnGridFields.Image = global::PumpData.Properties.Resources.CheckboxFieldColumn_32x;
+            this.btnGridFields.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGridFields.Location = new System.Drawing.Point(902, 19);
+            this.btnGridFields.Name = "btnGridFields";
+            this.btnGridFields.Size = new System.Drawing.Size(160, 40);
+            this.btnGridFields.TabIndex = 22;
+            this.btnGridFields.Text = "Επιλογή Πεδίων";
+            this.btnGridFields.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGridFields.UseVisualStyleBackColor = true;
+            this.btnGridFields.Click += new System.EventHandler(this.btnGridFields_Click);
+            // 
+            // btnGeostation
+            // 
+            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnGeostation.Image = global::PumpData.Properties.Resources.GeoLocation_32x;
+            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGeostation.Location = new System.Drawing.Point(178, 19);
+            this.btnGeostation.Name = "btnGeostation";
+            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
+            this.btnGeostation.TabIndex = 21;
+            this.btnGeostation.Text = "Θέση στο Χάρτη";
+            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGeostation.UseVisualStyleBackColor = true;
+            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
+            // 
+            // lblDtTo
+            // 
+            this.lblDtTo.AutoSize = true;
+            this.lblDtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDtTo.Location = new System.Drawing.Point(706, 43);
+            this.lblDtTo.Name = "lblDtTo";
+            this.lblDtTo.Size = new System.Drawing.Size(33, 16);
+            this.lblDtTo.TabIndex = 38;
+            this.lblDtTo.Text = "Έως";
+            // 
+            // lblDtFrom
+            // 
+            this.lblDtFrom.AutoSize = true;
+            this.lblDtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDtFrom.Location = new System.Drawing.Point(706, 19);
+            this.lblDtFrom.Name = "lblDtFrom";
+            this.lblDtFrom.Size = new System.Drawing.Size(33, 16);
+            this.lblDtFrom.TabIndex = 37;
+            this.lblDtFrom.Text = "Από";
+            // 
+            // dtTo
+            // 
+            this.dtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtTo.Location = new System.Drawing.Point(745, 38);
+            this.dtTo.Name = "dtTo";
+            this.dtTo.Size = new System.Drawing.Size(123, 22);
+            this.dtTo.TabIndex = 36;
+            this.dtTo.ValueChanged += new System.EventHandler(this.dtTo_ValueChanged);
+            // 
+            // dtFrom
+            // 
+            this.dtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtFrom.Location = new System.Drawing.Point(745, 14);
+            this.dtFrom.Name = "dtFrom";
+            this.dtFrom.Size = new System.Drawing.Size(123, 22);
+            this.dtFrom.TabIndex = 35;
+            this.dtFrom.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.dtFrom.ValueChanged += new System.EventHandler(this.dtFrom_ValueChanged);
+            // 
+            // lblGridCounter
+            // 
+            this.lblGridCounter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblGridCounter.AutoSize = true;
+            this.lblGridCounter.Location = new System.Drawing.Point(11, 490);
+            this.lblGridCounter.Name = "lblGridCounter";
+            this.lblGridCounter.Size = new System.Drawing.Size(70, 13);
+            this.lblGridCounter.TabIndex = 39;
+            this.lblGridCounter.Text = "Εγγραφές: 0";
+            // 
             // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 502);
+            this.Controls.Add(this.lblGridCounter);
             this.Controls.Add(this.lblDtTo);
             this.Controls.Add(this.lblDtFrom);
             this.Controls.Add(this.dtTo);
@@ -491,5 +503,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLat;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLong;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductGroup;
+        private System.Windows.Forms.Label lblGridCounter;
     }
 }

@@ -38,6 +38,7 @@ namespace PumpData
 
             applyFilterEvents = true;
             ApplyFilters();
+                        
         }
 
         List<ImpData> objList = new List<ImpData>();
@@ -71,7 +72,7 @@ namespace PumpData
             }
 
             dgvReceiptData.Rows.Clear();
-            List < ImpData > filteredLines = new List<ImpData>();
+            List <ImpData> filteredLines = new List<ImpData>();
 
             //cbGeoFilter
             if (cbGeoFilter.SelectedIndex == 0) //"Όλα"
@@ -92,8 +93,38 @@ namespace PumpData
 
             List<object[]> ObjRows = GridViewUtils.DBDataToGridViewRowList(filteredLines);
             GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
+
+            RowsForeColorFromVolDiff(dgvReceiptData);
+            lblGridCounter.Text = "Εγγραφές: " + filteredLines.Count.ToString();
+            //dgvReceiptData.ClearSelection(); //
         }
 
+        private void RowsForeColorFromVolDiff(DataGridView dgv)
+        {
+            double diffPercVal = 0.0;
+            for (int i = 0; i < dgv.Rows.Count; i++)
+            {
+                try
+                {
+                    diffPercVal = Convert.ToDouble(dgv["VolDiffPerc", i].Value);
+
+                    if (diffPercVal < -0.5)
+                    {
+                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
+                    }
+                    else if (diffPercVal > 0.5)
+                    {
+                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Green;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+            }
+        }
+        
         private void dgvReceiptData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             /*
