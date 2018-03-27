@@ -36,6 +36,7 @@
             // 
             // btnStationScheduler
             // 
+            this.btnStationScheduler.Enabled = false;
             this.btnStationScheduler.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnStationScheduler.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnStationScheduler.Image = global::PumpData.Properties.Resources.TemporalTable_48x;

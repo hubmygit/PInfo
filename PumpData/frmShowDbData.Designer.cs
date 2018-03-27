@@ -67,8 +67,11 @@
             this.lblDtFrom = new System.Windows.Forms.Label();
             this.dtTo = new System.Windows.Forms.DateTimePicker();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
-            this.lblGridCounter = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripCounter = new System.Windows.Forms.ToolStripStatusLabel();
+            this.cbColorMode = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvReceiptData
@@ -123,12 +126,12 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvReceiptData.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvReceiptData.Location = new System.Drawing.Point(12, 80);
+            this.dgvReceiptData.Location = new System.Drawing.Point(0, 80);
             this.dgvReceiptData.MultiSelect = false;
             this.dgvReceiptData.Name = "dgvReceiptData";
             this.dgvReceiptData.ReadOnly = true;
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReceiptData.Size = new System.Drawing.Size(1050, 410);
+            this.dgvReceiptData.Size = new System.Drawing.Size(1084, 397);
             this.dgvReceiptData.TabIndex = 15;
             this.dgvReceiptData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReceiptData_CellDoubleClick);
             this.dgvReceiptData.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvReceiptData_SortCompare);
@@ -363,7 +366,7 @@
             this.btnGridFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnGridFields.Image = global::PumpData.Properties.Resources.CheckboxFieldColumn_32x;
             this.btnGridFields.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGridFields.Location = new System.Drawing.Point(902, 19);
+            this.btnGridFields.Location = new System.Drawing.Point(912, 7);
             this.btnGridFields.Name = "btnGridFields";
             this.btnGridFields.Size = new System.Drawing.Size(160, 40);
             this.btnGridFields.TabIndex = 22;
@@ -427,22 +430,42 @@
             this.dtFrom.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             this.dtFrom.ValueChanged += new System.EventHandler(this.dtFrom_ValueChanged);
             // 
-            // lblGridCounter
+            // statusStrip1
             // 
-            this.lblGridCounter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblGridCounter.AutoSize = true;
-            this.lblGridCounter.Location = new System.Drawing.Point(11, 490);
-            this.lblGridCounter.Name = "lblGridCounter";
-            this.lblGridCounter.Size = new System.Drawing.Size(70, 13);
-            this.lblGridCounter.TabIndex = 39;
-            this.lblGridCounter.Text = "Εγγραφές: 0";
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripCounter});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 480);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1084, 22);
+            this.statusStrip1.TabIndex = 40;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripCounter
+            // 
+            this.toolStripCounter.Name = "toolStripCounter";
+            this.toolStripCounter.Size = new System.Drawing.Size(71, 17);
+            this.toolStripCounter.Text = "Εγγραφές: 0";
+            // 
+            // cbColorMode
+            // 
+            this.cbColorMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbColorMode.AutoSize = true;
+            this.cbColorMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbColorMode.Location = new System.Drawing.Point(912, 53);
+            this.cbColorMode.Name = "cbColorMode";
+            this.cbColorMode.Size = new System.Drawing.Size(168, 20);
+            this.cbColorMode.TabIndex = 41;
+            this.cbColorMode.Text = "Volume Diff Color Mode";
+            this.cbColorMode.UseVisualStyleBackColor = true;
+            this.cbColorMode.CheckedChanged += new System.EventHandler(this.cbColorMode_CheckedChanged);
             // 
             // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 502);
-            this.Controls.Add(this.lblGridCounter);
+            this.Controls.Add(this.cbColorMode);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.lblDtTo);
             this.Controls.Add(this.lblDtFrom);
             this.Controls.Add(this.dtTo);
@@ -460,6 +483,8 @@
             this.Text = "Εμφάνιση Δεδομένων";
             this.Load += new System.EventHandler(this.frmShowDbData_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -503,6 +528,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLat;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLong;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductGroup;
-        private System.Windows.Forms.Label lblGridCounter;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripCounter;
+        private System.Windows.Forms.CheckBox cbColorMode;
     }
 }

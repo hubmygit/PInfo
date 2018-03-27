@@ -38,7 +38,6 @@ namespace PumpData
 
             applyFilterEvents = true;
             ApplyFilters();
-                        
         }
 
         List<ImpData> objList = new List<ImpData>();
@@ -95,32 +94,61 @@ namespace PumpData
             GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
             RowsForeColorFromVolDiff(dgvReceiptData);
-            lblGridCounter.Text = "Εγγραφές: " + filteredLines.Count.ToString();
+            //lblGridCounter.Text = "Εγγραφές: " + filteredLines.Count.ToString();
+            toolStripCounter.Text = "Εγγραφές: " + filteredLines.Count.ToString();
             //dgvReceiptData.ClearSelection(); //
         }
 
         private void RowsForeColorFromVolDiff(DataGridView dgv)
         {
-            double diffPercVal = 0.0;
-            for (int i = 0; i < dgv.Rows.Count; i++)
+            if (!cbColorMode.Checked)
             {
-                try
+                for (int i = 0; i < dgv.Rows.Count; i++)
                 {
-                    diffPercVal = Convert.ToDouble(dgv["VolDiffPerc", i].Value);
-
-                    if (diffPercVal < -0.5)
+                    try
                     {
-                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
+                        dgv.Rows[i].DefaultCellStyle.ForeColor = new System.Drawing.Color(); //default: ControlText;
                     }
-                    else if (diffPercVal > 0.5)
+                    catch (Exception ex)
                     {
-                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Green;
+                        MessageBox.Show(ex.Message);
+                        return;
                     }
                 }
-                catch (Exception ex)
+            }
+            else
+            {
+                double diffPercVal = 0.0;
+                for (int i = 0; i < dgv.Rows.Count; i++)
                 {
-                    MessageBox.Show(ex.Message);
-                    return;
+                    try
+                    {
+                        diffPercVal = Convert.ToDouble(dgv["VolDiffPerc", i].Value);
+
+                        if (diffPercVal < -0.5)
+                        {
+                            dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
+                        }
+                        else if (diffPercVal > 0.5)
+                        {
+                            dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Blue;
+                        }
+                        else if (diffPercVal >= 0 && diffPercVal <= 0.5)
+                        {
+                            dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Green;
+                        }
+                        else if (diffPercVal < 0 && diffPercVal >= -0.5)
+                        {
+                            dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Orange;
+                        }
+
+                        //dgv.DefaultCellStyle.Font = new Font(dgv.DefaultCellStyle.Font, FontStyle.Bold);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
                 }
             }
         }
@@ -452,6 +480,11 @@ namespace PumpData
 
                 e.Handled = true;
             }
+        }
+
+        private void cbColorMode_CheckedChanged(object sender, EventArgs e)
+        {
+            RowsForeColorFromVolDiff(dgvReceiptData);
         }
     }
 }
