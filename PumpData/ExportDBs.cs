@@ -15,5 +15,15 @@ namespace PumpData
         {
             InitializeComponent();
         }
+
+        private void btnExportGeoData_Click(object sender, EventArgs e)
+        {
+            //
+        }
+
+        private void btnExportPumpInfo_Click(object sender, EventArgs e)
+        {
+            //
+        }
     }
 }

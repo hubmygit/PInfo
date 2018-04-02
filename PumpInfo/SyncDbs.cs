@@ -19,11 +19,13 @@ namespace PumpInfo
         private void btnSyncGeoData_Click(object sender, EventArgs e)
         {
             Sync("StationGeoData.db");
+            Close();
         }
 
         private void btnSyncPumpInfo_Click(object sender, EventArgs e)
         {
             Sync("PumpInfo.db");
+            Close();
         }
 
         void Sync(string dbFile)
@@ -51,7 +53,7 @@ namespace PumpInfo
             {
                 MessageBox.Show(ex.Message);
             }
-            Close();
+            
         }
     }
 }

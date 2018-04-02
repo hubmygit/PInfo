@@ -71,6 +71,8 @@
             this.Controls.Add(this.btnSyncPumpInfo);
             this.Controls.Add(this.btnSyncGeoData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(600, 300);
+            this.MinimumSize = new System.Drawing.Size(600, 300);
             this.Name = "SyncDbs";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Συγχρονισμός Βάσεων";

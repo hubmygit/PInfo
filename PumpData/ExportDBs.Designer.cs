@@ -39,13 +39,14 @@
             this.btnExportGeoData.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnExportGeoData.Image = global::PumpData.Properties.Resources.SynchronizeDatabase_48x;
             this.btnExportGeoData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportGeoData.Location = new System.Drawing.Point(80, 84);
+            this.btnExportGeoData.Location = new System.Drawing.Point(69, 84);
             this.btnExportGeoData.Name = "btnExportGeoData";
-            this.btnExportGeoData.Size = new System.Drawing.Size(225, 75);
+            this.btnExportGeoData.Size = new System.Drawing.Size(246, 75);
             this.btnExportGeoData.TabIndex = 24;
-            this.btnExportGeoData.Text = "Εξαγωγή Πρατηρίων";
+            this.btnExportGeoData.Text = "Εξαγωγή Βάσης Πρατηρίων";
             this.btnExportGeoData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExportGeoData.UseVisualStyleBackColor = true;
+            this.btnExportGeoData.Click += new System.EventHandler(this.btnExportGeoData_Click);
             // 
             // btnExportPumpInfo
             // 
@@ -53,13 +54,14 @@
             this.btnExportPumpInfo.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnExportPumpInfo.Image = global::PumpData.Properties.Resources.SynchronizeDatabase_48x;
             this.btnExportPumpInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportPumpInfo.Location = new System.Drawing.Point(380, 84);
+            this.btnExportPumpInfo.Location = new System.Drawing.Point(369, 84);
             this.btnExportPumpInfo.Name = "btnExportPumpInfo";
-            this.btnExportPumpInfo.Size = new System.Drawing.Size(225, 75);
+            this.btnExportPumpInfo.Size = new System.Drawing.Size(246, 75);
             this.btnExportPumpInfo.TabIndex = 25;
-            this.btnExportPumpInfo.Text = "Εξαγωγή Επισκέψεων";
+            this.btnExportPumpInfo.Text = "Εξαγωγή Βάσης Επισκέψεων";
             this.btnExportPumpInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExportPumpInfo.UseVisualStyleBackColor = true;
+            this.btnExportPumpInfo.Click += new System.EventHandler(this.btnExportPumpInfo_Click);
             // 
             // ExportDBs
             // 
@@ -69,7 +71,10 @@
             this.Controls.Add(this.btnExportPumpInfo);
             this.Controls.Add(this.btnExportGeoData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(700, 300);
+            this.MinimumSize = new System.Drawing.Size(700, 300);
             this.Name = "ExportDBs";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ExportDBs";
             this.ResumeLayout(false);
 

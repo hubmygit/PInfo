@@ -36,7 +36,8 @@ namespace PumpData
 
         private void btnExportToSqlite_Click(object sender, EventArgs e)
         {
-
+            ExportDBs frmExport = new ExportDBs();
+            frmExport.ShowDialog();
         }
     }
 }
