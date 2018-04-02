@@ -49,6 +49,7 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
+            this.btnSynchDbs = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -252,11 +253,26 @@
             this.btnOpenFile.UseVisualStyleBackColor = true;
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
+            // btnSynchDbs
+            // 
+            this.btnSynchDbs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSynchDbs.Image = global::PumpInfo.Properties.Resources.SynchronizeDatabase_32x;
+            this.btnSynchDbs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSynchDbs.Location = new System.Drawing.Point(174, 12);
+            this.btnSynchDbs.Name = "btnSynchDbs";
+            this.btnSynchDbs.Size = new System.Drawing.Size(135, 40);
+            this.btnSynchDbs.TabIndex = 16;
+            this.btnSynchDbs.Text = "Sync";
+            this.btnSynchDbs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSynchDbs.UseVisualStyleBackColor = true;
+            this.btnSynchDbs.Click += new System.EventHandler(this.btnSynchDbs_Click);
+            // 
             // frmPumpInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(914, 502);
+            this.Controls.Add(this.btnSynchDbs);
             this.Controls.Add(this.btnArchived);
             this.Controls.Add(this.lblCountExported);
             this.Controls.Add(this.btnExport);
@@ -294,6 +310,7 @@
         public System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Label lblCountExported;
         public System.Windows.Forms.Button btnArchived;
+        public System.Windows.Forms.Button btnSynchDbs;
     }
 }
 

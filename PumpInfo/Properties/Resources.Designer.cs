@@ -129,5 +129,25 @@ namespace PumpInfo.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SynchronizeDatabase_32x {
+            get {
+                object obj = ResourceManager.GetObject("SynchronizeDatabase_32x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SynchronizeDatabase_48x {
+            get {
+                object obj = ResourceManager.GetObject("SynchronizeDatabase_48x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
