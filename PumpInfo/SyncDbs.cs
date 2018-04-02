@@ -45,12 +45,13 @@ namespace PumpInfo
             try
             {
                 System.IO.File.Replace(DBs_Path, Destination + dbFile, Destination + "Backup"+ DateTime.Now.ToString("yyyyMMdd_HHmmss_") + dbFile);
-                MessageBox.Show("");
+                MessageBox.Show("Η βάση ενημερώθηκε επιτυχώς!");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            Close();
         }
     }
 }

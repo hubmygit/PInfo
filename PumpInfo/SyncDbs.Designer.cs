@@ -29,24 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SyncDbs));
-            this.btnSyncGeoData = new System.Windows.Forms.Button();
             this.btnSyncPumpInfo = new System.Windows.Forms.Button();
+            this.btnSyncGeoData = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnSyncGeoData
-            // 
-            this.btnSyncGeoData.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSyncGeoData.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSyncGeoData.Image = global::PumpInfo.Properties.Resources.SynchronizeDatabase_48x;
-            this.btnSyncGeoData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSyncGeoData.Location = new System.Drawing.Point(69, 99);
-            this.btnSyncGeoData.Name = "btnSyncGeoData";
-            this.btnSyncGeoData.Size = new System.Drawing.Size(200, 64);
-            this.btnSyncGeoData.TabIndex = 21;
-            this.btnSyncGeoData.Text = "Πρατήρια";
-            this.btnSyncGeoData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSyncGeoData.UseVisualStyleBackColor = true;
-            this.btnSyncGeoData.Click += new System.EventHandler(this.btnSyncGeoData_Click);
             // 
             // btnSyncPumpInfo
             // 
@@ -63,6 +48,21 @@
             this.btnSyncPumpInfo.UseVisualStyleBackColor = true;
             this.btnSyncPumpInfo.Click += new System.EventHandler(this.btnSyncPumpInfo_Click);
             // 
+            // btnSyncGeoData
+            // 
+            this.btnSyncGeoData.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSyncGeoData.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnSyncGeoData.Image = global::PumpInfo.Properties.Resources.SynchronizeDatabase_48x;
+            this.btnSyncGeoData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSyncGeoData.Location = new System.Drawing.Point(69, 99);
+            this.btnSyncGeoData.Name = "btnSyncGeoData";
+            this.btnSyncGeoData.Size = new System.Drawing.Size(200, 64);
+            this.btnSyncGeoData.TabIndex = 21;
+            this.btnSyncGeoData.Text = "Πρατήρια";
+            this.btnSyncGeoData.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSyncGeoData.UseVisualStyleBackColor = true;
+            this.btnSyncGeoData.Click += new System.EventHandler(this.btnSyncGeoData_Click);
+            // 
             // SyncDbs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -73,7 +73,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SyncDbs";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "SyncDbs";
+            this.Text = "Συγχρονισμός Βάσεων";
             this.ResumeLayout(false);
 
         }

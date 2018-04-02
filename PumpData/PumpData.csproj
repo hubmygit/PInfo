@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExportDBs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportDBs.Designer.cs">
+      <DependentUpon>ExportDBs.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPumpData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +111,9 @@
     <Compile Include="StationScheduler.Designer.cs">
       <DependentUpon>StationScheduler.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ExportDBs.resx">
+      <DependentUpon>ExportDBs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPumpData.resx">
       <DependentUpon>frmPumpData.cs</DependentUpon>
     </EmbeddedResource>
@@ -149,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PumpInfo.ico" />
+    <None Include="Resources\SynchronizeDatabase_48x.png" />
     <None Include="Resources\NewGeoPoint_32x.png" />
     <None Include="Resources\TemporalTable_48x.png" />
     <None Include="Resources\IntelliTrace_48x.png" />

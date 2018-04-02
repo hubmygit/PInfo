@@ -29,10 +29,26 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPumpData));
+            this.btnExportToSqlite = new System.Windows.Forms.Button();
             this.btnStationScheduler = new System.Windows.Forms.Button();
             this.btnShowConsumption = new System.Windows.Forms.Button();
             this.btnShowDbData = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // btnExportToSqlite
+            // 
+            this.btnExportToSqlite.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnExportToSqlite.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnExportToSqlite.Image = global::PumpData.Properties.Resources.SynchronizeDatabase_48x;
+            this.btnExportToSqlite.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExportToSqlite.Location = new System.Drawing.Point(380, 214);
+            this.btnExportToSqlite.Name = "btnExportToSqlite";
+            this.btnExportToSqlite.Size = new System.Drawing.Size(225, 75);
+            this.btnExportToSqlite.TabIndex = 23;
+            this.btnExportToSqlite.Text = "Εξαγωγή Νέων Βάσεων";
+            this.btnExportToSqlite.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnExportToSqlite.UseVisualStyleBackColor = true;
+            this.btnExportToSqlite.Click += new System.EventHandler(this.btnExportToSqlite_Click);
             // 
             // btnStationScheduler
             // 
@@ -85,6 +101,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 362);
+            this.Controls.Add(this.btnExportToSqlite);
             this.Controls.Add(this.btnStationScheduler);
             this.Controls.Add(this.btnShowConsumption);
             this.Controls.Add(this.btnShowDbData);
@@ -103,6 +120,7 @@
         public System.Windows.Forms.Button btnShowDbData;
         public System.Windows.Forms.Button btnShowConsumption;
         public System.Windows.Forms.Button btnStationScheduler;
+        public System.Windows.Forms.Button btnExportToSqlite;
     }
 }
 
