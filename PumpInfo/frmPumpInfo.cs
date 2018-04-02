@@ -279,20 +279,8 @@ namespace PumpInfo
 
         private void btnSynchDbs_Click(object sender, EventArgs e)
         {
-
-
-            //OpenFileDialog ofd = new OpenFileDialog();
-            //ofd.Filter = "DB File|StationGeoData.db";
-            //DialogResult result = ofd.ShowDialog();
-
-            //string DBs_Path = ofd.FileName;
-            //if (DBs_Path.Trim() == "" || result != DialogResult.OK)
-            //{
-            //    return;
-            //}
-
-
-
+            SyncDbs SuncFrm = new SyncDbs();
+            SuncFrm.ShowDialog();
         }
     }
 }
