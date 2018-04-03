@@ -17,15 +17,9 @@ namespace PumpInfo
         public ArchivedForm()
         {
             InitializeComponent();
-            
-            //select R.Id, R.Accepted, R.VehicleNo, R.Dt, B.Name, E.Dealer, E.Address, E.GeostationId, P.Name, 
-            //R.Weight, R.Temp, R.Density, R.Volume, E.Pump, E.PumpVolume, E.SampleNo, E.Remarks
-            //from receiptData R left outer join
-            //extraData E on R.Id = E.ReceiptDataId left outer join
-            //Brand B on E.BrandId = B.Id left outer join
-            //Product P on E.ProductId = P.Id
 
-            archivedDataList = DbUtilities.ArchivedData();
+            //archivedDataList = DbUtilities.ArchivedData(); //old
+            archivedDataList = DbUtilities.ArchivedSyncData();
 
             cbVehicle.SelectedIndex = 0;
             DateTime dtToday = DateTime.Now.Date;
@@ -39,7 +33,8 @@ namespace PumpInfo
             //dgvReceiptData.ClearSelection();
         }
 
-        List<ImpData> archivedDataList = new List<ImpData>();
+        //List<ImpData> archivedDataList = new List<ImpData>(); //old
+        List<ArchivedData> archivedDataList = new List<ArchivedData>();
         bool applyFilterEvents = false;
 
         private void ApplyFilters()
@@ -49,19 +44,20 @@ namespace PumpInfo
                 return;
             }
 
-            List<ImpData> NewList = archivedDataList;
+            //List<ImpData> NewList = archivedDataList; //old
+            List<ArchivedData> NewList = archivedDataList;
 
             int cbVehicleIndex = cbVehicle.SelectedIndex;
 
             if (cbVehicleIndex > 0) //all
             {
-                NewList = NewList.Where(i => i.vehicleNo == cbVehicleIndex).ToList(); //1.Βενζίνη 2.Diesel
+                NewList = NewList.Where(i => i.VehicleNo == cbVehicleIndex).ToList(); //1.Βενζίνη 2.Diesel
             }
             
             DateTime dtFromDate = dtFrom.Value.Date;
             DateTime dtToDate = dtTo.Value.Date;
 
-            NewList = NewList.Where(i => i.datetime >= dtFromDate && i.datetime <= (dtToDate.AddDays(1))).ToList();
+            NewList = NewList.Where(i => i.Dt >= dtFromDate && i.Dt <= (dtToDate.AddDays(1))).ToList();
 
             //---------------------
 

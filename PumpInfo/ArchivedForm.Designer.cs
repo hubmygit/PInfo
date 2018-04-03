@@ -39,21 +39,20 @@
             this.lblDtFrom = new System.Windows.Forms.Label();
             this.lblDtTo = new System.Windows.Forms.Label();
             this.btnGeostation = new System.Windows.Forms.Button();
-            this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Driver = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gridDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Brand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dealer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Temp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Density = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Pump = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PumpVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VolDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
@@ -76,21 +75,20 @@
             this.dgvReceiptData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvReceiptData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvReceiptData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Index,
-            this.Accepted,
             this.Vehicle,
+            this.Product,
+            this.Driver,
             this.gridDateTime,
             this.Brand,
             this.Dealer,
             this.Address,
-            this.GeostationId,
-            this.Product,
             this.Weight,
             this.Temp,
             this.Density,
             this.Volume,
-            this.Pump,
             this.PumpVolume,
+            this.VolDiff,
+            this.GeostationId,
             this.SampleNo,
             this.Remarks});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -186,27 +184,24 @@
             this.btnGeostation.UseVisualStyleBackColor = true;
             this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
             // 
-            // Index
-            // 
-            this.Index.HeaderText = "Index";
-            this.Index.Name = "Index";
-            this.Index.ReadOnly = true;
-            this.Index.Visible = false;
-            this.Index.Width = 50;
-            // 
-            // Accepted
-            // 
-            this.Accepted.HeaderText = "";
-            this.Accepted.Name = "Accepted";
-            this.Accepted.ReadOnly = true;
-            this.Accepted.Width = 20;
-            // 
             // Vehicle
             // 
             this.Vehicle.HeaderText = "Vehicle";
             this.Vehicle.Name = "Vehicle";
             this.Vehicle.ReadOnly = true;
             this.Vehicle.Width = 64;
+            // 
+            // Product
+            // 
+            this.Product.HeaderText = "Product";
+            this.Product.Name = "Product";
+            this.Product.ReadOnly = true;
+            // 
+            // Driver
+            // 
+            this.Driver.HeaderText = "Driver";
+            this.Driver.Name = "Driver";
+            this.Driver.ReadOnly = true;
             // 
             // gridDateTime
             // 
@@ -236,19 +231,6 @@
             this.Address.ReadOnly = true;
             this.Address.Width = 140;
             // 
-            // GeostationId
-            // 
-            this.GeostationId.HeaderText = "GeostationId";
-            this.GeostationId.Name = "GeostationId";
-            this.GeostationId.ReadOnly = true;
-            this.GeostationId.Visible = false;
-            // 
-            // Product
-            // 
-            this.Product.HeaderText = "Product";
-            this.Product.Name = "Product";
-            this.Product.ReadOnly = true;
-            // 
             // Weight
             // 
             this.Weight.HeaderText = "Weight";
@@ -277,19 +259,25 @@
             this.Volume.ReadOnly = true;
             this.Volume.Width = 66;
             // 
-            // Pump
-            // 
-            this.Pump.HeaderText = "Pump";
-            this.Pump.Name = "Pump";
-            this.Pump.ReadOnly = true;
-            this.Pump.Width = 60;
-            // 
             // PumpVolume
             // 
             this.PumpVolume.HeaderText = "PumpVolume";
             this.PumpVolume.Name = "PumpVolume";
             this.PumpVolume.ReadOnly = true;
             this.PumpVolume.Width = 105;
+            // 
+            // VolDiff
+            // 
+            this.VolDiff.HeaderText = "VolDiff";
+            this.VolDiff.Name = "VolDiff";
+            this.VolDiff.ReadOnly = true;
+            // 
+            // GeostationId
+            // 
+            this.GeostationId.HeaderText = "GeostationId";
+            this.GeostationId.Name = "GeostationId";
+            this.GeostationId.ReadOnly = true;
+            this.GeostationId.Visible = false;
             // 
             // SampleNo
             // 
@@ -336,21 +324,20 @@
         private System.Windows.Forms.Label lblDtFrom;
         private System.Windows.Forms.Label lblDtTo;
         public System.Windows.Forms.Button btnGeostation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Index;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Accepted;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Product;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Driver;
         private System.Windows.Forms.DataGridViewTextBoxColumn gridDateTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn Brand;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dealer;
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Product;
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
         private System.Windows.Forms.DataGridViewTextBoxColumn Temp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Density;
         private System.Windows.Forms.DataGridViewTextBoxColumn Volume;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Pump;
         private System.Windows.Forms.DataGridViewTextBoxColumn PumpVolume;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VolDiff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
     }

@@ -24,7 +24,7 @@ namespace PumpInfo
 
         private void btnSyncPumpInfo_Click(object sender, EventArgs e)
         {
-            Sync("PumpInfo.db");
+            Sync("Archived.db");
             Close();
         }
 

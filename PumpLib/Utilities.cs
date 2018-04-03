@@ -2544,6 +2544,56 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<ArchivedData> ArchivedSyncData()
+        {
+            List<ArchivedData> ret = new List<ArchivedData>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBArch.connectionString);
+
+            string SelectSt = "SELECT VehicleNo, Product, Driver, datetime(Dt) as Dt, Brand, Dealer, Address, Weight, Temp, Density, Volume, " +
+                "ifnull(PumpVolume,0) as PumpVolume, VolDiff, ifnull(GeostationId,0) as GeostationId, ifnull(SampleNo,0) as SampleNo, Remarks " +
+                "FROM [Arch] ";
+
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ArchivedData objLine = new ArchivedData
+                    {
+                        VehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
+                        Product = reader["Product"].ToString(),
+                        Driver = reader["Driver"].ToString(),
+                        Dt = Convert.ToDateTime(reader["Dt"].ToString()),
+                        Brand = reader["Brand"].ToString(),
+                        Dealer = reader["Dealer"].ToString(),
+                        Address = reader["Address"].ToString(),
+                        Weight = Convert.ToDouble(reader["Weight"].ToString()),
+                        Temp = Convert.ToDouble(reader["Temp"].ToString()),
+                        Density = Convert.ToDouble(reader["Density"].ToString()),
+                        Volume = Convert.ToDouble(reader["Volume"].ToString()),
+                        PumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString()),
+                        VolDiff = Convert.ToDouble(reader["VolDiff"].ToString()),
+                        GeostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
+                        SampleNo = Convert.ToInt32(reader["SampleNo"].ToString()),
+                        Remarks = reader["Remarks"].ToString()
+                    };
+
+                    ret.Add(objLine);
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static bool insert_into_StationGeoData(Station_GeoData data)
         {
             bool ret = false;
@@ -2976,6 +3026,19 @@ namespace PumpLib
         public static string connectionString { get; set; }
     }
 
+    public static class SQLiteDBArch
+    {
+        static SQLiteDBArch()
+        {
+            //string dbFile = Application.StartupPath + "\\DBs\\Stationsdb.db";
+            string dbFile = Application.StartupPath + "\\DBs\\Archived.db";
+            connectionString = "Data Source=" + dbFile + ";Version=3;";
+        }
+
+        //public static string dbFile { get; set; }
+        public static string connectionString { get; set; }
+    }
+
     public static class SqlDBInfo
     {
         static SqlDBInfo()
@@ -3140,16 +3203,30 @@ namespace PumpLib
             return ret;
         }
 
-        public static List<object[]> ArchivedDataToObjectList(List<ImpData> objList)
+        //public static List<object[]> ArchivedDataToObjectList(List<ImpData> objList)
+        //{
+        //    List<object[]> ret = new List<object[]>();
+
+        //    foreach (ImpData thisObj in objList)
+        //    {                
+        //        ret.Add(new object[] { thisObj.receiptDataId, thisObj.accepted, thisObj.vehicleNo, thisObj.strDt,
+        //            thisObj.brand.Name , thisObj.dealer, thisObj.address, thisObj.geostationId, thisObj.product.Name,
+        //            thisObj.weight, thisObj.temp, thisObj.density, thisObj.volume, thisObj.pump, thisObj.pumpVolume,
+        //            thisObj.sampleNo, thisObj.remarks });
+        //    }
+
+        //    return ret;
+        //}
+
+        public static List<object[]> ArchivedDataToObjectList(List<ArchivedData> objList)
         {
             List<object[]> ret = new List<object[]>();
 
-            foreach (ImpData thisObj in objList)
-            {                
-                ret.Add(new object[] { thisObj.receiptDataId, thisObj.accepted, thisObj.vehicleNo, thisObj.strDt,
-                    thisObj.brand.Name , thisObj.dealer, thisObj.address, thisObj.geostationId, thisObj.product.Name,
-                    thisObj.weight, thisObj.temp, thisObj.density, thisObj.volume, thisObj.pump, thisObj.pumpVolume,
-                    thisObj.sampleNo, thisObj.remarks });
+            foreach (ArchivedData thisObj in objList)
+            {
+                ret.Add(new object[] { thisObj.VehicleNo, thisObj.Product, thisObj.Driver, thisObj.Dt, thisObj.Brand, thisObj.Dealer, thisObj.Address,
+                    thisObj.Weight, thisObj.Temp, thisObj.Density, thisObj.Volume, thisObj.PumpVolume, thisObj.VolDiff,
+                    thisObj.GeostationId, thisObj.SampleNo, thisObj.Remarks });
             }
 
             return ret;
