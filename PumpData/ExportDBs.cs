@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using PumpLib;
+
 namespace PumpData
 {
     public partial class ExportDBs : Form
@@ -18,12 +20,16 @@ namespace PumpData
 
         private void btnExportGeoData_Click(object sender, EventArgs e)
         {
-            //
+            DbUtilities dbu = new DbUtilities();
+            dbu.ExportDB_Geostation(); 
         }
 
         private void btnExportPumpInfo_Click(object sender, EventArgs e)
         {
-            //
+            DbUtilities dbu = new DbUtilities();
+            //dbu.ExportDB("PumpInfo.db"); 
         }
+
+        
     }
 }

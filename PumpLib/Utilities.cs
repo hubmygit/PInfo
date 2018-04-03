@@ -2615,6 +2615,181 @@ namespace PumpLib
             return ret;
         }
 
+        public List<Station_GeoData> GetDataFrom_Station_GeoData()
+        {
+            List<Station_GeoData> station_GeoData_List = new List<Station_GeoData>();
+
+            SqlConnection sqlConn1 = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT id, Address, Address2, Address3, [Postal-Code] as PostalCode, Country, Latitude, Longitude, Active FROM [dbo].[Station_GeoData] ORDER BY id ";
+            SqlCommand cmd1 = new SqlCommand(SelectSt, sqlConn1);
+            try
+            {
+                sqlConn1.Open();
+                SqlDataReader reader1 = cmd1.ExecuteReader();
+                while (reader1.Read())
+                {
+                    station_GeoData_List.Add(new Station_GeoData()
+                    {
+                        Id = Convert.ToInt32(reader1["id"].ToString()),
+                        Address = reader1["Address"].ToString(),
+                        Address2 = reader1["Address2"].ToString(),
+                        Address3 = reader1["Address3"].ToString(),
+                        PostalCode = reader1["PostalCode"].ToString(),
+                        Country = reader1["Country"].ToString(),
+                        Latitude = (float)Conversions.stringToDouble(reader1["Latitude"].ToString()),
+                        Longitude = (float)Conversions.stringToDouble(reader1["Longitude"].ToString()),
+                        Active = Convert.ToInt32(reader1["Active"].ToString())
+                    });
+                }
+                reader1.Close();
+                sqlConn1.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            return station_GeoData_List;
+        }
+
+        public List<Station_TimeDependData> GetDataFrom_Station_TimeDependData()
+        {
+            List<Station_TimeDependData> station_TimeDependData_List = new List<Station_TimeDependData>();
+
+            SqlConnection sqlConn1 = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT id, Comp_Name, Company_id FROM [dbo].[Station_TimeDependData] WHERE Current_Rec = 1 ORDER BY id ";
+            SqlCommand cmd1 = new SqlCommand(SelectSt, sqlConn1);
+            try
+            {
+                sqlConn1.Open();
+                SqlDataReader reader1 = cmd1.ExecuteReader();
+                while (reader1.Read())
+                {
+                    station_TimeDependData_List.Add(new Station_TimeDependData()
+                    {
+                         Id = Convert.ToInt32(reader1["id"].ToString()),
+                         Current_Rec = 1,
+                         Comp_Name = reader1["Comp_Name"].ToString(),
+                         Company_Id = Convert.ToInt32(reader1["Company_id"].ToString())
+                    });
+                }
+                reader1.Close();
+                sqlConn1.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            return station_TimeDependData_List;
+        }
+
+        bool DataTo_Station_GeoData(string dbFile, List<Station_GeoData> station_GeoData_List)
+        {
+            bool ret = false;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + dbFile + ";Version=3;");
+
+            try
+            {
+                sqlConn.Open();
+
+                foreach (Station_GeoData station in station_GeoData_List)
+                {
+                    string InsSt = "INSERT INTO [Station_GeoData] (id, Address, Address2, Address3, [Postal-Code], Country, Latitude, Longitude, Active) VALUES " +
+                           "(@id, @Address, @Address2, @Address3, @PostalCode, @Country, @Latitude, @Longitude, @Active) ";
+
+                    SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+
+                    cmd.Parameters.AddWithValue("@id", station.Id);
+                    cmd.Parameters.AddWithValue("@Address", station.Address);
+                    cmd.Parameters.AddWithValue("@Address2", station.Address2);
+                    cmd.Parameters.AddWithValue("@Address3", station.Address3);
+                    cmd.Parameters.AddWithValue("@PostalCode", station.PostalCode);
+                    cmd.Parameters.AddWithValue("@Country", station.Country);
+                    cmd.Parameters.AddWithValue("@Latitude", station.Latitude);
+                    cmd.Parameters.AddWithValue("@Longitude", station.Longitude);
+                    cmd.Parameters.AddWithValue("@Active", station.Active);
+
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        bool DataTo_Station_TimeDependData(string dbFile, List<Station_TimeDependData> station_TimeDependData_List)
+        {
+            bool ret = false;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + dbFile + ";Version=3;");
+
+            try
+            {
+                sqlConn.Open();
+
+                foreach (Station_TimeDependData station in station_TimeDependData_List)
+                {
+                    string InsSt = "INSERT INTO [Station_TimeDependData] (id, UpdDate, Current_Rec, Comp_Name, Company_id) VALUES " +
+                           "(@id, @UpdDate, @Current_Rec, @Comp_Name, @Company_id) ";
+
+                    SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+
+                    cmd.Parameters.AddWithValue("@id", station.Id);
+                    cmd.Parameters.AddWithValue("@UpdDate", "2018-01-01 00:00:00.000");
+                    cmd.Parameters.AddWithValue("@Current_Rec", station.Current_Rec);
+                    cmd.Parameters.AddWithValue("@Comp_Name", station.Comp_Name);
+                    cmd.Parameters.AddWithValue("@Company_id", station.Company_Id);                    
+
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            sqlConn.Close();
+
+            return ret;
+        }
+
+        public void ExportDB_Geostation()
+        {
+            //------------------- copy paste empty db 
+            string Source = Application.StartupPath + "\\EmptyDBs\\StationGeoData.db";
+            string Destination = Application.StartupPath + "\\ExportedDBs\\StationGeoData.db";
+            try
+            {
+                System.IO.File.Copy(Source, Destination, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            //------------------- select from sql server
+
+            List<Station_GeoData> station_GeoData_List = GetDataFrom_Station_GeoData();
+
+            List<Station_TimeDependData> station_TimeDependData_List = GetDataFrom_Station_TimeDependData();
+
+            //------------------- insert into sqlite
+
+            bool Succeeded_Step1 = DataTo_Station_GeoData(Destination, station_GeoData_List);
+
+            bool Succeeded_Step2 = DataTo_Station_TimeDependData(Destination, station_TimeDependData_List);
+
+        }
+
     }
     
 
