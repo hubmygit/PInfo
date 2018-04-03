@@ -27,7 +27,7 @@ namespace PumpData
         private void btnExportPumpInfo_Click(object sender, EventArgs e)
         {
             DbUtilities dbu = new DbUtilities();
-            //dbu.ExportDB("PumpInfo.db"); 
+            dbu.ExportDB_Archived();
         }
 
         

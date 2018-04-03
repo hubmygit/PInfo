@@ -2682,6 +2682,55 @@ namespace PumpLib
             return station_TimeDependData_List;
         }
 
+        public List<ArchivedData> Get_Archived_Data()
+        {
+            List<ArchivedData> ArchivedData_List = new List<ArchivedData>();
+
+            SqlConnection sqlConn1 = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT R.VehicleNo, P.Name as Product, case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver, " +
+                "R.Dt, B.Name as Brand, E.Dealer, E.Address, isnull(R.Weight, 0) as Weight, isnull(R.Temp, 0) as Temp, isnull(R.Density, 0) as Density, isnull(R.Volume, 0) as Volume, isnull(E.PumpVolume, 0) as PumpVolume, " +
+                "convert(decimal(18, 5), round((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0, 5)) as VolDiff, isnull(E.GeostationId, 0) as GeostationId, isnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
+                "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId left outer join Brand B on B.Id = E.BrandId left outer join  Product P on P.Id = E.ProductId " +
+                "WHERE R.Accepted = 1 ORDER BY Dt desc ";
+            SqlCommand cmd1 = new SqlCommand(SelectSt, sqlConn1);
+
+            try
+            {
+                sqlConn1.Open();
+                SqlDataReader reader1 = cmd1.ExecuteReader();
+                while (reader1.Read())
+                {
+                    ArchivedData_List.Add(new ArchivedData()
+                    {
+                        VehicleNo = Convert.ToInt32(reader1["VehicleNo"].ToString()),
+                        Product = reader1["Product"].ToString(),
+                        Driver = reader1["Driver"].ToString(),
+                        Dt = Convert.ToDateTime(reader1["Dt"].ToString()),
+                        Brand = reader1["Brand"].ToString(),
+                        Dealer = reader1["Dealer"].ToString(),
+                        Address = reader1["Address"].ToString(),
+                        Weight = Convert.ToDouble(reader1["Weight"].ToString()),
+                        Temp = Convert.ToDouble(reader1["Temp"].ToString()),
+                        Density = Convert.ToDouble(reader1["Density"].ToString()),
+                        Volume = Convert.ToDouble(reader1["Volume"].ToString()),
+                        PumpVolume = Convert.ToDouble(reader1["PumpVolume"].ToString()),
+                        VolDiff = Convert.ToDouble(reader1["VolDiff"].ToString()),
+                        GeostationId = Convert.ToInt32(reader1["GeostationId"].ToString()),
+                        SampleNo = Convert.ToInt32(reader1["SampleNo"].ToString()),
+                        Remarks = reader1["Remarks"].ToString()
+                    });
+                }
+                reader1.Close();
+                sqlConn1.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ArchivedData_List;
+        }
+
         bool DataTo_Station_GeoData(string dbFile, List<Station_GeoData> station_GeoData_List)
         {
             bool ret = true;
@@ -2774,6 +2823,61 @@ namespace PumpLib
             return ret;
         }
 
+        bool DataTo_Archived(string dbFile, List<ArchivedData> ArchivedData_List)
+        {
+            bool ret = true;
+
+            SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + dbFile + ";Version=3;");
+            SQLiteTransaction tran = null;
+            try
+            {
+                sqlConn.Open();
+
+                SQLiteCommand cmd = new SQLiteCommand(sqlConn);
+                tran = sqlConn.BeginTransaction();
+                cmd.Transaction = tran;
+
+                foreach (ArchivedData thisRec in ArchivedData_List)
+                {
+                    string InsSt = "INSERT INTO [Arch] (VehicleNo, Product, Driver, Dt, Brand, Dealer, Address, Weight, Temp, Density, Volume, PumpVolume, VolDiff, GeostationId, SampleNo, Remarks) VALUES " +
+                           "(@VehicleNo, @Product, @Driver, @Dt, @Brand, @Dealer, @Address, @Weight, @Temp, @Density, @Volume, @PumpVolume, @VolDiff, @GeostationId, @SampleNo, @Remarks) ";
+
+                    cmd.CommandText = InsSt;
+                    //SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+
+                    cmd.Parameters.AddWithValue("@VehicleNo", thisRec.VehicleNo);
+                    cmd.Parameters.AddWithValue("@Product", thisRec.Product);
+                    cmd.Parameters.AddWithValue("@Driver", thisRec.Driver);
+                    cmd.Parameters.AddWithValue("@Dt", thisRec.Dt);
+                    cmd.Parameters.AddWithValue("@Brand", thisRec.Brand);
+                    cmd.Parameters.AddWithValue("@Dealer", thisRec.Dealer);
+                    cmd.Parameters.AddWithValue("@Address", thisRec.Address);
+                    cmd.Parameters.AddWithValue("@Weight", thisRec.Weight);
+                    cmd.Parameters.AddWithValue("@Temp", thisRec.Temp);
+                    cmd.Parameters.AddWithValue("@Density", thisRec.Density);
+                    cmd.Parameters.AddWithValue("@Volume", thisRec.Volume);
+                    cmd.Parameters.AddWithValue("@PumpVolume", thisRec.PumpVolume);
+                    cmd.Parameters.AddWithValue("@VolDiff", thisRec.VolDiff);
+                    cmd.Parameters.AddWithValue("@GeostationId", thisRec.GeostationId);
+                    cmd.Parameters.AddWithValue("@SampleNo", thisRec.SampleNo);
+                    cmd.Parameters.AddWithValue("@Remarks", thisRec.Remarks);
+
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                }
+                tran.Commit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+                ret = false;
+            }
+
+            sqlConn.Close();
+
+            return ret;
+        }
+
         public void ExportDB_Geostation()
         {
             //------------------- copy paste empty db 
@@ -2803,6 +2907,39 @@ namespace PumpLib
             if (Step1 == true && Step2 == true)
             {
                 MessageBox.Show("Η βάση των πρατηρίων δημιουργήθηκε επιτυχώς [" + Destination + "].");
+            }
+            else
+            {
+                MessageBox.Show("Η διαδικασία ολοκληρώθηκε με σφάλματα!\r\nΠαρακαλώ προσπαθήστε ξανά...");
+            }
+
+        }
+
+        public void ExportDB_Archived()
+        {
+            //------------------- copy paste empty db 
+            string Source = Application.StartupPath + "\\EmptyDBs\\Archived.db";
+            string Destination = Application.StartupPath + "\\ExportedDBs\\Archived.db";
+            try
+            {
+                System.IO.File.Copy(Source, Destination, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            //------------------- select from sql server
+
+            List<ArchivedData> ArchivedData_List = Get_Archived_Data();
+
+            //------------------- insert into sqlite
+
+            bool Step1 = DataTo_Archived(Destination, ArchivedData_List);
+
+            if (Step1 == true)
+            {
+                MessageBox.Show("Η βάση των επισκέψεων δημιουργήθηκε επιτυχώς [" + Destination + "].");
             }
             else
             {
@@ -3218,6 +3355,27 @@ namespace PumpLib
         public string Comp_Name { get; set; }
         public int Company_Id { get; set; }
     }
+
+    public class ArchivedData
+    {
+        public int VehicleNo { get; set; }
+        public string Product { get; set; }
+        public string Driver { get; set; }
+        public DateTime Dt { get; set; }
+        public string Brand { get; set; }
+        public string Dealer { get; set; }
+        public string Address { get; set; }
+        public double Weight { get; set; }
+        public double Temp { get; set; }
+        public double Density { get; set; }
+        public double Volume { get; set; }
+        public double PumpVolume { get; set; }
+        public double VolDiff { get; set; }
+        public int GeostationId { get; set; }
+        public int SampleNo { get; set; }
+        public string Remarks { get; set; }
+    }
+
     public class PostalCode
     {
         public string TK { get; set; }
