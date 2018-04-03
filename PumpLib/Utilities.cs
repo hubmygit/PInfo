@@ -2684,20 +2684,25 @@ namespace PumpLib
 
         bool DataTo_Station_GeoData(string dbFile, List<Station_GeoData> station_GeoData_List)
         {
-            bool ret = false;
+            bool ret = true;
 
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + dbFile + ";Version=3;");
-
+            SQLiteTransaction tran = null;
             try
             {
                 sqlConn.Open();
+
+                SQLiteCommand cmd = new SQLiteCommand(sqlConn);
+                tran = sqlConn.BeginTransaction();
+                cmd.Transaction = tran;
 
                 foreach (Station_GeoData station in station_GeoData_List)
                 {
                     string InsSt = "INSERT INTO [Station_GeoData] (id, Address, Address2, Address3, [Postal-Code], Country, Latitude, Longitude, Active) VALUES " +
                            "(@id, @Address, @Address2, @Address3, @PostalCode, @Country, @Latitude, @Longitude, @Active) ";
 
-                    SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+                    cmd.CommandText = InsSt;
+                    //SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
 
                     cmd.Parameters.AddWithValue("@id", station.Id);
                     cmd.Parameters.AddWithValue("@Address", station.Address);
@@ -2711,12 +2716,13 @@ namespace PumpLib
 
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
-                    ret = true;
                 }
+                tran.Commit();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
+                ret = false;
             }
 
             sqlConn.Close();
@@ -2726,20 +2732,25 @@ namespace PumpLib
 
         bool DataTo_Station_TimeDependData(string dbFile, List<Station_TimeDependData> station_TimeDependData_List)
         {
-            bool ret = false;
+            bool ret = true;
 
             SQLiteConnection sqlConn = new SQLiteConnection("Data Source=" + dbFile + ";Version=3;");
-
+            SQLiteTransaction tran = null;
             try
             {
                 sqlConn.Open();
+
+                SQLiteCommand cmd = new SQLiteCommand(sqlConn);
+                tran = sqlConn.BeginTransaction();
+                cmd.Transaction = tran;
 
                 foreach (Station_TimeDependData station in station_TimeDependData_List)
                 {
                     string InsSt = "INSERT INTO [Station_TimeDependData] (id, UpdDate, Current_Rec, Comp_Name, Company_id) VALUES " +
                            "(@id, @UpdDate, @Current_Rec, @Comp_Name, @Company_id) ";
 
-                    SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+                    cmd.CommandText = InsSt;
+                    //SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
 
                     cmd.Parameters.AddWithValue("@id", station.Id);
                     cmd.Parameters.AddWithValue("@UpdDate", "2018-01-01 00:00:00.000");
@@ -2749,12 +2760,13 @@ namespace PumpLib
 
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
-                    ret = true;
                 }
+                tran.Commit();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
+                ret = false;
             }
 
             sqlConn.Close();
@@ -2784,9 +2796,18 @@ namespace PumpLib
 
             //------------------- insert into sqlite
 
-            bool Succeeded_Step1 = DataTo_Station_GeoData(Destination, station_GeoData_List);
+            bool Step1 = DataTo_Station_GeoData(Destination, station_GeoData_List);
 
-            bool Succeeded_Step2 = DataTo_Station_TimeDependData(Destination, station_TimeDependData_List);
+            bool Step2 = DataTo_Station_TimeDependData(Destination, station_TimeDependData_List);
+
+            if (Step1 == true && Step2 == true)
+            {
+                MessageBox.Show("Η βάση των πρατηρίων δημιουργήθηκε επιτυχώς [" + Destination + "].");
+            }
+            else
+            {
+                MessageBox.Show("Η διαδικασία ολοκληρώθηκε με σφάλματα!\r\nΠαρακαλώ προσπαθήστε ξανά...");
+            }
 
         }
 
