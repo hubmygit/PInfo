@@ -22,6 +22,7 @@ namespace PumpInfo
             archivedDataList = DbUtilities.ArchivedSyncData();
 
             cbVehicle.SelectedIndex = 0;
+            cbDrivers.SelectedIndex = 0;
             DateTime dtToday = DateTime.Now.Date;
             dtFrom.Value = new DateTime(dtToday.Year, dtToday.Month, 1).AddMonths(-1);
 
@@ -48,12 +49,18 @@ namespace PumpInfo
             List<ArchivedData> NewList = archivedDataList;
 
             int cbVehicleIndex = cbVehicle.SelectedIndex;
+            int cbDriversIndex = cbDrivers.SelectedIndex;
 
             if (cbVehicleIndex > 0) //all
             {
                 NewList = NewList.Where(i => i.VehicleNo == cbVehicleIndex).ToList(); //1.Βενζίνη 2.Diesel
             }
-            
+
+            if (cbDriversIndex > 0) //all
+            {
+                NewList = NewList.Where(i => i.Driver == cbDrivers.SelectedItem.ToString()).ToList(); //1.Βασίλης 2.Ιωσήφ
+            }
+
             DateTime dtFromDate = dtFrom.Value.Date;
             DateTime dtToDate = dtTo.Value.Date;
 
@@ -63,6 +70,9 @@ namespace PumpInfo
 
             List<object[]> objList = GridViewUtils.ArchivedDataToObjectList(NewList);
             GridViewUtils.ShowDataToDataGridView(dgvReceiptData, objList);
+
+            RowsForeColorFromVolDiff(dgvReceiptData);
+
             dgvReceiptData.ClearSelection();
         }
 
@@ -118,6 +128,70 @@ namespace PumpInfo
 
                 frmMap.Dispose_gMap();
             }
+        }
+
+        private void RowsForeColorFromVolDiff(DataGridView dgv)
+        {
+            if (!cbColorMode.Checked)
+            {
+                for (int i = 0; i < dgv.Rows.Count; i++)
+                {
+                    try
+                    {
+                        dgv.Rows[i].DefaultCellStyle.ForeColor = new System.Drawing.Color(); //default: ControlText;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                double diffPercVal = 0.0;
+                for (int i = 0; i < dgv.Rows.Count; i++)
+                {
+                    try
+                    {
+                        diffPercVal = Convert.ToDouble(dgv["VolDiff", i].Value);
+
+                        if (diffPercVal < -0.5)
+                        {
+                            dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
+                        }
+                        else if (diffPercVal > 0.5)
+                        {
+                            dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Blue;
+                        }
+                        else if (diffPercVal >= 0 && diffPercVal <= 0.5)
+                        {
+                            dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Green;
+                        }
+                        else if (diffPercVal < 0 && diffPercVal >= -0.5)
+                        {
+                            dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Orange;
+                        }
+
+                        //dgv.DefaultCellStyle.Font = new Font(dgv.DefaultCellStyle.Font, FontStyle.Bold);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void cbColorMode_CheckedChanged(object sender, EventArgs e)
+        {
+            RowsForeColorFromVolDiff(dgvReceiptData);
+        }
+
+        private void cbDrivers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyFilters();
         }
     }
 }

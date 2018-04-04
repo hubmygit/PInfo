@@ -3224,7 +3224,7 @@ namespace PumpLib
 
             foreach (ArchivedData thisObj in objList)
             {
-                ret.Add(new object[] { thisObj.VehicleNo, thisObj.Product, thisObj.Driver, thisObj.Dt, thisObj.Brand, thisObj.Dealer, thisObj.Address,
+                ret.Add(new object[] { thisObj.VehicleNo, thisObj.Product, thisObj.Driver, thisObj.Dt.ToString("dd.MM.yyyy HH:mm"), thisObj.Brand, thisObj.Dealer, thisObj.Address,
                     thisObj.Weight, thisObj.Temp, thisObj.Density, thisObj.Volume, thisObj.PumpVolume, thisObj.VolDiff,
                     thisObj.GeostationId, thisObj.SampleNo, thisObj.Remarks });
             }

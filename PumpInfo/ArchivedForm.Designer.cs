@@ -55,6 +55,8 @@
             this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbColorMode = new System.Windows.Forms.CheckBox();
+            this.cbDrivers = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -125,7 +127,7 @@
             "Όλα τα οχήματα",
             "Όχημα 1 - Βενζίνη",
             "Όχημα 2 - Diesel"});
-            this.cbVehicle.Location = new System.Drawing.Point(12, 28);
+            this.cbVehicle.Location = new System.Drawing.Point(12, 12);
             this.cbVehicle.Name = "cbVehicle";
             this.cbVehicle.Size = new System.Drawing.Size(200, 24);
             this.cbVehicle.TabIndex = 29;
@@ -202,6 +204,7 @@
             this.Driver.HeaderText = "Driver";
             this.Driver.Name = "Driver";
             this.Driver.ReadOnly = true;
+            this.Driver.Width = 75;
             // 
             // gridDateTime
             // 
@@ -271,6 +274,7 @@
             this.VolDiff.HeaderText = "VolDiff";
             this.VolDiff.Name = "VolDiff";
             this.VolDiff.ReadOnly = true;
+            this.VolDiff.Width = 80;
             // 
             // GeostationId
             // 
@@ -293,11 +297,40 @@
             this.Remarks.ReadOnly = true;
             this.Remarks.Width = 75;
             // 
+            // cbColorMode
+            // 
+            this.cbColorMode.AutoSize = true;
+            this.cbColorMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbColorMode.Location = new System.Drawing.Point(838, 31);
+            this.cbColorMode.Name = "cbColorMode";
+            this.cbColorMode.Size = new System.Drawing.Size(168, 20);
+            this.cbColorMode.TabIndex = 42;
+            this.cbColorMode.Text = "Volume Diff Color Mode";
+            this.cbColorMode.UseVisualStyleBackColor = true;
+            this.cbColorMode.CheckedChanged += new System.EventHandler(this.cbColorMode_CheckedChanged);
+            // 
+            // cbDrivers
+            // 
+            this.cbDrivers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDrivers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbDrivers.FormattingEnabled = true;
+            this.cbDrivers.Items.AddRange(new object[] {
+            "Όλοι οι οδηγοί",
+            "Βασίλης",
+            "Ιωσήφ"});
+            this.cbDrivers.Location = new System.Drawing.Point(12, 42);
+            this.cbDrivers.Name = "cbDrivers";
+            this.cbDrivers.Size = new System.Drawing.Size(200, 24);
+            this.cbDrivers.TabIndex = 43;
+            this.cbDrivers.SelectedIndexChanged += new System.EventHandler(this.cbDrivers_SelectedIndexChanged);
+            // 
             // ArchivedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 502);
+            this.Controls.Add(this.cbDrivers);
+            this.Controls.Add(this.cbColorMode);
             this.Controls.Add(this.btnGeostation);
             this.Controls.Add(this.lblDtTo);
             this.Controls.Add(this.lblDtFrom);
@@ -340,5 +373,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
+        private System.Windows.Forms.CheckBox cbColorMode;
+        private System.Windows.Forms.ComboBox cbDrivers;
     }
 }
