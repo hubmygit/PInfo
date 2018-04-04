@@ -2550,7 +2550,7 @@ namespace PumpLib
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBArch.connectionString);
 
-            string SelectSt = "SELECT VehicleNo, Product, Driver, datetime(Dt) as Dt, Brand, Dealer, Address, Weight, Temp, Density, Volume, " +
+            string SelectSt = "SELECT VehicleNo, Product, Driver, datetime(Dt) as Dt, Brand, Dealer, Address, Weight, Temp, Density, Volume, Pump, " +
                 "ifnull(PumpVolume,0) as PumpVolume, VolDiff, ifnull(GeostationId,0) as GeostationId, ifnull(SampleNo,0) as SampleNo, Remarks " +
                 "FROM [Arch] ";
 
@@ -2574,6 +2574,7 @@ namespace PumpLib
                         Temp = Convert.ToDouble(reader["Temp"].ToString()),
                         Density = Convert.ToDouble(reader["Density"].ToString()),
                         Volume = Convert.ToDouble(reader["Volume"].ToString()),
+                        Pump = reader["Pump"].ToString(),
                         PumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString()),
                         VolDiff = Convert.ToDouble(reader["VolDiff"].ToString()),
                         GeostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
@@ -2738,7 +2739,7 @@ namespace PumpLib
 
             SqlConnection sqlConn1 = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT R.VehicleNo, P.Name as Product, case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver, " +
-                "R.Dt, B.Name as Brand, E.Dealer, E.Address, isnull(R.Weight, 0) as Weight, isnull(R.Temp, 0) as Temp, isnull(R.Density, 0) as Density, isnull(R.Volume, 0) as Volume, isnull(E.PumpVolume, 0) as PumpVolume, " +
+                "R.Dt, B.Name as Brand, E.Dealer, E.Address, isnull(R.Weight, 0) as Weight, isnull(R.Temp, 0) as Temp, isnull(R.Density, 0) as Density, isnull(R.Volume, 0) as Volume, E.Pump, isnull(E.PumpVolume, 0) as PumpVolume, " +
                 "convert(decimal(18, 5), round((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0, 5)) as VolDiff, isnull(E.GeostationId, 0) as GeostationId, isnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
                 "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId left outer join Brand B on B.Id = E.BrandId left outer join  Product P on P.Id = E.ProductId " +
                 "WHERE R.Accepted = 1 ORDER BY Dt desc ";
@@ -2763,6 +2764,7 @@ namespace PumpLib
                         Temp = Convert.ToDouble(reader1["Temp"].ToString()),
                         Density = Convert.ToDouble(reader1["Density"].ToString()),
                         Volume = Convert.ToDouble(reader1["Volume"].ToString()),
+                        Pump = reader1["Pump"].ToString(),
                         PumpVolume = Convert.ToDouble(reader1["PumpVolume"].ToString()),
                         VolDiff = Convert.ToDouble(reader1["VolDiff"].ToString()),
                         GeostationId = Convert.ToInt32(reader1["GeostationId"].ToString()),
@@ -2889,8 +2891,8 @@ namespace PumpLib
 
                 foreach (ArchivedData thisRec in ArchivedData_List)
                 {
-                    string InsSt = "INSERT INTO [Arch] (VehicleNo, Product, Driver, Dt, Brand, Dealer, Address, Weight, Temp, Density, Volume, PumpVolume, VolDiff, GeostationId, SampleNo, Remarks) VALUES " +
-                           "(@VehicleNo, @Product, @Driver, @Dt, @Brand, @Dealer, @Address, @Weight, @Temp, @Density, @Volume, @PumpVolume, @VolDiff, @GeostationId, @SampleNo, @Remarks) ";
+                    string InsSt = "INSERT INTO [Arch] (VehicleNo, Product, Driver, Dt, Brand, Dealer, Address, Weight, Temp, Density, Volume, Pump, PumpVolume, VolDiff, GeostationId, SampleNo, Remarks) VALUES " +
+                           "(@VehicleNo, @Product, @Driver, @Dt, @Brand, @Dealer, @Address, @Weight, @Temp, @Density, @Volume, @Pump, @PumpVolume, @VolDiff, @GeostationId, @SampleNo, @Remarks) ";
 
                     cmd.CommandText = InsSt;
                     //SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
@@ -2906,6 +2908,7 @@ namespace PumpLib
                     cmd.Parameters.AddWithValue("@Temp", thisRec.Temp);
                     cmd.Parameters.AddWithValue("@Density", thisRec.Density);
                     cmd.Parameters.AddWithValue("@Volume", thisRec.Volume);
+                    cmd.Parameters.AddWithValue("@Pump", thisRec.Pump);
                     cmd.Parameters.AddWithValue("@PumpVolume", thisRec.PumpVolume);
                     cmd.Parameters.AddWithValue("@VolDiff", thisRec.VolDiff);
                     cmd.Parameters.AddWithValue("@GeostationId", thisRec.GeostationId);
@@ -3225,7 +3228,7 @@ namespace PumpLib
             foreach (ArchivedData thisObj in objList)
             {
                 ret.Add(new object[] { thisObj.VehicleNo, thisObj.Product, thisObj.Driver, thisObj.Dt.ToString("dd.MM.yyyy HH:mm"), thisObj.Brand, thisObj.Dealer, thisObj.Address,
-                    thisObj.Weight, thisObj.Temp, thisObj.Density, thisObj.Volume, thisObj.PumpVolume, thisObj.VolDiff,
+                    thisObj.Weight, thisObj.Temp, thisObj.Density, thisObj.Volume, thisObj.Pump, thisObj.PumpVolume, thisObj.VolDiff,
                     thisObj.GeostationId, thisObj.SampleNo, thisObj.Remarks });
             }
 
@@ -3446,6 +3449,7 @@ namespace PumpLib
         public double Temp { get; set; }
         public double Density { get; set; }
         public double Volume { get; set; }
+        public string Pump { get; set; }
         public double PumpVolume { get; set; }
         public double VolDiff { get; set; }
         public int GeostationId { get; set; }

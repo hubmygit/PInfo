@@ -94,6 +94,7 @@ namespace PumpData
             GridViewUtils.ShowDataToDataGridView(dgvReceiptData, ObjRows);
 
             RowsForeColorFromVolDiff(dgvReceiptData);
+            dgvReceiptData.ClearSelection();
             //lblGridCounter.Text = "Εγγραφές: " + filteredLines.Count.ToString();
             toolStripCounter.Text = "Εγγραφές: " + filteredLines.Count.ToString();
             //dgvReceiptData.ClearSelection(); //

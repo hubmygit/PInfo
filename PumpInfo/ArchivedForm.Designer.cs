@@ -39,6 +39,8 @@
             this.lblDtFrom = new System.Windows.Forms.Label();
             this.lblDtTo = new System.Windows.Forms.Label();
             this.btnGeostation = new System.Windows.Forms.Button();
+            this.cbColorMode = new System.Windows.Forms.CheckBox();
+            this.cbDrivers = new System.Windows.Forms.ComboBox();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Driver = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,13 +52,12 @@
             this.Temp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Density = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pump = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PumpVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VolDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cbColorMode = new System.Windows.Forms.CheckBox();
-            this.cbDrivers = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,6 +89,7 @@
             this.Temp,
             this.Density,
             this.Volume,
+            this.Pump,
             this.PumpVolume,
             this.VolDiff,
             this.GeostationId,
@@ -186,6 +188,33 @@
             this.btnGeostation.UseVisualStyleBackColor = true;
             this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
             // 
+            // cbColorMode
+            // 
+            this.cbColorMode.AutoSize = true;
+            this.cbColorMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbColorMode.Location = new System.Drawing.Point(838, 31);
+            this.cbColorMode.Name = "cbColorMode";
+            this.cbColorMode.Size = new System.Drawing.Size(168, 20);
+            this.cbColorMode.TabIndex = 42;
+            this.cbColorMode.Text = "Volume Diff Color Mode";
+            this.cbColorMode.UseVisualStyleBackColor = true;
+            this.cbColorMode.CheckedChanged += new System.EventHandler(this.cbColorMode_CheckedChanged);
+            // 
+            // cbDrivers
+            // 
+            this.cbDrivers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDrivers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbDrivers.FormattingEnabled = true;
+            this.cbDrivers.Items.AddRange(new object[] {
+            "Όλοι οι οδηγοί",
+            "Βασίλης",
+            "Ιωσήφ"});
+            this.cbDrivers.Location = new System.Drawing.Point(12, 42);
+            this.cbDrivers.Name = "cbDrivers";
+            this.cbDrivers.Size = new System.Drawing.Size(200, 24);
+            this.cbDrivers.TabIndex = 43;
+            this.cbDrivers.SelectedIndexChanged += new System.EventHandler(this.cbDrivers_SelectedIndexChanged);
+            // 
             // Vehicle
             // 
             this.Vehicle.HeaderText = "Vehicle";
@@ -262,6 +291,12 @@
             this.Volume.ReadOnly = true;
             this.Volume.Width = 66;
             // 
+            // Pump
+            // 
+            this.Pump.HeaderText = "Pump";
+            this.Pump.Name = "Pump";
+            this.Pump.ReadOnly = true;
+            // 
             // PumpVolume
             // 
             this.PumpVolume.HeaderText = "PumpVolume";
@@ -297,33 +332,6 @@
             this.Remarks.ReadOnly = true;
             this.Remarks.Width = 75;
             // 
-            // cbColorMode
-            // 
-            this.cbColorMode.AutoSize = true;
-            this.cbColorMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbColorMode.Location = new System.Drawing.Point(838, 31);
-            this.cbColorMode.Name = "cbColorMode";
-            this.cbColorMode.Size = new System.Drawing.Size(168, 20);
-            this.cbColorMode.TabIndex = 42;
-            this.cbColorMode.Text = "Volume Diff Color Mode";
-            this.cbColorMode.UseVisualStyleBackColor = true;
-            this.cbColorMode.CheckedChanged += new System.EventHandler(this.cbColorMode_CheckedChanged);
-            // 
-            // cbDrivers
-            // 
-            this.cbDrivers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbDrivers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbDrivers.FormattingEnabled = true;
-            this.cbDrivers.Items.AddRange(new object[] {
-            "Όλοι οι οδηγοί",
-            "Βασίλης",
-            "Ιωσήφ"});
-            this.cbDrivers.Location = new System.Drawing.Point(12, 42);
-            this.cbDrivers.Name = "cbDrivers";
-            this.cbDrivers.Size = new System.Drawing.Size(200, 24);
-            this.cbDrivers.TabIndex = 43;
-            this.cbDrivers.SelectedIndexChanged += new System.EventHandler(this.cbDrivers_SelectedIndexChanged);
-            // 
             // ArchivedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -357,6 +365,8 @@
         private System.Windows.Forms.Label lblDtFrom;
         private System.Windows.Forms.Label lblDtTo;
         public System.Windows.Forms.Button btnGeostation;
+        private System.Windows.Forms.CheckBox cbColorMode;
+        private System.Windows.Forms.ComboBox cbDrivers;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
         private System.Windows.Forms.DataGridViewTextBoxColumn Product;
         private System.Windows.Forms.DataGridViewTextBoxColumn Driver;
@@ -368,12 +378,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Temp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Density;
         private System.Windows.Forms.DataGridViewTextBoxColumn Volume;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Pump;
         private System.Windows.Forms.DataGridViewTextBoxColumn PumpVolume;
         private System.Windows.Forms.DataGridViewTextBoxColumn VolDiff;
         private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
-        private System.Windows.Forms.CheckBox cbColorMode;
-        private System.Windows.Forms.ComboBox cbDrivers;
     }
 }
