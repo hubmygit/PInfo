@@ -42,6 +42,9 @@ namespace PumpLib
         public double pumpVolume = 0.0;
         public int sampleNo = 0;
         public string remarks = "";
+
+        public string receiptNo = "";
+        public double receiptPrice = 0.0;
         
         public int geostationId = 0;
         public Coordinates realCoordinates = new Coordinates();
@@ -77,7 +80,7 @@ namespace PumpLib
         }
 
         //public void addExtraData(string Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
-        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, double PumpVolume, int SampleNo, string Remarks, int GeostationId, Coordinates RealCoordinates)
+        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, double PumpVolume, int SampleNo, string Remarks, int GeostationId, Coordinates RealCoordinates, string ReceiptNo, double ReceiptPrice)
         {
             accepted = true;
 
@@ -91,6 +94,8 @@ namespace PumpLib
             remarks = Remarks;
             geostationId = GeostationId;
             realCoordinates = RealCoordinates;
+            receiptNo = ReceiptNo;
+            receiptPrice = ReceiptPrice;
         }
 
         public void copyExtraData(ImpData otherObj)
@@ -107,6 +112,8 @@ namespace PumpLib
             remarks = otherObj.remarks;
             geostationId = otherObj.geostationId;
             realCoordinates = otherObj.realCoordinates;
+            receiptNo = otherObj.receiptNo;
+            receiptPrice = otherObj.receiptPrice;
         }
 
         public void removeExtraData()
@@ -123,6 +130,8 @@ namespace PumpLib
             pumpVolume = 0.0;
             sampleNo = 0;
             remarks = "";
+            receiptNo = "";
+            receiptPrice = 0.0;
             geostationId = 0;
             realCoordinates = new Coordinates();
         }
@@ -381,8 +390,8 @@ namespace PumpLib
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume], [SampleNo], [Remarks], [GeostationId], [CooLong], [CooLat]) VALUES " +
-                           "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId, @CooLong, @CooLat) ";
+            string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume], [SampleNo], [Remarks], [GeostationId], [CooLong], [CooLat], [ReceiptNo], [ReceiptPrice]) VALUES " +
+                           "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId, @CooLong, @CooLat, @ReceiptNo, @ReceiptPrice) ";
             try
             {
                 sqlConn.Open();
@@ -400,6 +409,8 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@GeostationId", extraData.geostationId);
                 cmd.Parameters.AddWithValue("@CooLong", extraData.realCoordinates.longitude);
                 cmd.Parameters.AddWithValue("@CooLat", extraData.realCoordinates.latitude);
+                cmd.Parameters.AddWithValue("@ReceiptNo", extraData.receiptNo);
+                cmd.Parameters.AddWithValue("@ReceiptPrice", extraData.receiptPrice);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -839,8 +850,8 @@ namespace PumpLib
             SQLiteCommand cmd = new SQLiteCommand("SELECT RD.Id, RD.VehicleNo, datetime(RD.Dt) as Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
                                                   "RD.Accepted, ifnull(RD.ProcessedGroupId,0) as ProcessedGroupId, ifnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
                                                   "ifnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, " +
-                                                  "ifnull(ED.SampleNo,0) as SampleNo, ED.Remarks, ifnull(ED.GeostationId,0) as GeostationId, " + 
-                                                  "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat " +
+                                                  "ifnull(ED.SampleNo,0) as SampleNo, ED.Remarks, ifnull(ED.GeostationId,0) as GeostationId, " +
+                                                  "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat, ED.ReceiptNo, ifnull(ED.ReceiptPrice,0) as ReceiptPrice " +
                 " FROM [receiptData] RD left outer join [extraData] ED on RD.Id = ED.ReceiptDataId " +
                 " WHERE ifnull(RD.[ExportedGroupId], 0) = @ExportedGroupId ", sqlConn);
 
@@ -891,6 +902,8 @@ namespace PumpLib
                         objLine.remarks = reader["Remarks"].ToString();
                         objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
                         objLine.realCoordinates = new Coordinates() { longitude = reader["RealCooLong"].ToString().Replace(",", "."), latitude = reader["RealCooLat"].ToString().Replace(",", ".") };
+                        objLine.receiptNo = reader["ReceiptNo"].ToString();
+                        objLine.receiptPrice = Convert.ToDouble(reader["ReceiptPrice"].ToString());
                     }
 
                     ret.Add(objLine);
@@ -916,7 +929,7 @@ namespace PumpLib
                                             "isnull(RD.Accepted,0) as Accepted, isnull(RD.ProcessedGroupId,0) as ProcessedGroupId, isnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
                                             "isnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, B.Name as BName, ED.Dealer, ED.Address, ED.ProductId, P.Name as PName, ED.Pump, ED.PumpVolume, " +
                                             "isnull(ED.SampleNo,0) as SampleNo, isnull(RD.MachineNo,0) as MachineNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId, " +
-                                            "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat, PG.Name as ProductGroup " +
+                                            "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat, PG.Name as ProductGroup, ED.ReceiptNo, isnull(ED.ReceiptPrice, 0) as ReceiptPrice " +
                                             //" ,SV.Address as GeoAddr1, SV.Address2 as GeoAddr2, SV.Address3 as GeoAddr3, SV.[Postal-Code] as PostalCode, SV.Country, SV.Latitude as GeoLat, SV.Longitude as GeoLong, SV.UpdDate as GeoDt, SV.Comp_Name " + 
                                             " FROM [dbo].[receiptData] RD left outer join " +
                                             "[dbo].[extraData] ED on RD.Id = ED.ReceiptDataId left outer join " +
@@ -972,6 +985,8 @@ namespace PumpLib
                         objLine.remarks = reader["Remarks"].ToString();
                         objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
                         objLine.realCoordinates = new Coordinates() { longitude = reader["RealCooLong"].ToString().Replace(",", "."), latitude = reader["RealCooLat"].ToString().Replace(",", ".") };
+                        objLine.receiptNo = reader["ReceiptNo"].ToString();
+                        objLine.receiptPrice = Convert.ToDouble(reader["ReceiptPrice"].ToString());
                     }
                                         
                         //brand Name -> constructor...new Brand(int id) --id = BrandId / name = DbUtilities.GetBrandsList()                         

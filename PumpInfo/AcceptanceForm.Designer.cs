@@ -78,6 +78,10 @@
             this.lblPumpDex = new System.Windows.Forms.Label();
             this.lblPumpAntlia = new System.Windows.Forms.Label();
             this.lblPumpAkrof = new System.Windows.Forms.Label();
+            this.txtReceiptNo = new System.Windows.Forms.TextBox();
+            this.lblReceiptΝο = new System.Windows.Forms.Label();
+            this.txtReceiptPrice = new System.Windows.Forms.TextBox();
+            this.lblReceiptPrice = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).BeginInit();
             this.SuspendLayout();
             // 
@@ -342,7 +346,7 @@
             // 
             this.lblRemarks.AutoSize = true;
             this.lblRemarks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblRemarks.Location = new System.Drawing.Point(68, 403);
+            this.lblRemarks.Location = new System.Drawing.Point(68, 446);
             this.lblRemarks.Name = "lblRemarks";
             this.lblRemarks.Size = new System.Drawing.Size(63, 16);
             this.lblRemarks.TabIndex = 33;
@@ -351,7 +355,7 @@
             // txtRemarks
             // 
             this.txtRemarks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtRemarks.Location = new System.Drawing.Point(137, 400);
+            this.txtRemarks.Location = new System.Drawing.Point(137, 425);
             this.txtRemarks.Multiline = true;
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -394,7 +398,7 @@
             // 
             this.lblRealLat.AutoSize = true;
             this.lblRealLat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblRealLat.Location = new System.Drawing.Point(68, 199);
+            this.lblRealLat.Location = new System.Drawing.Point(73, 199);
             this.lblRealLat.Name = "lblRealLat";
             this.lblRealLat.Size = new System.Drawing.Size(58, 16);
             this.lblRealLat.TabIndex = 39;
@@ -555,12 +559,53 @@
             this.lblPumpAkrof.TabIndex = 52;
             this.lblPumpAkrof.Text = "Ακροφύσιο";
             // 
+            // txtReceiptNo
+            // 
+            this.txtReceiptNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtReceiptNo.Location = new System.Drawing.Point(137, 378);
+            this.txtReceiptNo.Name = "txtReceiptNo";
+            this.txtReceiptNo.Size = new System.Drawing.Size(161, 22);
+            this.txtReceiptNo.TabIndex = 53;
+            // 
+            // lblReceiptΝο
+            // 
+            this.lblReceiptΝο.AutoSize = true;
+            this.lblReceiptΝο.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblReceiptΝο.Location = new System.Drawing.Point(55, 381);
+            this.lblReceiptΝο.Name = "lblReceiptΝο";
+            this.lblReceiptΝο.Size = new System.Drawing.Size(76, 16);
+            this.lblReceiptΝο.TabIndex = 55;
+            this.lblReceiptΝο.Text = "Receipt Νο";
+            // 
+            // txtReceiptPrice
+            // 
+            this.txtReceiptPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtReceiptPrice.Location = new System.Drawing.Point(367, 378);
+            this.txtReceiptPrice.Name = "txtReceiptPrice";
+            this.txtReceiptPrice.Size = new System.Drawing.Size(50, 22);
+            this.txtReceiptPrice.TabIndex = 56;
+            this.txtReceiptPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtReceiptPrice_KeyPress);
+            // 
+            // lblReceiptPrice
+            // 
+            this.lblReceiptPrice.AutoSize = true;
+            this.lblReceiptPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblReceiptPrice.Location = new System.Drawing.Point(304, 381);
+            this.lblReceiptPrice.Name = "lblReceiptPrice";
+            this.lblReceiptPrice.Size = new System.Drawing.Size(57, 16);
+            this.lblReceiptPrice.TabIndex = 57;
+            this.lblReceiptPrice.Text = "Price (€)";
+            // 
             // AcceptanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(904, 502);
+            this.Controls.Add(this.lblReceiptPrice);
+            this.Controls.Add(this.txtReceiptPrice);
+            this.Controls.Add(this.lblReceiptΝο);
+            this.Controls.Add(this.txtReceiptNo);
             this.Controls.Add(this.lblPumpAkrof);
             this.Controls.Add(this.lblPumpAntlia);
             this.Controls.Add(this.lblPumpDex);
@@ -659,5 +704,9 @@
         private System.Windows.Forms.Label lblPumpDex;
         private System.Windows.Forms.Label lblPumpAntlia;
         private System.Windows.Forms.Label lblPumpAkrof;
+        private System.Windows.Forms.TextBox txtReceiptNo;
+        private System.Windows.Forms.Label lblReceiptΝο;
+        private System.Windows.Forms.TextBox txtReceiptPrice;
+        private System.Windows.Forms.Label lblReceiptPrice;
     }
 }

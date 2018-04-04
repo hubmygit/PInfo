@@ -66,6 +66,9 @@ namespace PumpInfo
                 txtSampleNo.Text = obj.sampleNo.ToString();
                 txtRemarks.Text = obj.remarks;
 
+                txtReceiptNo.Text = obj.receiptNo;
+                txtReceiptPrice.Text = obj.receiptPrice.ToString();
+
                 //!!!!!! fill geostationId !!!!!!
                 lblGeostationId.Text = obj.geostationId.ToString();
 
@@ -116,7 +119,8 @@ namespace PumpInfo
                 obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct),
                                  txtPumpDex.Text + "/" + txtPumpAntlia.Text + "/" + txtPumpAkrof.Text, //txtPump.Text, 
                                  Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text,
-                                 Convert.ToInt32(lblGeostationId.Text), new Coordinates() { latitude = txtRealLat.Text, longitude = txtRealLong.Text });
+                                 Convert.ToInt32(lblGeostationId.Text), new Coordinates() { latitude = txtRealLat.Text, longitude = txtRealLong.Text },
+                                 txtReceiptNo.Text, Convert.ToDouble(txtReceiptPrice.Text));
                 //getComboboxItem_Brand
 
                 recordAction = RecordAction.Update;
@@ -136,7 +140,8 @@ namespace PumpInfo
                 obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct),
                                  txtPumpDex.Text + "/" + txtPumpAntlia.Text + "/" + txtPumpAkrof.Text, //txtPump.Text, 
                                  Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text, 
-                                 Convert.ToInt32(lblGeostationId.Text), new Coordinates() { latitude = txtRealLat.Text, longitude = txtRealLong.Text });
+                                 Convert.ToInt32(lblGeostationId.Text), new Coordinates() { latitude = txtRealLat.Text, longitude = txtRealLong.Text },
+                                 txtReceiptNo.Text, Convert.ToDouble(txtReceiptPrice.Text));
 
                 recordAction = RecordAction.Insert;
 
@@ -360,6 +365,24 @@ namespace PumpInfo
         {
             tpRealLatLong.SetToolTip(btnRealLatLong, "Εύρεση Πραγματικών Συντεταγμένων");
             tpGeostation.SetToolTip(btnMap, "Εύρεση Πρατηρίου στο Χάρτη");
+        }
+
+        private void txtReceiptPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 44 && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+
+            if ((((TextBox)sender).Text.IndexOf(",") >= 0 || ((TextBox)sender).Text.Trim() == "" || ((TextBox)sender).SelectionStart == 0) &&
+                e.KeyChar == 44) //only one decimal point & not first character
+            {
+                e.Handled = true;
+            }
+
+            //48 - 57 will be numbers
+            //44 or 46 - decimal point (44: "," & 46: ".")
+            //8 - backspace
         }
     }
 }
