@@ -1844,6 +1844,110 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<Vehicle> GetSqliteVehiclesList()
+        {
+            List<Vehicle> ret = new List<Vehicle>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT V.Id, P.Name FROM [Vehicles] V LEFT OUTER JOIN [ProductGroup] P ON V.ProductGroupId = P.Id ORDER BY V.Id ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Vehicle() { Id = Convert.ToInt32(reader["Id"].ToString()), ProductGroupName = reader["Name"].ToString()});
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<Districts> GetSqliteDistrictsList()
+        {
+            List<Districts> ret = new List<Districts>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+            string SelectSt = "SELECT Id, Name FROM [Districts] ORDER BY Id ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Districts() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<Nomoi> GetSqliteNomoiList()
+        {
+            List<Nomoi> ret = new List<Nomoi>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+            string SelectSt = "SELECT Id, Name, Districts_Id FROM [Geo_Nomos] ORDER BY Name ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Nomoi() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString(), DistrictId = Convert.ToInt32(reader["Districts_Id"].ToString()) });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<Perioxes> GetSqlitePerioxesList()
+        {
+            List<Perioxes> ret = new List<Perioxes>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+            string SelectSt = "SELECT Id, Name, Geo_Nomos_Id FROM [Geo_Perioxh] ORDER BY Name ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Perioxes() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString(), Geo_Nomos_Id = Convert.ToInt32(reader["Geo_Nomos_Id"].ToString()) });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<ComboboxItem> GetVehiclesComboboxItemsList(List<Vehicle> Vehicles)
         {
             List<ComboboxItem> ret = new List<ComboboxItem>();
@@ -3470,6 +3574,36 @@ namespace PumpLib
         public int GeostationId { get; set; }
         public int SampleNo { get; set; }
         public string Remarks { get; set; }
+    }
+
+    public class Districts
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public Districts()
+        {
+        }
+    }
+    public class Nomoi
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int DistrictId { get; set; }
+
+        public Nomoi()
+        {
+        }
+    }
+
+    public class Perioxes
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Geo_Nomos_Id { get; set; }
+        public Perioxes()
+        {
+        }
     }
 
     public class PostalCode

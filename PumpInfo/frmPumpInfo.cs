@@ -282,5 +282,11 @@ namespace PumpInfo
             SyncDbs SuncFrm = new SyncDbs();
             SuncFrm.ShowDialog();
         }
+
+        private void btnScheduler_Click(object sender, EventArgs e)
+        {
+            Scheduler frmSch = new Scheduler();
+            frmSch.ShowDialog();
+        }
     }
 }

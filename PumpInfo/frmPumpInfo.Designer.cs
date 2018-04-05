@@ -45,11 +45,12 @@
             this.Density = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblCountExported = new System.Windows.Forms.Label();
+            this.btnScheduler = new System.Windows.Forms.Button();
+            this.btnSynchDbs = new System.Windows.Forms.Button();
             this.btnArchived = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
-            this.btnSynchDbs = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -195,6 +196,34 @@
             this.lblCountExported.TabIndex = 14;
             this.lblCountExported.Text = "Εγγραφές: 0";
             // 
+            // btnScheduler
+            // 
+            this.btnScheduler.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnScheduler.Image = global::PumpInfo.Properties.Resources.TemporalTable_32x;
+            this.btnScheduler.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnScheduler.Location = new System.Drawing.Point(456, 12);
+            this.btnScheduler.Name = "btnScheduler";
+            this.btnScheduler.Size = new System.Drawing.Size(135, 40);
+            this.btnScheduler.TabIndex = 17;
+            this.btnScheduler.Text = "Πλάνο";
+            this.btnScheduler.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnScheduler.UseVisualStyleBackColor = true;
+            this.btnScheduler.Click += new System.EventHandler(this.btnScheduler_Click);
+            // 
+            // btnSynchDbs
+            // 
+            this.btnSynchDbs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSynchDbs.Image = global::PumpInfo.Properties.Resources.SynchronizeDatabase_32x;
+            this.btnSynchDbs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSynchDbs.Location = new System.Drawing.Point(174, 12);
+            this.btnSynchDbs.Name = "btnSynchDbs";
+            this.btnSynchDbs.Size = new System.Drawing.Size(135, 40);
+            this.btnSynchDbs.TabIndex = 16;
+            this.btnSynchDbs.Text = "Sync";
+            this.btnSynchDbs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSynchDbs.UseVisualStyleBackColor = true;
+            this.btnSynchDbs.Click += new System.EventHandler(this.btnSynchDbs_Click);
+            // 
             // btnArchived
             // 
             this.btnArchived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -253,25 +282,12 @@
             this.btnOpenFile.UseVisualStyleBackColor = true;
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
-            // btnSynchDbs
-            // 
-            this.btnSynchDbs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSynchDbs.Image = global::PumpInfo.Properties.Resources.SynchronizeDatabase_32x;
-            this.btnSynchDbs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSynchDbs.Location = new System.Drawing.Point(174, 12);
-            this.btnSynchDbs.Name = "btnSynchDbs";
-            this.btnSynchDbs.Size = new System.Drawing.Size(135, 40);
-            this.btnSynchDbs.TabIndex = 16;
-            this.btnSynchDbs.Text = "Sync";
-            this.btnSynchDbs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSynchDbs.UseVisualStyleBackColor = true;
-            this.btnSynchDbs.Click += new System.EventHandler(this.btnSynchDbs_Click);
-            // 
             // frmPumpInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(914, 502);
+            this.Controls.Add(this.btnScheduler);
             this.Controls.Add(this.btnSynchDbs);
             this.Controls.Add(this.btnArchived);
             this.Controls.Add(this.lblCountExported);
@@ -311,6 +327,7 @@
         private System.Windows.Forms.Label lblCountExported;
         public System.Windows.Forms.Button btnArchived;
         public System.Windows.Forms.Button btnSynchDbs;
+        public System.Windows.Forms.Button btnScheduler;
     }
 }
 

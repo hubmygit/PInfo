@@ -33,14 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArchivedForm));
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
-            this.cbVehicle = new System.Windows.Forms.ComboBox();
-            this.dtFrom = new System.Windows.Forms.DateTimePicker();
-            this.dtTo = new System.Windows.Forms.DateTimePicker();
-            this.lblDtFrom = new System.Windows.Forms.Label();
-            this.lblDtTo = new System.Windows.Forms.Label();
-            this.btnGeostation = new System.Windows.Forms.Button();
-            this.cbColorMode = new System.Windows.Forms.CheckBox();
-            this.cbDrivers = new System.Windows.Forms.ComboBox();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Driver = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,6 +50,14 @@
             this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbVehicle = new System.Windows.Forms.ComboBox();
+            this.dtFrom = new System.Windows.Forms.DateTimePicker();
+            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.lblDtFrom = new System.Windows.Forms.Label();
+            this.lblDtTo = new System.Windows.Forms.Label();
+            this.btnGeostation = new System.Windows.Forms.Button();
+            this.cbColorMode = new System.Windows.Forms.CheckBox();
+            this.cbDrivers = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,101 +119,6 @@
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvReceiptData.Size = new System.Drawing.Size(1160, 407);
             this.dgvReceiptData.TabIndex = 12;
-            // 
-            // cbVehicle
-            // 
-            this.cbVehicle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVehicle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbVehicle.FormattingEnabled = true;
-            this.cbVehicle.Items.AddRange(new object[] {
-            "Όλα τα οχήματα",
-            "Όχημα 1 - Βενζίνη",
-            "Όχημα 2 - Diesel"});
-            this.cbVehicle.Location = new System.Drawing.Point(12, 12);
-            this.cbVehicle.Name = "cbVehicle";
-            this.cbVehicle.Size = new System.Drawing.Size(200, 24);
-            this.cbVehicle.TabIndex = 29;
-            this.cbVehicle.SelectedIndexChanged += new System.EventHandler(this.cbVehicle_SelectedIndexChanged);
-            // 
-            // dtFrom
-            // 
-            this.dtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dtFrom.Location = new System.Drawing.Point(285, 29);
-            this.dtFrom.Name = "dtFrom";
-            this.dtFrom.Size = new System.Drawing.Size(234, 22);
-            this.dtFrom.TabIndex = 30;
-            this.dtFrom.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
-            this.dtFrom.ValueChanged += new System.EventHandler(this.dtFrom_ValueChanged);
-            // 
-            // dtTo
-            // 
-            this.dtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dtTo.Location = new System.Drawing.Point(564, 29);
-            this.dtTo.Name = "dtTo";
-            this.dtTo.Size = new System.Drawing.Size(234, 22);
-            this.dtTo.TabIndex = 31;
-            this.dtTo.ValueChanged += new System.EventHandler(this.dtTo_ValueChanged);
-            // 
-            // lblDtFrom
-            // 
-            this.lblDtFrom.AutoSize = true;
-            this.lblDtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDtFrom.Location = new System.Drawing.Point(246, 32);
-            this.lblDtFrom.Name = "lblDtFrom";
-            this.lblDtFrom.Size = new System.Drawing.Size(33, 16);
-            this.lblDtFrom.TabIndex = 32;
-            this.lblDtFrom.Text = "Από";
-            // 
-            // lblDtTo
-            // 
-            this.lblDtTo.AutoSize = true;
-            this.lblDtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDtTo.Location = new System.Drawing.Point(525, 32);
-            this.lblDtTo.Name = "lblDtTo";
-            this.lblDtTo.Size = new System.Drawing.Size(33, 16);
-            this.lblDtTo.TabIndex = 33;
-            this.lblDtTo.Text = "Έως";
-            // 
-            // btnGeostation
-            // 
-            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnGeostation.Image = global::PumpInfo.Properties.Resources.GeoLocation_32x;
-            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGeostation.Location = new System.Drawing.Point(1012, 22);
-            this.btnGeostation.Name = "btnGeostation";
-            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
-            this.btnGeostation.TabIndex = 34;
-            this.btnGeostation.Text = "Θέση στο Χάρτη";
-            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGeostation.UseVisualStyleBackColor = true;
-            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
-            // 
-            // cbColorMode
-            // 
-            this.cbColorMode.AutoSize = true;
-            this.cbColorMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbColorMode.Location = new System.Drawing.Point(838, 31);
-            this.cbColorMode.Name = "cbColorMode";
-            this.cbColorMode.Size = new System.Drawing.Size(168, 20);
-            this.cbColorMode.TabIndex = 42;
-            this.cbColorMode.Text = "Volume Diff Color Mode";
-            this.cbColorMode.UseVisualStyleBackColor = true;
-            this.cbColorMode.CheckedChanged += new System.EventHandler(this.cbColorMode_CheckedChanged);
-            // 
-            // cbDrivers
-            // 
-            this.cbDrivers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbDrivers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbDrivers.FormattingEnabled = true;
-            this.cbDrivers.Items.AddRange(new object[] {
-            "Όλοι οι οδηγοί",
-            "Βασίλης",
-            "Ιωσήφ"});
-            this.cbDrivers.Location = new System.Drawing.Point(12, 42);
-            this.cbDrivers.Name = "cbDrivers";
-            this.cbDrivers.Size = new System.Drawing.Size(200, 24);
-            this.cbDrivers.TabIndex = 43;
-            this.cbDrivers.SelectedIndexChanged += new System.EventHandler(this.cbDrivers_SelectedIndexChanged);
             // 
             // Vehicle
             // 
@@ -331,6 +236,101 @@
             this.Remarks.Name = "Remarks";
             this.Remarks.ReadOnly = true;
             this.Remarks.Width = 75;
+            // 
+            // cbVehicle
+            // 
+            this.cbVehicle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbVehicle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbVehicle.FormattingEnabled = true;
+            this.cbVehicle.Items.AddRange(new object[] {
+            "Όλα τα οχήματα",
+            "Όχημα 1 - Βενζίνη",
+            "Όχημα 2 - Diesel"});
+            this.cbVehicle.Location = new System.Drawing.Point(12, 12);
+            this.cbVehicle.Name = "cbVehicle";
+            this.cbVehicle.Size = new System.Drawing.Size(200, 24);
+            this.cbVehicle.TabIndex = 29;
+            this.cbVehicle.SelectedIndexChanged += new System.EventHandler(this.cbVehicle_SelectedIndexChanged);
+            // 
+            // dtFrom
+            // 
+            this.dtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtFrom.Location = new System.Drawing.Point(287, 12);
+            this.dtFrom.Name = "dtFrom";
+            this.dtFrom.Size = new System.Drawing.Size(234, 22);
+            this.dtFrom.TabIndex = 30;
+            this.dtFrom.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.dtFrom.ValueChanged += new System.EventHandler(this.dtFrom_ValueChanged);
+            // 
+            // dtTo
+            // 
+            this.dtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dtTo.Location = new System.Drawing.Point(287, 40);
+            this.dtTo.Name = "dtTo";
+            this.dtTo.Size = new System.Drawing.Size(234, 22);
+            this.dtTo.TabIndex = 31;
+            this.dtTo.ValueChanged += new System.EventHandler(this.dtTo_ValueChanged);
+            // 
+            // lblDtFrom
+            // 
+            this.lblDtFrom.AutoSize = true;
+            this.lblDtFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDtFrom.Location = new System.Drawing.Point(248, 15);
+            this.lblDtFrom.Name = "lblDtFrom";
+            this.lblDtFrom.Size = new System.Drawing.Size(33, 16);
+            this.lblDtFrom.TabIndex = 32;
+            this.lblDtFrom.Text = "Από";
+            // 
+            // lblDtTo
+            // 
+            this.lblDtTo.AutoSize = true;
+            this.lblDtTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDtTo.Location = new System.Drawing.Point(248, 43);
+            this.lblDtTo.Name = "lblDtTo";
+            this.lblDtTo.Size = new System.Drawing.Size(33, 16);
+            this.lblDtTo.TabIndex = 33;
+            this.lblDtTo.Text = "Έως";
+            // 
+            // btnGeostation
+            // 
+            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnGeostation.Image = global::PumpInfo.Properties.Resources.GeoLocation_32x;
+            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGeostation.Location = new System.Drawing.Point(1012, 22);
+            this.btnGeostation.Name = "btnGeostation";
+            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
+            this.btnGeostation.TabIndex = 34;
+            this.btnGeostation.Text = "Θέση στο Χάρτη";
+            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGeostation.UseVisualStyleBackColor = true;
+            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
+            // 
+            // cbColorMode
+            // 
+            this.cbColorMode.AutoSize = true;
+            this.cbColorMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbColorMode.Location = new System.Drawing.Point(838, 31);
+            this.cbColorMode.Name = "cbColorMode";
+            this.cbColorMode.Size = new System.Drawing.Size(168, 20);
+            this.cbColorMode.TabIndex = 42;
+            this.cbColorMode.Text = "Volume Diff Color Mode";
+            this.cbColorMode.UseVisualStyleBackColor = true;
+            this.cbColorMode.CheckedChanged += new System.EventHandler(this.cbColorMode_CheckedChanged);
+            // 
+            // cbDrivers
+            // 
+            this.cbDrivers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDrivers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbDrivers.FormattingEnabled = true;
+            this.cbDrivers.Items.AddRange(new object[] {
+            "Όλοι οι οδηγοί",
+            "Βασίλης",
+            "Ιωσήφ"});
+            this.cbDrivers.Location = new System.Drawing.Point(12, 42);
+            this.cbDrivers.Name = "cbDrivers";
+            this.cbDrivers.Size = new System.Drawing.Size(200, 24);
+            this.cbDrivers.TabIndex = 43;
+            this.cbDrivers.SelectedIndexChanged += new System.EventHandler(this.cbDrivers_SelectedIndexChanged);
             // 
             // ArchivedForm
             // 
