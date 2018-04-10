@@ -2671,7 +2671,7 @@ namespace PumpLib
 
             string SelectSt = "SELECT VehicleNo, Product, Driver, datetime(Dt) as Dt, Brand, Dealer, Address, Weight, Temp, Density, Volume, Pump, " +
                 "ifnull(PumpVolume,0) as PumpVolume, VolDiff, ifnull(GeostationId,0) as GeostationId, ifnull(SampleNo,0) as SampleNo, Remarks " +
-                "FROM [Arch] ";
+                "FROM [Arch] ORDER BY Dt DESC ";
 
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
@@ -2713,6 +2713,75 @@ namespace PumpLib
 
             return ret;
         }
+
+        public static List<ArchivedData> SavedLocallySyncData()
+        {
+            List<ArchivedData> ret = new List<ArchivedData>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+
+            int machNo =  new DbUtilities().getInstId();
+            string machineName = "";
+            if (machNo == 1)
+            {
+                machineName = "Βασίλης";
+            }
+            else if (machNo == 2)
+            {
+                machineName = "Ιωσήφ";
+            }
+            else
+            {
+                machineName = "Auto";
+            }
+
+            string SelectSt = "SELECT R.VehicleNo, P.Name as Product, " + //case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver, " +
+                                "datetime(R.Dt) as Dt, B.Name as Brand, E.Dealer, E.Address, ifnull(R.Weight, 0) as Weight, ifnull(R.Temp, 0) as Temp, ifnull(R.Density, 0) as Density, ifnull(R.Volume, 0) as Volume, E.Pump, ifnull(E.PumpVolume, 0) as PumpVolume, " +
+                                "round((ifnull(R.Volume, 0) - ifnull(E.PumpVolume, 0)) / ifnull(R.Volume, 0) * 100.0, 5) as VolDiff, ifnull(E.GeostationId, 0) as GeostationId, ifnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
+                              "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId left outer join Brand B on B.Id = E.BrandId left outer join  Product P on P.Id = E.ProductId " +
+                              "WHERE R.Accepted = 1 ORDER BY Dt DESC ";
+
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ArchivedData objLine = new ArchivedData
+                    {
+                        VehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
+                        Product = reader["Product"].ToString(),
+                        Driver = machineName, //reader["Driver"].ToString(),
+                        Dt = Convert.ToDateTime(reader["Dt"].ToString()),
+                        Brand = reader["Brand"].ToString(),
+                        Dealer = reader["Dealer"].ToString(),
+                        Address = reader["Address"].ToString(),
+                        Weight = Convert.ToDouble(reader["Weight"].ToString()),
+                        Temp = Convert.ToDouble(reader["Temp"].ToString()),
+                        Density = Convert.ToDouble(reader["Density"].ToString()),
+                        Volume = Convert.ToDouble(reader["Volume"].ToString()),
+                        Pump = reader["Pump"].ToString(),
+                        PumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString()),
+                        VolDiff = Convert.ToDouble(reader["VolDiff"].ToString()),
+                        GeostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
+                        SampleNo = Convert.ToInt32(reader["SampleNo"].ToString()),
+                        Remarks = reader["Remarks"].ToString()
+                    };
+
+                    ret.Add(objLine);
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
 
         public static bool insert_into_StationGeoData(Station_GeoData data)
         {

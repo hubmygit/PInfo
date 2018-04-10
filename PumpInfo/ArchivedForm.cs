@@ -21,6 +21,12 @@ namespace PumpInfo
             //archivedDataList = DbUtilities.ArchivedData(); //old
             archivedDataList = DbUtilities.ArchivedSyncData();
 
+            //add: saved locally but not yet archived records 
+            List<ArchivedData> savedLocallyDataList = DbUtilities.SavedLocallySyncData();
+            archivedDataList.AddRange(savedLocallyDataList);
+
+            archivedDataList = archivedDataList.Distinct().ToList();
+            
             cbVehicle.SelectedIndex = 0;
             cbDrivers.SelectedIndex = 0;
             DateTime dtToday = DateTime.Now.Date;
