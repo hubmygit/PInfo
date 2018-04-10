@@ -32,6 +32,8 @@ namespace PumpInfo
         public List<Districts> districts = DbUtilities.GetSqliteDistrictsList();
         public List<Nomoi> nomoi = DbUtilities.GetSqliteNomoiList();
         public List<Perioxes> perioxes = DbUtilities.GetSqlitePerioxesList();
+        public List<GasStationsPerPerioxh> gasStationsPerPerioxh = DbUtilities.GetSqliteGasStationsPerPerioxhList();
+        public List<GasStationVisits> gasStationVisits = DbUtilities.GetSqliteVisitsPerGasStationList();
 
         bool applyFilterEvents = false;
 
@@ -86,10 +88,72 @@ namespace PumpInfo
                 foreach (Perioxes perioxh in perioxesFiltered)
                 {
                     dgvPerioxes.Rows.Add(new object[] { perioxh.Id, perioxh.Name });
+                                        
+                    if (gasStationsPerPerioxh.Count(i => i.Geo_Perioxh_id == perioxh.Id) <= 0)
+                    {
+                        dgvPerioxes.Rows[dgvPerioxes.Rows.Count - 1].DefaultCellStyle.ForeColor = Color.LightGray;
+                    }
+                    
+                    dgvPerioxes["Perioxh_StationsCnt", dgvPerioxes.Rows.Count - 1].Value = gasStationsPerPerioxh.Count(i => i.Geo_Perioxh_id == perioxh.Id).ToString();
+
                 }
 
                 dgvPerioxes.ClearSelection();
             }
         }
+
+        private void dgvPerioxes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                dgvStations.Rows.Clear();
+
+                List<GasStationVisits> gasStationVisitsFiltered = gasStationVisits.Where(i=>i.VehicleNo == ((Vehicle)((ComboboxItem)cbVehicleNo.SelectedItem).Value).Id).ToList();
+
+                List<GasStationsPerPerioxh> gasStationsFiltered = gasStationsPerPerioxh.Where(i => i.Geo_Perioxh_id == Convert.ToInt32(dgvPerioxes["PerioxhId", e.RowIndex].Value)).ToList();
+                int Visits = 0;
+                string strVisits = "";
+                string LastVisit = "";
+                string LastDiff = "";
+
+                foreach (GasStationsPerPerioxh gasStations in gasStationsFiltered)
+                {
+                    Visits = gasStationVisitsFiltered.Count(i => i.GeostationId == gasStations.GeostationId); //gasStationVisits.Count(i => i.GeostationId == gasStations.GeostationId);
+                    if (Visits > 0)
+                    {
+                        strVisits = Visits.ToString();
+                        LastVisit = gasStationVisitsFiltered.Where(i => i.GeostationId == gasStations.GeostationId).Max(i => i.Dt).ToString("dd.MM.yyyy HH:mm"); //gasStationVisits.Where(i => i.GeostationId == gasStations.GeostationId).Max(i => i.Dt).ToString("dd.MM.yyyy HH:mm");
+                        LastDiff = gasStationVisitsFiltered.Where(i => i.GeostationId == gasStations.GeostationId).OrderBy(i => i.Dt).First().VolDiff.ToString();
+                    }
+                    else
+                    {
+                        strVisits = "";
+                        LastVisit = "";
+                        LastDiff = "";
+                    }
+                    
+                    dgvStations.Rows.Add(new object[]
+                    {
+                        gasStations.GeostationId,
+                        gasStations.Address,
+                        gasStations.Company_Id,
+                        gasStations.Company,
+                        gasStations.Comp_Name,
+                        Visits,
+                        LastVisit,
+                        LastDiff
+                    });
+
+                    if (Visits > 0 && gasStationVisitsFiltered.Where(i => i.GeostationId == gasStations.GeostationId).OrderBy(i => i.Dt).First().VolDiff < -0.5)
+                    {
+                        dgvStations.Rows[dgvStations.Rows.Count - 1].DefaultCellStyle.ForeColor = Color.Red;
+                    }
+
+                }
+
+                dgvStations.ClearSelection();
+            }
+        }
+
     }
 }

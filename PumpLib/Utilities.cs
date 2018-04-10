@@ -1948,6 +1948,89 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<GasStationsPerPerioxh> GetSqliteGasStationsPerPerioxhList()
+        {
+            List<GasStationsPerPerioxh> ret = new List<GasStationsPerPerioxh>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+            string SelectSt = "SELECT T.[Geo_Perioxh_id], T.[TK_NoSpace], S.[id], S.[Address], G.[Comp_Name], G.[Company_id], C.[Company] " +
+                              "FROM [Geo_Perioxh_TK] T left outer join " +
+                                   "[Station_GeoData] S on T.[TK_NoSpace] = S.[Postal-Code] left outer join " +
+                                   "[Station_TimeDependData] G on S.[id] = G.[id] and G.[Current_Rec] = 1 left outer join " +
+                                   "[Companies] C on G.[Company_id] = C.[id] " +
+                              "WHERE S.id is not null " +
+                            //"where C.id in (4, 7, 11) and T.Geo_Perioxh_id = 95 " + 
+                              "ORDER BY T.[Geo_Perioxh_id], T.[TK_NoSpace] ";
+
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {                    
+                    ret.Add(new GasStationsPerPerioxh()
+                    {
+                        Geo_Perioxh_id = Convert.ToInt32(reader["Geo_Perioxh_id"].ToString()),
+                        TK_NoSpace = reader["TK_NoSpace"].ToString(),
+                        GeostationId = Convert.ToInt32(reader["id"].ToString()),
+                        Address = reader["Address"].ToString(),
+                        Comp_Name = reader["Comp_Name"].ToString(),
+                        Company_Id = Convert.ToInt32(reader["Company_id"].ToString()),
+                        Company = reader["Company"].ToString()
+                    });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<GasStationVisits> GetSqliteVisitsPerGasStationList()
+        {
+            List<GasStationVisits> ret = new List<GasStationVisits>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBArch.connectionString);
+            //string SelectSt = "SELECT R.VehicleNo, R.Dt, R.MachineNo, E.GeostationId " +
+            //                  "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId " +
+            //                  "WHERE R.Accepted = 1 and E.GeostationId is not null " +
+            //                  "ORDER BY R.Dt DESC ";
+
+            string SelectSt = "SELECT VehicleNo, datetime(Dt) as Dt, Driver, GeostationId, ifnull(VolDiff, 0) as VolDiff FROM Arch WHERE GeostationId > 0 ORDER BY Dt DESC "; 
+
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new GasStationVisits()
+                    {
+                        VehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
+                        Dt = Convert.ToDateTime(reader["Dt"].ToString()),
+                        //MachineNo = Convert.ToInt32(reader["MachineNo"].ToString()),
+                        Driver = reader["Driver"].ToString(),
+                        GeostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
+                        VolDiff = Convert.ToDouble(reader["VolDiff"].ToString())
+                    });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<ComboboxItem> GetVehiclesComboboxItemsList(List<Vehicle> Vehicles)
         {
             List<ComboboxItem> ret = new List<ComboboxItem>();
@@ -3189,6 +3272,119 @@ namespace PumpLib
 
         }
 
+
+        public void insertPerioxes()
+        {
+            int Id = 0;
+            string Name = "";
+            int Geo_Nomos_id = 0;
+
+            SqlConnection sqlConn1 = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT id, Name, Geo_Nomos_id FROM [dbo].[Geo_Perioxh] ";
+            SqlCommand cmd1 = new SqlCommand(SelectSt, sqlConn1);
+
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+            sqlConn.Open();
+
+            try
+            {
+                sqlConn1.Open();
+                SqlDataReader reader1 = cmd1.ExecuteReader();
+                while (reader1.Read())
+                {
+                    Id = Convert.ToInt32(reader1["id"].ToString());
+                    Name = reader1["Name"].ToString();
+                    Geo_Nomos_id = Convert.ToInt32(reader1["Geo_Nomos_id"].ToString());
+
+                    //SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+
+                    string InsSt = "INSERT INTO [Geo_Perioxh] ([id], [Name], [Geo_Nomos_id]) VALUES (" + Id.ToString() + ", '" + Name + "', " + Geo_Nomos_id.ToString() + ") ";
+                    try
+                    {
+                        //sqlConn.Open();
+                        SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("The following error occurred: " + ex.Message);
+                    }
+
+                    //sqlConn.Close();
+                }
+
+                sqlConn.Close();
+
+                reader1.Close();
+                sqlConn1.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            //---------------------------------------------
+
+        }
+
+        public void insertPerioxesTK()
+        {
+            int Id = 0;
+            int Geo_Perioxh_id = 0;
+            string TK = "";
+            string TK_NoSpace = "";
+
+            SqlConnection sqlConn1 = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT [id], [Geo_Perioxh_id], [TK], [TK_NoSpace] FROM [dbo].[Geo_Perioxh_TK]  ";
+            SqlCommand cmd1 = new SqlCommand(SelectSt, sqlConn1);
+
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+            sqlConn.Open();
+
+            try
+            {
+                sqlConn1.Open();
+                SqlDataReader reader1 = cmd1.ExecuteReader();
+                while (reader1.Read())
+                {
+                    Id = Convert.ToInt32(reader1["id"].ToString());
+                    Geo_Perioxh_id = Convert.ToInt32(reader1["Geo_Perioxh_id"].ToString()); 
+                    TK = reader1["TK"].ToString();
+                    TK_NoSpace = reader1["TK_NoSpace"].ToString();
+
+                    //SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+
+                    string InsSt = "INSERT INTO [Geo_Perioxh_TK] ([id], [Geo_Perioxh_id], [TK], [TK_NoSpace]) VALUES (" + Id.ToString() + ", "  + Geo_Perioxh_id.ToString() + ", '" + TK + "', '" + TK_NoSpace + "') ";
+                    try
+                    {
+                        //sqlConn.Open();
+                        SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("The following error occurred: " + ex.Message);
+                    }
+
+                    //sqlConn.Close();
+                }
+
+                sqlConn.Close();
+
+                reader1.Close();
+                sqlConn1.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+            //---------------------------------------------
+
+        }
+
     }
     
 
@@ -3674,6 +3870,34 @@ namespace PumpLib
         {
         }
     }
+
+    public class GasStationsPerPerioxh
+    {
+        public int Geo_Perioxh_id { get; set; }
+        public string TK_NoSpace { get; set; }
+        public int GeostationId { get; set; }
+        public string Address { get; set; }
+        public string Comp_Name { get; set; }
+        public int Company_Id { get; set; }
+        public string Company { get; set; }
+        public GasStationsPerPerioxh()
+        {
+        }
+    }
+
+    public class GasStationVisits
+    {
+        public int VehicleNo { get; set; }
+        public DateTime Dt { get; set; }
+        //public int MachineNo { get; set; }
+        public string Driver { get; set; }
+        public int GeostationId { get; set; }
+        public double VolDiff { get; set; }
+        public GasStationVisits()
+        {
+        }
+    }
+
 
     public class PostalCode
     {
