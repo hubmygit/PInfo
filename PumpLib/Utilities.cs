@@ -1630,6 +1630,32 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<Brand> GetCompaniesList()
+        {
+            List<Brand> ret = new List<Brand>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+            string SelectSt = "SELECT Id, Company as Name FROM [Companies] ORDER BY company ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Brand() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<Brand> GetSqlBrandsList(bool autoMode = false)
         {
             List<Brand> ret = new List<Brand>();
@@ -3942,6 +3968,22 @@ namespace PumpLib
         public string Company { get; set; }
         public GasStationsPerPerioxh()
         {
+        }
+
+        public bool ExistsInComs(int[] coms)
+        {
+            bool ret = false;
+
+            foreach (int com in coms)
+            {
+                if (Company_Id == com)
+                {
+                    ret = true;
+                    break;
+                }
+            }
+
+            return ret;
         }
     }
 

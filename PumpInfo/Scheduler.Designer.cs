@@ -36,6 +36,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Scheduler));
             this.lblVehicleNo = new System.Windows.Forms.Label();
             this.cbVehicleNo = new System.Windows.Forms.ComboBox();
@@ -47,10 +49,10 @@
             this.NomoiDescr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PerioxesId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvPerioxes = new System.Windows.Forms.DataGridView();
-            this.dgvStations = new System.Windows.Forms.DataGridView();
             this.PerioxhId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Perioxh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Perioxh_StationsCnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvStations = new System.Windows.Forms.DataGridView();
             this.Station_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_ComId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,30 +61,35 @@
             this.Station_Visits = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_LastVisit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_LastDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCompanies = new System.Windows.Forms.DataGridView();
+            this.Com_Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Com_Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Com_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDistricts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNomoi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerioxes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCompanies)).BeginInit();
             this.SuspendLayout();
             // 
             // lblVehicleNo
             // 
             this.lblVehicleNo.AutoSize = true;
-            this.lblVehicleNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblVehicleNo.Location = new System.Drawing.Point(11, 200);
+            this.lblVehicleNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblVehicleNo.Location = new System.Drawing.Point(26, 195);
             this.lblVehicleNo.Name = "lblVehicleNo";
-            this.lblVehicleNo.Size = new System.Drawing.Size(68, 20);
+            this.lblVehicleNo.Size = new System.Drawing.Size(56, 20);
             this.lblVehicleNo.TabIndex = 34;
-            this.lblVehicleNo.Text = "Vehicle";
+            this.lblVehicleNo.Text = "Όχημα";
             // 
             // cbVehicleNo
             // 
             this.cbVehicleNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbVehicleNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbVehicleNo.FormattingEnabled = true;
-            this.cbVehicleNo.Location = new System.Drawing.Point(85, 197);
+            this.cbVehicleNo.Location = new System.Drawing.Point(88, 192);
             this.cbVehicleNo.Name = "cbVehicleNo";
-            this.cbVehicleNo.Size = new System.Drawing.Size(160, 28);
+            this.cbVehicleNo.Size = new System.Drawing.Size(157, 28);
             this.cbVehicleNo.TabIndex = 33;
             this.cbVehicleNo.SelectedIndexChanged += new System.EventHandler(this.cbVehicleNo_SelectedIndexChanged);
             // 
@@ -225,11 +232,34 @@
             this.dgvPerioxes.TabIndex = 37;
             this.dgvPerioxes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPerioxes_CellClick);
             // 
+            // PerioxhId
+            // 
+            this.PerioxhId.HeaderText = "PerioxhId";
+            this.PerioxhId.Name = "PerioxhId";
+            this.PerioxhId.Visible = false;
+            this.PerioxhId.Width = 60;
+            // 
+            // Perioxh
+            // 
+            this.Perioxh.HeaderText = "Περιοχές";
+            this.Perioxh.Name = "Perioxh";
+            this.Perioxh.ReadOnly = true;
+            this.Perioxh.Width = 200;
+            // 
+            // Perioxh_StationsCnt
+            // 
+            this.Perioxh_StationsCnt.HeaderText = "Πρατήρια";
+            this.Perioxh_StationsCnt.Name = "Perioxh_StationsCnt";
+            this.Perioxh_StationsCnt.ReadOnly = true;
+            // 
             // dgvStations
             // 
             this.dgvStations.AllowUserToAddRows = false;
             this.dgvStations.AllowUserToDeleteRows = false;
             this.dgvStations.AllowUserToOrderColumns = true;
+            this.dgvStations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -261,28 +291,8 @@
             this.dgvStations.Name = "dgvStations";
             this.dgvStations.RowHeadersVisible = false;
             this.dgvStations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStations.Size = new System.Drawing.Size(960, 268);
+            this.dgvStations.Size = new System.Drawing.Size(971, 268);
             this.dgvStations.TabIndex = 38;
-            // 
-            // PerioxhId
-            // 
-            this.PerioxhId.HeaderText = "PerioxhId";
-            this.PerioxhId.Name = "PerioxhId";
-            this.PerioxhId.Visible = false;
-            this.PerioxhId.Width = 60;
-            // 
-            // Perioxh
-            // 
-            this.Perioxh.HeaderText = "Περιοχές";
-            this.Perioxh.Name = "Perioxh";
-            this.Perioxh.ReadOnly = true;
-            this.Perioxh.Width = 200;
-            // 
-            // Perioxh_StationsCnt
-            // 
-            this.Perioxh_StationsCnt.HeaderText = "Πρατήρια";
-            this.Perioxh_StationsCnt.Name = "Perioxh_StationsCnt";
-            this.Perioxh_StationsCnt.ReadOnly = true;
             // 
             // Station_Id
             // 
@@ -335,12 +345,73 @@
             // 
             this.Station_LastDiff.HeaderText = "Τελ.Διαφορά";
             this.Station_LastDiff.Name = "Station_LastDiff";
+            this.Station_LastDiff.Width = 110;
+            // 
+            // dgvCompanies
+            // 
+            this.dgvCompanies.AllowUserToAddRows = false;
+            this.dgvCompanies.AllowUserToDeleteRows = false;
+            this.dgvCompanies.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCompanies.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.dgvCompanies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCompanies.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Com_Index,
+            this.Com_Selected,
+            this.Com_Name});
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCompanies.DefaultCellStyle = dataGridViewCellStyle10;
+            this.dgvCompanies.Location = new System.Drawing.Point(814, 6);
+            this.dgvCompanies.MultiSelect = false;
+            this.dgvCompanies.Name = "dgvCompanies";
+            this.dgvCompanies.ReadOnly = true;
+            this.dgvCompanies.RowHeadersVisible = false;
+            this.dgvCompanies.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCompanies.Size = new System.Drawing.Size(169, 270);
+            this.dgvCompanies.TabIndex = 39;
+            this.dgvCompanies.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCompanies_CellContentClick);
+            // 
+            // Com_Index
+            // 
+            this.Com_Index.HeaderText = "Index";
+            this.Com_Index.Name = "Com_Index";
+            this.Com_Index.ReadOnly = true;
+            this.Com_Index.Visible = false;
+            this.Com_Index.Width = 60;
+            // 
+            // Com_Selected
+            // 
+            this.Com_Selected.FalseValue = "";
+            this.Com_Selected.HeaderText = "";
+            this.Com_Selected.Name = "Com_Selected";
+            this.Com_Selected.ReadOnly = true;
+            this.Com_Selected.TrueValue = "";
+            this.Com_Selected.Width = 40;
+            // 
+            // Com_Name
+            // 
+            this.Com_Name.HeaderText = "Εταιρία";
+            this.Com_Name.Name = "Com_Name";
+            this.Com_Name.ReadOnly = true;
             // 
             // Scheduler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(995, 562);
+            this.Controls.Add(this.dgvCompanies);
             this.Controls.Add(this.dgvStations);
             this.Controls.Add(this.dgvPerioxes);
             this.Controls.Add(this.dgvNomoi);
@@ -356,6 +427,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvNomoi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerioxes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCompanies)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -377,6 +449,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PerioxhId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Perioxh;
         private System.Windows.Forms.DataGridViewTextBoxColumn Perioxh_StationsCnt;
+        private System.Windows.Forms.DataGridView dgvCompanies;
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_ComId;
@@ -385,5 +458,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_Visits;
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_LastVisit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_LastDiff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Com_Index;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Com_Selected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Com_Name;
     }
 }
