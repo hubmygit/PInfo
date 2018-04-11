@@ -35,6 +35,9 @@ namespace PumpInfo
         public List<GasStationsPerPerioxh> gasStationsPerPerioxh = DbUtilities.GetSqliteGasStationsPerPerioxhList();
         public List<GasStationVisits> gasStationVisits = DbUtilities.GetSqliteVisitsPerGasStationList();
 
+        //event on cbVehicleNo
+        //
+
         bool applyFilterEvents = false;
 
         private void cbVehicleNo_SelectedIndexChanged(object sender, EventArgs e)

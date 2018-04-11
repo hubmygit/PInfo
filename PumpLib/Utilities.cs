@@ -1993,15 +1993,22 @@ namespace PumpLib
 
         public static List<GasStationVisits> GetSqliteVisitsPerGasStationList()
         {
+            List<GasStationVisits> ret = GetSqliteArchivedVisitsPerGasStationList();
+
+            ret.AddRange(GetSqliteLocalVisitsPerGasStationList());
+
+            ret = ret.Distinct().ToList();
+
+            return ret;
+        }
+
+        public static List<GasStationVisits> GetSqliteArchivedVisitsPerGasStationList()
+        {
             List<GasStationVisits> ret = new List<GasStationVisits>();
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBArch.connectionString);
-            //string SelectSt = "SELECT R.VehicleNo, R.Dt, R.MachineNo, E.GeostationId " +
-            //                  "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId " +
-            //                  "WHERE R.Accepted = 1 and E.GeostationId is not null " +
-            //                  "ORDER BY R.Dt DESC ";
 
-            string SelectSt = "SELECT VehicleNo, datetime(Dt) as Dt, Driver, GeostationId, ifnull(VolDiff, 0) as VolDiff FROM Arch WHERE GeostationId > 0 ORDER BY Dt DESC "; 
+            string SelectSt = "SELECT VehicleNo, datetime(Dt) as Dt, Driver, GeostationId, ifnull(VolDiff, 0) as VolDiff FROM [Arch] WHERE GeostationId > 10 ORDER BY Dt DESC "; 
 
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
@@ -2016,6 +2023,59 @@ namespace PumpLib
                         Dt = Convert.ToDateTime(reader["Dt"].ToString()),
                         //MachineNo = Convert.ToInt32(reader["MachineNo"].ToString()),
                         Driver = reader["Driver"].ToString(),
+                        GeostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
+                        VolDiff = Convert.ToDouble(reader["VolDiff"].ToString())
+                    });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<GasStationVisits> GetSqliteLocalVisitsPerGasStationList()
+        {
+            List<GasStationVisits> ret = new List<GasStationVisits>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+
+            string SelectSt = "SELECT R.VehicleNo, datetime(Dt) as Dt, E.GeostationId, round((ifnull(R.Volume, 0) - ifnull(E.PumpVolume, 0)) / ifnull(R.Volume, 0) * 100.0, 5) as VolDiff " +
+                "FROM [receiptData] R left outer join [extraData] E on R.Id = E.receiptDataId " +
+                "WHERE R.Accepted = 1 and GeostationId > 10 " +
+                "ORDER BY Dt DESC ";
+
+            int machNo = new DbUtilities().getInstId();
+            string machineName = "";
+            if (machNo == 1)
+            {
+                machineName = "Βασίλης";
+            }
+            else if (machNo == 2)
+            {
+                machineName = "Ιωσήφ";
+            }
+            else
+            {
+                machineName = "Auto";
+            }
+
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new GasStationVisits()
+                    {
+                        VehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
+                        Dt = Convert.ToDateTime(reader["Dt"].ToString()),
+                        Driver = machineName,
                         GeostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
                         VolDiff = Convert.ToDouble(reader["VolDiff"].ToString())
                     });
