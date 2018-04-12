@@ -55,9 +55,10 @@
             this.dtTo = new System.Windows.Forms.DateTimePicker();
             this.lblDtFrom = new System.Windows.Forms.Label();
             this.lblDtTo = new System.Windows.Forms.Label();
-            this.btnGeostation = new System.Windows.Forms.Button();
             this.cbColorMode = new System.Windows.Forms.CheckBox();
             this.cbDrivers = new System.Windows.Forms.ComboBox();
+            this.btnGeostation = new System.Windows.Forms.Button();
+            this.cbDealer = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -291,20 +292,6 @@
             this.lblDtTo.TabIndex = 33;
             this.lblDtTo.Text = "Έως";
             // 
-            // btnGeostation
-            // 
-            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnGeostation.Image = global::PumpInfo.Properties.Resources.GeoLocation_32x;
-            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGeostation.Location = new System.Drawing.Point(1012, 22);
-            this.btnGeostation.Name = "btnGeostation";
-            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
-            this.btnGeostation.TabIndex = 34;
-            this.btnGeostation.Text = "Θέση στο Χάρτη";
-            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGeostation.UseVisualStyleBackColor = true;
-            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
-            // 
             // cbColorMode
             // 
             this.cbColorMode.AutoSize = true;
@@ -332,11 +319,40 @@
             this.cbDrivers.TabIndex = 43;
             this.cbDrivers.SelectedIndexChanged += new System.EventHandler(this.cbDrivers_SelectedIndexChanged);
             // 
+            // btnGeostation
+            // 
+            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnGeostation.Image = global::PumpInfo.Properties.Resources.GeoLocation_32x;
+            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGeostation.Location = new System.Drawing.Point(1012, 22);
+            this.btnGeostation.Name = "btnGeostation";
+            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
+            this.btnGeostation.TabIndex = 34;
+            this.btnGeostation.Text = "Θέση στο Χάρτη";
+            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGeostation.UseVisualStyleBackColor = true;
+            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
+            // 
+            // cbDealer
+            // 
+            this.cbDealer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDealer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbDealer.FormattingEnabled = true;
+            this.cbDealer.Items.AddRange(new object[] {
+            "Όλα τα οχήματα",
+            "Όχημα 1 - Βενζίνη",
+            "Όχημα 2 - Diesel"});
+            this.cbDealer.Location = new System.Drawing.Point(570, 27);
+            this.cbDealer.Name = "cbDealer";
+            this.cbDealer.Size = new System.Drawing.Size(200, 24);
+            this.cbDealer.TabIndex = 44;
+            // 
             // ArchivedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 502);
+            this.Controls.Add(this.cbDealer);
             this.Controls.Add(this.cbDrivers);
             this.Controls.Add(this.cbColorMode);
             this.Controls.Add(this.btnGeostation);
@@ -384,5 +400,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
+        private System.Windows.Forms.ComboBox cbDealer;
     }
 }

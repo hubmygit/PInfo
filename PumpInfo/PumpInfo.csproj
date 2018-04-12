@@ -181,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PumpInfo.ico" />
+    <None Include="Resources\CopyToClipboard_32x.png" />
     <None Include="Resources\TemporalTable_32x.png" />
     <None Include="Resources\SynchronizeDatabase_48x.png" />
     <None Include="Resources\SynchronizeDatabase_32x.png" />

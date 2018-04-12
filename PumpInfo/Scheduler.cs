@@ -19,6 +19,8 @@ namespace PumpInfo
 
             cbVehicleNo.Items.AddRange(DbUtilities.GetVehiclesComboboxItemsList(vehicles).ToArray<ComboboxItem>());
 
+            cbDates.Items.AddRange(new object[] { "2", "4", "6", "12" });
+
             foreach (Districts dist in districts)
             {
                 dgvDistricts.Rows.Add(new object[] { dist.Id, dist.Name });
@@ -58,7 +60,7 @@ namespace PumpInfo
         {
             //ApplyFilters();
 
-            if (dgvPerioxes.SelectedRows.Count > 0)
+            if (dgvPerioxes.SelectedRows.Count > 0 && cbDates.SelectedItem != null)
             {
                 ShowStations();
             }
@@ -163,19 +165,31 @@ namespace PumpInfo
                     return;
                 }
 
+                if (cbDates.SelectedItem is null)
+                {
+                    MessageBox.Show("Παρακαλώ επιλέξτε χρονικό διάστημα!");
+                    return;
+                }
+
                 ShowStations();
             }
         }
 
         void ShowStations()
         {
+            int PeriodInMonths = Convert.ToInt32(cbDates.SelectedItem);
+            DateTime DtFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-PeriodInMonths);
+            DateTime DtTo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
             dgvStations.Rows.Clear();
 
-            List<GasStationVisits> gasStationVisitsFiltered = gasStationVisits.Where(i => i.VehicleNo == ((Vehicle)((ComboboxItem)cbVehicleNo.SelectedItem).Value).Id).ToList();
+            //List<GasStationVisits> gasStationVisitsFiltered = gasStationVisits.Where(i => i.VehicleNo == ((Vehicle)((ComboboxItem)cbVehicleNo.SelectedItem).Value).Id).ToList();
+            List<GasStationVisits> gasStationVisitsFiltered = gasStationVisits.Where(i => i.VehicleNo == ((Vehicle)((ComboboxItem)cbVehicleNo.SelectedItem).Value).Id && i.Dt>= DtFrom && i.Dt <= DtTo ).ToList();
 
             //List<GasStationsPerPerioxh> gasStationsFiltered = gasStationsPerPerioxh.Where(i => i.Geo_Perioxh_id == Convert.ToInt32(dgvPerioxes["PerioxhId", e.RowIndex].Value)).ToList();
             List<GasStationsPerPerioxh> gasStationsFiltered = gasStationsPerPerioxh.Where(i => i.Geo_Perioxh_id == Convert.ToInt32(dgvPerioxes["PerioxhId", dgvPerioxes.SelectedRows[0].Index].Value) && i.ExistsInComs(coms_selected.ToArray())).ToList();
             int Visits = 0;
+            int Paravaseis = 0;
             string strVisits = "";
             string LastVisit = "";
             string LastDiff = "";
@@ -187,7 +201,8 @@ namespace PumpInfo
                 {
                     strVisits = Visits.ToString();
                     LastVisit = gasStationVisitsFiltered.Where(i => i.GeostationId == gasStations.GeostationId).Max(i => i.Dt).ToString("dd.MM.yyyy HH:mm"); //gasStationVisits.Where(i => i.GeostationId == gasStations.GeostationId).Max(i => i.Dt).ToString("dd.MM.yyyy HH:mm");
-                    LastDiff = gasStationVisitsFiltered.Where(i => i.GeostationId == gasStations.GeostationId).OrderBy(i => i.Dt).First().VolDiff.ToString();
+                    LastDiff = gasStationVisitsFiltered.Where(i => i.GeostationId == gasStations.GeostationId).OrderByDescending(i => i.Dt).First().VolDiff.ToString();
+                    Paravaseis = gasStationVisitsFiltered.Count(i => i.GeostationId == gasStations.GeostationId && i.VolDiff < -0.5); 
                 }
                 else
                 {
@@ -199,11 +214,14 @@ namespace PumpInfo
                 dgvStations.Rows.Add(new object[]
                 {
                         gasStations.GeostationId,
+                        dgvNomoi.SelectedRows[0].Cells["NomoiDescr"].Value.ToString(),
+                        dgvPerioxes.SelectedRows[0].Cells["Perioxh"].Value.ToString(),
                         gasStations.Address,
                         gasStations.Company_Id,
                         gasStations.Company,
                         gasStations.Comp_Name,
                         Visits,
+                        Paravaseis,
                         LastVisit,
                         LastDiff
                 });
@@ -342,6 +360,41 @@ namespace PumpInfo
 
                 
             }
+
+        }
+
+        private void cbDates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (dgvPerioxes.SelectedRows.Count > 0 && cbVehicleNo.SelectedItem != null)
+            {
+                ShowStations();
+            }
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            dgvStations.RowHeadersVisible = false;
+
+            if (dgvStations.Rows.Count > 0)
+            {
+                dgvStations.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+                dgvStations.Columns["Station_Nomos"].Visible = true;
+                dgvStations.Columns["Station_Perioxi"].Visible = true;
+
+                try
+                {
+                    Clipboard.SetDataObject(dgvStations.GetClipboardContent());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            dgvStations.Columns["Station_Nomos"].Visible = false;
+            dgvStations.Columns["Station_Perioxi"].Visible = false;
+            dgvStations.RowHeadersVisible = true;
+
 
         }
     }
