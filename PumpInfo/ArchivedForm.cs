@@ -29,8 +29,18 @@ namespace PumpInfo
             
             cbVehicle.SelectedIndex = 0;
             cbDrivers.SelectedIndex = 0;
+            cbDealer.SelectedIndex = 0;
             DateTime dtToday = DateTime.Now.Date;
             dtFrom.Value = new DateTime(dtToday.Year, dtToday.Month, 1).AddMonths(-1);
+
+            List<string> dealerList = new List<string>();
+            foreach (ArchivedData archData in archivedDataList)
+            {
+                dealerList.Add(archData.Dealer);
+                //cbDealer.Items.Add(archData.Dealer);
+            }
+            //dealerList.Distinct().OrderBy(i => i);
+            cbDealer.Items.AddRange(dealerList.Distinct().OrderBy(i => i).ToArray());
 
             applyFilterEvents = true;
             ApplyFilters();
@@ -56,6 +66,7 @@ namespace PumpInfo
 
             int cbVehicleIndex = cbVehicle.SelectedIndex;
             int cbDriversIndex = cbDrivers.SelectedIndex;
+            int cbDealerIndex = cbDealer.SelectedIndex;
 
             if (cbVehicleIndex > 0) //all
             {
@@ -65,6 +76,11 @@ namespace PumpInfo
             if (cbDriversIndex > 0) //all
             {
                 NewList = NewList.Where(i => i.Driver == cbDrivers.SelectedItem.ToString()).ToList(); //1.Βασίλης 2.Ιωσήφ
+            }
+
+            if (cbDealerIndex > 0) //all
+            {
+                NewList = NewList.Where(i => i.Dealer == cbDealer.SelectedItem.ToString()).ToList(); //dealers...
             }
 
             DateTime dtFromDate = dtFrom.Value.Date;
@@ -196,6 +212,11 @@ namespace PumpInfo
         }
 
         private void cbDrivers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void cbDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             ApplyFilters();
         }

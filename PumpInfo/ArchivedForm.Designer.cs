@@ -296,7 +296,7 @@
             // 
             this.cbColorMode.AutoSize = true;
             this.cbColorMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbColorMode.Location = new System.Drawing.Point(838, 31);
+            this.cbColorMode.Location = new System.Drawing.Point(560, 44);
             this.cbColorMode.Name = "cbColorMode";
             this.cbColorMode.Size = new System.Drawing.Size(168, 20);
             this.cbColorMode.TabIndex = 42;
@@ -339,13 +339,12 @@
             this.cbDealer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbDealer.FormattingEnabled = true;
             this.cbDealer.Items.AddRange(new object[] {
-            "Όλα τα οχήματα",
-            "Όχημα 1 - Βενζίνη",
-            "Όχημα 2 - Diesel"});
-            this.cbDealer.Location = new System.Drawing.Point(570, 27);
+            "Όλοι οι Dealers"});
+            this.cbDealer.Location = new System.Drawing.Point(560, 12);
             this.cbDealer.Name = "cbDealer";
-            this.cbDealer.Size = new System.Drawing.Size(200, 24);
+            this.cbDealer.Size = new System.Drawing.Size(245, 24);
             this.cbDealer.TabIndex = 44;
+            this.cbDealer.SelectedIndexChanged += new System.EventHandler(this.cbDealer_SelectedIndexChanged);
             // 
             // ArchivedForm
             // 
