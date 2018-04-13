@@ -23,16 +23,17 @@ namespace PumpInfo
             InitializeComponent();
 
             txtVehicleNo.Text = obj.vehicleNo.ToString();
-            txtDtYear.Text = obj.datetime.Year.ToString();
-            txtDtMonth.Text = obj.datetime.Month.ToString();
+            //txtDtYear.Text = obj.datetime.Year.ToString();
+            //txtDtMonth.Text = obj.datetime.Month.ToString();
+            txtDt.Text = obj.datetime.ToString("dd.MM.yyyy");
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (txtKm.Text.Trim() == "")
+            if (txtKmFrom.Text.Trim() == "" || txtKmTo.Text.Trim() == "")
             {
-                DialogResult dialogResult = MessageBox.Show("Προσοχή! Δεν έχετε καταχωρήσει τελικά Km. \r\n" + 
-                    "Είστε σίγουροι ότι θέλετε το πεδίο κενό;", "Κενό Πεδίο", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("Προσοχή! Δεν έχετε συμπληρώσει όλα τα πεδία χιλιομέτρων (Km). \r\n" + 
+                    "Είστε σίγουροι ότι θέλετε να αφήσετε το(α) πεδίο(α) κενό(ά);", "Κενό Πεδίο", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     Close();
@@ -46,9 +47,13 @@ namespace PumpInfo
 
         private void frmSetKm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (txtKm.Text.Trim() == "")
+            if (txtKmFrom.Text.Trim() == "")
             {
-                txtKm.Text = "0";
+                txtKmFrom.Text = "0";
+            }
+            if (txtKmTo.Text.Trim() == "")
+            {
+                txtKmTo.Text = "0";
             }
         }
 

@@ -35,9 +35,13 @@
             this.lblDtYear = new System.Windows.Forms.Label();
             this.txtDtMonth = new System.Windows.Forms.TextBox();
             this.lblDtMonth = new System.Windows.Forms.Label();
-            this.txtKm = new System.Windows.Forms.TextBox();
-            this.lblKm = new System.Windows.Forms.Label();
+            this.txtKmTo = new System.Windows.Forms.TextBox();
+            this.lblKmTo = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
+            this.lblDt = new System.Windows.Forms.Label();
+            this.txtDt = new System.Windows.Forms.TextBox();
+            this.txtKmFrom = new System.Windows.Forms.TextBox();
+            this.lblKmFrom = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtVehicleNo
@@ -97,24 +101,24 @@
             this.lblDtMonth.TabIndex = 37;
             this.lblDtMonth.Text = "Month";
             // 
-            // txtKm
+            // txtKmTo
             // 
-            this.txtKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtKm.Location = new System.Drawing.Point(142, 159);
-            this.txtKm.Name = "txtKm";
-            this.txtKm.Size = new System.Drawing.Size(280, 22);
-            this.txtKm.TabIndex = 1;
-            this.txtKm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKm_KeyPress);
+            this.txtKmTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtKmTo.Location = new System.Drawing.Point(142, 159);
+            this.txtKmTo.Name = "txtKmTo";
+            this.txtKmTo.Size = new System.Drawing.Size(280, 22);
+            this.txtKmTo.TabIndex = 1;
+            this.txtKmTo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKm_KeyPress);
             // 
-            // lblKm
+            // lblKmTo
             // 
-            this.lblKm.AutoSize = true;
-            this.lblKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblKm.Location = new System.Drawing.Point(77, 162);
-            this.lblKm.Name = "lblKm";
-            this.lblKm.Size = new System.Drawing.Size(59, 16);
-            this.lblKm.TabIndex = 39;
-            this.lblKm.Text = "Final Km";
+            this.lblKmTo.AutoSize = true;
+            this.lblKmTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblKmTo.Location = new System.Drawing.Point(89, 162);
+            this.lblKmTo.Name = "lblKmTo";
+            this.lblKmTo.Size = new System.Drawing.Size(47, 16);
+            this.lblKmTo.TabIndex = 39;
+            this.lblKmTo.Text = "Km To";
             // 
             // btnSave
             // 
@@ -131,14 +135,55 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // lblDt
+            // 
+            this.lblDt.AutoSize = true;
+            this.lblDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDt.Location = new System.Drawing.Point(99, 106);
+            this.lblDt.Name = "lblDt";
+            this.lblDt.Size = new System.Drawing.Size(37, 16);
+            this.lblDt.TabIndex = 41;
+            this.lblDt.Text = "Date";
+            // 
+            // txtDt
+            // 
+            this.txtDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtDt.Location = new System.Drawing.Point(142, 103);
+            this.txtDt.Name = "txtDt";
+            this.txtDt.ReadOnly = true;
+            this.txtDt.Size = new System.Drawing.Size(280, 22);
+            this.txtDt.TabIndex = 42;
+            // 
+            // txtKmFrom
+            // 
+            this.txtKmFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtKmFrom.Location = new System.Drawing.Point(142, 131);
+            this.txtKmFrom.Name = "txtKmFrom";
+            this.txtKmFrom.Size = new System.Drawing.Size(280, 22);
+            this.txtKmFrom.TabIndex = 43;
+            // 
+            // lblKmFrom
+            // 
+            this.lblKmFrom.AutoSize = true;
+            this.lblKmFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblKmFrom.Location = new System.Drawing.Point(75, 134);
+            this.lblKmFrom.Name = "lblKmFrom";
+            this.lblKmFrom.Size = new System.Drawing.Size(61, 16);
+            this.lblKmFrom.TabIndex = 44;
+            this.lblKmFrom.Text = "Km From";
+            // 
             // frmSetKm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 262);
+            this.Controls.Add(this.txtKmFrom);
+            this.Controls.Add(this.lblKmFrom);
+            this.Controls.Add(this.txtDt);
+            this.Controls.Add(this.lblDt);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.txtKm);
-            this.Controls.Add(this.lblKm);
+            this.Controls.Add(this.txtKmTo);
+            this.Controls.Add(this.lblKmTo);
             this.Controls.Add(this.txtDtMonth);
             this.Controls.Add(this.lblDtMonth);
             this.Controls.Add(this.txtDtYear);
@@ -148,7 +193,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSetKm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Set Final Km";
+            this.Text = " ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSetKm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -163,8 +208,12 @@
         private System.Windows.Forms.Label lblDtYear;
         private System.Windows.Forms.TextBox txtDtMonth;
         private System.Windows.Forms.Label lblDtMonth;
-        private System.Windows.Forms.Label lblKm;
-        public System.Windows.Forms.TextBox txtKm;
+        private System.Windows.Forms.Label lblKmTo;
+        public System.Windows.Forms.TextBox txtKmTo;
         public System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label lblDt;
+        private System.Windows.Forms.TextBox txtDt;
+        public System.Windows.Forms.TextBox txtKmFrom;
+        private System.Windows.Forms.Label lblKmFrom;
     }
 }

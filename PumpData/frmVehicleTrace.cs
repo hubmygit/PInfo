@@ -21,7 +21,7 @@ namespace PumpData
         }
 
         public List<Vehicle> vehicles = DbUtilities.GetSqlVehiclesList();
-        public List<int> VehicleTraceYear = new List<int>();
+        public List<DateTime> VehicleTraceDt = new List<DateTime>();
         List<Consumption> results = new List<Consumption>();
 
         private void cbVehicleNo_SelectedIndexChanged(object sender, EventArgs e)
@@ -29,33 +29,40 @@ namespace PumpData
             dgvVehicleTraceList.Rows.Clear();
             btnCalc.Enabled = false;
 
+            cbMonth.Enabled = false;
+
             Vehicle selVehicle = DbUtilities.getComboboxItem_Vehicle(cbVehicleNo);
             int VehicleNo = selVehicle.Id;
 
-            VehicleTraceYear = DbUtilities.GetSqlVehicleTraceYearList(VehicleNo);
+            VehicleTraceDt = DbUtilities.GetSqlVehicleTraceDtList(VehicleNo);
 
             txtKm.Text = "";
-            txtMonth.Text = "";
+            txtDay.Text = "";
             txtTotCons.Text = "";
             txtPumpVol.Text = "";
             txtVehVol.Text = "";
 
             cbYear.Items.Clear();
-            cbYear.Items.AddRange(DbUtilities.GetVehicleTraceYearsComboboxItemsList(VehicleTraceYear).ToArray<ComboboxItem>());
-            
+            cbYear.Items.AddRange(DbUtilities.GetVehicleTraceYearsComboboxItemsList(VehicleTraceDt.Select(i => i.Date.Year).Distinct().OrderBy(i => i).ToList()).ToArray<ComboboxItem>());
+                        
             txtConsumption.Text = selVehicle.Consumption.ToString();
         }
 
         private void cbYear_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {            
             dgvVehicleTraceList.Rows.Clear();
             btnCalc.Enabled = false;
 
-            int VehicleNo = DbUtilities.getComboboxItem_Vehicle(cbVehicleNo).Id;
+            //int VehicleNo = DbUtilities.getComboboxItem_Vehicle(cbVehicleNo).Id;
             int year = DbUtilities.getComboboxItem_VehicleTraceYear(cbYear);
 
-            DbUtilities dbu = new DbUtilities();
+            cbMonth.Enabled = true;
+            cbMonth.Items.Clear();
+            cbMonth.Items.AddRange(DbUtilities.GetVehicleTraceMonthsComboboxItemsList(VehicleTraceDt.Where(i=>i.Date.Year == year).Select(i => i.Date.Month).Distinct().OrderBy(i => i).ToList()).ToArray<ComboboxItem>());
 
+            /*
+            DbUtilities dbu = new DbUtilities();
+                        
             for (int month = 1; month <= 12; month++)
             {
                 results = dbu.getVehicleTraceData(VehicleNo, year, month);
@@ -76,6 +83,35 @@ namespace PumpData
                 //ret.Add(new string[] { reader["Dt"].ToString(), reader["DtYear"].ToString(), reader["DtMonth"].ToString(),
                 //reader["Km"].ToString(), reader["Vol"].ToString(), reader["RealVol"].ToString() });
             }
+            
+            dgvVehicleTraceList.ClearSelection();
+            */
+        }
+
+        private void cbMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dgvVehicleTraceList.Rows.Clear();
+            btnCalc.Enabled = false;
+
+            int VehicleNo = DbUtilities.getComboboxItem_Vehicle(cbVehicleNo).Id;
+            int year = DbUtilities.getComboboxItem_VehicleTraceYear(cbYear);
+            int month = DbUtilities.getComboboxItem_VehicleTraceMonth(cbMonth);
+
+            DbUtilities dbu = new DbUtilities();
+            results = dbu.getVehicleTraceData(VehicleNo, year, month);
+
+            if (results.Count > 1)
+            {
+                foreach (Consumption thisCons in results)
+                {
+                    dgvVehicleTraceList.Rows.Add(new object[] 
+                    {
+                        thisCons.Dt.ToString("dd.MM.yyyy"), thisCons.KmFrom, thisCons.KmTo, (thisCons.KmTo - thisCons.KmFrom).ToString(), thisCons.PumpVolume, thisCons.ControllerVolume
+                    });
+
+                }
+                btnCalc.Enabled = true;
+            }
 
             dgvVehicleTraceList.ClearSelection();
         }
@@ -84,7 +120,7 @@ namespace PumpData
         {
             if (e.RowIndex != -1 && txtConsumption.Text.Trim() != "")
             {
-                if (Convert.ToInt32(dgvVehicleTraceList["Km", e.RowIndex].Value.ToString()) <= 0 || Convert.ToInt32(dgvVehicleTraceList["PrevKm", e.RowIndex].Value.ToString()) <= 0)
+                if (Convert.ToInt32(dgvVehicleTraceList["KmFrom", e.RowIndex].Value.ToString()) <= 0 || Convert.ToInt32(dgvVehicleTraceList["KmTo", e.RowIndex].Value.ToString()) <= 0)
                 {
                     MessageBox.Show("Προσοχή! \r\nΔεν είναι ακόμα συμπληρωμένες οι ενδείξεις χιλιομέτρων για τον υπολογισμό κατανάλωσης της επιλεγμένης εγγραφής.");
                     return;
@@ -94,7 +130,9 @@ namespace PumpData
                 txtKm.Text = dgvVehicleTraceList["KmDiff", e.RowIndex].Value.ToString();
                 //lblMonth.Text = "Month: " + System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName( Convert.ToInt32(dgvVehicleTraceList["Month", e.RowIndex].Value.ToString()) );
                 //lblMonth.Text = "Month: " + Convert.ToInt32(dgvVehicleTraceList["Month", e.RowIndex].Value.ToString());
-                txtMonth.Text = dgvVehicleTraceList["Month", e.RowIndex].Value.ToString();
+
+                //txtMonth.Text = dgvVehicleTraceList["Month", e.RowIndex].Value.ToString();
+                txtDay.Text = Convert.ToDateTime(dgvVehicleTraceList["EntryDate", e.RowIndex].Value).Day.ToString();
 
                 double TotConsumption = Convert.ToDouble(txtKm.Text) / 100.0 * Convert.ToDouble(txtConsumption.Text);
 
@@ -149,5 +187,7 @@ namespace PumpData
             }
             
         }
+
+        
     }
 }

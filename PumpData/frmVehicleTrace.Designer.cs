@@ -44,23 +44,20 @@
             this.lblAvCons = new System.Windows.Forms.Label();
             this.lblDist = new System.Windows.Forms.Label();
             this.lblPumpVol = new System.Windows.Forms.Label();
-            this.txtMonth = new System.Windows.Forms.TextBox();
+            this.txtDay = new System.Windows.Forms.TextBox();
             this.txtPumpVol = new System.Windows.Forms.TextBox();
             this.txtVehVol = new System.Windows.Forms.TextBox();
             this.lblVehVol = new System.Windows.Forms.Label();
-            this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Month = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrevEntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MinEntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MaxEntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrevKm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Km = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KmDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PumpVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VehicleVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblTotCons = new System.Windows.Forms.Label();
             this.btnCalc = new System.Windows.Forms.Button();
             this.txtTotCons = new System.Windows.Forms.TextBox();
+            this.cbMonth = new System.Windows.Forms.ComboBox();
+            this.EntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PumpVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VehicleVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehicleTraceList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,13 +120,9 @@
             this.dgvVehicleTraceList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvVehicleTraceList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVehicleTraceList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Year,
-            this.Month,
-            this.PrevEntryDate,
-            this.MinEntryDate,
-            this.MaxEntryDate,
-            this.PrevKm,
-            this.Km,
+            this.EntryDate,
+            this.KmFrom,
+            this.KmTo,
             this.KmDiff,
             this.PumpVol,
             this.VehicleVol});
@@ -230,14 +223,14 @@
             this.lblPumpVol.TabIndex = 42;
             this.lblPumpVol.Text = "Pump Lt";
             // 
-            // txtMonth
+            // txtDay
             // 
-            this.txtMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtMonth.Location = new System.Drawing.Point(86, 88);
-            this.txtMonth.Name = "txtMonth";
-            this.txtMonth.ReadOnly = true;
-            this.txtMonth.Size = new System.Drawing.Size(100, 26);
-            this.txtMonth.TabIndex = 43;
+            this.txtDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtDay.Location = new System.Drawing.Point(192, 88);
+            this.txtDay.Name = "txtDay";
+            this.txtDay.ReadOnly = true;
+            this.txtDay.Size = new System.Drawing.Size(100, 26);
+            this.txtDay.TabIndex = 43;
             // 
             // txtPumpVol
             // 
@@ -266,76 +259,6 @@
             this.lblVehVol.Size = new System.Drawing.Size(89, 20);
             this.lblVehVol.TabIndex = 46;
             this.lblVehVol.Text = "Vehicle Lt";
-            // 
-            // Year
-            // 
-            this.Year.HeaderText = "Year";
-            this.Year.Name = "Year";
-            this.Year.ReadOnly = true;
-            this.Year.Width = 65;
-            // 
-            // Month
-            // 
-            this.Month.HeaderText = "Month";
-            this.Month.Name = "Month";
-            this.Month.ReadOnly = true;
-            this.Month.Width = 68;
-            // 
-            // PrevEntryDate
-            // 
-            this.PrevEntryDate.HeaderText = "Prev. Entry Date";
-            this.PrevEntryDate.Name = "PrevEntryDate";
-            this.PrevEntryDate.ReadOnly = true;
-            this.PrevEntryDate.Width = 149;
-            // 
-            // MinEntryDate
-            // 
-            this.MinEntryDate.HeaderText = "Entry Date From";
-            this.MinEntryDate.Name = "MinEntryDate";
-            this.MinEntryDate.ReadOnly = true;
-            this.MinEntryDate.Width = 149;
-            // 
-            // MaxEntryDate
-            // 
-            this.MaxEntryDate.HeaderText = "Entry Date To";
-            this.MaxEntryDate.Name = "MaxEntryDate";
-            this.MaxEntryDate.ReadOnly = true;
-            this.MaxEntryDate.Width = 149;
-            // 
-            // PrevKm
-            // 
-            this.PrevKm.HeaderText = "Prev. Km";
-            this.PrevKm.Name = "PrevKm";
-            this.PrevKm.ReadOnly = true;
-            this.PrevKm.Width = 94;
-            // 
-            // Km
-            // 
-            this.Km.HeaderText = "Km";
-            this.Km.Name = "Km";
-            this.Km.ReadOnly = true;
-            this.Km.Width = 94;
-            // 
-            // KmDiff
-            // 
-            this.KmDiff.HeaderText = "Km Diff";
-            this.KmDiff.Name = "KmDiff";
-            this.KmDiff.ReadOnly = true;
-            this.KmDiff.Width = 90;
-            // 
-            // PumpVol
-            // 
-            this.PumpVol.HeaderText = "Pump Vol.";
-            this.PumpVol.Name = "PumpVol";
-            this.PumpVol.ReadOnly = true;
-            this.PumpVol.Width = 110;
-            // 
-            // VehicleVol
-            // 
-            this.VehicleVol.HeaderText = "Vehicle Vol.";
-            this.VehicleVol.Name = "VehicleVol";
-            this.VehicleVol.ReadOnly = true;
-            this.VehicleVol.Width = 115;
             // 
             // lblTotCons
             // 
@@ -371,18 +294,70 @@
             this.txtTotCons.Size = new System.Drawing.Size(100, 26);
             this.txtTotCons.TabIndex = 44;
             // 
+            // cbMonth
+            // 
+            this.cbMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMonth.Enabled = false;
+            this.cbMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbMonth.FormattingEnabled = true;
+            this.cbMonth.Location = new System.Drawing.Point(86, 88);
+            this.cbMonth.Name = "cbMonth";
+            this.cbMonth.Size = new System.Drawing.Size(100, 28);
+            this.cbMonth.TabIndex = 48;
+            this.cbMonth.SelectedIndexChanged += new System.EventHandler(this.cbMonth_SelectedIndexChanged);
+            // 
+            // EntryDate
+            // 
+            this.EntryDate.HeaderText = "Entry Date";
+            this.EntryDate.Name = "EntryDate";
+            this.EntryDate.ReadOnly = true;
+            this.EntryDate.Width = 150;
+            // 
+            // KmFrom
+            // 
+            this.KmFrom.HeaderText = "Km From";
+            this.KmFrom.Name = "KmFrom";
+            this.KmFrom.ReadOnly = true;
+            // 
+            // KmTo
+            // 
+            this.KmTo.HeaderText = "Km To";
+            this.KmTo.Name = "KmTo";
+            this.KmTo.ReadOnly = true;
+            // 
+            // KmDiff
+            // 
+            this.KmDiff.HeaderText = "Km Diff";
+            this.KmDiff.Name = "KmDiff";
+            this.KmDiff.ReadOnly = true;
+            // 
+            // PumpVol
+            // 
+            this.PumpVol.HeaderText = "Pump Vol.";
+            this.PumpVol.Name = "PumpVol";
+            this.PumpVol.ReadOnly = true;
+            this.PumpVol.Width = 120;
+            // 
+            // VehicleVol
+            // 
+            this.VehicleVol.HeaderText = "Vehicle Vol.";
+            this.VehicleVol.Name = "VehicleVol";
+            this.VehicleVol.ReadOnly = true;
+            this.VehicleVol.Width = 120;
+            // 
             // frmVehicleTrace
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1159, 482);
+            this.Controls.Add(this.cbMonth);
             this.Controls.Add(this.txtTotCons);
             this.Controls.Add(this.lblTotCons);
             this.Controls.Add(this.btnCalc);
             this.Controls.Add(this.txtVehVol);
             this.Controls.Add(this.lblVehVol);
             this.Controls.Add(this.txtPumpVol);
-            this.Controls.Add(this.txtMonth);
+            this.Controls.Add(this.txtDay);
             this.Controls.Add(this.lblPumpVol);
             this.Controls.Add(this.lblDist);
             this.Controls.Add(this.lblAvCons);
@@ -421,22 +396,19 @@
         private System.Windows.Forms.Label lblAvCons;
         private System.Windows.Forms.Label lblDist;
         private System.Windows.Forms.Label lblPumpVol;
-        private System.Windows.Forms.TextBox txtMonth;
+        private System.Windows.Forms.TextBox txtDay;
         private System.Windows.Forms.TextBox txtPumpVol;
         private System.Windows.Forms.TextBox txtVehVol;
         private System.Windows.Forms.Label lblVehVol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Year;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Month;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrevEntryDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MinEntryDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MaxEntryDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrevKm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Km;
-        private System.Windows.Forms.DataGridViewTextBoxColumn KmDiff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PumpVol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn VehicleVol;
         private System.Windows.Forms.Label lblTotCons;
         public System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.TextBox txtTotCons;
+        private System.Windows.Forms.ComboBox cbMonth;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EntryDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn KmFrom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn KmTo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn KmDiff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PumpVol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VehicleVol;
     }
 }

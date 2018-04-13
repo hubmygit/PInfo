@@ -112,26 +112,27 @@ namespace PumpInfo
 
                     // ***** Km - VehicleTrace *****
                     // VehicleTrace -->
-                    string haveData_YearMonth = "";
+                    string haveData_YearMonthDay = "";
                     int machNo = dbu.getInstId();
                     foreach (ImpData thisLine in objList)
                     {
                         thisLine.machineNo = machNo;
                         //if (thisLine.datetime.ToString("yyyyMM") != haveData_YearMonth) 
-                        if (thisLine.datetime.ToString("yyyyMM") != haveData_YearMonth) // && thisLine.accepted == true) ????
+                        if (thisLine.datetime.ToString("yyyyMMdd") != haveData_YearMonthDay) // && thisLine.accepted == true) ????
                         {
                             //Give final Km  -> new Form
                             frmSetKm setKmForm = new frmSetKm(thisLine);
                             setKmForm.ShowDialog();
 
-                            int GivenKm = Convert.ToInt32(setKmForm.txtKm.Text);
+                            int KmFrom = Convert.ToInt32(setKmForm.txtKmFrom.Text);
+                            int KmTo = Convert.ToInt32(setKmForm.txtKmTo.Text);
 
-                            if (!dbu.InsertInto_VehicleTrace(thisLine, GivenKm))
+                            if (!dbu.InsertInto_VehicleTrace(thisLine, KmFrom, KmTo))
                             {
                                 insSuccess = false;
                             }
 
-                            haveData_YearMonth = thisLine.datetime.ToString("yyyyMM");
+                            haveData_YearMonthDay = thisLine.datetime.ToString("yyyyMMdd");
                         }
                     }
                     // VehicleTrace <--

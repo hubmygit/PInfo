@@ -1146,7 +1146,7 @@ namespace PumpLib
             string ProcGroupIds = String.Join(",", ProcessGroupIds);
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
-            string SelectSt = "SELECT Id, ProcessedGroupId, MachineNo, VehicleNo, DtYear, DtMonth, Km FROM [VehicleTrace] WHERE ProcessedGroupId IN ( " + ProcGroupIds + " ) ";
+            string SelectSt = "SELECT Id, ProcessedGroupId, MachineNo, VehicleNo, DtYear, DtMonth, DtDay, datetime(Dt) as Dt, KmFrom, KmTo FROM [VehicleTrace] WHERE ProcessedGroupId IN ( " + ProcGroupIds + " ) ";
 
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
@@ -1164,7 +1164,10 @@ namespace PumpLib
                         VehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
                         DtYear = Convert.ToInt32(reader["DtYear"].ToString()),
                         DtMonth = Convert.ToInt32(reader["DtMonth"].ToString()),
-                        Km = Convert.ToInt32(reader["Km"].ToString())
+                        DtDay = Convert.ToInt32(reader["DtDay"].ToString()),
+                        Dt = Convert.ToDateTime(reader["Dt"].ToString()),
+                        KmFrom = Convert.ToInt32(reader["KmFrom"].ToString()),
+                        KmTo = Convert.ToInt32(reader["KmTo"].ToString())
                     });
                 }
                 reader.Close();
@@ -1270,8 +1273,8 @@ namespace PumpLib
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[VehicleTrace] (ClientId, ProcessedGroupId, MachineNo, VehicleNo, DtYear, DtMonth, Km) VALUES " +
-                           "(@ClientId, @ProcessedGroupId, @MachineNo, @VehicleNo, @DtYear, @DtMonth, @Km) ";
+            string InsSt = "INSERT INTO [dbo].[VehicleTrace] (ClientId, ProcessedGroupId, MachineNo, VehicleNo, DtYear, DtMonth, DtDay, Dt, KmFrom, KmTo) VALUES " +
+                           "(@ClientId, @ProcessedGroupId, @MachineNo, @VehicleNo, @DtYear, @DtMonth, @DtDay, @Dt, @KmFrom, @KmTo) ";
             try
             {
                 sqlConn.Open();
@@ -1282,7 +1285,10 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@VehicleNo", vehicleTrace.VehicleNo);
                 cmd.Parameters.AddWithValue("@DtYear", vehicleTrace.DtYear);
                 cmd.Parameters.AddWithValue("@DtMonth", vehicleTrace.DtMonth);
-                cmd.Parameters.AddWithValue("@Km", vehicleTrace.Km);
+                cmd.Parameters.AddWithValue("@DtDay", vehicleTrace.DtDay);
+                cmd.Parameters.AddWithValue("@Dt", vehicleTrace.Dt);
+                cmd.Parameters.AddWithValue("@KmFrom", vehicleTrace.KmFrom);
+                cmd.Parameters.AddWithValue("@KmTo", vehicleTrace.KmTo);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -2136,12 +2142,13 @@ namespace PumpLib
             return ret;
         }
 
-        public static List<int> GetSqlVehicleTraceYearList(int VehicleNo)
+        public static List<DateTime> GetSqlVehicleTraceDtList(int VehicleNo)
         {
-            List<int> ret = new List<int>();
+            List<DateTime> ret = new List<DateTime>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT DISTINCT DtYear FROM [dbo].[vehicleTrace] WHERE DtMonth > 0 and VehicleNo = @VehicleNo ORDER BY DtYear DESC ";
+            //string SelectSt = "SELECT DISTINCT DtYear FROM [dbo].[vehicleTrace] WHERE DtMonth > 0 and VehicleNo = @VehicleNo ORDER BY DtYear DESC ";
+            string SelectSt = "SELECT DISTINCT Dt FROM [dbo].[vehicleTrace] WHERE VehicleNo = @VehicleNo ORDER BY Dt DESC ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -2150,7 +2157,7 @@ namespace PumpLib
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    ret.Add( Convert.ToInt32(reader["DtYear"].ToString()) );
+                    ret.Add( Convert.ToDateTime(reader["Dt"].ToString()) );
                 }
                 reader.Close();
                 sqlConn.Close();
@@ -2175,7 +2182,26 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<ComboboxItem> GetVehicleTraceMonthsComboboxItemsList(List<int> VehicleTraceMonths)
+        {
+            List<ComboboxItem> ret = new List<ComboboxItem>();
+
+            foreach (int vty in VehicleTraceMonths)
+            {
+                ret.Add(new ComboboxItem() { Value = vty, Text = vty.ToString() });
+            }
+
+            return ret;
+        }
+
         public static int getComboboxItem_VehicleTraceYear(ComboBox cb)
+        {
+            int ret = ((int)((ComboboxItem)cb.SelectedItem).Value);
+
+            return ret;
+        }
+
+        public static int getComboboxItem_VehicleTraceMonth(ComboBox cb)
         {
             int ret = ((int)((ComboboxItem)cb.SelectedItem).Value);
 
@@ -2359,14 +2385,14 @@ namespace PumpLib
             return ret;
         }
 
-        public bool InsertInto_VehicleTrace(ImpData obj, int Km)
+        public bool InsertInto_VehicleTrace(ImpData obj, int KmFrom, int KmTo)
         {
             bool ret = false;
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [VehicleTrace] (ProcessedGroupId, MachineNo, VehicleNo, DtYear, DtMonth, Km, InsDt) VALUES " +
-                           "(@ProcessedGroupId, @MachineNo, @VehicleNo, @DtYear, @DtMonth, @Km, datetime('now', 'localtime'))";
+            string InsSt = "INSERT INTO [VehicleTrace] (ProcessedGroupId, MachineNo, VehicleNo, DtYear, DtMonth, DtDay, Dt, KmFrom, KmTo, InsDt) VALUES " +
+                           "(@ProcessedGroupId, @MachineNo, @VehicleNo, @DtYear, @DtMonth, @DtDay, @Dt, @KmFrom, @KmTo, datetime('now', 'localtime'))";
             try
             {
                 sqlConn.Open();
@@ -2377,7 +2403,10 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@VehicleNo", obj.vehicleNo);
                 cmd.Parameters.AddWithValue("@DtYear", obj.datetime.Year);
                 cmd.Parameters.AddWithValue("@DtMonth", obj.datetime.Month);
-                cmd.Parameters.AddWithValue("@Km", Km);               
+                cmd.Parameters.AddWithValue("@DtDay", obj.datetime.Day);
+                cmd.Parameters.AddWithValue("@Dt", obj.datetime);
+                cmd.Parameters.AddWithValue("@KmFrom", KmFrom);
+                cmd.Parameters.AddWithValue("@KmTo", KmTo);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -2395,6 +2424,7 @@ namespace PumpLib
         }
 
 
+        /*
         public List<Consumption> getVehicleTraceData(int vehicleNo, int year, int month)
         {
             List<Consumption> ret = new List<Consumption>();
@@ -2528,6 +2558,66 @@ namespace PumpLib
             catch (Exception ex)
             {
                 MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+        */
+
+        public List<Consumption> getVehicleTraceData(int vehicleNo, int year, int month)
+        {
+            List<Consumption> ret = new List<Consumption>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            //string SelectSt = "SELECT Dt as EntryDate, year(Dt) as DtYear, month(Dt) as DtMonth, day(Dt) as DtDay, KmFrom, KmTo, (KmTo - KmFrom) as KmDiff FROM [dbo].[vehicleTrace] " + 
+            //    "WHERE VehicleNo = @VehicleNo and Year(Dt) = @Year and Month(Dt) = @Month ORDER BY Dt ";
+
+
+            string SelectSt = "SELECT VehicleNo, Dt as EntryDate, year(Dt) as DtYear, month(Dt) as DtMonth, day(Dt) as DtDay, isnull(KmFrom, 0) as KmFrom, isnull(KmTo, 0) as KmTo, " + //(KmTo - KmFrom) as KmDiff, " +
+                                     "isnull((SELECT sum(R.Volume) as ControllerVolume FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId " +
+                                     "WHERE year(R.Dt) = @Year and month(R.Dt) = @Month and day(R.Dt) = day(V.Dt) and R.Accepted = 1 and VehicleNo = @VehicleNo), 0) as ControllerVolume, " +
+                                     "isnull((SELECT sum(E.PumpVolume) as PumpVolume FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId " +
+                                     "WHERE year(R.Dt) = @Year and month(R.Dt) = @Month and day(R.Dt) = day(V.Dt) and R.Accepted = 1 and VehicleNo = @VehicleNo), 0) as PumpVolume " +
+                              "FROM [dbo].[vehicleTrace] V " +
+                              "WHERE VehicleNo = @VehicleNo and Year(Dt) = @Year and Month(Dt) = @Month " +
+                              "ORDER BY Dt ";
+
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+
+            cmd.Parameters.AddWithValue("@VehicleNo", vehicleNo);
+            cmd.Parameters.AddWithValue("@Year", year);
+            cmd.Parameters.AddWithValue("@Month", month);
+
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Consumption()
+                    {
+                        Dt = Convert.ToDateTime(reader["EntryDate"].ToString()),
+                        Year = Convert.ToInt32(reader["DtYear"].ToString()),
+                        Month = Convert.ToInt32(reader["DtMonth"].ToString()),
+                        Day = Convert.ToInt32(reader["DtDay"].ToString()),
+                        KmFrom = Convert.ToInt32(reader["KmFrom"].ToString()),
+                        KmTo = Convert.ToInt32(reader["KmTo"].ToString()),
+                        ControllerVolume = Convert.ToDouble(reader["ControllerVolume"].ToString()),
+                        PumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString())
+                    });
+
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            if (ret.Count <= 0)
+            {
+                return ret;
             }
 
             return ret;
@@ -3839,7 +3929,11 @@ namespace PumpLib
         public int VehicleNo { get; set; }
         public int DtYear { get; set; }
         public int DtMonth { get; set; }
-        public int Km { get; set; }
+        public int DtDay { get; set; }
+        public DateTime Dt { get; set; }
+        public int KmFrom { get; set; }
+        public int KmTo { get; set; }
+        //public int Km { get; set; }
         //public DateTime InsDt { get; set; }
     }
 
@@ -4013,13 +4107,26 @@ namespace PumpLib
         }
     }
 
+    //public class Consumption
+    //{
+    //    public DateTime MinDt { get; set; }
+    //    public DateTime MaxDt { get; set; }
+    //    public int Year { get; set; }
+    //    public int Month { get; set; }
+    //    public int Km { get; set; }
+    //    public double ControllerVolume { get; set; }
+    //    public double PumpVolume { get; set; }
+    //}
+
     public class Consumption
     {
-        public DateTime MinDt { get; set; }
-        public DateTime MaxDt { get; set; }
+       // public DateTime prevDt { get; set; }
+        public DateTime Dt { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
-        public int Km { get; set; }
+        public int Day { get; set; }
+        public int KmFrom { get; set; }
+        public int KmTo { get; set; }
         public double ControllerVolume { get; set; }
         public double PumpVolume { get; set; }
     }
