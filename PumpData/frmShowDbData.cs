@@ -61,6 +61,8 @@ namespace PumpData
             dgv.Columns["GeostationId"].DisplayIndex = 14;
             dgv.Columns["SampleNo"].DisplayIndex = 15;
             dgv.Columns["Remarks"].DisplayIndex = 16;
+
+            //receiptNo - receiptPrice ??????????
         }
 
         private void ApplyFilters()

@@ -101,6 +101,11 @@ namespace PumpInfo
                 txtSampleNo.Text = "0";
             }
 
+            if (txtReceiptPrice.Text.Trim() == "")
+            {
+                txtReceiptPrice.Text = "0";
+            }
+
             //add extra data to obj
             if (obj.accepted) //update
             {
