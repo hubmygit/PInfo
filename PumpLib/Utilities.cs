@@ -2404,7 +2404,8 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@DtYear", obj.datetime.Year);
                 cmd.Parameters.AddWithValue("@DtMonth", obj.datetime.Month);
                 cmd.Parameters.AddWithValue("@DtDay", obj.datetime.Day);
-                cmd.Parameters.AddWithValue("@Dt", obj.datetime);
+                //cmd.Parameters.AddWithValue("@Dt", obj.datetime);
+                cmd.Parameters.AddWithValue("@Dt", new DateTime(obj.datetime.Year, obj.datetime.Month, obj.datetime.Day));
                 cmd.Parameters.AddWithValue("@KmFrom", KmFrom);
                 cmd.Parameters.AddWithValue("@KmTo", KmTo);
 
@@ -3564,6 +3565,46 @@ namespace PumpLib
 
         }
 
+        public List<Receipts> getReceipts()
+        {
+            List<Receipts> RecList = new List<Receipts>();
+
+            SQLiteConnection sqlConn1 = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT datetime(R.Dt) as Dt, B.Name as Brand, E.Dealer, E.Address, P.Name as Product, E.ReceiptNo, ifnull(E.ReceiptPrice,0) as ReceiptPrice " +
+                              "FROM [receiptData] R left outer join [extraData] E on R.Id = E.receiptDataId left outer join [Brand] B on B.Id = E.BrandId left outer join [Product] P on P.Id = E.ProductId " +
+                              "WHERE R.Accepted = 1 " + 
+                              "ORDER BY Dt Desc ";
+
+            SQLiteCommand cmd1 = new SQLiteCommand(SelectSt, sqlConn1);
+
+            try
+            {
+                sqlConn1.Open();
+                SQLiteDataReader reader1 = cmd1.ExecuteReader();
+                while (reader1.Read())
+                {
+                    RecList.Add(new Receipts()
+                    {
+                        Dt = Convert.ToDateTime(reader1["Dt"].ToString()),
+                        Brand = reader1["Brand"].ToString(),
+                        Dealer = reader1["Dealer"].ToString(),
+                        Address = reader1["Address"].ToString(),
+                        Product = reader1["Product"].ToString(),
+                        ReceiptNo = reader1["ReceiptNo"].ToString(),
+                        ReceiptPrice = Convert.ToDouble(reader1["ReceiptPrice"].ToString())
+                    });
+                }
+                reader1.Close();
+                sqlConn1.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return RecList;
+        }
+
     }
     
 
@@ -4132,6 +4173,17 @@ namespace PumpLib
         public int KmTo { get; set; }
         public double ControllerVolume { get; set; }
         public double PumpVolume { get; set; }
+        public double ReceiptPrice { get; set; }
+    }
+
+    public class Receipts
+    {
+        public DateTime Dt { get; set; }
+        public string Brand { get; set; }
+        public string Dealer { get; set; }
+        public string Address { get; set; }
+        public string Product { get; set; }
+        public string ReceiptNo { get; set; }
         public double ReceiptPrice { get; set; }
     }
 

@@ -59,6 +59,7 @@
             this.cbDrivers = new System.Windows.Forms.ComboBox();
             this.btnGeostation = new System.Windows.Forms.Button();
             this.cbDealer = new System.Windows.Forms.ComboBox();
+            this.btnReceipts = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -346,11 +347,25 @@
             this.cbDealer.TabIndex = 44;
             this.cbDealer.SelectedIndexChanged += new System.EventHandler(this.cbDealer_SelectedIndexChanged);
             // 
+            // btnReceipts
+            // 
+            this.btnReceipts.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnReceipts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReceipts.Location = new System.Drawing.Point(834, 22);
+            this.btnReceipts.Name = "btnReceipts";
+            this.btnReceipts.Size = new System.Drawing.Size(160, 40);
+            this.btnReceipts.TabIndex = 45;
+            this.btnReceipts.Text = "Αποδείξεις Περιόδου";
+            this.btnReceipts.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnReceipts.UseVisualStyleBackColor = true;
+            this.btnReceipts.Click += new System.EventHandler(this.btnReceipts_Click);
+            // 
             // ArchivedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 502);
+            this.Controls.Add(this.btnReceipts);
             this.Controls.Add(this.cbDealer);
             this.Controls.Add(this.cbDrivers);
             this.Controls.Add(this.cbColorMode);
@@ -365,6 +380,7 @@
             this.MinimumSize = new System.Drawing.Size(1200, 540);
             this.Name = "ArchivedForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Archived Data";
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -400,5 +416,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
         private System.Windows.Forms.ComboBox cbDealer;
+        public System.Windows.Forms.Button btnReceipts;
     }
 }

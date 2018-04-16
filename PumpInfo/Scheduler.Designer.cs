@@ -54,12 +54,12 @@
             this.Perioxh_StationsCnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvStations = new System.Windows.Forms.DataGridView();
             this.dgvCompanies = new System.Windows.Forms.DataGridView();
-            this.Com_Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Com_Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Com_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblDates = new System.Windows.Forms.Label();
             this.cbDates = new System.Windows.Forms.ComboBox();
             this.btnCopy = new System.Windows.Forms.Button();
+            this.Com_Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Com_Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Com_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_Nomos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_Perioxi = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,7 +82,7 @@
             // 
             this.lblVehicleNo.AutoSize = true;
             this.lblVehicleNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblVehicleNo.Location = new System.Drawing.Point(8, 185);
+            this.lblVehicleNo.Location = new System.Drawing.Point(12, 58);
             this.lblVehicleNo.Name = "lblVehicleNo";
             this.lblVehicleNo.Size = new System.Drawing.Size(56, 20);
             this.lblVehicleNo.TabIndex = 34;
@@ -93,7 +93,7 @@
             this.cbVehicleNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbVehicleNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbVehicleNo.FormattingEnabled = true;
-            this.cbVehicleNo.Location = new System.Drawing.Point(70, 182);
+            this.cbVehicleNo.Location = new System.Drawing.Point(74, 55);
             this.cbVehicleNo.Name = "cbVehicleNo";
             this.cbVehicleNo.Size = new System.Drawing.Size(157, 28);
             this.cbVehicleNo.TabIndex = 33;
@@ -124,13 +124,13 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvDistricts.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvDistricts.Location = new System.Drawing.Point(12, 6);
+            this.dgvDistricts.Location = new System.Drawing.Point(237, 6);
             this.dgvDistricts.MultiSelect = false;
             this.dgvDistricts.Name = "dgvDistricts";
             this.dgvDistricts.RowHeadersVisible = false;
             this.dgvDistricts.RowHeadersWidth = 10;
             this.dgvDistricts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDistricts.Size = new System.Drawing.Size(215, 170);
+            this.dgvDistricts.Size = new System.Drawing.Size(215, 270);
             this.dgvDistricts.TabIndex = 35;
             this.dgvDistricts.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDistricts_CellClick);
             // 
@@ -173,7 +173,7 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvNomoi.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvNomoi.Location = new System.Drawing.Point(233, 6);
+            this.dgvNomoi.Location = new System.Drawing.Point(458, 6);
             this.dgvNomoi.MultiSelect = false;
             this.dgvNomoi.Name = "dgvNomoi";
             this.dgvNomoi.RowHeadersVisible = false;
@@ -229,7 +229,7 @@
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvPerioxes.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvPerioxes.Location = new System.Drawing.Point(468, 6);
+            this.dgvPerioxes.Location = new System.Drawing.Point(694, 6);
             this.dgvPerioxes.MultiSelect = false;
             this.dgvPerioxes.Name = "dgvPerioxes";
             this.dgvPerioxes.RowHeadersVisible = false;
@@ -296,10 +296,11 @@
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvStations.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvStations.Location = new System.Drawing.Point(12, 282);
+            this.dgvStations.Location = new System.Drawing.Point(12, 337);
             this.dgvStations.Name = "dgvStations";
+            this.dgvStations.RowHeadersWidth = 30;
             this.dgvStations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStations.Size = new System.Drawing.Size(970, 268);
+            this.dgvStations.Size = new System.Drawing.Size(1196, 253);
             this.dgvStations.TabIndex = 38;
             // 
             // dgvCompanies
@@ -328,7 +329,7 @@
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCompanies.DefaultCellStyle = dataGridViewCellStyle10;
-            this.dgvCompanies.Location = new System.Drawing.Point(813, 6);
+            this.dgvCompanies.Location = new System.Drawing.Point(1039, 6);
             this.dgvCompanies.MultiSelect = false;
             this.dgvCompanies.Name = "dgvCompanies";
             this.dgvCompanies.ReadOnly = true;
@@ -337,6 +338,41 @@
             this.dgvCompanies.Size = new System.Drawing.Size(169, 270);
             this.dgvCompanies.TabIndex = 39;
             this.dgvCompanies.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCompanies_CellContentClick);
+            // 
+            // lblDates
+            // 
+            this.lblDates.AutoSize = true;
+            this.lblDates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDates.Location = new System.Drawing.Point(12, 125);
+            this.lblDates.Name = "lblDates";
+            this.lblDates.Size = new System.Drawing.Size(145, 20);
+            this.lblDates.TabIndex = 40;
+            this.lblDates.Text = "Διάστημα σε μήνες";
+            // 
+            // cbDates
+            // 
+            this.cbDates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbDates.FormattingEnabled = true;
+            this.cbDates.Location = new System.Drawing.Point(163, 122);
+            this.cbDates.Name = "cbDates";
+            this.cbDates.Size = new System.Drawing.Size(68, 28);
+            this.cbDates.TabIndex = 41;
+            this.cbDates.SelectedIndexChanged += new System.EventHandler(this.cbDates_SelectedIndexChanged);
+            // 
+            // btnCopy
+            // 
+            this.btnCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnCopy.Image = global::PumpInfo.Properties.Resources.CopyToClipboard_32x;
+            this.btnCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCopy.Location = new System.Drawing.Point(12, 291);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(135, 40);
+            this.btnCopy.TabIndex = 42;
+            this.btnCopy.Text = "Αντιγραφή";
+            this.btnCopy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
             // Com_Index
             // 
@@ -357,44 +393,9 @@
             // 
             // Com_Name
             // 
-            this.Com_Name.HeaderText = "Εταιρία";
+            this.Com_Name.HeaderText = "Εταιρίες";
             this.Com_Name.Name = "Com_Name";
             this.Com_Name.ReadOnly = true;
-            // 
-            // lblDates
-            // 
-            this.lblDates.AutoSize = true;
-            this.lblDates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDates.Location = new System.Drawing.Point(8, 219);
-            this.lblDates.Name = "lblDates";
-            this.lblDates.Size = new System.Drawing.Size(145, 20);
-            this.lblDates.TabIndex = 40;
-            this.lblDates.Text = "Διάστημα σε μήνες";
-            // 
-            // cbDates
-            // 
-            this.cbDates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbDates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbDates.FormattingEnabled = true;
-            this.cbDates.Location = new System.Drawing.Point(159, 216);
-            this.cbDates.Name = "cbDates";
-            this.cbDates.Size = new System.Drawing.Size(68, 28);
-            this.cbDates.TabIndex = 41;
-            this.cbDates.SelectedIndexChanged += new System.EventHandler(this.cbDates_SelectedIndexChanged);
-            // 
-            // btnCopy
-            // 
-            this.btnCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnCopy.Image = global::PumpInfo.Properties.Resources.CopyToClipboard_32x;
-            this.btnCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCopy.Location = new System.Drawing.Point(12, 236);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(135, 40);
-            this.btnCopy.TabIndex = 42;
-            this.btnCopy.Text = "Αντιγραφή";
-            this.btnCopy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
             // Station_Id
             // 
@@ -420,7 +421,7 @@
             this.Station_Address.HeaderText = "Διεύθυνση";
             this.Station_Address.Name = "Station_Address";
             this.Station_Address.ReadOnly = true;
-            this.Station_Address.Width = 240;
+            this.Station_Address.Width = 285;
             // 
             // Station_ComId
             // 
@@ -440,7 +441,7 @@
             this.Station_Dealer.HeaderText = "Dealer";
             this.Station_Dealer.Name = "Station_Dealer";
             this.Station_Dealer.ReadOnly = true;
-            this.Station_Dealer.Width = 240;
+            this.Station_Dealer.Width = 285;
             // 
             // Station_Visits
             // 
@@ -470,7 +471,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 562);
+            this.ClientSize = new System.Drawing.Size(1224, 602);
             this.Controls.Add(this.btnCopy);
             this.Controls.Add(this.cbDates);
             this.Controls.Add(this.lblDates);
@@ -482,6 +483,7 @@
             this.Controls.Add(this.lblVehicleNo);
             this.Controls.Add(this.cbVehicleNo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1240, 640);
             this.Name = "Scheduler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Scheduler";
@@ -510,15 +512,15 @@
         private System.Windows.Forms.DataGridView dgvPerioxes;
         private System.Windows.Forms.DataGridView dgvStations;
         private System.Windows.Forms.DataGridView dgvCompanies;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Com_Index;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Com_Selected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Com_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn PerioxhId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Perioxh;
         private System.Windows.Forms.DataGridViewTextBoxColumn Perioxh_StationsCnt;
         private System.Windows.Forms.Label lblDates;
         private System.Windows.Forms.ComboBox cbDates;
         public System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Com_Index;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Com_Selected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Com_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_Nomos;
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_Perioxi;

@@ -220,5 +220,14 @@ namespace PumpInfo
         {
             ApplyFilters();
         }
+
+        private void btnReceipts_Click(object sender, EventArgs e)
+        {
+            DateTime dtFromDate = dtFrom.Value.Date;
+            DateTime dtToDate = dtTo.Value.Date;
+
+            ShowMyReceipts myRecFrm = new ShowMyReceipts(dtFromDate, dtToDate);
+            myRecFrm.ShowDialog();
+        }
     }
 }
