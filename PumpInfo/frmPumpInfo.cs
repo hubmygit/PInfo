@@ -104,8 +104,11 @@ namespace PumpInfo
 
             if (objList.Count > 0)
             {
+                double receiptSum = objList.Sum(i => i.receiptPrice);
+
                 DialogResult dialogResult = MessageBox.Show("Είστε σίγουροι ότι θέλετε να αποθηκεύσετε όλες τις εγγραφές; \r\n" +
-                "Προσοχή! Μετά την αποθήκευση δεν θα μπορείτε πλέον να εμφανίσετε και να επεξεργαστείτε τις εγγραφές!", "Αποθήκευση", MessageBoxButtons.YesNo);
+                "Προσοχή! Μετά την αποθήκευση δεν θα μπορείτε πλέον να εμφανίσετε και να επεξεργαστείτε τις εγγραφές!\r\n" + 
+                "(Συνολικό ποσό αποδείξεων: " + receiptSum.ToString() + " €)", "Αποθήκευση", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     bool insSuccess = dbu.InsertReceiptAllDataIntoSQLiteTable(objList);

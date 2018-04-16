@@ -2577,7 +2577,9 @@ namespace PumpLib
                                      "isnull((SELECT sum(R.Volume) as ControllerVolume FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId " +
                                      "WHERE year(R.Dt) = @Year and month(R.Dt) = @Month and day(R.Dt) = day(V.Dt) and R.Accepted = 1 and VehicleNo = @VehicleNo), 0) as ControllerVolume, " +
                                      "isnull((SELECT sum(E.PumpVolume) as PumpVolume FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId " +
-                                     "WHERE year(R.Dt) = @Year and month(R.Dt) = @Month and day(R.Dt) = day(V.Dt) and R.Accepted = 1 and VehicleNo = @VehicleNo), 0) as PumpVolume " +
+                                     "WHERE year(R.Dt) = @Year and month(R.Dt) = @Month and day(R.Dt) = day(V.Dt) and R.Accepted = 1 and VehicleNo = @VehicleNo), 0) as PumpVolume, " +
+                                     "isnull((SELECT sum(E.ReceiptPrice) as ReceiptPrice FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId " +
+                                     "WHERE year(R.Dt) = @Year and month(R.Dt) = @Month and day(R.Dt) = day(V.Dt) and R.Accepted = 1 and VehicleNo = @VehicleNo), 0) as ReceiptPrice " +
                               "FROM [dbo].[vehicleTrace] V " +
                               "WHERE VehicleNo = @VehicleNo and Year(Dt) = @Year and Month(Dt) = @Month " +
                               "ORDER BY Dt ";
@@ -2603,7 +2605,8 @@ namespace PumpLib
                         KmFrom = Convert.ToInt32(reader["KmFrom"].ToString()),
                         KmTo = Convert.ToInt32(reader["KmTo"].ToString()),
                         ControllerVolume = Convert.ToDouble(reader["ControllerVolume"].ToString()),
-                        PumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString())
+                        PumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString()),
+                        ReceiptPrice = Convert.ToDouble(reader["ReceiptPrice"].ToString())
                     });
 
                 }
@@ -4129,6 +4132,7 @@ namespace PumpLib
         public int KmTo { get; set; }
         public double ControllerVolume { get; set; }
         public double PumpVolume { get; set; }
+        public double ReceiptPrice { get; set; }
     }
 
     //public class MapFormParams

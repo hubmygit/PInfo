@@ -29,6 +29,7 @@ namespace PumpData
             dgvVehicleTraceList.Rows.Clear();
             btnCalc.Enabled = false;
 
+            cbMonth.Items.Clear();
             cbMonth.Enabled = false;
 
             Vehicle selVehicle = DbUtilities.getComboboxItem_Vehicle(cbVehicleNo);
@@ -41,7 +42,7 @@ namespace PumpData
             txtTotCons.Text = "";
             txtPumpVol.Text = "";
             txtVehVol.Text = "";
-
+            txtTotRecPrice.Text = "";
             cbYear.Items.Clear();
             cbYear.Items.AddRange(DbUtilities.GetVehicleTraceYearsComboboxItemsList(VehicleTraceDt.Select(i => i.Date.Year).Distinct().OrderBy(i => i).ToList()).ToArray<ComboboxItem>());
                         
@@ -53,12 +54,20 @@ namespace PumpData
             dgvVehicleTraceList.Rows.Clear();
             btnCalc.Enabled = false;
 
+            txtKm.Text = "";
+            txtTotCons.Text = "";
+            txtPumpVol.Text = "";
+            txtVehVol.Text = "";
+            txtTotRecPrice.Text = "";
+
             //int VehicleNo = DbUtilities.getComboboxItem_Vehicle(cbVehicleNo).Id;
             int year = DbUtilities.getComboboxItem_VehicleTraceYear(cbYear);
 
             cbMonth.Enabled = true;
             cbMonth.Items.Clear();
             cbMonth.Items.AddRange(DbUtilities.GetVehicleTraceMonthsComboboxItemsList(VehicleTraceDt.Where(i=>i.Date.Year == year).Select(i => i.Date.Month).Distinct().OrderBy(i => i).ToList()).ToArray<ComboboxItem>());
+
+            txtDay.Text = "";
 
             /*
             DbUtilities dbu = new DbUtilities();
@@ -93,6 +102,14 @@ namespace PumpData
             dgvVehicleTraceList.Rows.Clear();
             btnCalc.Enabled = false;
 
+            txtDay.Text = "";
+
+            txtKm.Text = "";
+            txtTotCons.Text = "";
+            txtPumpVol.Text = "";
+            txtVehVol.Text = "";
+            txtTotRecPrice.Text = "";
+
             int VehicleNo = DbUtilities.getComboboxItem_Vehicle(cbVehicleNo).Id;
             int year = DbUtilities.getComboboxItem_VehicleTraceYear(cbYear);
             int month = DbUtilities.getComboboxItem_VehicleTraceMonth(cbMonth);
@@ -106,7 +123,7 @@ namespace PumpData
                 {
                     dgvVehicleTraceList.Rows.Add(new object[] 
                     {
-                        thisCons.Dt.ToString("dd.MM.yyyy"), thisCons.KmFrom, thisCons.KmTo, (thisCons.KmTo - thisCons.KmFrom).ToString(), thisCons.PumpVolume, thisCons.ControllerVolume
+                        thisCons.Dt.ToString("dd.MM.yyyy"), thisCons.KmFrom, thisCons.KmTo, (thisCons.KmTo - thisCons.KmFrom).ToString(), thisCons.PumpVolume, thisCons.ControllerVolume, thisCons.ReceiptPrice
                     });
 
                 }
@@ -139,6 +156,7 @@ namespace PumpData
                 txtTotCons.Text = TotConsumption.ToString();
                 txtPumpVol.Text = dgvVehicleTraceList["PumpVol", e.RowIndex].Value.ToString();
                 txtVehVol.Text = dgvVehicleTraceList["VehicleVol", e.RowIndex].Value.ToString();
+                txtTotRecPrice.Text = dgvVehicleTraceList["TotReceiptPrice", e.RowIndex].Value.ToString();
             }
         }
 

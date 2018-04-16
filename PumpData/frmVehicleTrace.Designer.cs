@@ -36,6 +36,13 @@
             this.cbYear = new System.Windows.Forms.ComboBox();
             this.lblYear = new System.Windows.Forms.Label();
             this.dgvVehicleTraceList = new System.Windows.Forms.DataGridView();
+            this.EntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PumpVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VehicleVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotReceiptPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblKm = new System.Windows.Forms.Label();
             this.txtKm = new System.Windows.Forms.TextBox();
             this.lblConsUnit = new System.Windows.Forms.Label();
@@ -52,12 +59,10 @@
             this.btnCalc = new System.Windows.Forms.Button();
             this.txtTotCons = new System.Windows.Forms.TextBox();
             this.cbMonth = new System.Windows.Forms.ComboBox();
-            this.EntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KmFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KmTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KmDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PumpVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VehicleVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblDay = new System.Windows.Forms.Label();
+            this.lblTotRecPrice = new System.Windows.Forms.Label();
+            this.lblEuros = new System.Windows.Forms.Label();
+            this.txtTotRecPrice = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehicleTraceList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,9 +92,9 @@
             this.cbYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbYear.FormattingEnabled = true;
-            this.cbYear.Location = new System.Drawing.Point(86, 54);
+            this.cbYear.Location = new System.Drawing.Point(16, 80);
             this.cbYear.Name = "cbYear";
-            this.cbYear.Size = new System.Drawing.Size(100, 28);
+            this.cbYear.Size = new System.Drawing.Size(80, 28);
             this.cbYear.TabIndex = 2;
             this.cbYear.SelectedIndexChanged += new System.EventHandler(this.cbYear_SelectedIndexChanged);
             // 
@@ -97,7 +102,7 @@
             // 
             this.lblYear.AutoSize = true;
             this.lblYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblYear.Location = new System.Drawing.Point(33, 57);
+            this.lblYear.Location = new System.Drawing.Point(12, 57);
             this.lblYear.Name = "lblYear";
             this.lblYear.Size = new System.Drawing.Size(47, 20);
             this.lblYear.TabIndex = 32;
@@ -125,7 +130,8 @@
             this.KmTo,
             this.KmDiff,
             this.PumpVol,
-            this.VehicleVol});
+            this.VehicleVol,
+            this.TotReceiptPrice});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -143,6 +149,52 @@
             this.dgvVehicleTraceList.Size = new System.Drawing.Size(1135, 342);
             this.dgvVehicleTraceList.TabIndex = 3;
             this.dgvVehicleTraceList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicleTraceList_CellClick);
+            // 
+            // EntryDate
+            // 
+            this.EntryDate.HeaderText = "Entry Date";
+            this.EntryDate.Name = "EntryDate";
+            this.EntryDate.ReadOnly = true;
+            this.EntryDate.Width = 150;
+            // 
+            // KmFrom
+            // 
+            this.KmFrom.HeaderText = "Km From";
+            this.KmFrom.Name = "KmFrom";
+            this.KmFrom.ReadOnly = true;
+            // 
+            // KmTo
+            // 
+            this.KmTo.HeaderText = "Km To";
+            this.KmTo.Name = "KmTo";
+            this.KmTo.ReadOnly = true;
+            // 
+            // KmDiff
+            // 
+            this.KmDiff.HeaderText = "Km Diff";
+            this.KmDiff.Name = "KmDiff";
+            this.KmDiff.ReadOnly = true;
+            // 
+            // PumpVol
+            // 
+            this.PumpVol.HeaderText = "Pump Vol.";
+            this.PumpVol.Name = "PumpVol";
+            this.PumpVol.ReadOnly = true;
+            this.PumpVol.Width = 120;
+            // 
+            // VehicleVol
+            // 
+            this.VehicleVol.HeaderText = "Vehicle Vol.";
+            this.VehicleVol.Name = "VehicleVol";
+            this.VehicleVol.ReadOnly = true;
+            this.VehicleVol.Width = 120;
+            // 
+            // TotReceiptPrice
+            // 
+            this.TotReceiptPrice.HeaderText = "Receipt Price";
+            this.TotReceiptPrice.Name = "TotReceiptPrice";
+            this.TotReceiptPrice.ReadOnly = true;
+            this.TotReceiptPrice.Width = 140;
             // 
             // lblKm
             // 
@@ -187,7 +239,7 @@
             // 
             this.lblMonth.AutoSize = true;
             this.lblMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblMonth.Location = new System.Drawing.Point(21, 91);
+            this.lblMonth.Location = new System.Drawing.Point(98, 57);
             this.lblMonth.Name = "lblMonth";
             this.lblMonth.Size = new System.Drawing.Size(59, 20);
             this.lblMonth.TabIndex = 38;
@@ -217,7 +269,7 @@
             // 
             this.lblPumpVol.AutoSize = true;
             this.lblPumpVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblPumpVol.Location = new System.Drawing.Point(952, 25);
+            this.lblPumpVol.Location = new System.Drawing.Point(950, 25);
             this.lblPumpVol.Name = "lblPumpVol";
             this.lblPumpVol.Size = new System.Drawing.Size(75, 20);
             this.lblPumpVol.TabIndex = 42;
@@ -226,16 +278,16 @@
             // txtDay
             // 
             this.txtDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtDay.Location = new System.Drawing.Point(192, 88);
+            this.txtDay.Location = new System.Drawing.Point(188, 80);
             this.txtDay.Name = "txtDay";
             this.txtDay.ReadOnly = true;
-            this.txtDay.Size = new System.Drawing.Size(100, 26);
+            this.txtDay.Size = new System.Drawing.Size(80, 26);
             this.txtDay.TabIndex = 43;
             // 
             // txtPumpVol
             // 
             this.txtPumpVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtPumpVol.Location = new System.Drawing.Point(1033, 22);
+            this.txtPumpVol.Location = new System.Drawing.Point(1031, 22);
             this.txtPumpVol.Name = "txtPumpVol";
             this.txtPumpVol.ReadOnly = true;
             this.txtPumpVol.Size = new System.Drawing.Size(100, 26);
@@ -244,7 +296,7 @@
             // txtVehVol
             // 
             this.txtVehVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtVehVol.Location = new System.Drawing.Point(1033, 54);
+            this.txtVehVol.Location = new System.Drawing.Point(1031, 54);
             this.txtVehVol.Name = "txtVehVol";
             this.txtVehVol.ReadOnly = true;
             this.txtVehVol.Size = new System.Drawing.Size(100, 26);
@@ -254,7 +306,7 @@
             // 
             this.lblVehVol.AutoSize = true;
             this.lblVehVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblVehVol.Location = new System.Drawing.Point(938, 57);
+            this.lblVehVol.Location = new System.Drawing.Point(936, 57);
             this.lblVehVol.Name = "lblVehVol";
             this.lblVehVol.Size = new System.Drawing.Size(89, 20);
             this.lblVehVol.TabIndex = 46;
@@ -300,56 +352,60 @@
             this.cbMonth.Enabled = false;
             this.cbMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbMonth.FormattingEnabled = true;
-            this.cbMonth.Location = new System.Drawing.Point(86, 88);
+            this.cbMonth.Location = new System.Drawing.Point(102, 80);
             this.cbMonth.Name = "cbMonth";
-            this.cbMonth.Size = new System.Drawing.Size(100, 28);
+            this.cbMonth.Size = new System.Drawing.Size(80, 28);
             this.cbMonth.TabIndex = 48;
             this.cbMonth.SelectedIndexChanged += new System.EventHandler(this.cbMonth_SelectedIndexChanged);
             // 
-            // EntryDate
+            // lblDay
             // 
-            this.EntryDate.HeaderText = "Entry Date";
-            this.EntryDate.Name = "EntryDate";
-            this.EntryDate.ReadOnly = true;
-            this.EntryDate.Width = 150;
+            this.lblDay.AutoSize = true;
+            this.lblDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDay.Location = new System.Drawing.Point(184, 57);
+            this.lblDay.Name = "lblDay";
+            this.lblDay.Size = new System.Drawing.Size(40, 20);
+            this.lblDay.TabIndex = 49;
+            this.lblDay.Text = "Day";
             // 
-            // KmFrom
+            // lblTotRecPrice
             // 
-            this.KmFrom.HeaderText = "Km From";
-            this.KmFrom.Name = "KmFrom";
-            this.KmFrom.ReadOnly = true;
+            this.lblTotRecPrice.AutoSize = true;
+            this.lblTotRecPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblTotRecPrice.Location = new System.Drawing.Point(898, 89);
+            this.lblTotRecPrice.Name = "lblTotRecPrice";
+            this.lblTotRecPrice.Size = new System.Drawing.Size(127, 20);
+            this.lblTotRecPrice.TabIndex = 50;
+            this.lblTotRecPrice.Text = "Tot. Rec. Price";
             // 
-            // KmTo
+            // lblEuros
             // 
-            this.KmTo.HeaderText = "Km To";
-            this.KmTo.Name = "KmTo";
-            this.KmTo.ReadOnly = true;
+            this.lblEuros.AutoSize = true;
+            this.lblEuros.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblEuros.Location = new System.Drawing.Point(1137, 89);
+            this.lblEuros.Name = "lblEuros";
+            this.lblEuros.Size = new System.Drawing.Size(18, 20);
+            this.lblEuros.TabIndex = 51;
+            this.lblEuros.Text = "€";
             // 
-            // KmDiff
+            // txtTotRecPrice
             // 
-            this.KmDiff.HeaderText = "Km Diff";
-            this.KmDiff.Name = "KmDiff";
-            this.KmDiff.ReadOnly = true;
-            // 
-            // PumpVol
-            // 
-            this.PumpVol.HeaderText = "Pump Vol.";
-            this.PumpVol.Name = "PumpVol";
-            this.PumpVol.ReadOnly = true;
-            this.PumpVol.Width = 120;
-            // 
-            // VehicleVol
-            // 
-            this.VehicleVol.HeaderText = "Vehicle Vol.";
-            this.VehicleVol.Name = "VehicleVol";
-            this.VehicleVol.ReadOnly = true;
-            this.VehicleVol.Width = 120;
+            this.txtTotRecPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtTotRecPrice.Location = new System.Drawing.Point(1031, 86);
+            this.txtTotRecPrice.Name = "txtTotRecPrice";
+            this.txtTotRecPrice.ReadOnly = true;
+            this.txtTotRecPrice.Size = new System.Drawing.Size(100, 26);
+            this.txtTotRecPrice.TabIndex = 52;
             // 
             // frmVehicleTrace
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1159, 482);
+            this.Controls.Add(this.txtTotRecPrice);
+            this.Controls.Add(this.lblEuros);
+            this.Controls.Add(this.lblTotRecPrice);
+            this.Controls.Add(this.lblDay);
             this.Controls.Add(this.cbMonth);
             this.Controls.Add(this.txtTotCons);
             this.Controls.Add(this.lblTotCons);
@@ -410,5 +466,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn KmDiff;
         private System.Windows.Forms.DataGridViewTextBoxColumn PumpVol;
         private System.Windows.Forms.DataGridViewTextBoxColumn VehicleVol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotReceiptPrice;
+        private System.Windows.Forms.Label lblDay;
+        private System.Windows.Forms.Label lblTotRecPrice;
+        private System.Windows.Forms.Label lblEuros;
+        private System.Windows.Forms.TextBox txtTotRecPrice;
     }
 }
