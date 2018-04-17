@@ -30,7 +30,7 @@ namespace PumpData
 
         private void btnStationScheduler_Click(object sender, EventArgs e)
         {
-            StationScheduler frmScheduler = new StationScheduler();
+            SrvScheduler frmScheduler = new SrvScheduler();
             frmScheduler.ShowDialog();
         }
 

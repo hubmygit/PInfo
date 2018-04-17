@@ -99,17 +99,22 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SampleFiles.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SampleFiles.Designer.cs">
       <DependentUpon>SampleFiles.cs</DependentUpon>
     </Compile>
-    <Compile Include="StationScheduler.cs">
+    <Compile Include="SrvScheduler.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StationScheduler.Designer.cs">
-      <DependentUpon>StationScheduler.cs</DependentUpon>
+    <Compile Include="SrvScheduler.Designer.cs">
+      <DependentUpon>SrvScheduler.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ExportDBs.resx">
       <DependentUpon>ExportDBs.cs</DependentUpon>
@@ -131,19 +136,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="SampleFiles.resx">
       <DependentUpon>SampleFiles.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StationScheduler.resx">
-      <DependentUpon>StationScheduler.cs</DependentUpon>
+    <EmbeddedResource Include="SrvScheduler.resx">
+      <DependentUpon>SrvScheduler.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PumpInfo.ico" />
+    <None Include="Resources\CopyToClipboard_32x.png" />
     <None Include="Resources\SynchronizeDatabase_48x.png" />
     <None Include="Resources\NewGeoPoint_32x.png" />
     <None Include="Resources\TemporalTable_48x.png" />

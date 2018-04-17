@@ -1636,6 +1636,32 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<Brand> GetSqlCompaniesList()
+        {
+            List<Brand> ret = new List<Brand>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Company as Name FROM [dbo].[Station_Companies] ORDER BY company ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Brand() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<Brand> GetCompaniesList()
         {
             List<Brand> ret = new List<Brand>();
@@ -1902,6 +1928,32 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<Districts> GetSqlDistrictsList()
+        {
+            List<Districts> ret = new List<Districts>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Name FROM [dbo].[Districts] ORDER BY Id ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Districts() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<Districts> GetSqliteDistrictsList()
         {
             List<Districts> ret = new List<Districts>();
@@ -1916,6 +1968,32 @@ namespace PumpLib
                 while (reader.Read())
                 {
                     ret.Add(new Districts() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<Nomoi> GetSqlNomoiList()
+        {
+            List<Nomoi> ret = new List<Nomoi>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Name, Districts_Id FROM [dbo].[Geo_Nomos] ORDER BY Name ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Nomoi() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString(), DistrictId = Convert.ToInt32(reader["Districts_Id"].ToString()) });
                 }
                 reader.Close();
                 sqlConn.Close();
@@ -1954,6 +2032,32 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<Perioxes> GetSqlPerioxesList()
+        {
+            List<Perioxes> ret = new List<Perioxes>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Name, Geo_Nomos_Id FROM [dbo].[Geo_Perioxh] ORDER BY Name ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Perioxes() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString(), Geo_Nomos_Id = Convert.ToInt32(reader["Geo_Nomos_Id"].ToString()) });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<Perioxes> GetSqlitePerioxesList()
         {
             List<Perioxes> ret = new List<Perioxes>();
@@ -1968,6 +2072,49 @@ namespace PumpLib
                 while (reader.Read())
                 {
                     ret.Add(new Perioxes() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString(), Geo_Nomos_Id = Convert.ToInt32(reader["Geo_Nomos_Id"].ToString()) });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<GasStationsPerPerioxh> GetSqlGasStationsPerPerioxhList()
+        {
+            List<GasStationsPerPerioxh> ret = new List<GasStationsPerPerioxh>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT T.[Geo_Perioxh_id], T.[TK_NoSpace], S.[id], S.[Address], G.[Comp_Name], G.[Company_id], C.[Company] " +
+                              "FROM [dbo].[Geo_Perioxh_TK] T left outer join " +
+                                   "[dbo].[Station_GeoData] S on T.[TK_NoSpace] = S.[Postal-Code] left outer join " +
+                                   "[dbo].[Station_TimeDependData] G on S.[id] = G.[id] and G.[Current_Rec] = 1 left outer join " +
+                                   "[dbo].[Station_Companies] C on G.[Company_id] = C.[id] " +
+                              "WHERE S.id is not null " +
+                              //"where C.id in (4, 7, 11) and T.Geo_Perioxh_id = 95 " + 
+                              "ORDER BY T.[Geo_Perioxh_id], T.[TK_NoSpace] ";
+
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new GasStationsPerPerioxh()
+                    {
+                        Geo_Perioxh_id = Convert.ToInt32(reader["Geo_Perioxh_id"].ToString()),
+                        TK_NoSpace = reader["TK_NoSpace"].ToString(),
+                        GeostationId = Convert.ToInt32(reader["id"].ToString()),
+                        Address = reader["Address"].ToString(),
+                        Comp_Name = reader["Comp_Name"].ToString(),
+                        Company_Id = Convert.ToInt32(reader["Company_id"].ToString()),
+                        Company = reader["Company"].ToString()
+                    });
                 }
                 reader.Close();
                 sqlConn.Close();
@@ -2033,7 +2180,7 @@ namespace PumpLib
 
             return ret;
         }
-
+                
         public static List<GasStationVisits> GetSqliteArchivedVisitsPerGasStationList()
         {
             List<GasStationVisits> ret = new List<GasStationVisits>();
@@ -2108,6 +2255,60 @@ namespace PumpLib
                         VehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
                         Dt = Convert.ToDateTime(reader["Dt"].ToString()),
                         Driver = machineName,
+                        GeostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
+                        VolDiff = Convert.ToDouble(reader["VolDiff"].ToString())
+                    });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<GasStationVisits> GetSqlLocalVisitsPerGasStationList()
+        {
+            List<GasStationVisits> ret = new List<GasStationVisits>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+
+            string SelectSt = "SELECT R.VehicleNo, Dt, E.GeostationId, convert(decimal(18, 5), round((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0, 5)) as VolDiff, " +
+                "case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver " +
+                "FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId " +
+                "WHERE R.Accepted = 1 and GeostationId > 10 " +
+                "ORDER BY Dt DESC ";
+
+            //int machNo = new DbUtilities().getInstId();
+            //string machineName = "";
+            //if (machNo == 1)
+            //{
+            //    machineName = "Βασίλης";
+            //}
+            //else if (machNo == 2)
+            //{
+            //    machineName = "Ιωσήφ";
+            //}
+            //else
+            //{
+            //    machineName = "Auto";
+            //}
+
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new GasStationVisits()
+                    {
+                        VehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
+                        Dt = Convert.ToDateTime(reader["Dt"].ToString()),
+                        Driver = reader["Driver"].ToString(), //machineName,
                         GeostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
                         VolDiff = Convert.ToDouble(reader["VolDiff"].ToString())
                     });
@@ -3815,7 +4016,8 @@ namespace PumpLib
                                  obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
                                  obj.temp, obj.density, obj.volume, percDiff,
                                  obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo,
-                                 obj.geostationId, obj.realCoordinates.latitude, obj.realCoordinates.longitude, obj.productGroup };
+                                 obj.geostationId, obj.realCoordinates.latitude, obj.realCoordinates.longitude, obj.productGroup,
+                                 obj.receiptNo, obj.receiptPrice };
 
             return ret;
         }
