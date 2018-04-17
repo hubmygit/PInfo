@@ -57,9 +57,10 @@
             this.lblDtTo = new System.Windows.Forms.Label();
             this.cbColorMode = new System.Windows.Forms.CheckBox();
             this.cbDrivers = new System.Windows.Forms.ComboBox();
-            this.btnGeostation = new System.Windows.Forms.Button();
             this.cbDealer = new System.Windows.Forms.ComboBox();
             this.btnReceipts = new System.Windows.Forms.Button();
+            this.btnKms = new System.Windows.Forms.Button();
+            this.btnGeostation = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -320,20 +321,6 @@
             this.cbDrivers.TabIndex = 43;
             this.cbDrivers.SelectedIndexChanged += new System.EventHandler(this.cbDrivers_SelectedIndexChanged);
             // 
-            // btnGeostation
-            // 
-            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnGeostation.Image = global::PumpInfo.Properties.Resources.GeoLocation_32x;
-            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGeostation.Location = new System.Drawing.Point(1012, 22);
-            this.btnGeostation.Name = "btnGeostation";
-            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
-            this.btnGeostation.TabIndex = 34;
-            this.btnGeostation.Text = "Θέση στο Χάρτη";
-            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGeostation.UseVisualStyleBackColor = true;
-            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
-            // 
             // cbDealer
             // 
             this.cbDealer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -351,20 +338,48 @@
             // 
             this.btnReceipts.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnReceipts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReceipts.Location = new System.Drawing.Point(834, 22);
+            this.btnReceipts.Location = new System.Drawing.Point(821, 22);
             this.btnReceipts.Name = "btnReceipts";
-            this.btnReceipts.Size = new System.Drawing.Size(160, 40);
+            this.btnReceipts.Size = new System.Drawing.Size(85, 40);
             this.btnReceipts.TabIndex = 45;
-            this.btnReceipts.Text = "Αποδείξεις Περιόδου";
+            this.btnReceipts.Text = "Αποδείξεις";
             this.btnReceipts.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnReceipts.UseVisualStyleBackColor = true;
             this.btnReceipts.Click += new System.EventHandler(this.btnReceipts_Click);
+            // 
+            // btnKms
+            // 
+            this.btnKms.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnKms.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnKms.Location = new System.Drawing.Point(912, 22);
+            this.btnKms.Name = "btnKms";
+            this.btnKms.Size = new System.Drawing.Size(85, 40);
+            this.btnKms.TabIndex = 46;
+            this.btnKms.Text = "Χιλιόμετρα";
+            this.btnKms.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnKms.UseVisualStyleBackColor = true;
+            this.btnKms.Click += new System.EventHandler(this.btnKms_Click);
+            // 
+            // btnGeostation
+            // 
+            this.btnGeostation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnGeostation.Image = global::PumpInfo.Properties.Resources.GeoLocation_32x;
+            this.btnGeostation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGeostation.Location = new System.Drawing.Point(1012, 22);
+            this.btnGeostation.Name = "btnGeostation";
+            this.btnGeostation.Size = new System.Drawing.Size(160, 40);
+            this.btnGeostation.TabIndex = 34;
+            this.btnGeostation.Text = "Θέση στο Χάρτη";
+            this.btnGeostation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGeostation.UseVisualStyleBackColor = true;
+            this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
             // 
             // ArchivedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 502);
+            this.Controls.Add(this.btnKms);
             this.Controls.Add(this.btnReceipts);
             this.Controls.Add(this.cbDealer);
             this.Controls.Add(this.cbDrivers);
@@ -417,5 +432,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
         private System.Windows.Forms.ComboBox cbDealer;
         public System.Windows.Forms.Button btnReceipts;
+        public System.Windows.Forms.Button btnKms;
     }
 }

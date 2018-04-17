@@ -229,5 +229,14 @@ namespace PumpInfo
             ShowMyReceipts myRecFrm = new ShowMyReceipts(dtFromDate, dtToDate);
             myRecFrm.ShowDialog();
         }
+
+        private void btnKms_Click(object sender, EventArgs e)
+        {
+            DateTime dtFromDate = dtFrom.Value.Date;
+            DateTime dtToDate = dtTo.Value.Date;
+
+            ShowMyKms myKmsFrm = new ShowMyKms(cbVehicle.SelectedIndex, dtFromDate, dtToDate);
+            myKmsFrm.ShowDialog();
+        }
     }
 }

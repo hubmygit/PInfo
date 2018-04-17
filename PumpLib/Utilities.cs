@@ -3605,6 +3605,43 @@ namespace PumpLib
             return RecList;
         }
 
+        public List<Kilometers> getKilometers()
+        {
+            List<Kilometers> KmList = new List<Kilometers>();
+
+            SQLiteConnection sqlConn1 = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT V.VehicleNo, P.Name as ProductGroup, datetime(V.Dt) as Dt, V.KmFrom, V.KmTo " +
+                              "FROM [vehicleTrace] V left outer join [Vehicles] H on V.VehicleNo = H.Id left outer join [ProductGroup] P on P.id = H.ProductGroupId " +
+                              "ORDER BY V.VehicleNo, Dt Desc ";
+
+            SQLiteCommand cmd1 = new SQLiteCommand(SelectSt, sqlConn1);
+
+            try
+            {
+                sqlConn1.Open();
+                SQLiteDataReader reader1 = cmd1.ExecuteReader();
+                while (reader1.Read())
+                {
+                    KmList.Add(new Kilometers()
+                    {
+                        VehicleNo = Convert.ToInt32(reader1["VehicleNo"].ToString()),
+                        ProductGroup = reader1["ProductGroup"].ToString(),
+                        Dt = Convert.ToDateTime(reader1["Dt"].ToString()),
+                        KmFrom = Convert.ToInt32(reader1["KmFrom"].ToString()),
+                        KmTo = Convert.ToInt32(reader1["KmTo"].ToString())
+                    });
+                }
+                reader1.Close();
+                sqlConn1.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return KmList;
+        }
+
     }
     
 
@@ -4185,6 +4222,15 @@ namespace PumpLib
         public string Product { get; set; }
         public string ReceiptNo { get; set; }
         public double ReceiptPrice { get; set; }
+    }
+
+    public class Kilometers
+    {
+        public int VehicleNo { get; set; }
+        public string ProductGroup { get; set; }
+        public DateTime Dt { get; set; }
+        public int KmFrom { get; set; }
+        public int KmTo { get; set; }
     }
 
     //public class MapFormParams

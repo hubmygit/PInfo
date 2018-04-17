@@ -33,13 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowMyReceipts));
             this.dgvReceipts = new System.Windows.Forms.DataGridView();
-            this.lblDtFrom = new System.Windows.Forms.Label();
-            this.dtFrom = new System.Windows.Forms.DateTimePicker();
-            this.lblDtTo = new System.Windows.Forms.Label();
-            this.dtTo = new System.Windows.Forms.DateTimePicker();
-            this.txtTotRecPrice = new System.Windows.Forms.TextBox();
-            this.lblEuros = new System.Windows.Forms.Label();
-            this.lblTotRecPrice = new System.Windows.Forms.Label();
             this.Rec_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rec_Brand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rec_Dealer = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +40,13 @@
             this.Rec_Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rec_receiptNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rec_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblDtFrom = new System.Windows.Forms.Label();
+            this.dtFrom = new System.Windows.Forms.DateTimePicker();
+            this.lblDtTo = new System.Windows.Forms.Label();
+            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.txtTotRecPrice = new System.Windows.Forms.TextBox();
+            this.lblEuros = new System.Windows.Forms.Label();
+            this.lblTotRecPrice = new System.Windows.Forms.Label();
             this.btnCopy = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceipts)).BeginInit();
             this.SuspendLayout();
@@ -97,6 +97,53 @@
             this.dgvReceipts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvReceipts.Size = new System.Drawing.Size(940, 350);
             this.dgvReceipts.TabIndex = 12;
+            // 
+            // Rec_Date
+            // 
+            this.Rec_Date.HeaderText = "Date (of Meas.)";
+            this.Rec_Date.Name = "Rec_Date";
+            this.Rec_Date.ReadOnly = true;
+            this.Rec_Date.Width = 150;
+            // 
+            // Rec_Brand
+            // 
+            this.Rec_Brand.HeaderText = "Brand";
+            this.Rec_Brand.Name = "Rec_Brand";
+            this.Rec_Brand.ReadOnly = true;
+            // 
+            // Rec_Dealer
+            // 
+            this.Rec_Dealer.HeaderText = "Dealer";
+            this.Rec_Dealer.Name = "Rec_Dealer";
+            this.Rec_Dealer.ReadOnly = true;
+            this.Rec_Dealer.Width = 140;
+            // 
+            // Rec_Address
+            // 
+            this.Rec_Address.HeaderText = "Address";
+            this.Rec_Address.Name = "Rec_Address";
+            this.Rec_Address.ReadOnly = true;
+            this.Rec_Address.Width = 140;
+            // 
+            // Rec_Product
+            // 
+            this.Rec_Product.HeaderText = "Product";
+            this.Rec_Product.Name = "Rec_Product";
+            this.Rec_Product.ReadOnly = true;
+            this.Rec_Product.Width = 120;
+            // 
+            // Rec_receiptNo
+            // 
+            this.Rec_receiptNo.HeaderText = "ReceiptNo";
+            this.Rec_receiptNo.Name = "Rec_receiptNo";
+            this.Rec_receiptNo.ReadOnly = true;
+            this.Rec_receiptNo.Width = 110;
+            // 
+            // Rec_Price
+            // 
+            this.Rec_Price.HeaderText = "Price";
+            this.Rec_Price.Name = "Rec_Price";
+            this.Rec_Price.ReadOnly = true;
             // 
             // lblDtFrom
             // 
@@ -166,53 +213,6 @@
             this.lblTotRecPrice.TabIndex = 53;
             this.lblTotRecPrice.Text = "Άθροισμα Αποδείξεων";
             // 
-            // Rec_Date
-            // 
-            this.Rec_Date.HeaderText = "Date (of Meas.)";
-            this.Rec_Date.Name = "Rec_Date";
-            this.Rec_Date.ReadOnly = true;
-            this.Rec_Date.Width = 150;
-            // 
-            // Rec_Brand
-            // 
-            this.Rec_Brand.HeaderText = "Brand";
-            this.Rec_Brand.Name = "Rec_Brand";
-            this.Rec_Brand.ReadOnly = true;
-            // 
-            // Rec_Dealer
-            // 
-            this.Rec_Dealer.HeaderText = "Dealer";
-            this.Rec_Dealer.Name = "Rec_Dealer";
-            this.Rec_Dealer.ReadOnly = true;
-            this.Rec_Dealer.Width = 140;
-            // 
-            // Rec_Address
-            // 
-            this.Rec_Address.HeaderText = "Address";
-            this.Rec_Address.Name = "Rec_Address";
-            this.Rec_Address.ReadOnly = true;
-            this.Rec_Address.Width = 140;
-            // 
-            // Rec_Product
-            // 
-            this.Rec_Product.HeaderText = "Product";
-            this.Rec_Product.Name = "Rec_Product";
-            this.Rec_Product.ReadOnly = true;
-            this.Rec_Product.Width = 120;
-            // 
-            // Rec_receiptNo
-            // 
-            this.Rec_receiptNo.HeaderText = "ReceiptNo";
-            this.Rec_receiptNo.Name = "Rec_receiptNo";
-            this.Rec_receiptNo.ReadOnly = true;
-            this.Rec_receiptNo.Width = 110;
-            // 
-            // Rec_Price
-            // 
-            this.Rec_Price.HeaderText = "Price";
-            this.Rec_Price.Name = "Rec_Price";
-            this.Rec_Price.ReadOnly = true;
-            // 
             // btnCopy
             // 
             this.btnCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -244,7 +244,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(980, 480);
             this.Name = "ShowMyReceipts";
-            this.Text = "ShowMyReceipts";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Show Receipts";
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceipts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

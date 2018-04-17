@@ -102,6 +102,12 @@
     <Compile Include="Scheduler.Designer.cs">
       <DependentUpon>Scheduler.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShowMyKms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowMyKms.Designer.cs">
+      <DependentUpon>ShowMyKms.cs</DependentUpon>
+    </Compile>
     <Compile Include="ShowMyReceipts.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +147,9 @@
     </Compile>
     <EmbeddedResource Include="Scheduler.resx">
       <DependentUpon>Scheduler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowMyKms.resx">
+      <DependentUpon>ShowMyKms.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ShowMyReceipts.resx">
       <DependentUpon>ShowMyReceipts.cs</DependentUpon>
