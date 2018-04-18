@@ -312,9 +312,7 @@
             this.cbDrivers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbDrivers.FormattingEnabled = true;
             this.cbDrivers.Items.AddRange(new object[] {
-            "Όλοι οι οδηγοί",
-            "Βασίλης",
-            "Ιωσήφ"});
+            "Όλοι οι οδηγοί"});
             this.cbDrivers.Location = new System.Drawing.Point(12, 42);
             this.cbDrivers.Name = "cbDrivers";
             this.cbDrivers.Size = new System.Drawing.Size(200, 24);

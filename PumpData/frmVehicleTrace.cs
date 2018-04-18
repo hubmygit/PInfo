@@ -123,7 +123,8 @@ namespace PumpData
                 {
                     dgvVehicleTraceList.Rows.Add(new object[] 
                     {
-                        thisCons.Dt.ToString("dd.MM.yyyy"), thisCons.KmFrom, thisCons.KmTo, (thisCons.KmTo - thisCons.KmFrom).ToString(), thisCons.PumpVolume, thisCons.ControllerVolume, thisCons.ReceiptPrice
+                        thisCons.Dt.ToString("dd.MM.yyyy"), thisCons.KmFrom, thisCons.KmTo, (thisCons.KmTo - thisCons.KmFrom).ToString(),
+                        thisCons.PumpVolume, thisCons.ControllerVolume, thisCons.ReceiptPrice, thisCons.Driver
                     });
 
                 }

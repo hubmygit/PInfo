@@ -64,6 +64,8 @@ namespace PumpData
 
             dgv.Columns["ReceiptNo"].DisplayIndex = 17;
             dgv.Columns["ReceiptPrice"].DisplayIndex = 18;
+
+            //dgv.Columns["Driver"].DisplayIndex = 19;
         }
 
         private void ApplyFilters()

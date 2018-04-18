@@ -36,13 +36,6 @@
             this.cbYear = new System.Windows.Forms.ComboBox();
             this.lblYear = new System.Windows.Forms.Label();
             this.dgvVehicleTraceList = new System.Windows.Forms.DataGridView();
-            this.EntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KmFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KmTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KmDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PumpVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VehicleVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotReceiptPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblKm = new System.Windows.Forms.Label();
             this.txtKm = new System.Windows.Forms.TextBox();
             this.lblConsUnit = new System.Windows.Forms.Label();
@@ -63,6 +56,14 @@
             this.lblTotRecPrice = new System.Windows.Forms.Label();
             this.lblEuros = new System.Windows.Forms.Label();
             this.txtTotRecPrice = new System.Windows.Forms.TextBox();
+            this.EntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PumpVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VehicleVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotReceiptPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DriverName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehicleTraceList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -131,7 +132,8 @@
             this.KmDiff,
             this.PumpVol,
             this.VehicleVol,
-            this.TotReceiptPrice});
+            this.TotReceiptPrice,
+            this.DriverName});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -149,52 +151,6 @@
             this.dgvVehicleTraceList.Size = new System.Drawing.Size(1135, 342);
             this.dgvVehicleTraceList.TabIndex = 3;
             this.dgvVehicleTraceList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicleTraceList_CellClick);
-            // 
-            // EntryDate
-            // 
-            this.EntryDate.HeaderText = "Entry Date";
-            this.EntryDate.Name = "EntryDate";
-            this.EntryDate.ReadOnly = true;
-            this.EntryDate.Width = 150;
-            // 
-            // KmFrom
-            // 
-            this.KmFrom.HeaderText = "Km From";
-            this.KmFrom.Name = "KmFrom";
-            this.KmFrom.ReadOnly = true;
-            // 
-            // KmTo
-            // 
-            this.KmTo.HeaderText = "Km To";
-            this.KmTo.Name = "KmTo";
-            this.KmTo.ReadOnly = true;
-            // 
-            // KmDiff
-            // 
-            this.KmDiff.HeaderText = "Km Diff";
-            this.KmDiff.Name = "KmDiff";
-            this.KmDiff.ReadOnly = true;
-            // 
-            // PumpVol
-            // 
-            this.PumpVol.HeaderText = "Pump Vol.";
-            this.PumpVol.Name = "PumpVol";
-            this.PumpVol.ReadOnly = true;
-            this.PumpVol.Width = 120;
-            // 
-            // VehicleVol
-            // 
-            this.VehicleVol.HeaderText = "Vehicle Vol.";
-            this.VehicleVol.Name = "VehicleVol";
-            this.VehicleVol.ReadOnly = true;
-            this.VehicleVol.Width = 120;
-            // 
-            // TotReceiptPrice
-            // 
-            this.TotReceiptPrice.HeaderText = "Receipt Price";
-            this.TotReceiptPrice.Name = "TotReceiptPrice";
-            this.TotReceiptPrice.ReadOnly = true;
-            this.TotReceiptPrice.Width = 140;
             // 
             // lblKm
             // 
@@ -397,6 +353,59 @@
             this.txtTotRecPrice.Size = new System.Drawing.Size(100, 26);
             this.txtTotRecPrice.TabIndex = 52;
             // 
+            // EntryDate
+            // 
+            this.EntryDate.HeaderText = "Entry Date";
+            this.EntryDate.Name = "EntryDate";
+            this.EntryDate.ReadOnly = true;
+            this.EntryDate.Width = 150;
+            // 
+            // KmFrom
+            // 
+            this.KmFrom.HeaderText = "Km From";
+            this.KmFrom.Name = "KmFrom";
+            this.KmFrom.ReadOnly = true;
+            // 
+            // KmTo
+            // 
+            this.KmTo.HeaderText = "Km To";
+            this.KmTo.Name = "KmTo";
+            this.KmTo.ReadOnly = true;
+            // 
+            // KmDiff
+            // 
+            this.KmDiff.HeaderText = "Km Diff";
+            this.KmDiff.Name = "KmDiff";
+            this.KmDiff.ReadOnly = true;
+            // 
+            // PumpVol
+            // 
+            this.PumpVol.HeaderText = "Pump Vol.";
+            this.PumpVol.Name = "PumpVol";
+            this.PumpVol.ReadOnly = true;
+            this.PumpVol.Width = 120;
+            // 
+            // VehicleVol
+            // 
+            this.VehicleVol.HeaderText = "Vehicle Vol.";
+            this.VehicleVol.Name = "VehicleVol";
+            this.VehicleVol.ReadOnly = true;
+            this.VehicleVol.Width = 120;
+            // 
+            // TotReceiptPrice
+            // 
+            this.TotReceiptPrice.HeaderText = "Receipt Price";
+            this.TotReceiptPrice.Name = "TotReceiptPrice";
+            this.TotReceiptPrice.ReadOnly = true;
+            this.TotReceiptPrice.Width = 140;
+            // 
+            // DriverName
+            // 
+            this.DriverName.HeaderText = "Driver";
+            this.DriverName.Name = "DriverName";
+            this.DriverName.ReadOnly = true;
+            this.DriverName.Width = 120;
+            // 
             // frmVehicleTrace
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -460,6 +469,10 @@
         public System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.TextBox txtTotCons;
         private System.Windows.Forms.ComboBox cbMonth;
+        private System.Windows.Forms.Label lblDay;
+        private System.Windows.Forms.Label lblTotRecPrice;
+        private System.Windows.Forms.Label lblEuros;
+        private System.Windows.Forms.TextBox txtTotRecPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn EntryDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn KmFrom;
         private System.Windows.Forms.DataGridViewTextBoxColumn KmTo;
@@ -467,9 +480,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PumpVol;
         private System.Windows.Forms.DataGridViewTextBoxColumn VehicleVol;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotReceiptPrice;
-        private System.Windows.Forms.Label lblDay;
-        private System.Windows.Forms.Label lblTotRecPrice;
-        private System.Windows.Forms.Label lblEuros;
-        private System.Windows.Forms.TextBox txtTotRecPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DriverName;
     }
 }

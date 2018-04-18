@@ -72,6 +72,7 @@
             this.ProductGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ReceiptNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ReceiptPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Driver = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -121,7 +122,8 @@
             this.RealLong,
             this.ProductGroup,
             this.ReceiptNo,
-            this.ReceiptPrice});
+            this.ReceiptPrice,
+            this.Driver});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -476,6 +478,12 @@
             this.ReceiptPrice.Name = "ReceiptPrice";
             this.ReceiptPrice.ReadOnly = true;
             // 
+            // Driver
+            // 
+            this.Driver.HeaderText = "Driver";
+            this.Driver.Name = "Driver";
+            this.Driver.ReadOnly = true;
+            // 
             // frmShowDbData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -550,5 +558,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductGroup;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Driver;
     }
 }

@@ -59,6 +59,8 @@ namespace PumpLib
         public int machineNo = 0;
         public string productGroup = "";
 
+        public string driver = "";
+
         public ImpData()
         {
             //
@@ -929,14 +931,15 @@ namespace PumpLib
                                             "isnull(RD.Accepted,0) as Accepted, isnull(RD.ProcessedGroupId,0) as ProcessedGroupId, isnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
                                             "isnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, B.Name as BName, ED.Dealer, ED.Address, ED.ProductId, P.Name as PName, ED.Pump, ED.PumpVolume, " +
                                             "isnull(ED.SampleNo,0) as SampleNo, isnull(RD.MachineNo,0) as MachineNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId, " +
-                                            "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat, PG.Name as ProductGroup, ED.ReceiptNo, isnull(ED.ReceiptPrice, 0) as ReceiptPrice " +
+                                            "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat, PG.Name as ProductGroup, ED.ReceiptNo, isnull(ED.ReceiptPrice, 0) as ReceiptPrice, M.UserName as Driver " +
                                             //" ,SV.Address as GeoAddr1, SV.Address2 as GeoAddr2, SV.Address3 as GeoAddr3, SV.[Postal-Code] as PostalCode, SV.Country, SV.Latitude as GeoLat, SV.Longitude as GeoLong, SV.UpdDate as GeoDt, SV.Comp_Name " + 
                                             " FROM [dbo].[receiptData] RD left outer join " +
                                             "[dbo].[extraData] ED on RD.Id = ED.ReceiptDataId left outer join " +
                                             "[dbo].[brand] B on B.id = ED.BrandId left outer join " +
-                                            "[dbo].[product] P on P.id = ED.ProductId " + //left outer join " +
+                                            "[dbo].[product] P on P.id = ED.ProductId left outer join " +
+                                            "[dbo].[machines] M on M.id = RD.MachineNo left outer join " +
                                             //"[dbo].[Station_View] SV on SV.id = ED.GeostationId " +
-                                            "left outer join [dbo].[Vehicles] V on RD.VehicleNo = V.Id left outer join " + 
+                                            "[dbo].[Vehicles] V on RD.VehicleNo = V.Id left outer join " + 
                                             " ProductGroup PG on V.ProductGroupId = PG.Id " +
                                             " WHERE isnull(RD.Accepted, 0) = 1 " +
                                             " ORDER BY RD.Dt DESC ", sqlConn);
@@ -969,7 +972,8 @@ namespace PumpLib
                         processedGroupId = Convert.ToInt32(reader["ProcessedGroupId"].ToString()),
                         exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString()),
                         machineNo = Convert.ToInt32(reader["MachineNo"].ToString()),
-                        productGroup = reader["ProductGroup"].ToString()
+                        productGroup = reader["ProductGroup"].ToString(),
+                        driver = reader["Driver"].ToString()
                     };
 
                     if (Convert.ToInt32(reader["EDId"].ToString()) > 0) //has extra data
@@ -1566,6 +1570,31 @@ namespace PumpLib
             return ret;
         }
 
+        public string getInstUsername()
+        {
+            string ret = "AUTO";
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT UserName From [Inst] ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret = reader["UserName"].ToString();
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public string createDefaultJsonFile(string jsonData)
         {
             string dt = DateTime.Now.ToString("yyyyMMdd_HHmmss");
@@ -1741,6 +1770,36 @@ namespace PumpLib
                 while (reader.Read())
                 {
                     ret.Add(new PostalCode() { TK = reader["PostalCode"].ToString(), TK_NoSpace = reader["TK_NoSpace"].ToString(), Nomos = reader["Nomos"].ToString(), Perioxi = reader["Perioxi"].ToString() });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public static List<Machines> GetSqlMachinesList()
+        {
+            List<Machines> ret = new List<Machines>();
+
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, UserName FROM [dbo].[Machines] ORDER BY UserName ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Machines()
+                    {
+                        Id = Convert.ToInt32(reader["Id"].ToString()),
+                        UserName = reader["UserName"].ToString()
+                    });
                 }
                 reader.Close();
                 sqlConn.Close();
@@ -2239,19 +2298,20 @@ namespace PumpLib
                 "ORDER BY Dt DESC ";
 
             int machNo = new DbUtilities().getInstId();
-            string machineName = "";
-            if (machNo == 1)
-            {
-                machineName = "Βασίλης";
-            }
-            else if (machNo == 2)
-            {
-                machineName = "Ιωσήφ";
-            }
-            else
-            {
-                machineName = "Auto";
-            }
+            string machineName = new DbUtilities().getInstUsername();
+            //string machineName = "";
+            //if (machNo == 1)
+            //{
+            //    machineName = "ΒΑΣΙΛΗΣ";
+            //}
+            //else if (machNo == 2)
+            //{
+            //    machineName = "ΙΩΣΗΦ";
+            //}
+            //else
+            //{
+            //    machineName = "AUTO";
+            //}
 
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
@@ -2287,8 +2347,9 @@ namespace PumpLib
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
             string SelectSt = "SELECT R.VehicleNo, Dt, E.GeostationId, convert(decimal(18, 5), round((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0, 5)) as VolDiff, " +
-                "case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver " +
-                "FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId " +
+                //"case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver " +
+                "M.UserName as Driver " +
+                "FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId left outer join [dbo].[Machines] M on R.MachineNo = M.Id " +
                 "WHERE R.Accepted = 1 and GeostationId > 10 " +
                 "ORDER BY Dt DESC ";
 
@@ -2791,8 +2852,9 @@ namespace PumpLib
                                      "isnull((SELECT sum(E.PumpVolume) as PumpVolume FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId " +
                                      "WHERE year(R.Dt) = @Year and month(R.Dt) = @Month and day(R.Dt) = day(V.Dt) and R.Accepted = 1 and VehicleNo = @VehicleNo), 0) as PumpVolume, " +
                                      "isnull((SELECT sum(E.ReceiptPrice) as ReceiptPrice FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId " +
-                                     "WHERE year(R.Dt) = @Year and month(R.Dt) = @Month and day(R.Dt) = day(V.Dt) and R.Accepted = 1 and VehicleNo = @VehicleNo), 0) as ReceiptPrice " +
-                              "FROM [dbo].[vehicleTrace] V " +
+                                     "WHERE year(R.Dt) = @Year and month(R.Dt) = @Month and day(R.Dt) = day(V.Dt) and R.Accepted = 1 and VehicleNo = @VehicleNo), 0) as ReceiptPrice, " +
+                                     "M.UserName " +
+                              "FROM [dbo].[vehicleTrace] V left outer join [dbo].[Machines] M on V.MachineNo = M.Id " +
                               "WHERE VehicleNo = @VehicleNo and Year(Dt) = @Year and Month(Dt) = @Month " +
                               "ORDER BY Dt ";
 
@@ -2818,7 +2880,8 @@ namespace PumpLib
                         KmTo = Convert.ToInt32(reader["KmTo"].ToString()),
                         ControllerVolume = Convert.ToDouble(reader["ControllerVolume"].ToString()),
                         PumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString()),
-                        ReceiptPrice = Convert.ToDouble(reader["ReceiptPrice"].ToString())
+                        ReceiptPrice = Convert.ToDouble(reader["ReceiptPrice"].ToString()),
+                        Driver = reader["UserName"].ToString()
                     });
 
                 }
@@ -3194,20 +3257,21 @@ namespace PumpLib
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
-            int machNo =  new DbUtilities().getInstId();
-            string machineName = "";
-            if (machNo == 1)
-            {
-                machineName = "Βασίλης";
-            }
-            else if (machNo == 2)
-            {
-                machineName = "Ιωσήφ";
-            }
-            else
-            {
-                machineName = "Auto";
-            }
+            int machNo = new DbUtilities().getInstId();
+            string machineName = new DbUtilities().getInstUsername();
+            //string machineName = "";
+            //if (machNo == 1)
+            //{
+            //    machineName = "ΒΑΣΙΛΗΣ";
+            //}
+            //else if (machNo == 2)
+            //{
+            //    machineName = "ΙΩΣΗΦ";
+            //}
+            //else
+            //{
+            //    machineName = "AUTO";
+            //}
 
             string SelectSt = "SELECT R.VehicleNo, P.Name as Product, " + //case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver, " +
                                 "datetime(R.Dt) as Dt, B.Name as Brand, E.Dealer, E.Address, ifnull(R.Weight, 0) as Weight, ifnull(R.Temp, 0) as Temp, ifnull(R.Density, 0) as Density, ifnull(R.Volume, 0) as Volume, E.Pump, ifnull(E.PumpVolume, 0) as PumpVolume, " +
@@ -3400,10 +3464,13 @@ namespace PumpLib
             List<ArchivedData> ArchivedData_List = new List<ArchivedData>();
 
             SqlConnection sqlConn1 = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT R.VehicleNo, P.Name as Product, case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver, " +
+            string SelectSt = "SELECT R.VehicleNo, P.Name as Product, " + 
+                //"case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver, " +
+                "M.UserName as Driver, " +
                 "R.Dt, B.Name as Brand, E.Dealer, E.Address, isnull(R.Weight, 0) as Weight, isnull(R.Temp, 0) as Temp, isnull(R.Density, 0) as Density, isnull(R.Volume, 0) as Volume, E.Pump, isnull(E.PumpVolume, 0) as PumpVolume, " +
                 "convert(decimal(18, 5), round((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0, 5)) as VolDiff, isnull(E.GeostationId, 0) as GeostationId, isnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
-                "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId left outer join Brand B on B.Id = E.BrandId left outer join  Product P on P.Id = E.ProductId " +
+                "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId left outer join " +
+                     "Brand B on B.Id = E.BrandId left outer join Product P on P.Id = E.ProductId left outer join Machines M on M.Id = R.MachineNo " +
                 "WHERE R.Accepted = 1 ORDER BY Dt desc ";
             SqlCommand cmd1 = new SqlCommand(SelectSt, sqlConn1);
 
@@ -4027,7 +4094,7 @@ namespace PumpLib
                                  obj.temp, obj.density, obj.volume, percDiff,
                                  obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo,
                                  obj.geostationId, obj.realCoordinates.latitude, obj.realCoordinates.longitude, obj.productGroup,
-                                 obj.receiptNo, obj.receiptPrice };
+                                 obj.receiptNo, obj.receiptPrice, obj.driver };
 
             return ret;
         }
@@ -4423,6 +4490,7 @@ namespace PumpLib
         public double ControllerVolume { get; set; }
         public double PumpVolume { get; set; }
         public double ReceiptPrice { get; set; }
+        public string Driver { get; set; }
     }
 
     public class Receipts
@@ -4443,6 +4511,12 @@ namespace PumpLib
         public DateTime Dt { get; set; }
         public int KmFrom { get; set; }
         public int KmTo { get; set; }
+    }
+
+    public class Machines
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
     }
 
     //public class MapFormParams
