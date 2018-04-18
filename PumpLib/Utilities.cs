@@ -1229,8 +1229,8 @@ namespace PumpLib
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [dbo].[extraData] (ReceiptDataId, ClientId, ClientReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId, CooLong, CooLat) " +
-                        " VALUES (@ReceiptDataId, @ClientId, @ClientReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId, @CooLong, @CooLat ) ";
+            string InsSt = "INSERT INTO [dbo].[extraData] (ReceiptDataId, ClientId, ClientReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId, CooLong, CooLat, ReceiptNo, ReceiptPrice) " +
+                        " VALUES (@ReceiptDataId, @ClientId, @ClientReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId, @CooLong, @CooLat, @ReceiptNo, @ReceiptPrice ) ";
 
             try
             {
@@ -1251,6 +1251,8 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@GeostationId", obj.geostationId);
                 cmd.Parameters.AddWithValue("@CooLong", obj.realCoordinates.longitude);
                 cmd.Parameters.AddWithValue("@CooLat", obj.realCoordinates.latitude);
+                cmd.Parameters.AddWithValue("@ReceiptNo", obj.receiptNo);
+                cmd.Parameters.AddWithValue("@ReceiptPrice", obj.receiptPrice);
 
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -4120,7 +4122,8 @@ namespace PumpLib
                                      obj.time, obj.coordinates.latitude, obj.coordinates.longitude, obj.weight,
                                      obj.temp, obj.density, obj.volume, percDiff,
                                      obj.brand.Name, obj.dealer, obj.address, obj.product.Name, obj.pump, obj.pumpVolume, obj.sampleNo, obj.remarks, obj.machineNo,
-                                     obj.geostationId, obj.realCoordinates.latitude, obj.realCoordinates.longitude };
+                                     obj.geostationId, obj.realCoordinates.latitude, obj.realCoordinates.longitude,
+                                     obj.receiptNo, obj.receiptPrice };
             }
             
             return ret;
