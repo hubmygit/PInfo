@@ -28,14 +28,16 @@ namespace PumpInfo
 
             foreach (Brand company in companies)
             {
-                if (company.Id == 4 || company.Id == 7 || company.Id == 11)
-                {
-                    dgvCompanies.Rows.Add(new object[] { company.Id, true, company.Name });
-                }
-                else
-                {
-                    dgvCompanies.Rows.Add(new object[] { company.Id, false, company.Name });
-                }               
+                //if (company.Id == 4 || company.Id == 7 || company.Id == 11)
+                //{
+                //    dgvCompanies.Rows.Add(new object[] { company.Id, true, company.Name });
+                //}
+                //else
+                //{
+                //    dgvCompanies.Rows.Add(new object[] { company.Id, false, company.Name });
+                //} 
+
+                dgvCompanies.Rows.Add(new object[] { company.Id, company.SelfOperating, company.Name });
             }
 
             coms_selected = get_Selected_Companies();
@@ -339,6 +341,8 @@ namespace PumpInfo
 
                 //coms_selected.RemoveAll(i => i == Convert.ToInt32(dgvCompanies["Com_Index", e.RowIndex].Value));
 
+                int scrollPos = dgvPerioxes.FirstDisplayedScrollingRowIndex;
+
                 int PerioxesIndex = -1;
                 if (dgvPerioxes.SelectedRows.Count > 0)
                 {
@@ -354,6 +358,8 @@ namespace PumpInfo
                 if (PerioxesIndex > -1)
                 {
                     dgvPerioxes.Rows[PerioxesIndex].Selected = true;
+
+                    dgvPerioxes.FirstDisplayedScrollingRowIndex = scrollPos;
 
                     ShowStations();
                 }

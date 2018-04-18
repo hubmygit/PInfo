@@ -28,14 +28,16 @@ namespace PumpData
 
             foreach (Brand company in companies)
             {
-                if (company.Id == 4 || company.Id == 7 || company.Id == 11)
-                {
-                    dgvCompanies.Rows.Add(new object[] { company.Id, true, company.Name });
-                }
-                else
-                {
-                    dgvCompanies.Rows.Add(new object[] { company.Id, false, company.Name });
-                }
+                //if (company.Id == 4 || company.Id == 7 || company.Id == 11)
+                //{
+                //    dgvCompanies.Rows.Add(new object[] { company.Id, true, company.Name });
+                //}
+                //else
+                //{
+                //    dgvCompanies.Rows.Add(new object[] { company.Id, false, company.Name });
+                //}
+
+                dgvCompanies.Rows.Add(new object[] { company.Id, company.SelfOperating, company.Name });
             }
 
             coms_selected = get_Selected_Companies();
@@ -260,10 +262,12 @@ namespace PumpData
                     coms_selected = get_Selected_Companies();
 
 
+                int scrollPos = dgvPerioxes.FirstDisplayedScrollingRowIndex;
+
                 int PerioxesIndex = -1;
                 if (dgvPerioxes.SelectedRows.Count > 0)
                 {
-                    PerioxesIndex = dgvPerioxes.SelectedRows[0].Index;
+                    PerioxesIndex = dgvPerioxes.SelectedRows[0].Index;                    
                 }
 
                 if (dgvNomoi.SelectedRows.Count > 0)
@@ -275,6 +279,8 @@ namespace PumpData
                 if (PerioxesIndex > -1)
                 {
                     dgvPerioxes.Rows[PerioxesIndex].Selected = true;
+
+                    dgvPerioxes.FirstDisplayedScrollingRowIndex = scrollPos;
 
                     ShowStations();
                 }

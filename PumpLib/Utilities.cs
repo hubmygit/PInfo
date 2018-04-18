@@ -1641,7 +1641,7 @@ namespace PumpLib
             List<Brand> ret = new List<Brand>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, Company as Name FROM [dbo].[Station_Companies] ORDER BY company ";
+            string SelectSt = "SELECT Id, Company as Name, SelfOperating FROM [dbo].[Station_Companies] ORDER BY company ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1649,7 +1649,12 @@ namespace PumpLib
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    ret.Add(new Brand() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                    ret.Add(new Brand()
+                    {
+                        Id = Convert.ToInt32(reader["Id"].ToString()),
+                        Name = reader["Name"].ToString(),
+                        SelfOperating = Convert.ToBoolean(reader["SelfOperating"])
+                    });
                 }
                 reader.Close();
                 sqlConn.Close();
@@ -1667,7 +1672,7 @@ namespace PumpLib
             List<Brand> ret = new List<Brand>();
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
-            string SelectSt = "SELECT Id, Company as Name FROM [Companies] ORDER BY company ";
+            string SelectSt = "SELECT Id, Company as Name, SelfOperating FROM [Companies] ORDER BY company ";
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
             try
             {
@@ -1675,7 +1680,12 @@ namespace PumpLib
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    ret.Add(new Brand() { Id = Convert.ToInt32(reader["Id"].ToString()), Name = reader["Name"].ToString() });
+                    ret.Add(new Brand()
+                    {
+                        Id = Convert.ToInt32(reader["Id"].ToString()),
+                        Name = reader["Name"].ToString(),
+                        SelfOperating = Convert.ToBoolean(reader["SelfOperating"])
+                    });
                 }
                 reader.Close();
                 sqlConn.Close();
@@ -4095,7 +4105,7 @@ namespace PumpLib
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
+        public bool SelfOperating { get; set; }
         public Brand()
         {
         }
