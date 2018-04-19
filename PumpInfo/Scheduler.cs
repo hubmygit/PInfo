@@ -403,5 +403,60 @@ namespace PumpInfo
 
 
         }
+
+        private void cbAllComs_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbAllComs.Checked) //false -> true
+            {
+                //select all
+                foreach (DataGridViewRow row in dgvCompanies.Rows)
+                {
+                    if (Convert.ToBoolean(row.Cells["Com_Selected"].Value) == false)
+                    {
+                        row.Cells["Com_Selected"].Value = true;
+                        //dgvCompanies_CellContentClick(this, new DataGridViewCellEventArgs(1, row.Index));
+                    }
+                }
+            }
+            else //true -> false
+            {
+                //diselect all
+                foreach (DataGridViewRow row in dgvCompanies.Rows)
+                {
+                    if (Convert.ToBoolean(row.Cells["Com_Selected"].Value) == true)
+                    {
+                        row.Cells["Com_Selected"].Value = false;
+                        //dgvCompanies_CellContentClick(this, new DataGridViewCellEventArgs(1, row.Index));
+                    }
+                }
+            }
+
+            coms_selected = get_Selected_Companies();
+
+            int scrollPos = dgvPerioxes.FirstDisplayedScrollingRowIndex;
+
+            int PerioxesIndex = -1;
+            if (dgvPerioxes.SelectedRows.Count > 0)
+            {
+                PerioxesIndex = dgvPerioxes.SelectedRows[0].Index;
+            }
+
+            if (dgvNomoi.SelectedRows.Count > 0)
+            {
+                ShowPerioxes(); //refresh gas station counter
+            }
+
+            dgvStations.Rows.Clear();
+            if (PerioxesIndex > -1)
+            {
+                dgvPerioxes.Rows[PerioxesIndex].Selected = true;
+
+                dgvPerioxes.FirstDisplayedScrollingRowIndex = scrollPos;
+
+                ShowStations(); //refresh gas stations
+            }
+            
+
+        }
     }
 }

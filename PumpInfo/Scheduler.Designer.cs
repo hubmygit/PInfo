@@ -53,13 +53,6 @@
             this.Perioxh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Perioxh_StationsCnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvStations = new System.Windows.Forms.DataGridView();
-            this.dgvCompanies = new System.Windows.Forms.DataGridView();
-            this.lblDates = new System.Windows.Forms.Label();
-            this.cbDates = new System.Windows.Forms.ComboBox();
-            this.btnCopy = new System.Windows.Forms.Button();
-            this.Com_Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Com_Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Com_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_Nomos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_Perioxi = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,6 +64,14 @@
             this.Station_Parav = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_LastVisit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_LastDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCompanies = new System.Windows.Forms.DataGridView();
+            this.Com_Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Com_Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Com_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblDates = new System.Windows.Forms.Label();
+            this.cbDates = new System.Windows.Forms.ComboBox();
+            this.btnCopy = new System.Windows.Forms.Button();
+            this.cbAllComs = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDistricts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNomoi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerioxes)).BeginInit();
@@ -303,100 +304,6 @@
             this.dgvStations.Size = new System.Drawing.Size(1196, 253);
             this.dgvStations.TabIndex = 38;
             // 
-            // dgvCompanies
-            // 
-            this.dgvCompanies.AllowUserToAddRows = false;
-            this.dgvCompanies.AllowUserToDeleteRows = false;
-            this.dgvCompanies.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCompanies.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dgvCompanies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCompanies.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Com_Index,
-            this.Com_Selected,
-            this.Com_Name});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCompanies.DefaultCellStyle = dataGridViewCellStyle10;
-            this.dgvCompanies.Location = new System.Drawing.Point(1039, 6);
-            this.dgvCompanies.MultiSelect = false;
-            this.dgvCompanies.Name = "dgvCompanies";
-            this.dgvCompanies.ReadOnly = true;
-            this.dgvCompanies.RowHeadersVisible = false;
-            this.dgvCompanies.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCompanies.Size = new System.Drawing.Size(169, 270);
-            this.dgvCompanies.TabIndex = 39;
-            this.dgvCompanies.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCompanies_CellContentClick);
-            // 
-            // lblDates
-            // 
-            this.lblDates.AutoSize = true;
-            this.lblDates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDates.Location = new System.Drawing.Point(12, 125);
-            this.lblDates.Name = "lblDates";
-            this.lblDates.Size = new System.Drawing.Size(145, 20);
-            this.lblDates.TabIndex = 40;
-            this.lblDates.Text = "Διάστημα σε μήνες";
-            // 
-            // cbDates
-            // 
-            this.cbDates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbDates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbDates.FormattingEnabled = true;
-            this.cbDates.Location = new System.Drawing.Point(163, 122);
-            this.cbDates.Name = "cbDates";
-            this.cbDates.Size = new System.Drawing.Size(68, 28);
-            this.cbDates.TabIndex = 41;
-            this.cbDates.SelectedIndexChanged += new System.EventHandler(this.cbDates_SelectedIndexChanged);
-            // 
-            // btnCopy
-            // 
-            this.btnCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnCopy.Image = global::PumpInfo.Properties.Resources.CopyToClipboard_32x;
-            this.btnCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCopy.Location = new System.Drawing.Point(12, 291);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(135, 40);
-            this.btnCopy.TabIndex = 42;
-            this.btnCopy.Text = "Αντιγραφή";
-            this.btnCopy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
-            // 
-            // Com_Index
-            // 
-            this.Com_Index.HeaderText = "Index";
-            this.Com_Index.Name = "Com_Index";
-            this.Com_Index.ReadOnly = true;
-            this.Com_Index.Visible = false;
-            this.Com_Index.Width = 60;
-            // 
-            // Com_Selected
-            // 
-            this.Com_Selected.FalseValue = "";
-            this.Com_Selected.HeaderText = "";
-            this.Com_Selected.Name = "Com_Selected";
-            this.Com_Selected.ReadOnly = true;
-            this.Com_Selected.TrueValue = "";
-            this.Com_Selected.Width = 40;
-            // 
-            // Com_Name
-            // 
-            this.Com_Name.HeaderText = "Εταιρίες";
-            this.Com_Name.Name = "Com_Name";
-            this.Com_Name.ReadOnly = true;
-            // 
             // Station_Id
             // 
             this.Station_Id.HeaderText = "StationId";
@@ -467,11 +374,118 @@
             this.Station_LastDiff.Name = "Station_LastDiff";
             this.Station_LastDiff.Width = 110;
             // 
+            // dgvCompanies
+            // 
+            this.dgvCompanies.AllowUserToAddRows = false;
+            this.dgvCompanies.AllowUserToDeleteRows = false;
+            this.dgvCompanies.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCompanies.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.dgvCompanies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCompanies.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Com_Index,
+            this.Com_Selected,
+            this.Com_Name});
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCompanies.DefaultCellStyle = dataGridViewCellStyle10;
+            this.dgvCompanies.Location = new System.Drawing.Point(1039, 6);
+            this.dgvCompanies.MultiSelect = false;
+            this.dgvCompanies.Name = "dgvCompanies";
+            this.dgvCompanies.ReadOnly = true;
+            this.dgvCompanies.RowHeadersVisible = false;
+            this.dgvCompanies.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCompanies.Size = new System.Drawing.Size(169, 270);
+            this.dgvCompanies.TabIndex = 39;
+            this.dgvCompanies.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCompanies_CellContentClick);
+            // 
+            // Com_Index
+            // 
+            this.Com_Index.HeaderText = "Index";
+            this.Com_Index.Name = "Com_Index";
+            this.Com_Index.ReadOnly = true;
+            this.Com_Index.Visible = false;
+            this.Com_Index.Width = 60;
+            // 
+            // Com_Selected
+            // 
+            this.Com_Selected.FalseValue = "";
+            this.Com_Selected.HeaderText = "";
+            this.Com_Selected.Name = "Com_Selected";
+            this.Com_Selected.ReadOnly = true;
+            this.Com_Selected.TrueValue = "";
+            this.Com_Selected.Width = 40;
+            // 
+            // Com_Name
+            // 
+            this.Com_Name.HeaderText = "Εταιρίες";
+            this.Com_Name.Name = "Com_Name";
+            this.Com_Name.ReadOnly = true;
+            // 
+            // lblDates
+            // 
+            this.lblDates.AutoSize = true;
+            this.lblDates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDates.Location = new System.Drawing.Point(12, 125);
+            this.lblDates.Name = "lblDates";
+            this.lblDates.Size = new System.Drawing.Size(145, 20);
+            this.lblDates.TabIndex = 40;
+            this.lblDates.Text = "Διάστημα σε μήνες";
+            // 
+            // cbDates
+            // 
+            this.cbDates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbDates.FormattingEnabled = true;
+            this.cbDates.Location = new System.Drawing.Point(163, 122);
+            this.cbDates.Name = "cbDates";
+            this.cbDates.Size = new System.Drawing.Size(68, 28);
+            this.cbDates.TabIndex = 41;
+            this.cbDates.SelectedIndexChanged += new System.EventHandler(this.cbDates_SelectedIndexChanged);
+            // 
+            // btnCopy
+            // 
+            this.btnCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnCopy.Image = global::PumpInfo.Properties.Resources.CopyToClipboard_32x;
+            this.btnCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCopy.Location = new System.Drawing.Point(12, 291);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(135, 40);
+            this.btnCopy.TabIndex = 42;
+            this.btnCopy.Text = "Αντιγραφή";
+            this.btnCopy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            // 
+            // cbAllComs
+            // 
+            this.cbAllComs.AutoSize = true;
+            this.cbAllComs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbAllComs.Location = new System.Drawing.Point(1054, 282);
+            this.cbAllComs.Name = "cbAllComs";
+            this.cbAllComs.Size = new System.Drawing.Size(126, 20);
+            this.cbAllComs.TabIndex = 44;
+            this.cbAllComs.Text = "Όλες οι εταιρίες";
+            this.cbAllComs.UseVisualStyleBackColor = true;
+            this.cbAllComs.CheckedChanged += new System.EventHandler(this.cbAllComs_CheckedChanged);
+            // 
             // Scheduler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1224, 602);
+            this.Controls.Add(this.cbAllComs);
             this.Controls.Add(this.btnCopy);
             this.Controls.Add(this.cbDates);
             this.Controls.Add(this.lblDates);
@@ -532,5 +546,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_Parav;
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_LastVisit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Station_LastDiff;
+        private System.Windows.Forms.CheckBox cbAllComs;
     }
 }
