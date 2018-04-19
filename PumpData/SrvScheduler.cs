@@ -172,6 +172,7 @@ namespace PumpData
                     strVisits = "";
                     LastVisit = "";
                     LastDiff = "";
+                    Paravaseis = 0;
                 }
 
                 dgvStations.Rows.Add(new object[]
@@ -189,7 +190,7 @@ namespace PumpData
                         LastDiff
                 });
 
-                if (Visits > 0 && gasStationVisitsFiltered.Where(i => i.GeostationId == gasStations.GeostationId).OrderBy(i => i.Dt).First().VolDiff < -0.5)
+                if (Visits > 0 && gasStationVisitsFiltered.Where(i => i.GeostationId == gasStations.GeostationId).OrderByDescending(i => i.Dt).First().VolDiff < -0.5)
                 {
                     dgvStations.Rows[dgvStations.Rows.Count - 1].DefaultCellStyle.ForeColor = Color.Red;
                 }
