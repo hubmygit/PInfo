@@ -1814,6 +1814,36 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<Machines> GetSqliteMachinesList()
+        {
+            List<Machines> ret = new List<Machines>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT Id, UserName FROM [Inst] ORDER BY UserName ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Machines()
+                    {
+                        Id = Convert.ToInt32(reader["Id"].ToString()),
+                        UserName = reader["UserName"].ToString()
+                    });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<ComboboxItem> GetBrandsComboboxItemsList(List<Brand> Brands)
         {
             List<ComboboxItem> ret = new List<ComboboxItem>();

@@ -384,17 +384,24 @@ namespace PumpInfo
 
             if (dgvStations.Rows.Count > 0)
             {
-                dgvStations.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-                dgvStations.Columns["Station_Nomos"].Visible = true;
-                dgvStations.Columns["Station_Perioxi"].Visible = true;
-
-                try
+                if (dgvStations.SelectedRows.Count <= 0)
                 {
-                    Clipboard.SetDataObject(dgvStations.GetClipboardContent());
+                    MessageBox.Show("Παρακαλώ επιλέξτε εγγραφές.");
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
+                    dgvStations.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+                    dgvStations.Columns["Station_Nomos"].Visible = true;
+                    dgvStations.Columns["Station_Perioxi"].Visible = true;
+
+                    try
+                    {
+                        Clipboard.SetDataObject(dgvStations.GetClipboardContent());
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
 

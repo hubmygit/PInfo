@@ -54,7 +54,7 @@ namespace PumpInfo
 
         //List<ImpData> archivedDataList = new List<ImpData>(); //old
         List<ArchivedData> archivedDataList = new List<ArchivedData>();
-        List<Machines> machinesList = DbUtilities.GetSqlMachinesList();
+        List<Machines> machinesList = DbUtilities.GetSqliteMachinesList();
         bool applyFilterEvents = false;
 
         private void ApplyFilters()
