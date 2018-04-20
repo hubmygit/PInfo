@@ -37,12 +37,12 @@
             this.lblDtFrom = new System.Windows.Forms.Label();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.dgvKms = new System.Windows.Forms.DataGridView();
-            this.cbVehicle = new System.Windows.Forms.ComboBox();
             this.Km_VehicleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Km_Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Km_Dt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Km_KmFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Km_KmTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbVehicle = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKms)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,21 +130,6 @@
             this.dgvKms.Size = new System.Drawing.Size(658, 350);
             this.dgvKms.TabIndex = 41;
             // 
-            // cbVehicle
-            // 
-            this.cbVehicle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVehicle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbVehicle.FormattingEnabled = true;
-            this.cbVehicle.Items.AddRange(new object[] {
-            "Όλα τα οχήματα",
-            "Όχημα 1 - Βενζίνη",
-            "Όχημα 2 - Diesel"});
-            this.cbVehicle.Location = new System.Drawing.Point(12, 28);
-            this.cbVehicle.Name = "cbVehicle";
-            this.cbVehicle.Size = new System.Drawing.Size(200, 24);
-            this.cbVehicle.TabIndex = 42;
-            this.cbVehicle.SelectedIndexChanged += new System.EventHandler(this.cbVehicle_SelectedIndexChanged);
-            // 
             // Km_VehicleNo
             // 
             this.Km_VehicleNo.HeaderText = "Vehicle No";
@@ -178,6 +163,21 @@
             this.Km_KmTo.Name = "Km_KmTo";
             this.Km_KmTo.ReadOnly = true;
             // 
+            // cbVehicle
+            // 
+            this.cbVehicle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbVehicle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbVehicle.FormattingEnabled = true;
+            this.cbVehicle.Items.AddRange(new object[] {
+            "Όλα τα οχήματα",
+            "Όχημα 1 - Βενζίνη",
+            "Όχημα 2 - Diesel"});
+            this.cbVehicle.Location = new System.Drawing.Point(12, 28);
+            this.cbVehicle.Name = "cbVehicle";
+            this.cbVehicle.Size = new System.Drawing.Size(200, 24);
+            this.cbVehicle.TabIndex = 42;
+            this.cbVehicle.SelectedIndexChanged += new System.EventHandler(this.cbVehicle_SelectedIndexChanged);
+            // 
             // ShowMyKms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -190,6 +190,7 @@
             this.Controls.Add(this.lblDtFrom);
             this.Controls.Add(this.dtFrom);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(698, 480);
             this.Name = "ShowMyKms";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Show Kms";

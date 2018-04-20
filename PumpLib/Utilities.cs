@@ -2294,7 +2294,7 @@ namespace PumpLib
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
-            string SelectSt = "SELECT R.VehicleNo, datetime(Dt) as Dt, E.GeostationId, round((ifnull(R.Volume, 0) - ifnull(E.PumpVolume, 0)) / ifnull(R.Volume, 0) * 100.0, 5) as VolDiff " +
+            string SelectSt = "SELECT R.VehicleNo, datetime(Dt) as Dt, E.GeostationId, ifnull(round((ifnull(R.Volume, 0) - ifnull(E.PumpVolume, 0)) / ifnull(R.Volume, 0) * 100.0, 5),0) as VolDiff " +
                 "FROM [receiptData] R left outer join [extraData] E on R.Id = E.receiptDataId " +
                 "WHERE R.Accepted = 1 and GeostationId > 10 " +
                 "ORDER BY Dt DESC ";
@@ -2348,7 +2348,7 @@ namespace PumpLib
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string SelectSt = "SELECT R.VehicleNo, Dt, E.GeostationId, convert(decimal(18, 5), round((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0, 5)) as VolDiff, " +
+            string SelectSt = "SELECT R.VehicleNo, Dt, E.GeostationId, convert(decimal(18, 5), round(  isnull( ((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0) ,0) , 5)) as VolDiff, " +
                 //"case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver " +
                 "M.UserName as Driver " +
                 "FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId left outer join [dbo].[Machines] M on R.MachineNo = M.Id " +
@@ -3277,7 +3277,7 @@ namespace PumpLib
 
             string SelectSt = "SELECT R.VehicleNo, P.Name as Product, " + //case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver, " +
                                 "datetime(R.Dt) as Dt, B.Name as Brand, E.Dealer, E.Address, ifnull(R.Weight, 0) as Weight, ifnull(R.Temp, 0) as Temp, ifnull(R.Density, 0) as Density, ifnull(R.Volume, 0) as Volume, E.Pump, ifnull(E.PumpVolume, 0) as PumpVolume, " +
-                                "round((ifnull(R.Volume, 0) - ifnull(E.PumpVolume, 0)) / ifnull(R.Volume, 0) * 100.0, 5) as VolDiff, ifnull(E.GeostationId, 0) as GeostationId, ifnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
+                                "ifnull(round((ifnull(R.Volume, 0) - ifnull(E.PumpVolume, 0)) / ifnull(R.Volume, 0) * 100.0, 5), 0) as VolDiff, ifnull(E.GeostationId, 0) as GeostationId, ifnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
                               "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId left outer join Brand B on B.Id = E.BrandId left outer join  Product P on P.Id = E.ProductId " +
                               "WHERE R.Accepted = 1 ORDER BY Dt DESC ";
 
@@ -3470,7 +3470,7 @@ namespace PumpLib
                 //"case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver, " +
                 "M.UserName as Driver, " +
                 "R.Dt, B.Name as Brand, E.Dealer, E.Address, isnull(R.Weight, 0) as Weight, isnull(R.Temp, 0) as Temp, isnull(R.Density, 0) as Density, isnull(R.Volume, 0) as Volume, E.Pump, isnull(E.PumpVolume, 0) as PumpVolume, " +
-                "convert(decimal(18, 5), round((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0, 5)) as VolDiff, isnull(E.GeostationId, 0) as GeostationId, isnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
+                "convert(decimal(18, 5), round(   isnull( ((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0) ,0)   , 5)) as VolDiff, isnull(E.GeostationId, 0) as GeostationId, isnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
                 "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId left outer join " +
                      "Brand B on B.Id = E.BrandId left outer join Product P on P.Id = E.ProductId left outer join Machines M on M.Id = R.MachineNo " +
                 "WHERE R.Accepted = 1 ORDER BY Dt desc ";
