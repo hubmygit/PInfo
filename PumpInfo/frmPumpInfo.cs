@@ -292,5 +292,49 @@ namespace PumpInfo
             Scheduler frmSch = new Scheduler();
             frmSch.ShowDialog();
         }
+
+        private void btnClosedGasStation_Click(object sender, EventArgs e)
+        {
+            if (objList.Count > 0)
+            {
+                //ClosedGasStation frmClosedGS = new ClosedGasStation();
+                //frmClosedGS.ShowDialog();
+
+                ImpData obj = new ImpData()
+                {
+                    dataGridViewRowIndex = objList.Count,
+                    accepted = true,
+                    vehicleNo = objList[0].vehicleNo,
+                    datetime = new DateTime(), //user input
+                    date = "", //user input
+                    time = "", //user input
+                    coordinates = new Coordinates(), //user input
+                    weight = 0,
+                    temp = 0,
+                    density = 0,
+                    volume = 0,
+                    brand = new Brand(), //user input
+                    dealer = "", //user input
+                    address = "",
+                    product = new Product(),
+                    pump = "",
+                    pumpVolume = 0,
+                    sampleNo = 0,
+                    remarks = "",
+                    machineNo = objList[0].machineNo,
+                    geostationId = 0, //user input
+                    realCoordinates = new Coordinates(), //user input
+                    receiptNo = "",
+                    receiptPrice = 0
+                };
+
+                    //dgvReceiptData.Rows.Add()
+            }
+
+
+            
+
+
+        }
     }
 }

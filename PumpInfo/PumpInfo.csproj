@@ -76,6 +76,12 @@
     <Compile Include="ArchivedForm.Designer.cs">
       <DependentUpon>ArchivedForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClosedGasStation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClosedGasStation.Designer.cs">
+      <DependentUpon>ClosedGasStation.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPumpInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ArchivedForm.resx">
       <DependentUpon>ArchivedForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClosedGasStation.resx">
+      <DependentUpon>ClosedGasStation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPumpInfo.resx">
       <DependentUpon>frmPumpInfo.cs</DependentUpon>

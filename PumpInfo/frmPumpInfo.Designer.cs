@@ -51,6 +51,7 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
+            this.btnClosedGasStation = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -282,11 +283,22 @@
             this.btnOpenFile.UseVisualStyleBackColor = true;
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
+            // btnClosedGasStation
+            // 
+            this.btnClosedGasStation.Location = new System.Drawing.Point(396, 55);
+            this.btnClosedGasStation.Name = "btnClosedGasStation";
+            this.btnClosedGasStation.Size = new System.Drawing.Size(114, 22);
+            this.btnClosedGasStation.TabIndex = 18;
+            this.btnClosedGasStation.Text = "Κλειστό Πρατήριο";
+            this.btnClosedGasStation.UseVisualStyleBackColor = true;
+            this.btnClosedGasStation.Click += new System.EventHandler(this.btnClosedGasStation_Click);
+            // 
             // frmPumpInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(914, 502);
+            this.Controls.Add(this.btnClosedGasStation);
             this.Controls.Add(this.btnScheduler);
             this.Controls.Add(this.btnSynchDbs);
             this.Controls.Add(this.btnArchived);
@@ -328,6 +340,7 @@
         public System.Windows.Forms.Button btnArchived;
         public System.Windows.Forms.Button btnSynchDbs;
         public System.Windows.Forms.Button btnScheduler;
+        private System.Windows.Forms.Button btnClosedGasStation;
     }
 }
 
