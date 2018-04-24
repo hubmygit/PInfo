@@ -297,38 +297,48 @@ namespace PumpInfo
         {
             if (objList.Count > 0)
             {
-                //ClosedGasStation frmClosedGS = new ClosedGasStation();
-                //frmClosedGS.ShowDialog();
+                ClosedGasStation frmClosedGS = new ClosedGasStation();
+                DialogResult dlgRes = frmClosedGS.ShowDialog();
 
-                ImpData obj = new ImpData()
+                if (dlgRes == DialogResult.OK || dlgRes == DialogResult.Yes)
                 {
-                    dataGridViewRowIndex = objList.Count,
-                    accepted = true,
-                    vehicleNo = objList[0].vehicleNo,
-                    datetime = new DateTime(), //user input
-                    date = "", //user input
-                    time = "", //user input
-                    coordinates = new Coordinates(), //user input
-                    weight = 0,
-                    temp = 0,
-                    density = 0,
-                    volume = 0,
-                    brand = new Brand(), //user input
-                    dealer = "", //user input
-                    address = "",
-                    product = new Product(),
-                    pump = "",
-                    pumpVolume = 0,
-                    sampleNo = 0,
-                    remarks = "",
-                    machineNo = objList[0].machineNo,
-                    geostationId = 0, //user input
-                    realCoordinates = new Coordinates(), //user input
-                    receiptNo = "",
-                    receiptPrice = 0
-                };
+                    ImpData newObj = new ImpData()
+                    {
+                        accepted = true,
+                        address = frmClosedGS.txtAddress.Text,
+                        brand = DbUtilities.getComboboxItem_Brand(frmClosedGS.cbBrand), //user input
+                        coordinates = frmClosedGS.coo, //user input
+                        dataGridViewRowIndex = objList.Count,
+                        date = frmClosedGS.dt_date, //user input
+                        datetime = frmClosedGS.dt, //user input
+                        dealer = frmClosedGS.txtDealer.Text, //user input
+                        density = 0,
+                        geostationId = Convert.ToInt32(frmClosedGS.lblGeostationId.Text), //user input
+                        //machineNo = objList[0].machineNo,
+                        position = frmClosedGS.coo.latitude + " " + frmClosedGS.coo.longitude,
+                        product = DbUtilities.GetProductsList(objList[0].vehicleNo)[0], //get first record's product
+                        pump = "0/0/0",
+                        pumpVolume = 0,
+                        realCoordinates = frmClosedGS.coo, //user input
+                        //receiptNo = "",
+                        //receiptPrice = 0
+                        remarks = frmClosedGS.txtRemarks.Text,
+                        //sampleNo = 0,
+                        temp = 0,
+                        time = frmClosedGS.dt_time, //user input
+                        vehicleNo = objList[0].vehicleNo, //get first record's vehicle
+                        volume = 0,
+                        weight = 0
+                    };
 
-                    //dgvReceiptData.Rows.Add()
+                    objList.Add(newObj);
+                   
+                    dgvReceiptData.Rows.Add(GridViewUtils.ImpDataToGridViewRow(newObj));
+                    //dgvReceiptData.ClearSelection();
+
+                }
+
+
             }
 
 
