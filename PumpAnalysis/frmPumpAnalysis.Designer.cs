@@ -32,9 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPumpAnalysis));
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
-            this.lblImpFile = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnImport = new System.Windows.Forms.Button();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,6 +58,10 @@
             this.RealLong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ReceiptNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ReceiptPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblImpFile = new System.Windows.Forms.Label();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.btnTest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,45 +124,6 @@
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvReceiptData.Size = new System.Drawing.Size(950, 410);
             this.dgvReceiptData.TabIndex = 14;
-            // 
-            // lblImpFile
-            // 
-            this.lblImpFile.AutoSize = true;
-            this.lblImpFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblImpFile.Location = new System.Drawing.Point(12, 55);
-            this.lblImpFile.Name = "lblImpFile";
-            this.lblImpFile.Size = new System.Drawing.Size(59, 16);
-            this.lblImpFile.TabIndex = 18;
-            this.lblImpFile.Text = "Αρχείο: -";
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSave.Image = global::PumpAnalysis.Properties.Resources.Save_32x;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(827, 12);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(135, 40);
-            this.btnSave.TabIndex = 16;
-            this.btnSave.Text = "Αποθήκευση";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnImport
-            // 
-            this.btnImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnImport.Image = global::PumpAnalysis.Properties.Resources.GetFileHH_32x;
-            this.btnImport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImport.Location = new System.Drawing.Point(12, 12);
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(135, 40);
-            this.btnImport.TabIndex = 15;
-            this.btnImport.Text = "Εισαγωγή";
-            this.btnImport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnImport.UseVisualStyleBackColor = true;
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // Index
             // 
@@ -333,11 +295,65 @@
             this.ReceiptPrice.Name = "ReceiptPrice";
             this.ReceiptPrice.ReadOnly = true;
             // 
+            // lblImpFile
+            // 
+            this.lblImpFile.AutoSize = true;
+            this.lblImpFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblImpFile.Location = new System.Drawing.Point(12, 55);
+            this.lblImpFile.Name = "lblImpFile";
+            this.lblImpFile.Size = new System.Drawing.Size(59, 16);
+            this.lblImpFile.TabIndex = 18;
+            this.lblImpFile.Text = "Αρχείο: -";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSave.Image = global::PumpAnalysis.Properties.Resources.Save_32x;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(827, 12);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(135, 40);
+            this.btnSave.TabIndex = 16;
+            this.btnSave.Text = "Αποθήκευση";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnImport.Image = global::PumpAnalysis.Properties.Resources.GetFileHH_32x;
+            this.btnImport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnImport.Location = new System.Drawing.Point(12, 12);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(135, 40);
+            this.btnImport.TabIndex = 15;
+            this.btnImport.Text = "Εισαγωγή";
+            this.btnImport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // btnTest
+            // 
+            this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnTest.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTest.Location = new System.Drawing.Point(425, 12);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(135, 40);
+            this.btnTest.TabIndex = 19;
+            this.btnTest.Text = "Testing...";
+            this.btnTest.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            // 
             // frmPumpAnalysis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 502);
+            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.lblImpFile);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnImport);
@@ -386,6 +402,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RealLong;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptPrice;
+        public System.Windows.Forms.Button btnTest;
     }
 }
 

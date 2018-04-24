@@ -397,7 +397,33 @@ namespace PumpAnalysis
             
         }
 
-        
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            string file = @"C:\Repos\PumpInfo\PumpData\bin\Debug\ExportedDBs\Archived.db";
+
+            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("pumpinfo@moh.gr", "hkylidis@moh.gr", "DB Sync Test", "Use attachments to synchronize DBs.");
+
+            System.Net.Mail.Attachment data = new System.Net.Mail.Attachment(file, System.Net.Mime.MediaTypeNames.Application.Octet);
+
+            message.Attachments.Add(data);
+
+            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+            
+            client.Host = "wmath.moh.gr";
+            client.Credentials = new System.Net.NetworkCredential("pumpinfo", "pump!@#");
+
+            client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+
+            try
+            {
+                client.Send(message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception occured: " + ex.Message + " \r\n {0}", ex.ToString());
+            }
+
+        }
     }
 
     
