@@ -1292,7 +1292,8 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@DtYear", vehicleTrace.DtYear);
                 cmd.Parameters.AddWithValue("@DtMonth", vehicleTrace.DtMonth);
                 cmd.Parameters.AddWithValue("@DtDay", vehicleTrace.DtDay);
-                cmd.Parameters.AddWithValue("@Dt", vehicleTrace.Dt);
+                //cmd.Parameters.AddWithValue("@Dt", vehicleTrace.Dt); // wrong timezone!!!
+                cmd.Parameters.AddWithValue("@Dt", new DateTime(vehicleTrace.DtYear, vehicleTrace.DtMonth, vehicleTrace.DtDay));
                 cmd.Parameters.AddWithValue("@KmFrom", vehicleTrace.KmFrom);
                 cmd.Parameters.AddWithValue("@KmTo", vehicleTrace.KmTo);
 
