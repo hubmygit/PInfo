@@ -141,6 +141,14 @@ namespace PumpData
                 if (Convert.ToInt32(dgvVehicleTraceList["KmFrom", e.RowIndex].Value.ToString()) <= 0 || Convert.ToInt32(dgvVehicleTraceList["KmTo", e.RowIndex].Value.ToString()) <= 0)
                 {
                     MessageBox.Show("Προσοχή! \r\nΔεν είναι ακόμα συμπληρωμένες οι ενδείξεις χιλιομέτρων για τον υπολογισμό κατανάλωσης της επιλεγμένης εγγραφής.");
+
+                    txtKm.Text = "";
+                    txtDay.Text = Convert.ToDateTime(dgvVehicleTraceList["EntryDate", e.RowIndex].Value).Day.ToString();
+                    txtTotCons.Text = "";
+                    txtPumpVol.Text = dgvVehicleTraceList["PumpVol", e.RowIndex].Value.ToString();
+                    txtVehVol.Text = dgvVehicleTraceList["VehicleVol", e.RowIndex].Value.ToString();
+                    txtTotRecPrice.Text = dgvVehicleTraceList["TotReceiptPrice", e.RowIndex].Value.ToString();
+
                     return;
                 }
 
