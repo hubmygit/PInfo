@@ -47,7 +47,6 @@
             this.dtp_time = new System.Windows.Forms.DateTimePicker();
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.lblRemarks = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // lblGeostationId
@@ -236,21 +235,11 @@
             this.lblRemarks.TabIndex = 55;
             this.lblRemarks.Text = "Remarks";
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker1.Location = new System.Drawing.Point(24, 412);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.ShowUpDown = true;
-            this.dateTimePicker1.Size = new System.Drawing.Size(336, 20);
-            this.dateTimePicker1.TabIndex = 57;
-            // 
             // ClosedGasStation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 502);
-            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.txtRemarks);
             this.Controls.Add(this.lblRemarks);
             this.Controls.Add(this.dtp_time);
@@ -300,6 +289,5 @@
         public System.Windows.Forms.Label lblGeostationId;
         public System.Windows.Forms.TextBox txtRemarks;
         private System.Windows.Forms.Label lblRemarks;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

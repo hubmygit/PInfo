@@ -397,7 +397,8 @@ namespace PumpAnalysis
             
         }
 
-        private void btnTest_Click(object sender, EventArgs e)
+
+        private void sendExportedDBsByEmail()
         {
             string file = @"C:\Repos\PumpInfo\PumpData\bin\Debug\ExportedDBs\Archived.db";
 
