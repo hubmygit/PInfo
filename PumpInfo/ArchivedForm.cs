@@ -42,7 +42,8 @@ namespace PumpInfo
             //dealerList.Distinct().OrderBy(i => i);
             cbDealer.Items.AddRange(dealerList.Distinct().OrderBy(i => i).ToArray());
 
-            cbDrivers.Items.AddRange(machinesList.Select(i=>i.UserName).ToArray());
+            //cbDrivers.Items.AddRange(machinesList.Select(i=>i.UserName).ToArray());
+            cbDrivers.Items.AddRange(archivedDataList.Select(i => i.Driver).Distinct().OrderBy(i => i).ToArray());
 
             applyFilterEvents = true;
             ApplyFilters();
@@ -54,7 +55,7 @@ namespace PumpInfo
 
         //List<ImpData> archivedDataList = new List<ImpData>(); //old
         List<ArchivedData> archivedDataList = new List<ArchivedData>();
-        List<Machines> machinesList = DbUtilities.GetSqliteMachinesList();
+        //List<Machines> machinesList = DbUtilities.GetSqliteMachinesList();
         bool applyFilterEvents = false;
 
         private void ApplyFilters()
