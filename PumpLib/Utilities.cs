@@ -2277,8 +2277,9 @@ namespace PumpLib
             List<GasStationVisits> ret = GetSqliteArchivedVisitsPerGasStationList();
 
             ret.AddRange(GetSqliteLocalVisitsPerGasStationList());
-
-            ret = ret.Distinct().ToList();
+            
+            //ret = ret.Distinct().ToList();
+            ret = ret.GroupBy(i => new { i.Driver, i.Dt, i.GeostationId, i.VehicleNo, i.VolDiff }).Select(group => group.First()).ToList();
 
             return ret;
         }
