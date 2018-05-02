@@ -56,7 +56,9 @@ namespace PumpData
                     Id = GeoDataNextId,
                     Current_Rec = 1,
                     Comp_Name = txtDealer.Text,
-                    Company_Id = DbUtilities.GetStationCompaniesId(brandId) //BrandId to Company_Id
+                    Company_Id = DbUtilities.GetStationCompaniesId(brandId), //BrandId to Company_Id
+                    Company_Operated = cbCompanyOperated.Checked,
+                    Station_Closed = false
                 };
 
                 //insert_yyyyyyy_(stationTimeDependData)

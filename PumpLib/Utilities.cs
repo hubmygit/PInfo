@@ -1373,8 +1373,8 @@ namespace PumpLib
             bool ret = false;
             
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[Station_TimeDependData] (Id, UpdDate, Current_Rec, Comp_Name, Company_Id) VALUES " +
-                           "(@Id, @UpdDate, @Current_Rec, @Comp_Name, @Company_Id) ";
+            string InsSt = "INSERT INTO [dbo].[Station_TimeDependData] (Id, UpdDate, Current_Rec, Comp_Name, Company_Id, Company_Operated, Station_Closed) VALUES " +
+                           "(@Id, @UpdDate, @Current_Rec, @Comp_Name, @Company_Id, @Company_Operated, @Station_Closed) ";
             try
             {
                 sqlConn.Open();
@@ -1384,6 +1384,8 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@Current_Rec", station.Current_Rec);
                 cmd.Parameters.AddWithValue("@Comp_Name", station.Comp_Name);
                 cmd.Parameters.AddWithValue("@Company_Id", station.Company_Id);
+                cmd.Parameters.AddWithValue("@Company_Operated", station.Company_Operated);
+                cmd.Parameters.AddWithValue("@Station_Closed", station.Station_Closed);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -2191,7 +2193,7 @@ namespace PumpLib
             List<GasStationsPerPerioxh> ret = new List<GasStationsPerPerioxh>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT T.[Geo_Perioxh_id], T.[TK_NoSpace], S.[id], S.[Address], G.[Comp_Name], G.[Company_id], C.[Company] " +
+            string SelectSt = "SELECT T.[Geo_Perioxh_id], T.[TK_NoSpace], S.[id], S.[Address], G.[Comp_Name], G.[Company_id], C.[Company], G.[Company_Operated], G.[Station_Closed] " +
                               "FROM [dbo].[Geo_Perioxh_TK] T left outer join " +
                                    "[dbo].[Station_GeoData] S on T.[TK_NoSpace] = S.[Postal-Code] left outer join " +
                                    "[dbo].[Station_TimeDependData] G on S.[id] = G.[id] and G.[Current_Rec] = 1 left outer join " +
@@ -2215,7 +2217,9 @@ namespace PumpLib
                         Address = reader["Address"].ToString(),
                         Comp_Name = reader["Comp_Name"].ToString(),
                         Company_Id = Convert.ToInt32(reader["Company_id"].ToString()),
-                        Company = reader["Company"].ToString()
+                        Company = reader["Company"].ToString(),
+                        Company_Operated = Convert.ToBoolean(reader["Company_Operated"].ToString()),
+                        Station_Closed = Convert.ToBoolean(reader["Station_Closed"].ToString())
                     });
                 }
                 reader.Close();
@@ -3398,8 +3402,8 @@ namespace PumpLib
             bool ret = false;
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string InsSt = "INSERT INTO [dbo].[Station_TimeDependData] (Id, UpdDate, Current_Rec, Comp_Name, Company_Id) VALUES " +
-                           "(@Id, getdate(), @Current_Rec, @Comp_Name, @Company_Id) ";
+            string InsSt = "INSERT INTO [dbo].[Station_TimeDependData] (Id, UpdDate, Current_Rec, Comp_Name, Company_Id, Company_Operated, Station_Closed) VALUES " +
+                           "(@Id, getdate(), @Current_Rec, @Comp_Name, @Company_Id, @Company_Operated, @Station_Closed) ";
             try
             {
                 sqlConn.Open();
@@ -3408,6 +3412,9 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@Current_Rec", data.Current_Rec);
                 cmd.Parameters.AddWithValue("@Comp_Name", data.Comp_Name);
                 cmd.Parameters.AddWithValue("@Company_Id", data.Company_Id);
+
+                cmd.Parameters.AddWithValue("@Company_Operated", data.Company_Operated);
+                cmd.Parameters.AddWithValue("@Station_Closed", data.Station_Closed);
 
                 cmd.CommandType = CommandType.Text;
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -3467,7 +3474,7 @@ namespace PumpLib
             List<Station_TimeDependData> station_TimeDependData_List = new List<Station_TimeDependData>();
 
             SqlConnection sqlConn1 = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT id, Comp_Name, Company_id FROM [dbo].[Station_TimeDependData] WHERE Current_Rec = 1 ORDER BY id ";
+            string SelectSt = "SELECT id, Comp_Name, Company_id, Company_Operated, Station_Closed FROM [dbo].[Station_TimeDependData] WHERE Current_Rec = 1 ORDER BY id ";
             SqlCommand cmd1 = new SqlCommand(SelectSt, sqlConn1);
             try
             {
@@ -3480,7 +3487,9 @@ namespace PumpLib
                          Id = Convert.ToInt32(reader1["id"].ToString()),
                          Current_Rec = 1,
                          Comp_Name = reader1["Comp_Name"].ToString(),
-                         Company_Id = Convert.ToInt32(reader1["Company_id"].ToString())
+                         Company_Id = Convert.ToInt32(reader1["Company_id"].ToString()),
+                         Company_Operated = Convert.ToBoolean(reader1["Company_Operated"].ToString()),
+                         Station_Closed = Convert.ToBoolean(reader1["Station_Closed"].ToString())
                     });
                 }
                 reader1.Close();
@@ -3610,8 +3619,8 @@ namespace PumpLib
 
                 foreach (Station_TimeDependData station in station_TimeDependData_List)
                 {
-                    string InsSt = "INSERT INTO [Station_TimeDependData] (id, UpdDate, Current_Rec, Comp_Name, Company_id) VALUES " +
-                           "(@id, @UpdDate, @Current_Rec, @Comp_Name, @Company_id) ";
+                    string InsSt = "INSERT INTO [Station_TimeDependData] (id, UpdDate, Current_Rec, Comp_Name, Company_id, Company_Operated, Station_Closed) VALUES " +
+                           "(@id, @UpdDate, @Current_Rec, @Comp_Name, @Company_id, @Company_Operated, @Station_Closed) ";
 
                     cmd.CommandText = InsSt;
                     //SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
@@ -3620,7 +3629,9 @@ namespace PumpLib
                     cmd.Parameters.AddWithValue("@UpdDate", "2018-01-01 00:00:00.000");
                     cmd.Parameters.AddWithValue("@Current_Rec", station.Current_Rec);
                     cmd.Parameters.AddWithValue("@Comp_Name", station.Comp_Name);
-                    cmd.Parameters.AddWithValue("@Company_id", station.Company_Id);                    
+                    cmd.Parameters.AddWithValue("@Company_id", station.Company_Id);
+                    cmd.Parameters.AddWithValue("@Company_Operated", station.Company_Operated);
+                    cmd.Parameters.AddWithValue("@Station_Closed", station.Station_Closed);
 
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
@@ -4340,6 +4351,8 @@ namespace PumpLib
         public bool Current_Rec { get; set; } //check 0,1 or 1,2 ????????
         public string Comp_Name { get; set; }
         public int Company_Id { get; set; }
+        public bool Company_Operated { get; set; }
+        public bool Station_Closed { get; set; }
     }
 
     public class ImpData_And_VehicleTrace
@@ -4393,6 +4406,8 @@ namespace PumpLib
         public int Current_Rec { get; set; }
         public string Comp_Name { get; set; }
         public int Company_Id { get; set; }
+        public bool Company_Operated { get; set; }
+        public bool Station_Closed { get; set; }
     }
 
     public class ArchivedData
@@ -4455,6 +4470,10 @@ namespace PumpLib
         public string Comp_Name { get; set; }
         public int Company_Id { get; set; }
         public string Company { get; set; }
+
+        public bool Company_Operated { get; set; }
+        public bool Station_Closed { get; set; }
+
         public GasStationsPerPerioxh()
         {
         }

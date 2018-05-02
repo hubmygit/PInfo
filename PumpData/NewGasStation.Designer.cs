@@ -44,6 +44,7 @@
             this.txtNomos = new System.Windows.Forms.TextBox();
             this.txtPerioxi = new System.Windows.Forms.TextBox();
             this.lblPostalCode = new System.Windows.Forms.Label();
+            this.cbCompanyOperated = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblLat
@@ -107,6 +108,7 @@
             // 
             this.lblDealer.AutoSize = true;
             this.lblDealer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDealer.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblDealer.Location = new System.Drawing.Point(72, 63);
             this.lblDealer.Name = "lblDealer";
             this.lblDealer.Size = new System.Drawing.Size(49, 16);
@@ -136,10 +138,10 @@
             // lblBrand
             // 
             this.lblBrand.AutoSize = true;
-            this.lblBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblBrand.Location = new System.Drawing.Point(77, 23);
+            this.lblBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblBrand.Location = new System.Drawing.Point(72, 23);
             this.lblBrand.Name = "lblBrand";
-            this.lblBrand.Size = new System.Drawing.Size(44, 16);
+            this.lblBrand.Size = new System.Drawing.Size(49, 16);
             this.lblBrand.TabIndex = 31;
             this.lblBrand.Text = "Brand";
             // 
@@ -189,18 +191,30 @@
             // lblPostalCode
             // 
             this.lblPostalCode.AutoSize = true;
-            this.lblPostalCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblPostalCode.Location = new System.Drawing.Point(39, 216);
+            this.lblPostalCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblPostalCode.Location = new System.Drawing.Point(28, 216);
             this.lblPostalCode.Name = "lblPostalCode";
-            this.lblPostalCode.Size = new System.Drawing.Size(82, 16);
+            this.lblPostalCode.Size = new System.Drawing.Size(93, 16);
             this.lblPostalCode.TabIndex = 37;
             this.lblPostalCode.Text = "Postal Code";
+            // 
+            // cbCompanyOperated
+            // 
+            this.cbCompanyOperated.AutoSize = true;
+            this.cbCompanyOperated.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbCompanyOperated.Location = new System.Drawing.Point(448, 62);
+            this.cbCompanyOperated.Name = "cbCompanyOperated";
+            this.cbCompanyOperated.Size = new System.Drawing.Size(161, 20);
+            this.cbCompanyOperated.TabIndex = 38;
+            this.cbCompanyOperated.Text = "Company Operated";
+            this.cbCompanyOperated.UseVisualStyleBackColor = true;
             // 
             // NewGasStation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 358);
+            this.Controls.Add(this.cbCompanyOperated);
             this.Controls.Add(this.lblPostalCode);
             this.Controls.Add(this.txtPerioxi);
             this.Controls.Add(this.txtNomos);
@@ -219,7 +233,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NewGasStation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "NewGasStation";
+            this.Text = "New Gas Station";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,5 +255,6 @@
         public System.Windows.Forms.TextBox txtNomos;
         public System.Windows.Forms.TextBox txtPerioxi;
         private System.Windows.Forms.Label lblPostalCode;
+        private System.Windows.Forms.CheckBox cbCompanyOperated;
     }
 }
