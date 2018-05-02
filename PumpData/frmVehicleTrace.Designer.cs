@@ -36,6 +36,14 @@
             this.cbYear = new System.Windows.Forms.ComboBox();
             this.lblYear = new System.Windows.Forms.Label();
             this.dgvVehicleTraceList = new System.Windows.Forms.DataGridView();
+            this.EntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KmDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PumpVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VehicleVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotReceiptPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DriverName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblKm = new System.Windows.Forms.Label();
             this.txtKm = new System.Windows.Forms.TextBox();
             this.lblConsUnit = new System.Windows.Forms.Label();
@@ -56,14 +64,14 @@
             this.lblTotRecPrice = new System.Windows.Forms.Label();
             this.lblEuros = new System.Windows.Forms.Label();
             this.txtTotRecPrice = new System.Windows.Forms.TextBox();
-            this.EntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KmFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KmTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KmDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PumpVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VehicleVol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotReceiptPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DriverName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblMonthlyData = new System.Windows.Forms.Label();
+            this.txtMonthlyKm = new System.Windows.Forms.TextBox();
+            this.lblMonthlyKm = new System.Windows.Forms.Label();
+            this.txtMonthlyTotCons = new System.Windows.Forms.TextBox();
+            this.txtMonthlyPumpVol = new System.Windows.Forms.TextBox();
+            this.txtMonthlyVehVol = new System.Windows.Forms.TextBox();
+            this.txtMonthlyTotRecPrice = new System.Windows.Forms.TextBox();
+            this.lblMonthlyEuros = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehicleTraceList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,216 +150,15 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvVehicleTraceList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvVehicleTraceList.Location = new System.Drawing.Point(12, 128);
+            this.dgvVehicleTraceList.Location = new System.Drawing.Point(12, 189);
             this.dgvVehicleTraceList.MultiSelect = false;
             this.dgvVehicleTraceList.Name = "dgvVehicleTraceList";
             this.dgvVehicleTraceList.ReadOnly = true;
             this.dgvVehicleTraceList.RowHeadersWidth = 38;
             this.dgvVehicleTraceList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVehicleTraceList.Size = new System.Drawing.Size(1135, 342);
+            this.dgvVehicleTraceList.Size = new System.Drawing.Size(1135, 369);
             this.dgvVehicleTraceList.TabIndex = 3;
             this.dgvVehicleTraceList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicleTraceList_CellClick);
-            // 
-            // lblKm
-            // 
-            this.lblKm.AutoSize = true;
-            this.lblKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblKm.Location = new System.Drawing.Point(563, 57);
-            this.lblKm.Name = "lblKm";
-            this.lblKm.Size = new System.Drawing.Size(32, 20);
-            this.lblKm.TabIndex = 34;
-            this.lblKm.Text = "Km";
-            // 
-            // txtKm
-            // 
-            this.txtKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtKm.Location = new System.Drawing.Point(457, 54);
-            this.txtKm.Name = "txtKm";
-            this.txtKm.ReadOnly = true;
-            this.txtKm.Size = new System.Drawing.Size(100, 26);
-            this.txtKm.TabIndex = 33;
-            this.txtKm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKm_KeyPress);
-            // 
-            // lblConsUnit
-            // 
-            this.lblConsUnit.AutoSize = true;
-            this.lblConsUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblConsUnit.Location = new System.Drawing.Point(563, 25);
-            this.lblConsUnit.Name = "lblConsUnit";
-            this.lblConsUnit.Size = new System.Drawing.Size(77, 20);
-            this.lblConsUnit.TabIndex = 36;
-            this.lblConsUnit.Text = "Lt/100Km";
-            // 
-            // txtConsumption
-            // 
-            this.txtConsumption.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtConsumption.Location = new System.Drawing.Point(457, 22);
-            this.txtConsumption.Name = "txtConsumption";
-            this.txtConsumption.Size = new System.Drawing.Size(100, 26);
-            this.txtConsumption.TabIndex = 35;
-            this.txtConsumption.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtConsumption_KeyPress);
-            // 
-            // lblMonth
-            // 
-            this.lblMonth.AutoSize = true;
-            this.lblMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblMonth.Location = new System.Drawing.Point(98, 57);
-            this.lblMonth.Name = "lblMonth";
-            this.lblMonth.Size = new System.Drawing.Size(59, 20);
-            this.lblMonth.TabIndex = 38;
-            this.lblMonth.Text = "Month";
-            // 
-            // lblAvCons
-            // 
-            this.lblAvCons.AutoSize = true;
-            this.lblAvCons.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblAvCons.Location = new System.Drawing.Point(307, 25);
-            this.lblAvCons.Name = "lblAvCons";
-            this.lblAvCons.Size = new System.Drawing.Size(144, 20);
-            this.lblAvCons.TabIndex = 40;
-            this.lblAvCons.Text = "Av. Consumption";
-            // 
-            // lblDist
-            // 
-            this.lblDist.AutoSize = true;
-            this.lblDist.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDist.Location = new System.Drawing.Point(371, 57);
-            this.lblDist.Name = "lblDist";
-            this.lblDist.Size = new System.Drawing.Size(80, 20);
-            this.lblDist.TabIndex = 41;
-            this.lblDist.Text = "Distance";
-            // 
-            // lblPumpVol
-            // 
-            this.lblPumpVol.AutoSize = true;
-            this.lblPumpVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblPumpVol.Location = new System.Drawing.Point(950, 25);
-            this.lblPumpVol.Name = "lblPumpVol";
-            this.lblPumpVol.Size = new System.Drawing.Size(75, 20);
-            this.lblPumpVol.TabIndex = 42;
-            this.lblPumpVol.Text = "Pump Lt";
-            // 
-            // txtDay
-            // 
-            this.txtDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtDay.Location = new System.Drawing.Point(188, 80);
-            this.txtDay.Name = "txtDay";
-            this.txtDay.ReadOnly = true;
-            this.txtDay.Size = new System.Drawing.Size(80, 26);
-            this.txtDay.TabIndex = 43;
-            // 
-            // txtPumpVol
-            // 
-            this.txtPumpVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtPumpVol.Location = new System.Drawing.Point(1031, 22);
-            this.txtPumpVol.Name = "txtPumpVol";
-            this.txtPumpVol.ReadOnly = true;
-            this.txtPumpVol.Size = new System.Drawing.Size(100, 26);
-            this.txtPumpVol.TabIndex = 45;
-            // 
-            // txtVehVol
-            // 
-            this.txtVehVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtVehVol.Location = new System.Drawing.Point(1031, 54);
-            this.txtVehVol.Name = "txtVehVol";
-            this.txtVehVol.ReadOnly = true;
-            this.txtVehVol.Size = new System.Drawing.Size(100, 26);
-            this.txtVehVol.TabIndex = 47;
-            // 
-            // lblVehVol
-            // 
-            this.lblVehVol.AutoSize = true;
-            this.lblVehVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblVehVol.Location = new System.Drawing.Point(936, 57);
-            this.lblVehVol.Name = "lblVehVol";
-            this.lblVehVol.Size = new System.Drawing.Size(89, 20);
-            this.lblVehVol.TabIndex = 46;
-            this.lblVehVol.Text = "Vehicle Lt";
-            // 
-            // lblTotCons
-            // 
-            this.lblTotCons.AutoSize = true;
-            this.lblTotCons.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTotCons.Location = new System.Drawing.Point(703, 57);
-            this.lblTotCons.Name = "lblTotCons";
-            this.lblTotCons.Size = new System.Drawing.Size(70, 20);
-            this.lblTotCons.TabIndex = 37;
-            this.lblTotCons.Text = "Total Lt";
-            // 
-            // btnCalc
-            // 
-            this.btnCalc.Enabled = false;
-            this.btnCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnCalc.Image = global::PumpData.Properties.Resources.MeasureCalculate_32x;
-            this.btnCalc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCalc.Location = new System.Drawing.Point(707, 11);
-            this.btnCalc.Name = "btnCalc";
-            this.btnCalc.Size = new System.Drawing.Size(172, 37);
-            this.btnCalc.TabIndex = 39;
-            this.btnCalc.Text = "Calculate";
-            this.btnCalc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCalc.UseVisualStyleBackColor = true;
-            this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
-            // 
-            // txtTotCons
-            // 
-            this.txtTotCons.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTotCons.Location = new System.Drawing.Point(779, 54);
-            this.txtTotCons.Name = "txtTotCons";
-            this.txtTotCons.ReadOnly = true;
-            this.txtTotCons.Size = new System.Drawing.Size(100, 26);
-            this.txtTotCons.TabIndex = 44;
-            // 
-            // cbMonth
-            // 
-            this.cbMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbMonth.Enabled = false;
-            this.cbMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.cbMonth.FormattingEnabled = true;
-            this.cbMonth.Location = new System.Drawing.Point(102, 80);
-            this.cbMonth.Name = "cbMonth";
-            this.cbMonth.Size = new System.Drawing.Size(80, 28);
-            this.cbMonth.TabIndex = 48;
-            this.cbMonth.SelectedIndexChanged += new System.EventHandler(this.cbMonth_SelectedIndexChanged);
-            // 
-            // lblDay
-            // 
-            this.lblDay.AutoSize = true;
-            this.lblDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblDay.Location = new System.Drawing.Point(184, 57);
-            this.lblDay.Name = "lblDay";
-            this.lblDay.Size = new System.Drawing.Size(40, 20);
-            this.lblDay.TabIndex = 49;
-            this.lblDay.Text = "Day";
-            // 
-            // lblTotRecPrice
-            // 
-            this.lblTotRecPrice.AutoSize = true;
-            this.lblTotRecPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblTotRecPrice.Location = new System.Drawing.Point(898, 89);
-            this.lblTotRecPrice.Name = "lblTotRecPrice";
-            this.lblTotRecPrice.Size = new System.Drawing.Size(127, 20);
-            this.lblTotRecPrice.TabIndex = 50;
-            this.lblTotRecPrice.Text = "Tot. Rec. Price";
-            // 
-            // lblEuros
-            // 
-            this.lblEuros.AutoSize = true;
-            this.lblEuros.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblEuros.Location = new System.Drawing.Point(1137, 89);
-            this.lblEuros.Name = "lblEuros";
-            this.lblEuros.Size = new System.Drawing.Size(18, 20);
-            this.lblEuros.TabIndex = 51;
-            this.lblEuros.Text = "€";
-            // 
-            // txtTotRecPrice
-            // 
-            this.txtTotRecPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtTotRecPrice.Location = new System.Drawing.Point(1031, 86);
-            this.txtTotRecPrice.Name = "txtTotRecPrice";
-            this.txtTotRecPrice.ReadOnly = true;
-            this.txtTotRecPrice.Size = new System.Drawing.Size(100, 26);
-            this.txtTotRecPrice.TabIndex = 52;
             // 
             // EntryDate
             // 
@@ -406,11 +213,295 @@
             this.DriverName.ReadOnly = true;
             this.DriverName.Width = 120;
             // 
+            // lblKm
+            // 
+            this.lblKm.AutoSize = true;
+            this.lblKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblKm.Location = new System.Drawing.Point(584, 83);
+            this.lblKm.Name = "lblKm";
+            this.lblKm.Size = new System.Drawing.Size(32, 20);
+            this.lblKm.TabIndex = 34;
+            this.lblKm.Text = "Km";
+            // 
+            // txtKm
+            // 
+            this.txtKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtKm.Location = new System.Drawing.Point(482, 80);
+            this.txtKm.Name = "txtKm";
+            this.txtKm.ReadOnly = true;
+            this.txtKm.Size = new System.Drawing.Size(100, 26);
+            this.txtKm.TabIndex = 33;
+            this.txtKm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKm_KeyPress);
+            // 
+            // lblConsUnit
+            // 
+            this.lblConsUnit.AutoSize = true;
+            this.lblConsUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblConsUnit.Location = new System.Drawing.Point(392, 83);
+            this.lblConsUnit.Name = "lblConsUnit";
+            this.lblConsUnit.Size = new System.Drawing.Size(77, 20);
+            this.lblConsUnit.TabIndex = 36;
+            this.lblConsUnit.Text = "Lt/100Km";
+            // 
+            // txtConsumption
+            // 
+            this.txtConsumption.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtConsumption.Location = new System.Drawing.Point(290, 80);
+            this.txtConsumption.Name = "txtConsumption";
+            this.txtConsumption.Size = new System.Drawing.Size(100, 26);
+            this.txtConsumption.TabIndex = 35;
+            this.txtConsumption.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtConsumption_KeyPress);
+            // 
+            // lblMonth
+            // 
+            this.lblMonth.AutoSize = true;
+            this.lblMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblMonth.Location = new System.Drawing.Point(98, 57);
+            this.lblMonth.Name = "lblMonth";
+            this.lblMonth.Size = new System.Drawing.Size(59, 20);
+            this.lblMonth.TabIndex = 38;
+            this.lblMonth.Text = "Month";
+            // 
+            // lblAvCons
+            // 
+            this.lblAvCons.AutoSize = true;
+            this.lblAvCons.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblAvCons.Location = new System.Drawing.Point(286, 57);
+            this.lblAvCons.Name = "lblAvCons";
+            this.lblAvCons.Size = new System.Drawing.Size(144, 20);
+            this.lblAvCons.TabIndex = 40;
+            this.lblAvCons.Text = "Av. Consumption";
+            // 
+            // lblDist
+            // 
+            this.lblDist.AutoSize = true;
+            this.lblDist.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDist.Location = new System.Drawing.Point(478, 57);
+            this.lblDist.Name = "lblDist";
+            this.lblDist.Size = new System.Drawing.Size(80, 20);
+            this.lblDist.TabIndex = 41;
+            this.lblDist.Text = "Distance";
+            // 
+            // lblPumpVol
+            // 
+            this.lblPumpVol.AutoSize = true;
+            this.lblPumpVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblPumpVol.Location = new System.Drawing.Point(818, 57);
+            this.lblPumpVol.Name = "lblPumpVol";
+            this.lblPumpVol.Size = new System.Drawing.Size(75, 20);
+            this.lblPumpVol.TabIndex = 42;
+            this.lblPumpVol.Text = "Pump Lt";
+            // 
+            // txtDay
+            // 
+            this.txtDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtDay.Location = new System.Drawing.Point(188, 80);
+            this.txtDay.Name = "txtDay";
+            this.txtDay.ReadOnly = true;
+            this.txtDay.Size = new System.Drawing.Size(80, 26);
+            this.txtDay.TabIndex = 43;
+            // 
+            // txtPumpVol
+            // 
+            this.txtPumpVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtPumpVol.Location = new System.Drawing.Point(822, 80);
+            this.txtPumpVol.Name = "txtPumpVol";
+            this.txtPumpVol.ReadOnly = true;
+            this.txtPumpVol.Size = new System.Drawing.Size(100, 26);
+            this.txtPumpVol.TabIndex = 45;
+            // 
+            // txtVehVol
+            // 
+            this.txtVehVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtVehVol.Location = new System.Drawing.Point(928, 80);
+            this.txtVehVol.Name = "txtVehVol";
+            this.txtVehVol.ReadOnly = true;
+            this.txtVehVol.Size = new System.Drawing.Size(100, 26);
+            this.txtVehVol.TabIndex = 47;
+            // 
+            // lblVehVol
+            // 
+            this.lblVehVol.AutoSize = true;
+            this.lblVehVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblVehVol.Location = new System.Drawing.Point(924, 57);
+            this.lblVehVol.Name = "lblVehVol";
+            this.lblVehVol.Size = new System.Drawing.Size(89, 20);
+            this.lblVehVol.TabIndex = 46;
+            this.lblVehVol.Text = "Vehicle Lt";
+            // 
+            // lblTotCons
+            // 
+            this.lblTotCons.AutoSize = true;
+            this.lblTotCons.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblTotCons.Location = new System.Drawing.Point(626, 57);
+            this.lblTotCons.Name = "lblTotCons";
+            this.lblTotCons.Size = new System.Drawing.Size(70, 20);
+            this.lblTotCons.TabIndex = 37;
+            this.lblTotCons.Text = "Total Lt";
+            // 
+            // btnCalc
+            // 
+            this.btnCalc.Enabled = false;
+            this.btnCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnCalc.Image = global::PumpData.Properties.Resources.MeasureCalculate_32x;
+            this.btnCalc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCalc.Location = new System.Drawing.Point(290, 15);
+            this.btnCalc.Name = "btnCalc";
+            this.btnCalc.Size = new System.Drawing.Size(140, 37);
+            this.btnCalc.TabIndex = 39;
+            this.btnCalc.Text = "Calculate";
+            this.btnCalc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCalc.UseVisualStyleBackColor = true;
+            this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
+            // 
+            // txtTotCons
+            // 
+            this.txtTotCons.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtTotCons.Location = new System.Drawing.Point(630, 80);
+            this.txtTotCons.Name = "txtTotCons";
+            this.txtTotCons.ReadOnly = true;
+            this.txtTotCons.Size = new System.Drawing.Size(100, 26);
+            this.txtTotCons.TabIndex = 44;
+            // 
+            // cbMonth
+            // 
+            this.cbMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMonth.Enabled = false;
+            this.cbMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbMonth.FormattingEnabled = true;
+            this.cbMonth.Location = new System.Drawing.Point(102, 80);
+            this.cbMonth.Name = "cbMonth";
+            this.cbMonth.Size = new System.Drawing.Size(80, 28);
+            this.cbMonth.TabIndex = 48;
+            this.cbMonth.SelectedIndexChanged += new System.EventHandler(this.cbMonth_SelectedIndexChanged);
+            // 
+            // lblDay
+            // 
+            this.lblDay.AutoSize = true;
+            this.lblDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblDay.Location = new System.Drawing.Point(184, 57);
+            this.lblDay.Name = "lblDay";
+            this.lblDay.Size = new System.Drawing.Size(40, 20);
+            this.lblDay.TabIndex = 49;
+            this.lblDay.Text = "Day";
+            // 
+            // lblTotRecPrice
+            // 
+            this.lblTotRecPrice.AutoSize = true;
+            this.lblTotRecPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblTotRecPrice.Location = new System.Drawing.Point(1019, 57);
+            this.lblTotRecPrice.Name = "lblTotRecPrice";
+            this.lblTotRecPrice.Size = new System.Drawing.Size(127, 20);
+            this.lblTotRecPrice.TabIndex = 50;
+            this.lblTotRecPrice.Text = "Tot. Rec. Price";
+            // 
+            // lblEuros
+            // 
+            this.lblEuros.AutoSize = true;
+            this.lblEuros.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblEuros.Location = new System.Drawing.Point(1134, 83);
+            this.lblEuros.Name = "lblEuros";
+            this.lblEuros.Size = new System.Drawing.Size(18, 20);
+            this.lblEuros.TabIndex = 51;
+            this.lblEuros.Text = "€";
+            // 
+            // txtTotRecPrice
+            // 
+            this.txtTotRecPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtTotRecPrice.Location = new System.Drawing.Point(1034, 80);
+            this.txtTotRecPrice.Name = "txtTotRecPrice";
+            this.txtTotRecPrice.ReadOnly = true;
+            this.txtTotRecPrice.Size = new System.Drawing.Size(100, 26);
+            this.txtTotRecPrice.TabIndex = 52;
+            // 
+            // lblMonthlyData
+            // 
+            this.lblMonthlyData.AutoSize = true;
+            this.lblMonthlyData.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblMonthlyData.Location = new System.Drawing.Point(184, 144);
+            this.lblMonthlyData.Name = "lblMonthlyData";
+            this.lblMonthlyData.Size = new System.Drawing.Size(71, 20);
+            this.lblMonthlyData.TabIndex = 53;
+            this.lblMonthlyData.Text = "Monthly";
+            // 
+            // txtMonthlyKm
+            // 
+            this.txtMonthlyKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtMonthlyKm.Location = new System.Drawing.Point(482, 141);
+            this.txtMonthlyKm.Name = "txtMonthlyKm";
+            this.txtMonthlyKm.ReadOnly = true;
+            this.txtMonthlyKm.Size = new System.Drawing.Size(100, 26);
+            this.txtMonthlyKm.TabIndex = 54;
+            // 
+            // lblMonthlyKm
+            // 
+            this.lblMonthlyKm.AutoSize = true;
+            this.lblMonthlyKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblMonthlyKm.Location = new System.Drawing.Point(584, 144);
+            this.lblMonthlyKm.Name = "lblMonthlyKm";
+            this.lblMonthlyKm.Size = new System.Drawing.Size(32, 20);
+            this.lblMonthlyKm.TabIndex = 55;
+            this.lblMonthlyKm.Text = "Km";
+            // 
+            // txtMonthlyTotCons
+            // 
+            this.txtMonthlyTotCons.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtMonthlyTotCons.Location = new System.Drawing.Point(630, 141);
+            this.txtMonthlyTotCons.Name = "txtMonthlyTotCons";
+            this.txtMonthlyTotCons.ReadOnly = true;
+            this.txtMonthlyTotCons.Size = new System.Drawing.Size(100, 26);
+            this.txtMonthlyTotCons.TabIndex = 56;
+            // 
+            // txtMonthlyPumpVol
+            // 
+            this.txtMonthlyPumpVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtMonthlyPumpVol.Location = new System.Drawing.Point(822, 141);
+            this.txtMonthlyPumpVol.Name = "txtMonthlyPumpVol";
+            this.txtMonthlyPumpVol.ReadOnly = true;
+            this.txtMonthlyPumpVol.Size = new System.Drawing.Size(100, 26);
+            this.txtMonthlyPumpVol.TabIndex = 57;
+            // 
+            // txtMonthlyVehVol
+            // 
+            this.txtMonthlyVehVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtMonthlyVehVol.Location = new System.Drawing.Point(928, 141);
+            this.txtMonthlyVehVol.Name = "txtMonthlyVehVol";
+            this.txtMonthlyVehVol.ReadOnly = true;
+            this.txtMonthlyVehVol.Size = new System.Drawing.Size(100, 26);
+            this.txtMonthlyVehVol.TabIndex = 58;
+            // 
+            // txtMonthlyTotRecPrice
+            // 
+            this.txtMonthlyTotRecPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtMonthlyTotRecPrice.Location = new System.Drawing.Point(1034, 141);
+            this.txtMonthlyTotRecPrice.Name = "txtMonthlyTotRecPrice";
+            this.txtMonthlyTotRecPrice.ReadOnly = true;
+            this.txtMonthlyTotRecPrice.Size = new System.Drawing.Size(100, 26);
+            this.txtMonthlyTotRecPrice.TabIndex = 59;
+            // 
+            // lblMonthlyEuros
+            // 
+            this.lblMonthlyEuros.AutoSize = true;
+            this.lblMonthlyEuros.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblMonthlyEuros.Location = new System.Drawing.Point(1134, 144);
+            this.lblMonthlyEuros.Name = "lblMonthlyEuros";
+            this.lblMonthlyEuros.Size = new System.Drawing.Size(18, 20);
+            this.lblMonthlyEuros.TabIndex = 60;
+            this.lblMonthlyEuros.Text = "€";
+            // 
             // frmVehicleTrace
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1159, 482);
+            this.ClientSize = new System.Drawing.Size(1159, 570);
+            this.Controls.Add(this.lblMonthlyEuros);
+            this.Controls.Add(this.txtMonthlyTotRecPrice);
+            this.Controls.Add(this.txtMonthlyVehVol);
+            this.Controls.Add(this.txtMonthlyPumpVol);
+            this.Controls.Add(this.txtMonthlyTotCons);
+            this.Controls.Add(this.lblMonthlyKm);
+            this.Controls.Add(this.txtMonthlyKm);
+            this.Controls.Add(this.lblMonthlyData);
             this.Controls.Add(this.txtTotRecPrice);
             this.Controls.Add(this.lblEuros);
             this.Controls.Add(this.lblTotRecPrice);
@@ -441,6 +532,7 @@
             this.Name = "frmVehicleTrace";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Vehicle Trace";
+            this.Load += new System.EventHandler(this.frmVehicleTrace_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehicleTraceList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -481,5 +573,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn VehicleVol;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotReceiptPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn DriverName;
+        private System.Windows.Forms.Label lblMonthlyData;
+        private System.Windows.Forms.TextBox txtMonthlyKm;
+        private System.Windows.Forms.Label lblMonthlyKm;
+        private System.Windows.Forms.TextBox txtMonthlyTotCons;
+        private System.Windows.Forms.TextBox txtMonthlyPumpVol;
+        private System.Windows.Forms.TextBox txtMonthlyVehVol;
+        private System.Windows.Forms.TextBox txtMonthlyTotRecPrice;
+        private System.Windows.Forms.Label lblMonthlyEuros;
     }
 }
