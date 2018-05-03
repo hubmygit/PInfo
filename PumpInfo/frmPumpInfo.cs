@@ -98,10 +98,7 @@ namespace PumpInfo
         }
 
         private void btnSave_Click(object sender, EventArgs e)
-        {
-            //TimeDependData: update 
-
-
+        {            
             //objList To SQLite DB
             DbUtilities dbu = new DbUtilities();
 
@@ -115,7 +112,10 @@ namespace PumpInfo
                 if (dialogResult == DialogResult.Yes)
                 {
                     bool insSuccess = dbu.InsertReceiptAllDataIntoSQLiteTable(objList);
-
+                    
+                    dbu.Update_TimeDependData_ClosedStations(objList);
+                    
+                    
                     // ***** Km - VehicleTrace *****
                     // VehicleTrace -->
                     string haveData_YearMonthDay = "";

@@ -270,7 +270,19 @@ namespace Maps
                         CName = row.Cells["Comp_Name"].Value.ToString();
                         SForm.txtCompName.Text = CName;
 
-                        COper = Convert.ToBoolean( Convert.ToInt32(row.Cells["Company_Operated"].Value));
+
+                        string gridRowCOper = row.Cells["Company_Operated"].Value.ToString();
+
+                        if (gridRowCOper == "0" || gridRowCOper.ToUpper() == "FALSE")
+                        {
+                            COper = false;
+                        }
+                        else
+                        {
+                            COper = true;
+                        }
+
+                        //COper = Convert.ToBoolean( Convert.ToInt32(row.Cells["Company_Operated"].Value));
                         SForm.cbCompanyOperated.Checked = COper;
 
                         CBrandId = row.Cells["Company_id"].Value.ToString();

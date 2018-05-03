@@ -61,6 +61,8 @@ namespace PumpLib
 
         public string driver = "";
 
+        public bool Station_Closed_Manually = false;
+
         public ImpData()
         {
             //
@@ -3967,6 +3969,46 @@ namespace PumpLib
             }
 
             return KmList;
+        }
+
+        public void Update_TimeDependData_ClosedStations(List<ImpData> ImpDataList)
+        {
+            foreach (ImpData thisObj in ImpDataList)
+            {
+                if (thisObj.Station_Closed_Manually)
+                {
+                    Update_TimeDependData_Station_Closed(thisObj.geostationId);
+                }
+            }
+        }
+
+        public bool Update_TimeDependData_Station_Closed(int geostationId)
+        {
+            bool ret = false;
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+            string UpdSt = "UPDATE [TimeDependData] SET Station_Closed = 0 WHERE id = " + geostationId.ToString();
+            try
+            {
+                sqlConn.Open();
+                SQLiteCommand cmd = new SQLiteCommand(UpdSt, sqlConn);
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+
         }
 
     }
