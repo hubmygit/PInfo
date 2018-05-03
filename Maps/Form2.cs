@@ -76,6 +76,7 @@ namespace Maps
             NonDispFields.Add("Current_Rec".ToUpper());
             NonDispFields.Add("Company_id".ToUpper());
             NonDispFields.Add("Other_Id".ToUpper());
+            NonDispFields.Add("Company_Operated".ToUpper());
 
 
             DecSep = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
@@ -225,6 +226,7 @@ namespace Maps
             int PopupId = -1;
             string SAddr = "-";
             string CName = "-";
+            bool COper = false;
             string CBrandId = "";
             int CBrandIdint = 0;
             Maps.TimeDepStation SForm = new Maps.TimeDepStation();
@@ -268,6 +270,9 @@ namespace Maps
                         CName = row.Cells["Comp_Name"].Value.ToString();
                         SForm.txtCompName.Text = CName;
 
+                        COper = Convert.ToBoolean( Convert.ToInt32(row.Cells["Company_Operated"].Value));
+                        SForm.cbCompanyOperated.Checked = COper;
+
                         CBrandId = row.Cells["Company_id"].Value.ToString();
 
                         string CoName = row.Cells["Company"].Value.ToString().Trim();
@@ -289,6 +294,7 @@ namespace Maps
             SForm.btnUpdCancel.Enabled = false;
             SForm.btnUpdPost.Enabled = false;
             SForm.txtCompName.ReadOnly = true;
+            SForm.cbCompanyOperated.Enabled = false;
             SForm.cbCompany.Visible = false;
 
             result = SForm.ShowDialog();
@@ -297,6 +303,7 @@ namespace Maps
             {
                 GleoPass.id = PopupId;
                 GleoPass.name = CName;
+                GleoPass.company_operated = COper;
                 GleoPass.address = SAddr;
                 int.TryParse(CBrandId, out CBrandIdint);
 
@@ -316,21 +323,23 @@ namespace Maps
                 //Update db
                 int NewCompId;
                 CName = SForm.txtCompName.Text.ToString().Trim();
+                COper = SForm.cbCompanyOperated.Checked;
                 NewCompId = SForm.cbCompany.SelectedIndex + 1;
                 GleoPass.id = PopupId;
                 GleoPass.name = CName;
+                GleoPass.company_operated = COper;
                 GleoPass.address = SAddr;
                 //GleoPass.brand_id = CBrandIdint;
                 
                 if (SqlServerConnection)
                 {
                     GleoPass.brand_id = GetSQLOtherCompanyId(SForm.cbCompany.SelectedIndex + 1);
-                    UpdateSQLTimeDepend(PopupId, CName, NewCompId);
+                    UpdateSQLTimeDepend(PopupId, CName, NewCompId, COper);
                 }
                 else
                 {
                     GleoPass.brand_id = GetOtherCompanyId(SForm.cbCompany.SelectedIndex + 1);
-                    UpdateTimeDepend(PopupId, CName, NewCompId);
+                    UpdateTimeDepend(PopupId, CName, NewCompId, COper);
                 }
                 
                 this.Close();
@@ -1004,7 +1013,7 @@ namespace Maps
             return DV;
 
         }
-        public void UpdateTimeDepend(int Statid,string NewName,int NewCompany)
+        public void UpdateTimeDepend(int Statid,string NewName,int NewCompany, bool NewComOperated)
         {
             DateTime dt = new DateTime();
             dt = DateTime.Now;
@@ -1012,7 +1021,7 @@ namespace Maps
             SQLiteConnection sqlConn = new SQLiteConnection(GlobIn.connectionString);
             string UpdateSt = "Update Station_TimeDependData SET Current_Rec = 0 WHERE id =" + Statid.ToString();
 
-            string InsertSt = "Insert Into Station_TimeDependData Values (" + Statid.ToString() + ", '" + dstring + "' ,1, '" + NewName.ToString().Trim()  + "'," + NewCompany.ToString().Trim() + ")";
+            string InsertSt = "Insert Into Station_TimeDependData Values (" + Statid.ToString() + ", '" + dstring + "' ,1, '" + NewName.ToString().Trim()  + "'," + NewCompany.ToString().Trim() + ", " + Convert.ToInt32(NewComOperated) + ", 0 )";
 
             SQLiteCommand cmdupd = new SQLiteCommand(UpdateSt, sqlConn);
             SQLiteCommand cmdins = new SQLiteCommand(InsertSt, sqlConn);
@@ -1023,7 +1032,7 @@ namespace Maps
             sqlConn.Close();
         }
 
-        public void UpdateSQLTimeDepend(int Statid, string NewName, int NewCompany)
+        public void UpdateSQLTimeDepend(int Statid, string NewName, int NewCompany, bool NewComOperated)
         {
             DateTime dt = new DateTime();
             dt = DateTime.Now;
@@ -1031,7 +1040,7 @@ namespace Maps
             SqlConnection sqlConn = new SqlConnection(GlobIn.connectionString);
             string UpdateSt = "Update [dbo].[Station_TimeDependData] SET Current_Rec = 0 WHERE id =" + Statid.ToString();
 
-            string InsertSt = "Insert Into [dbo].[Station_TimeDependData] Values (" + Statid.ToString() + ", '" + dstring + "' ,1, '" + NewName.ToString().Trim() + "'," + NewCompany.ToString().Trim() + ")";
+            string InsertSt = "Insert Into [dbo].[Station_TimeDependData] Values (" + Statid.ToString() + ", '" + dstring + "' ,1, '" + NewName.ToString().Trim() + "'," + NewCompany.ToString().Trim() + ", " + Convert.ToInt32(NewComOperated) + ", 0 )";
 
             SqlCommand cmdupd = new SqlCommand(UpdateSt, sqlConn);
             SqlCommand cmdins = new SqlCommand(InsertSt, sqlConn);

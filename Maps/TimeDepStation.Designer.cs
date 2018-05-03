@@ -38,6 +38,7 @@
             this.btnUpdPost = new System.Windows.Forms.Button();
             this.btnUpdCancel = new System.Windows.Forms.Button();
             this.txtAddress = new System.Windows.Forms.Label();
+            this.cbCompanyOperated = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,7 +62,7 @@
             // 
             this.cbCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbCompany.FormattingEnabled = true;
-            this.cbCompany.Location = new System.Drawing.Point(107, 98);
+            this.cbCompany.Location = new System.Drawing.Point(107, 117);
             this.cbCompany.Name = "cbCompany";
             this.cbCompany.Size = new System.Drawing.Size(443, 24);
             this.cbCompany.TabIndex = 5;
@@ -131,11 +132,23 @@
             this.txtAddress.TabIndex = 11;
             this.txtAddress.Text = "label1";
             // 
+            // cbCompanyOperated
+            // 
+            this.cbCompanyOperated.AutoSize = true;
+            this.cbCompanyOperated.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbCompanyOperated.Location = new System.Drawing.Point(107, 91);
+            this.cbCompanyOperated.Name = "cbCompanyOperated";
+            this.cbCompanyOperated.Size = new System.Drawing.Size(147, 20);
+            this.cbCompanyOperated.TabIndex = 12;
+            this.cbCompanyOperated.Text = "Ιδιολειτουργούμενο";
+            this.cbCompanyOperated.UseVisualStyleBackColor = true;
+            // 
             // TimeDepStation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 227);
+            this.Controls.Add(this.cbCompanyOperated);
             this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.btnUpdCancel);
             this.Controls.Add(this.btnUpdPost);
@@ -167,5 +180,6 @@
         public System.Windows.Forms.Button btnUpdPost;
         public System.Windows.Forms.Button btnUpdCancel;
         public System.Windows.Forms.Label txtAddress;
+        public System.Windows.Forms.CheckBox cbCompanyOperated;
     }
 }

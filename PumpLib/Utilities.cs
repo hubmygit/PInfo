@@ -1189,7 +1189,7 @@ namespace PumpLib
             List<Station> ret = new List<Station>();
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
-            string SelectSt = "SELECT Id, UpdDate, Current_Rec, Comp_Name, Company_Id FROM Station_TimeDependData WHERE UpdDate >= @fromDate and UpdDate <= @toDate ";
+            string SelectSt = "SELECT Id, UpdDate, Current_Rec, Comp_Name, Company_Id, Company_Operated, Station_Closed FROM Station_TimeDependData WHERE UpdDate >= @fromDate and UpdDate <= @toDate ";
 
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
 
@@ -1210,7 +1210,9 @@ namespace PumpLib
                         UpdDate = Convert.ToDateTime(reader["UpdDate"].ToString()).ToString("yyyy-MM-dd HH:mm:ss.000"),
                         Current_Rec = Convert.ToBoolean(reader["Current_Rec"].ToString()),
                         Comp_Name = reader["Comp_Name"].ToString(),
-                        Company_Id = Convert.ToInt32(reader["Company_Id"].ToString())
+                        Company_Id = Convert.ToInt32(reader["Company_Id"].ToString()),
+                        Company_Operated = Convert.ToBoolean(reader["Company_Operated"].ToString()),
+                        Station_Closed = Convert.ToBoolean(reader["Station_Closed"].ToString())
                     });
                 }
                 reader.Close();
@@ -2238,7 +2240,7 @@ namespace PumpLib
             List<GasStationsPerPerioxh> ret = new List<GasStationsPerPerioxh>();
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
-            string SelectSt = "SELECT T.[Geo_Perioxh_id], T.[TK_NoSpace], S.[id], S.[Address], G.[Comp_Name], G.[Company_id], C.[Company] " +
+            string SelectSt = "SELECT T.[Geo_Perioxh_id], T.[TK_NoSpace], S.[id], S.[Address], G.[Comp_Name], G.[Company_id], C.[Company], G.[Company_Operated], G.[Station_Closed] " +
                               "FROM [Geo_Perioxh_TK] T left outer join " +
                                    "[Station_GeoData] S on T.[TK_NoSpace] = S.[Postal-Code] left outer join " +
                                    "[Station_TimeDependData] G on S.[id] = G.[id] and G.[Current_Rec] = 1 left outer join " +
@@ -2262,7 +2264,9 @@ namespace PumpLib
                         Address = reader["Address"].ToString(),
                         Comp_Name = reader["Comp_Name"].ToString(),
                         Company_Id = Convert.ToInt32(reader["Company_id"].ToString()),
-                        Company = reader["Company"].ToString()
+                        Company = reader["Company"].ToString(),
+                        Company_Operated = Convert.ToBoolean(Convert.ToInt32(reader["Company_Operated"].ToString())),
+                        Station_Closed = Convert.ToBoolean(Convert.ToInt32(reader["Station_Closed"].ToString()))
                     });
                 }
                 reader.Close();

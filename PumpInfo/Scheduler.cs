@@ -223,6 +223,8 @@ namespace PumpInfo
                         gasStations.Company_Id,
                         gasStations.Company,
                         gasStations.Comp_Name,
+                        gasStations.Company_Operated,
+                        gasStations.Station_Closed,
                         Visits,
                         Paravaseis,
                         LastVisit,

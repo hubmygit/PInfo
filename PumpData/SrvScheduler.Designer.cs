@@ -465,6 +465,7 @@
             this.Station_Company_Operated.HeaderText = "Ι/Λ";
             this.Station_Company_Operated.Name = "Station_Company_Operated";
             this.Station_Company_Operated.ReadOnly = true;
+            this.Station_Company_Operated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Station_Company_Operated.Width = 40;
             // 
             // Station_Station_Closed
@@ -472,6 +473,7 @@
             this.Station_Station_Closed.HeaderText = "Κλειστό";
             this.Station_Station_Closed.Name = "Station_Station_Closed";
             this.Station_Station_Closed.ReadOnly = true;
+            this.Station_Station_Closed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Station_Station_Closed.Width = 80;
             // 
             // Station_Visits

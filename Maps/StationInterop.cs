@@ -23,5 +23,6 @@ public class MapFormGeoData
     public string name { get; set; }
     public string address { get; set; }
     public int brand_id { get; set; }
+    public bool company_operated { get; set; }
 }
 

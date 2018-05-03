@@ -25,6 +25,7 @@ namespace Maps
             btnUpdCancel.Enabled = true;
             btnUpdPost.Enabled = true;
             txtCompName.ReadOnly = false;
+            cbCompanyOperated.Enabled = true;
             cbCompany.Visible = true;
         }
 
