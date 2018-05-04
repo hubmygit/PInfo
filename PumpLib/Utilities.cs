@@ -61,7 +61,7 @@ namespace PumpLib
 
         public string driver = "";
 
-        public bool Station_Closed_Manually = false;
+        public bool station_Closed_Manually = false;
 
         public ImpData()
         {
@@ -905,12 +905,47 @@ namespace PumpLib
                         objLine.sampleNo = Convert.ToInt32(reader["SampleNo"].ToString());
                         objLine.remarks = reader["Remarks"].ToString();
                         objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
+
+                        if (IsStationClosed(objLine.geostationId))
+                        {
+                            objLine.station_Closed_Manually = true;
+                        }
+
                         objLine.realCoordinates = new Coordinates() { longitude = reader["RealCooLong"].ToString().Replace(",", "."), latitude = reader["RealCooLat"].ToString().Replace(",", ".") };
                         objLine.receiptNo = reader["ReceiptNo"].ToString();
                         objLine.receiptPrice = Convert.ToDouble(reader["ReceiptPrice"].ToString());
                     }
 
                     ret.Add(objLine);
+                }
+
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public bool IsStationClosed(int geostationId)
+        {
+            bool ret = false;
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Station_Closed FROM [Station_TimeDependData] WHERE id = " + geostationId.ToString(), sqlConn);
+
+            try
+            {
+                sqlConn.Open();
+
+                SQLiteDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    ret = Convert.ToBoolean(reader["Station_Closed"].ToString());
                 }
 
                 reader.Close();
@@ -3976,7 +4011,7 @@ namespace PumpLib
         {
             foreach (ImpData thisObj in ImpDataList)
             {
-                if (thisObj.Station_Closed_Manually)
+                if (thisObj.station_Closed_Manually && thisObj.geostationId > 10)
                 {
                     Update_TimeDependData_Station_Closed(thisObj.geostationId);
                 }
@@ -3988,7 +4023,7 @@ namespace PumpLib
             bool ret = false;
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
-            string UpdSt = "UPDATE [TimeDependData] SET Station_Closed = 0 WHERE id = " + geostationId.ToString();
+            string UpdSt = "UPDATE [Station_TimeDependData] SET Station_Closed = 1, UpdDate = datetime('now', 'localtime') WHERE id = " + geostationId.ToString();
             try
             {
                 sqlConn.Open();

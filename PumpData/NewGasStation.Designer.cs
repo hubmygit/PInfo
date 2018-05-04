@@ -45,6 +45,7 @@
             this.txtPerioxi = new System.Windows.Forms.TextBox();
             this.lblPostalCode = new System.Windows.Forms.Label();
             this.cbCompanyOperated = new System.Windows.Forms.CheckBox();
+            this.cbStationClosed = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblLat
@@ -138,10 +139,10 @@
             // lblBrand
             // 
             this.lblBrand.AutoSize = true;
-            this.lblBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblBrand.Location = new System.Drawing.Point(72, 23);
+            this.lblBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblBrand.Location = new System.Drawing.Point(77, 23);
             this.lblBrand.Name = "lblBrand";
-            this.lblBrand.Size = new System.Drawing.Size(49, 16);
+            this.lblBrand.Size = new System.Drawing.Size(44, 16);
             this.lblBrand.TabIndex = 31;
             this.lblBrand.Text = "Brand";
             // 
@@ -209,11 +210,23 @@
             this.cbCompanyOperated.Text = "Company Operated";
             this.cbCompanyOperated.UseVisualStyleBackColor = true;
             // 
+            // cbStationClosed
+            // 
+            this.cbStationClosed.AutoSize = true;
+            this.cbStationClosed.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbStationClosed.Location = new System.Drawing.Point(448, 100);
+            this.cbStationClosed.Name = "cbStationClosed";
+            this.cbStationClosed.Size = new System.Drawing.Size(76, 20);
+            this.cbStationClosed.TabIndex = 39;
+            this.cbStationClosed.Text = "Closed";
+            this.cbStationClosed.UseVisualStyleBackColor = true;
+            // 
             // NewGasStation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 358);
+            this.Controls.Add(this.cbStationClosed);
             this.Controls.Add(this.cbCompanyOperated);
             this.Controls.Add(this.lblPostalCode);
             this.Controls.Add(this.txtPerioxi);
@@ -256,5 +269,6 @@
         public System.Windows.Forms.TextBox txtPerioxi;
         private System.Windows.Forms.Label lblPostalCode;
         private System.Windows.Forms.CheckBox cbCompanyOperated;
+        private System.Windows.Forms.CheckBox cbStationClosed;
     }
 }

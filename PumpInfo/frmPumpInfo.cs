@@ -305,6 +305,22 @@ namespace PumpInfo
 
                 if (dlgRes == DialogResult.OK || dlgRes == DialogResult.Yes)
                 {
+                    //String DecSep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+                    //if (DecSep == ",")
+                    //{
+                    //    frmClosedGS.coo.latitude = frmClosedGS.coo.latitude.Replace('.', ',');
+                    //    frmClosedGS.coo.longitude = frmClosedGS.coo.longitude.Replace('.', ',');
+                    //}
+                    //else
+                    //{
+                    //    frmClosedGS.coo.latitude = frmClosedGS.coo.latitude.Replace(',', '.');
+                    //    frmClosedGS.coo.longitude = frmClosedGS.coo.longitude.Replace(',', '.');
+                    //}
+
+                    //same as file...don't check 'CultureInfo'
+                    frmClosedGS.coo.latitude = frmClosedGS.coo.latitude.Replace(',', '.');
+                    frmClosedGS.coo.longitude = frmClosedGS.coo.longitude.Replace(',', '.');
+
                     ImpData newObj = new ImpData()
                     {
                         accepted = true,
@@ -331,8 +347,13 @@ namespace PumpInfo
                         time = frmClosedGS.dt_time, //user input
                         vehicleNo = objList[0].vehicleNo, //get first record's vehicle
                         volume = 0,
-                        weight = 0
+                        weight = 0,
+
+                        station_Closed_Manually = true
+
                     };
+
+
 
                     objList.Add(newObj);
                    

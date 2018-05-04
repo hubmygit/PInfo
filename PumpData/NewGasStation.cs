@@ -58,7 +58,7 @@ namespace PumpData
                     Comp_Name = txtDealer.Text,
                     Company_Id = DbUtilities.GetStationCompaniesId(brandId), //BrandId to Company_Id
                     Company_Operated = cbCompanyOperated.Checked,
-                    Station_Closed = false
+                    Station_Closed = cbStationClosed.Checked
                 };
 
                 //insert_yyyyyyy_(stationTimeDependData)

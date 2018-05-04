@@ -202,9 +202,9 @@
             this.btnScheduler.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnScheduler.Image = global::PumpInfo.Properties.Resources.TemporalTable_32x;
             this.btnScheduler.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnScheduler.Location = new System.Drawing.Point(456, 12);
+            this.btnScheduler.Location = new System.Drawing.Point(501, 12);
             this.btnScheduler.Name = "btnScheduler";
-            this.btnScheduler.Size = new System.Drawing.Size(135, 40);
+            this.btnScheduler.Size = new System.Drawing.Size(110, 40);
             this.btnScheduler.TabIndex = 17;
             this.btnScheduler.Text = "Πλάνο";
             this.btnScheduler.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -216,9 +216,9 @@
             this.btnSynchDbs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnSynchDbs.Image = global::PumpInfo.Properties.Resources.SynchronizeDatabase_32x;
             this.btnSynchDbs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSynchDbs.Location = new System.Drawing.Point(174, 12);
+            this.btnSynchDbs.Location = new System.Drawing.Point(269, 12);
             this.btnSynchDbs.Name = "btnSynchDbs";
-            this.btnSynchDbs.Size = new System.Drawing.Size(135, 40);
+            this.btnSynchDbs.Size = new System.Drawing.Size(110, 40);
             this.btnSynchDbs.TabIndex = 16;
             this.btnSynchDbs.Text = "Sync";
             this.btnSynchDbs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -230,9 +230,9 @@
             this.btnArchived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnArchived.Image = global::PumpInfo.Properties.Resources.IntelliTrace_32x;
             this.btnArchived.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnArchived.Location = new System.Drawing.Point(315, 12);
+            this.btnArchived.Location = new System.Drawing.Point(385, 12);
             this.btnArchived.Name = "btnArchived";
-            this.btnArchived.Size = new System.Drawing.Size(135, 40);
+            this.btnArchived.Size = new System.Drawing.Size(110, 40);
             this.btnArchived.TabIndex = 15;
             this.btnArchived.Text = "Ιστορικό";
             this.btnArchived.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -285,11 +285,15 @@
             // 
             // btnClosedGasStation
             // 
-            this.btnClosedGasStation.Location = new System.Drawing.Point(396, 55);
+            this.btnClosedGasStation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnClosedGasStation.Image = global::PumpInfo.Properties.Resources.IntelliTrace_32x;
+            this.btnClosedGasStation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClosedGasStation.Location = new System.Drawing.Point(153, 12);
             this.btnClosedGasStation.Name = "btnClosedGasStation";
-            this.btnClosedGasStation.Size = new System.Drawing.Size(114, 22);
-            this.btnClosedGasStation.TabIndex = 18;
-            this.btnClosedGasStation.Text = "Κλειστό Πρατήριο";
+            this.btnClosedGasStation.Size = new System.Drawing.Size(110, 40);
+            this.btnClosedGasStation.TabIndex = 19;
+            this.btnClosedGasStation.Text = "Κλειστά Πρατήρια";
+            this.btnClosedGasStation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnClosedGasStation.UseVisualStyleBackColor = true;
             this.btnClosedGasStation.Click += new System.EventHandler(this.btnClosedGasStation_Click);
             // 
@@ -340,7 +344,7 @@
         public System.Windows.Forms.Button btnArchived;
         public System.Windows.Forms.Button btnSynchDbs;
         public System.Windows.Forms.Button btnScheduler;
-        private System.Windows.Forms.Button btnClosedGasStation;
+        public System.Windows.Forms.Button btnClosedGasStation;
     }
 }
 
