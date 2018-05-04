@@ -886,7 +886,7 @@ namespace PumpLib
                         temp = Convert.ToDouble(reader["Temp"].ToString()),
                         density = Convert.ToDouble(reader["Density"].ToString()),
                         volume = Convert.ToDouble(reader["Volume"].ToString()),
-                        accepted = Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())),
+                        accepted = Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())), //sqlite:numeric -> int -> boolean
                         processedGroupId = Convert.ToInt32(reader["ProcessedGroupId"].ToString()),
                         //exportedGroupId = Convert.ToInt32(reader["ExportedGroupId"].ToString())
                         exportedGroupId = ExpGrId,
@@ -1191,7 +1191,8 @@ namespace PumpLib
             List<Station> ret = new List<Station>();
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
-            string SelectSt = "SELECT Id, UpdDate, Current_Rec, Comp_Name, Company_Id, Company_Operated, Station_Closed FROM Station_TimeDependData WHERE UpdDate >= @fromDate and UpdDate <= @toDate ";
+            string SelectSt = "SELECT Id, UpdDate, Current_Rec, Comp_Name, Company_Id, Company_Operated, Station_Closed " + 
+                              "FROM Station_TimeDependData WHERE UpdDate >= @fromDate and UpdDate <= @toDate ";
 
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
 
@@ -2267,8 +2268,8 @@ namespace PumpLib
                         Comp_Name = reader["Comp_Name"].ToString(),
                         Company_Id = Convert.ToInt32(reader["Company_id"].ToString()),
                         Company = reader["Company"].ToString(),
-                        Company_Operated = Convert.ToBoolean(Convert.ToInt32(reader["Company_Operated"].ToString())),
-                        Station_Closed = Convert.ToBoolean(Convert.ToInt32(reader["Station_Closed"].ToString()))
+                        Company_Operated = Convert.ToBoolean(reader["Company_Operated"].ToString()),
+                        Station_Closed = Convert.ToBoolean(reader["Station_Closed"].ToString())
                     });
                 }
                 reader.Close();
@@ -3211,7 +3212,7 @@ namespace PumpLib
                     ImpData objLine = new ImpData()
                     {
                         receiptDataId = Convert.ToInt32(reader["Id"].ToString()),
-                        accepted = Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())),
+                        accepted = Convert.ToBoolean(Convert.ToInt32(reader["Accepted"].ToString())), // sqlite:numeric -> int -> boolean
                         vehicleNo = Convert.ToInt32(reader["VehicleNo"].ToString()),
                         strDt = Convert.ToDateTime(reader["Dt"].ToString()).ToString("dd.MM.yyyy HH:mm"),
                         brand = new Brand() { Name = reader["Brand"].ToString() },

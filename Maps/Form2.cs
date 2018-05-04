@@ -282,7 +282,7 @@ namespace Maps
                             COper = true;
                         }
 
-                        //COper = Convert.ToBoolean( Convert.ToInt32(row.Cells["Company_Operated"].Value));
+                        //COper = Convert.ToBoolean( Convert.ToInt32(row.Cells["Company_Operated"].Value)); //bool or int??
                         SForm.cbCompanyOperated.Checked = COper;
 
                         CBrandId = row.Cells["Company_id"].Value.ToString();
