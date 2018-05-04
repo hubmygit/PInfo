@@ -286,7 +286,7 @@
             // btnClosedGasStation
             // 
             this.btnClosedGasStation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnClosedGasStation.Image = global::PumpInfo.Properties.Resources.IntelliTrace_32x;
+            this.btnClosedGasStation.Image = global::PumpInfo.Properties.Resources.GeoLocation_32x;
             this.btnClosedGasStation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnClosedGasStation.Location = new System.Drawing.Point(153, 12);
             this.btnClosedGasStation.Name = "btnClosedGasStation";
