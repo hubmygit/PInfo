@@ -124,7 +124,8 @@ namespace PumpInfo
                     {
                         thisLine.machineNo = machNo;
                         //if (thisLine.datetime.ToString("yyyyMM") != haveData_YearMonth) 
-                        if (thisLine.datetime.ToString("yyyyMMdd") != haveData_YearMonthDay) // && thisLine.accepted == true) ????
+                        //if (thisLine.datetime.ToString("yyyyMMdd") != haveData_YearMonthDay) // && thisLine.accepted == true) ????
+                        if (thisLine.datetime.ToString("yyyyMMdd") != haveData_YearMonthDay && thisLine.accepted == true) 
                         {
                             //Give final Km  -> new Form
                             frmSetKm setKmForm = new frmSetKm(thisLine);
