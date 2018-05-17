@@ -116,6 +116,12 @@
     <Compile Include="SrvScheduler.Designer.cs">
       <DependentUpon>SrvScheduler.cs</DependentUpon>
     </Compile>
+    <Compile Include="SrvSchedulerByDriver.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SrvSchedulerByDriver.Designer.cs">
+      <DependentUpon>SrvSchedulerByDriver.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ExportDBs.resx">
       <DependentUpon>ExportDBs.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SrvScheduler.resx">
       <DependentUpon>SrvScheduler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SrvSchedulerByDriver.resx">
+      <DependentUpon>SrvSchedulerByDriver.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">

@@ -33,6 +33,7 @@
             this.btnStationScheduler = new System.Windows.Forms.Button();
             this.btnShowConsumption = new System.Windows.Forms.Button();
             this.btnShowDbData = new System.Windows.Forms.Button();
+            this.btnStationSchedulerByDriver = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnExportToSqlite
@@ -95,11 +96,27 @@
             this.btnShowDbData.UseVisualStyleBackColor = true;
             this.btnShowDbData.Click += new System.EventHandler(this.btnShowDbData_Click);
             // 
+            // btnStationSchedulerByDriver
+            // 
+            this.btnStationSchedulerByDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnStationSchedulerByDriver.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnStationSchedulerByDriver.Image = global::PumpData.Properties.Resources.TemporalTable_48x;
+            this.btnStationSchedulerByDriver.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStationSchedulerByDriver.Location = new System.Drawing.Point(80, 295);
+            this.btnStationSchedulerByDriver.Name = "btnStationSchedulerByDriver";
+            this.btnStationSchedulerByDriver.Size = new System.Drawing.Size(225, 75);
+            this.btnStationSchedulerByDriver.TabIndex = 24;
+            this.btnStationSchedulerByDriver.Text = "Πλάνο / Οδηγό";
+            this.btnStationSchedulerByDriver.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnStationSchedulerByDriver.UseVisualStyleBackColor = true;
+            this.btnStationSchedulerByDriver.Click += new System.EventHandler(this.btnStationSchedulerByDriver_Click);
+            // 
             // frmPumpData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 362);
+            this.Controls.Add(this.btnStationSchedulerByDriver);
             this.Controls.Add(this.btnExportToSqlite);
             this.Controls.Add(this.btnStationScheduler);
             this.Controls.Add(this.btnShowConsumption);
@@ -120,6 +137,7 @@
         public System.Windows.Forms.Button btnShowConsumption;
         public System.Windows.Forms.Button btnStationScheduler;
         public System.Windows.Forms.Button btnExportToSqlite;
+        public System.Windows.Forms.Button btnStationSchedulerByDriver;
     }
 }
 

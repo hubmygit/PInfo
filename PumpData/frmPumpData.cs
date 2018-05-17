@@ -39,5 +39,11 @@ namespace PumpData
             ExportDBs frmExport = new ExportDBs();
             frmExport.ShowDialog();
         }
+
+        private void btnStationSchedulerByDriver_Click(object sender, EventArgs e)
+        {
+            SrvSchedulerByDriver frmSchedulerByDriver = new SrvSchedulerByDriver();
+            frmSchedulerByDriver.ShowDialog();
+        }
     }
 }

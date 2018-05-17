@@ -2428,8 +2428,9 @@ namespace PumpLib
 
             string SelectSt = "SELECT R.VehicleNo, Dt, E.GeostationId, convert(decimal(18, 5), round(  isnull( ((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0) ,0) , 5)) as VolDiff, " +
                 //"case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver " +
-                "M.UserName as Driver " +
+                "M.UserName as Driver , P.Name as 'VehicleType'" +
                 "FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId left outer join [dbo].[Machines] M on R.MachineNo = M.Id " +
+                " left outer join [dbo].[Vehicles] V on R.VehicleNo = V.Id left outer join [dbo].[ProductGroup] P on V.ProductGroupId = P.Id " +
                 "WHERE R.Accepted = 1 and GeostationId > 10 " +
                 "ORDER BY Dt DESC ";
 
@@ -2461,7 +2462,8 @@ namespace PumpLib
                         Dt = Convert.ToDateTime(reader["Dt"].ToString()),
                         Driver = reader["Driver"].ToString(), //machineName,
                         GeostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
-                        VolDiff = Convert.ToDouble(reader["VolDiff"].ToString())
+                        VolDiff = Convert.ToDouble(reader["VolDiff"].ToString()),
+                        VehicleType = reader["VehicleType"].ToString()
                     });
                 }
                 reader.Close();
@@ -4047,6 +4049,18 @@ namespace PumpLib
 
         }
 
+        public static List<ComboboxItem> GetMachinesComboboxItemsList(List<Machines> Machines)
+        {
+            List<ComboboxItem> ret = new List<ComboboxItem>();
+
+            foreach (Machines mach in Machines)
+            {
+                ret.Add(new ComboboxItem() { Value = mach, Text = mach.UserName });
+            }
+
+            return ret;
+        }
+
     }
     
 
@@ -4585,6 +4599,8 @@ namespace PumpLib
         public string Driver { get; set; }
         public int GeostationId { get; set; }
         public double VolDiff { get; set; }
+        public string VehicleType { get; set; }
+
         public GasStationVisits()
         {
         }
