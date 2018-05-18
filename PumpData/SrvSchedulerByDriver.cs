@@ -198,6 +198,12 @@ namespace PumpData
         {
             dgvStations.Rows.Clear();
 
+            //if (dgvStations.SortedColumn != null)
+            //{
+            //    dgvStations.SortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+            //}
+
+
             //geogr. perioxi -> nomoi
             List<Nomoi> nomoiFiltered = nomoi.Where(i => i.DistrictId == Convert.ToInt32(dgvDistricts["DistrictId", dgvDistricts.SelectedRows[0].Index].Value)).ToList();
 
@@ -287,6 +293,19 @@ namespace PumpData
                 {
                     dgvStations.Rows[dgvStations.Rows.Count - 1].DefaultCellStyle.ForeColor = Color.Red;
                 }
+            }
+
+            if (dgvStations.SortedColumn != null)
+            {
+                dgvStations.SortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+
+                //ListSortDirection listSort = ListSortDirection.Descending;
+                //if (dgvStations.SortOrder == SortOrder.Ascending)
+                //{
+                //    listSort = ListSortDirection.Ascending;
+                //}
+                
+                //dgvStations.Sort(dgvStations.SortedColumn, listSort); 
             }
 
             dgvStations.ClearSelection();

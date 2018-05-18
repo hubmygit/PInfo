@@ -4164,6 +4164,11 @@ namespace PumpLib
         {
             dgv.Rows.Clear();
 
+            if (dgv.SortedColumn != null)
+            {
+                dgv.SortedColumn.HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.None;
+            }
+
             foreach (object[] thisObj in objList)
             {
                 dgv.Rows.Add(thisObj);

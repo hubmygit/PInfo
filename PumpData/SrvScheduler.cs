@@ -148,6 +148,11 @@ namespace PumpData
 
             dgvStations.Rows.Clear();
 
+            if (dgvStations.SortedColumn != null)
+            {
+                dgvStations.SortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+            }
+
             List<GasStationVisits> gasStationVisitsFiltered = gasStationVisits.Where(i => i.VehicleNo == ((Vehicle)((ComboboxItem)cbVehicleNo.SelectedItem).Value).Id && i.Dt>= DtFrom && i.Dt <= DtTo ).ToList();
 
             List<GasStationsPerPerioxh> gasStationsFiltered = gasStationsPerPerioxh.Where(i => i.Geo_Perioxh_id == Convert.ToInt32(dgvPerioxes["PerioxhId", dgvPerioxes.SelectedRows[0].Index].Value) && i.ExistsInComs(coms_selected.ToArray())).ToList();

@@ -185,6 +185,11 @@ namespace PumpInfo
 
             dgvStations.Rows.Clear();
 
+            if (dgvStations.SortedColumn != null)
+            {
+                dgvStations.SortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+            }
+
             //List<GasStationVisits> gasStationVisitsFiltered = gasStationVisits.Where(i => i.VehicleNo == ((Vehicle)((ComboboxItem)cbVehicleNo.SelectedItem).Value).Id).ToList();
             List<GasStationVisits> gasStationVisitsFiltered = gasStationVisits.Where(i => i.VehicleNo == ((Vehicle)((ComboboxItem)cbVehicleNo.SelectedItem).Value).Id && i.Dt>= DtFrom && i.Dt <= DtTo ).ToList();
 
