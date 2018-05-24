@@ -42,7 +42,7 @@
             this.btnExportToSqlite.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnExportToSqlite.Image = global::PumpData.Properties.Resources.SynchronizeDatabase_48x;
             this.btnExportToSqlite.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportToSqlite.Location = new System.Drawing.Point(380, 214);
+            this.btnExportToSqlite.Location = new System.Drawing.Point(380, 236);
             this.btnExportToSqlite.Name = "btnExportToSqlite";
             this.btnExportToSqlite.Size = new System.Drawing.Size(225, 75);
             this.btnExportToSqlite.TabIndex = 23;
@@ -57,7 +57,7 @@
             this.btnStationScheduler.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnStationScheduler.Image = global::PumpData.Properties.Resources.TemporalTable_48x;
             this.btnStationScheduler.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStationScheduler.Location = new System.Drawing.Point(80, 214);
+            this.btnStationScheduler.Location = new System.Drawing.Point(80, 155);
             this.btnStationScheduler.Name = "btnStationScheduler";
             this.btnStationScheduler.Size = new System.Drawing.Size(225, 75);
             this.btnStationScheduler.TabIndex = 22;
@@ -102,7 +102,7 @@
             this.btnStationSchedulerByDriver.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnStationSchedulerByDriver.Image = global::PumpData.Properties.Resources.TemporalTable_48x;
             this.btnStationSchedulerByDriver.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStationSchedulerByDriver.Location = new System.Drawing.Point(80, 295);
+            this.btnStationSchedulerByDriver.Location = new System.Drawing.Point(80, 236);
             this.btnStationSchedulerByDriver.Name = "btnStationSchedulerByDriver";
             this.btnStationSchedulerByDriver.Size = new System.Drawing.Size(225, 75);
             this.btnStationSchedulerByDriver.TabIndex = 24;

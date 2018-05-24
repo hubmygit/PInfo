@@ -34,6 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SrvSchedulerByDriver));
             this.cbDates = new System.Windows.Forms.ComboBox();
             this.lblDates = new System.Windows.Forms.Label();
             this.dgvDistricts = new System.Windows.Forms.DataGridView();
@@ -452,6 +453,7 @@
             this.Controls.Add(this.dgvDistricts);
             this.Controls.Add(this.lblDriver);
             this.Controls.Add(this.cbDriver);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SrvSchedulerByDriver";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Scheduler By Driver";

@@ -418,7 +418,7 @@
             // 
             this.lblMonthlyData.AutoSize = true;
             this.lblMonthlyData.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblMonthlyData.Location = new System.Drawing.Point(184, 144);
+            this.lblMonthlyData.Location = new System.Drawing.Point(359, 144);
             this.lblMonthlyData.Name = "lblMonthlyData";
             this.lblMonthlyData.Size = new System.Drawing.Size(71, 20);
             this.lblMonthlyData.TabIndex = 53;
