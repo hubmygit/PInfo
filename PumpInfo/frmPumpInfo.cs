@@ -373,5 +373,11 @@ namespace PumpInfo
 
 
         }
+
+        private void btnSchedulerByDriver_Click(object sender, EventArgs e)
+        {
+            SchedulerByDriver frmSchDr = new SchedulerByDriver();
+            frmSchDr.ShowDialog();
+        }
     }
 }

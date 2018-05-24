@@ -52,6 +52,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.btnClosedGasStation = new System.Windows.Forms.Button();
+            this.btnSchedulerByDriver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -297,11 +298,26 @@
             this.btnClosedGasStation.UseVisualStyleBackColor = true;
             this.btnClosedGasStation.Click += new System.EventHandler(this.btnClosedGasStation_Click);
             // 
+            // btnSchedulerByDriver
+            // 
+            this.btnSchedulerByDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSchedulerByDriver.Image = global::PumpInfo.Properties.Resources.TemporalTable_32x;
+            this.btnSchedulerByDriver.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSchedulerByDriver.Location = new System.Drawing.Point(501, 55);
+            this.btnSchedulerByDriver.Name = "btnSchedulerByDriver";
+            this.btnSchedulerByDriver.Size = new System.Drawing.Size(110, 40);
+            this.btnSchedulerByDriver.TabIndex = 20;
+            this.btnSchedulerByDriver.Text = "Πλάνο";
+            this.btnSchedulerByDriver.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSchedulerByDriver.UseVisualStyleBackColor = true;
+            this.btnSchedulerByDriver.Click += new System.EventHandler(this.btnSchedulerByDriver_Click);
+            // 
             // frmPumpInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(914, 502);
+            this.Controls.Add(this.btnSchedulerByDriver);
             this.Controls.Add(this.btnClosedGasStation);
             this.Controls.Add(this.btnScheduler);
             this.Controls.Add(this.btnSynchDbs);
@@ -345,6 +361,7 @@
         public System.Windows.Forms.Button btnSynchDbs;
         public System.Windows.Forms.Button btnScheduler;
         public System.Windows.Forms.Button btnClosedGasStation;
+        public System.Windows.Forms.Button btnSchedulerByDriver;
     }
 }
 

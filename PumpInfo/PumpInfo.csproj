@@ -108,6 +108,12 @@
     <Compile Include="Scheduler.Designer.cs">
       <DependentUpon>Scheduler.cs</DependentUpon>
     </Compile>
+    <Compile Include="SchedulerByDriver.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SchedulerByDriver.Designer.cs">
+      <DependentUpon>SchedulerByDriver.cs</DependentUpon>
+    </Compile>
     <Compile Include="ShowMyKms.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,6 +162,9 @@
     </Compile>
     <EmbeddedResource Include="Scheduler.resx">
       <DependentUpon>Scheduler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SchedulerByDriver.resx">
+      <DependentUpon>SchedulerByDriver.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ShowMyKms.resx">
       <DependentUpon>ShowMyKms.cs</DependentUpon>
