@@ -53,14 +53,6 @@
             this.Perioxh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Perioxh_StationsCnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvStations = new System.Windows.Forms.DataGridView();
-            this.dgvCompanies = new System.Windows.Forms.DataGridView();
-            this.Com_Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Com_Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Com_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblDates = new System.Windows.Forms.Label();
-            this.cbDates = new System.Windows.Forms.ComboBox();
-            this.btnCopy = new System.Windows.Forms.Button();
-            this.cbAllComs = new System.Windows.Forms.CheckBox();
             this.Station_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_Nomos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_Perioxi = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,6 +66,14 @@
             this.Station_Parav = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_LastVisit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station_LastDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCompanies = new System.Windows.Forms.DataGridView();
+            this.Com_Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Com_Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Com_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblDates = new System.Windows.Forms.Label();
+            this.cbDates = new System.Windows.Forms.ComboBox();
+            this.btnCopy = new System.Windows.Forms.Button();
+            this.cbAllComs = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDistricts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNomoi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerioxes)).BeginInit();
@@ -307,6 +307,93 @@
             this.dgvStations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStations.Size = new System.Drawing.Size(1196, 253);
             this.dgvStations.TabIndex = 38;
+            this.dgvStations.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvStations_SortCompare);
+            // 
+            // Station_Id
+            // 
+            this.Station_Id.HeaderText = "StationId";
+            this.Station_Id.Name = "Station_Id";
+            this.Station_Id.Visible = false;
+            this.Station_Id.Width = 60;
+            // 
+            // Station_Nomos
+            // 
+            this.Station_Nomos.HeaderText = "Νομός";
+            this.Station_Nomos.Name = "Station_Nomos";
+            this.Station_Nomos.Visible = false;
+            // 
+            // Station_Perioxi
+            // 
+            this.Station_Perioxi.HeaderText = "Περιοχή";
+            this.Station_Perioxi.Name = "Station_Perioxi";
+            this.Station_Perioxi.Visible = false;
+            // 
+            // Station_Address
+            // 
+            this.Station_Address.HeaderText = "Διεύθυνση";
+            this.Station_Address.Name = "Station_Address";
+            this.Station_Address.ReadOnly = true;
+            this.Station_Address.Width = 285;
+            // 
+            // Station_ComId
+            // 
+            this.Station_ComId.HeaderText = "Station_ComId";
+            this.Station_ComId.Name = "Station_ComId";
+            this.Station_ComId.Visible = false;
+            // 
+            // Station_Company
+            // 
+            this.Station_Company.HeaderText = "Εταιρία";
+            this.Station_Company.Name = "Station_Company";
+            this.Station_Company.ReadOnly = true;
+            this.Station_Company.Width = 110;
+            // 
+            // Station_Dealer
+            // 
+            this.Station_Dealer.HeaderText = "Dealer";
+            this.Station_Dealer.Name = "Station_Dealer";
+            this.Station_Dealer.ReadOnly = true;
+            this.Station_Dealer.Width = 285;
+            // 
+            // Station_Company_Operated
+            // 
+            this.Station_Company_Operated.HeaderText = "Ι/Λ";
+            this.Station_Company_Operated.Name = "Station_Company_Operated";
+            this.Station_Company_Operated.ReadOnly = true;
+            this.Station_Company_Operated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Station_Company_Operated.Width = 40;
+            // 
+            // Station_Station_Closed
+            // 
+            this.Station_Station_Closed.HeaderText = "Κλειστό";
+            this.Station_Station_Closed.Name = "Station_Station_Closed";
+            this.Station_Station_Closed.ReadOnly = true;
+            this.Station_Station_Closed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Station_Station_Closed.Width = 80;
+            // 
+            // Station_Visits
+            // 
+            this.Station_Visits.HeaderText = "Επισκέψεις";
+            this.Station_Visits.Name = "Station_Visits";
+            this.Station_Visits.ReadOnly = true;
+            // 
+            // Station_Parav
+            // 
+            this.Station_Parav.HeaderText = "Παραβάσεις";
+            this.Station_Parav.Name = "Station_Parav";
+            // 
+            // Station_LastVisit
+            // 
+            this.Station_LastVisit.HeaderText = "Τελ.Επίσκεψη";
+            this.Station_LastVisit.Name = "Station_LastVisit";
+            this.Station_LastVisit.ReadOnly = true;
+            this.Station_LastVisit.Width = 140;
+            // 
+            // Station_LastDiff
+            // 
+            this.Station_LastDiff.HeaderText = "Τελ.Διαφορά";
+            this.Station_LastDiff.Name = "Station_LastDiff";
+            this.Station_LastDiff.Width = 110;
             // 
             // dgvCompanies
             // 
@@ -413,92 +500,6 @@
             this.cbAllComs.Text = "Όλες οι εταιρίες";
             this.cbAllComs.UseVisualStyleBackColor = true;
             this.cbAllComs.CheckedChanged += new System.EventHandler(this.cbAllComs_CheckedChanged);
-            // 
-            // Station_Id
-            // 
-            this.Station_Id.HeaderText = "StationId";
-            this.Station_Id.Name = "Station_Id";
-            this.Station_Id.Visible = false;
-            this.Station_Id.Width = 60;
-            // 
-            // Station_Nomos
-            // 
-            this.Station_Nomos.HeaderText = "Νομός";
-            this.Station_Nomos.Name = "Station_Nomos";
-            this.Station_Nomos.Visible = false;
-            // 
-            // Station_Perioxi
-            // 
-            this.Station_Perioxi.HeaderText = "Περιοχή";
-            this.Station_Perioxi.Name = "Station_Perioxi";
-            this.Station_Perioxi.Visible = false;
-            // 
-            // Station_Address
-            // 
-            this.Station_Address.HeaderText = "Διεύθυνση";
-            this.Station_Address.Name = "Station_Address";
-            this.Station_Address.ReadOnly = true;
-            this.Station_Address.Width = 285;
-            // 
-            // Station_ComId
-            // 
-            this.Station_ComId.HeaderText = "Station_ComId";
-            this.Station_ComId.Name = "Station_ComId";
-            this.Station_ComId.Visible = false;
-            // 
-            // Station_Company
-            // 
-            this.Station_Company.HeaderText = "Εταιρία";
-            this.Station_Company.Name = "Station_Company";
-            this.Station_Company.ReadOnly = true;
-            this.Station_Company.Width = 110;
-            // 
-            // Station_Dealer
-            // 
-            this.Station_Dealer.HeaderText = "Dealer";
-            this.Station_Dealer.Name = "Station_Dealer";
-            this.Station_Dealer.ReadOnly = true;
-            this.Station_Dealer.Width = 285;
-            // 
-            // Station_Company_Operated
-            // 
-            this.Station_Company_Operated.HeaderText = "Ι/Λ";
-            this.Station_Company_Operated.Name = "Station_Company_Operated";
-            this.Station_Company_Operated.ReadOnly = true;
-            this.Station_Company_Operated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Station_Company_Operated.Width = 40;
-            // 
-            // Station_Station_Closed
-            // 
-            this.Station_Station_Closed.HeaderText = "Κλειστό";
-            this.Station_Station_Closed.Name = "Station_Station_Closed";
-            this.Station_Station_Closed.ReadOnly = true;
-            this.Station_Station_Closed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Station_Station_Closed.Width = 80;
-            // 
-            // Station_Visits
-            // 
-            this.Station_Visits.HeaderText = "Επισκέψεις";
-            this.Station_Visits.Name = "Station_Visits";
-            this.Station_Visits.ReadOnly = true;
-            // 
-            // Station_Parav
-            // 
-            this.Station_Parav.HeaderText = "Παραβάσεις";
-            this.Station_Parav.Name = "Station_Parav";
-            // 
-            // Station_LastVisit
-            // 
-            this.Station_LastVisit.HeaderText = "Τελ.Επίσκεψη";
-            this.Station_LastVisit.Name = "Station_LastVisit";
-            this.Station_LastVisit.ReadOnly = true;
-            this.Station_LastVisit.Width = 140;
-            // 
-            // Station_LastDiff
-            // 
-            this.Station_LastDiff.HeaderText = "Τελ.Διαφορά";
-            this.Station_LastDiff.Name = "Station_LastDiff";
-            this.Station_LastDiff.Width = 110;
             // 
             // Scheduler
             // 

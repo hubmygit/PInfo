@@ -395,5 +395,27 @@ namespace PumpData
 
 
         }
+
+        private void dgvStations_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            if (e.Column.Name == "Station_LastVisit")
+            {
+                string val1 = e.CellValue1.ToString();
+                string val2 = e.CellValue2.ToString();
+
+                if (val1 == "")
+                {
+                    val1 = "01.01.1900 00:00:00";
+                }
+                if (val2 == "")
+                {
+                    val2 = "01.01.1900 00:00:00";
+                }
+
+                e.SortResult = System.String.Compare(Convert.ToDateTime(val1).ToString("yyyyMMddHHmmss"),
+                                                     Convert.ToDateTime(val2).ToString("yyyyMMddHHmmss"));
+                e.Handled = true;
+            }
+        }
     }
 }
