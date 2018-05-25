@@ -20,7 +20,7 @@ namespace PumpInfo
             //cbDriver.Items.AddRange(DbUtilities.GetMachinesComboboxItemsList(machines).ToArray<ComboboxItem>());
             cbDriver.Items.AddRange(gasStationVisits.Select(i => i.Driver).Distinct().OrderBy(i => i).ToArray());
 
-            cbDates.Items.AddRange(new object[] { "2", "4", "6", "12" });
+            cbDates.Items.AddRange(new object[] { "2", "4", "6", "12", "24", "36" });
 
             foreach (Districts dist in districts)
             {
