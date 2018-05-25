@@ -120,7 +120,7 @@ namespace PumpInfo
                     // VehicleTrace -->
                     string haveData_YearMonthDay = "";
                     int machNo = dbu.getInstId();
-                    foreach (ImpData thisLine in objList)
+                    foreach (ImpData thisLine in objList.OrderBy(i=>i.datetime).ToList())
                     {
                         thisLine.machineNo = machNo;
                         //if (thisLine.datetime.ToString("yyyyMM") != haveData_YearMonth) 
