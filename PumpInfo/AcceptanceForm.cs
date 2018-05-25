@@ -101,10 +101,42 @@ namespace PumpInfo
                 txtSampleNo.Text = "0";
             }
 
-            if (txtReceiptPrice.Text.Trim() == "")
+            if (txtReceiptNo.Text.Trim() == "")
+            {
+                MessageBox.Show("Προσοχή! Δεν έχετε συμπληρώσει Αριθμό Απόδειξης.");
+            }
+
+            if (txtReceiptPrice.Text.Trim() == "" || txtReceiptPrice.Text.Trim() == "0") // ||  txtReceiptPrice.Text.Trim() < x ||  txtReceiptPrice.Text.Trim() > y
             {
                 txtReceiptPrice.Text = "0";
+                MessageBox.Show("Προσοχή! Δεν έχετε συμπληρώσει Αξία Απόδειξης.");
             }
+            else
+            {
+                double RecPrice = Convert.ToDouble(txtReceiptPrice.Text); //axia apodeixis
+
+                double Litres = 0.0; //litra
+                if (dgvCurrentObj.Rows[0].Cells["Volume"].Value.ToString().Trim() == "")
+                {
+                    Litres = 0.0;
+                }
+                else
+                {
+                    Litres = Convert.ToDouble(dgvCurrentObj.Rows[0].Cells["Volume"].Value);
+                }
+
+                if (Litres > 0.0)
+                {
+                    double LtPrice = RecPrice / Litres; //timi litrou
+
+                    //if (RecPrice < 5 || RecPrice > 50) //...4] [51...
+                    if (LtPrice < Config.MinLitrePrice() || LtPrice > Config.MaxLitrePrice()) //(LtPrice < 0.8 || LtPrice > 2.5) //...
+                    {
+                        MessageBox.Show("Προσοχή!\r\n Η Αξία Απόδειξης που καταχωρήσατε, φαίνεται να βρίσκεται εκτός ορίων!");
+                    }
+                }                                
+            }
+            
 
             //add extra data to obj
             if (obj.accepted) //update
@@ -389,5 +421,6 @@ namespace PumpInfo
             //44 or 46 - decimal point (44: "," & 46: ".")
             //8 - backspace
         }
+
     }
 }
