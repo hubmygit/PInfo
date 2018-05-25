@@ -48,6 +48,8 @@ namespace PumpData
             txtMonthlyVehVol.Text = "";
             txtTotRecPrice.Text = "";
             txtMonthlyTotRecPrice.Text = "";
+            //txtLtDiff.Text = "";
+            txtMonthlyLtDiff.Text = "";
             cbYear.Items.Clear();
             cbYear.Items.AddRange(DbUtilities.GetVehicleTraceYearsComboboxItemsList(VehicleTraceDt.Select(i => i.Date.Year).Distinct().OrderBy(i => i).ToList()).ToArray<ComboboxItem>());
                         
@@ -78,6 +80,8 @@ namespace PumpData
             cbMonth.Items.AddRange(DbUtilities.GetVehicleTraceMonthsComboboxItemsList(VehicleTraceDt.Where(i=>i.Date.Year == year).Select(i => i.Date.Month).Distinct().OrderBy(i => i).ToList()).ToArray<ComboboxItem>());
 
             txtDay.Text = "";
+            //txtLtDiff.Text = "";
+            txtMonthlyLtDiff.Text = "";
 
             /*
             DbUtilities dbu = new DbUtilities();
@@ -124,6 +128,8 @@ namespace PumpData
             txtMonthlyVehVol.Text = "";
             txtTotRecPrice.Text = "";
             txtMonthlyTotRecPrice.Text = "";
+            //txtLtDiff.Text = "";
+            txtMonthlyLtDiff.Text = "";
 
             int VehicleNo = DbUtilities.getComboboxItem_Vehicle(cbVehicleNo).Id;
             int year = DbUtilities.getComboboxItem_VehicleTraceYear(cbYear);
@@ -165,6 +171,8 @@ namespace PumpData
                     txtDay.Text = Convert.ToDateTime(dgvVehicleTraceList["EntryDate", e.RowIndex].Value).Day.ToString();
                     txtTotCons.Text = "";
                     txtMonthlyTotCons.Text = "";
+                    //txtLtDiff.Text = "";
+                    txtMonthlyLtDiff.Text = "";
                     txtPumpVol.Text = dgvVehicleTraceList["PumpVol", e.RowIndex].Value.ToString();
                                         
                     foreach (DataGridViewRow dgvR in dgvVehicleTraceList.Rows)
@@ -224,6 +232,8 @@ namespace PumpData
 
                 txtMonthlyTotRecPrice.Text = monthlyTotRecPrice.ToString();
 
+                //txtLtDiff.Text = (Convert.ToDouble(dgvVehicleTraceList["PumpVol", e.RowIndex].Value) - TotConsumption).ToString();
+                txtMonthlyLtDiff.Text = (monthlyVehVol - MonthlyTotConsumption).ToString();
             }
         }
 
@@ -269,6 +279,8 @@ namespace PumpData
             {
                 double TotConsumption = Convert.ToDouble(txtKm.Text) / 100.0 * Convert.ToDouble(txtConsumption.Text);
                 txtTotCons.Text = TotConsumption.ToString();
+
+                //txtLtDiff.Text = (Convert.ToDouble(dgvVehicleTraceList.SelectedRows[0].Cells["PumpVol"].Value) - TotConsumption).ToString();
             }
 
 
@@ -276,6 +288,8 @@ namespace PumpData
             {
                 double TotMonthlyConsumption = Convert.ToDouble(txtMonthlyKm.Text) / 100.0 * Convert.ToDouble(txtConsumption.Text);
                 txtMonthlyTotCons.Text = TotMonthlyConsumption.ToString();
+
+                txtMonthlyLtDiff.Text = (Convert.ToDouble(txtMonthlyVehVol.Text) - TotMonthlyConsumption).ToString();
             }
         }
 

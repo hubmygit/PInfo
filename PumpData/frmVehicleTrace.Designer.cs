@@ -72,6 +72,8 @@
             this.txtMonthlyVehVol = new System.Windows.Forms.TextBox();
             this.txtMonthlyTotRecPrice = new System.Windows.Forms.TextBox();
             this.lblMonthlyEuros = new System.Windows.Forms.Label();
+            this.txtMonthlyLtDiff = new System.Windows.Forms.TextBox();
+            this.lblMonthlyConsMeasDiff = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehicleTraceList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -335,9 +337,9 @@
             this.lblTotCons.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.lblTotCons.Location = new System.Drawing.Point(626, 57);
             this.lblTotCons.Name = "lblTotCons";
-            this.lblTotCons.Size = new System.Drawing.Size(70, 20);
+            this.lblTotCons.Size = new System.Drawing.Size(121, 20);
             this.lblTotCons.TabIndex = 37;
-            this.lblTotCons.Text = "Total Lt";
+            this.lblTotCons.Text = "Total Cons. Lt";
             // 
             // btnCalc
             // 
@@ -418,7 +420,7 @@
             // 
             this.lblMonthlyData.AutoSize = true;
             this.lblMonthlyData.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblMonthlyData.Location = new System.Drawing.Point(359, 144);
+            this.lblMonthlyData.Location = new System.Drawing.Point(359, 126);
             this.lblMonthlyData.Name = "lblMonthlyData";
             this.lblMonthlyData.Size = new System.Drawing.Size(71, 20);
             this.lblMonthlyData.TabIndex = 53;
@@ -427,7 +429,7 @@
             // txtMonthlyKm
             // 
             this.txtMonthlyKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtMonthlyKm.Location = new System.Drawing.Point(482, 141);
+            this.txtMonthlyKm.Location = new System.Drawing.Point(482, 123);
             this.txtMonthlyKm.Name = "txtMonthlyKm";
             this.txtMonthlyKm.ReadOnly = true;
             this.txtMonthlyKm.Size = new System.Drawing.Size(100, 26);
@@ -437,7 +439,7 @@
             // 
             this.lblMonthlyKm.AutoSize = true;
             this.lblMonthlyKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblMonthlyKm.Location = new System.Drawing.Point(584, 144);
+            this.lblMonthlyKm.Location = new System.Drawing.Point(584, 126);
             this.lblMonthlyKm.Name = "lblMonthlyKm";
             this.lblMonthlyKm.Size = new System.Drawing.Size(32, 20);
             this.lblMonthlyKm.TabIndex = 55;
@@ -446,7 +448,7 @@
             // txtMonthlyTotCons
             // 
             this.txtMonthlyTotCons.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtMonthlyTotCons.Location = new System.Drawing.Point(630, 141);
+            this.txtMonthlyTotCons.Location = new System.Drawing.Point(630, 123);
             this.txtMonthlyTotCons.Name = "txtMonthlyTotCons";
             this.txtMonthlyTotCons.ReadOnly = true;
             this.txtMonthlyTotCons.Size = new System.Drawing.Size(100, 26);
@@ -455,7 +457,7 @@
             // txtMonthlyPumpVol
             // 
             this.txtMonthlyPumpVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtMonthlyPumpVol.Location = new System.Drawing.Point(822, 141);
+            this.txtMonthlyPumpVol.Location = new System.Drawing.Point(822, 123);
             this.txtMonthlyPumpVol.Name = "txtMonthlyPumpVol";
             this.txtMonthlyPumpVol.ReadOnly = true;
             this.txtMonthlyPumpVol.Size = new System.Drawing.Size(100, 26);
@@ -464,7 +466,7 @@
             // txtMonthlyVehVol
             // 
             this.txtMonthlyVehVol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtMonthlyVehVol.Location = new System.Drawing.Point(928, 141);
+            this.txtMonthlyVehVol.Location = new System.Drawing.Point(928, 123);
             this.txtMonthlyVehVol.Name = "txtMonthlyVehVol";
             this.txtMonthlyVehVol.ReadOnly = true;
             this.txtMonthlyVehVol.Size = new System.Drawing.Size(100, 26);
@@ -473,7 +475,7 @@
             // txtMonthlyTotRecPrice
             // 
             this.txtMonthlyTotRecPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtMonthlyTotRecPrice.Location = new System.Drawing.Point(1034, 141);
+            this.txtMonthlyTotRecPrice.Location = new System.Drawing.Point(1034, 123);
             this.txtMonthlyTotRecPrice.Name = "txtMonthlyTotRecPrice";
             this.txtMonthlyTotRecPrice.ReadOnly = true;
             this.txtMonthlyTotRecPrice.Size = new System.Drawing.Size(100, 26);
@@ -483,17 +485,38 @@
             // 
             this.lblMonthlyEuros.AutoSize = true;
             this.lblMonthlyEuros.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblMonthlyEuros.Location = new System.Drawing.Point(1134, 144);
+            this.lblMonthlyEuros.Location = new System.Drawing.Point(1134, 126);
             this.lblMonthlyEuros.Name = "lblMonthlyEuros";
             this.lblMonthlyEuros.Size = new System.Drawing.Size(18, 20);
             this.lblMonthlyEuros.TabIndex = 60;
             this.lblMonthlyEuros.Text = "€";
+            // 
+            // txtMonthlyLtDiff
+            // 
+            this.txtMonthlyLtDiff.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtMonthlyLtDiff.Location = new System.Drawing.Point(928, 155);
+            this.txtMonthlyLtDiff.Name = "txtMonthlyLtDiff";
+            this.txtMonthlyLtDiff.ReadOnly = true;
+            this.txtMonthlyLtDiff.Size = new System.Drawing.Size(100, 26);
+            this.txtMonthlyLtDiff.TabIndex = 62;
+            // 
+            // lblMonthlyConsMeasDiff
+            // 
+            this.lblMonthlyConsMeasDiff.AutoSize = true;
+            this.lblMonthlyConsMeasDiff.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblMonthlyConsMeasDiff.Location = new System.Drawing.Point(760, 158);
+            this.lblMonthlyConsMeasDiff.Name = "lblMonthlyConsMeasDiff";
+            this.lblMonthlyConsMeasDiff.Size = new System.Drawing.Size(162, 20);
+            this.lblMonthlyConsMeasDiff.TabIndex = 63;
+            this.lblMonthlyConsMeasDiff.Text = "Cons. Lt-Vehicle Lt";
             // 
             // frmVehicleTrace
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1159, 570);
+            this.Controls.Add(this.lblMonthlyConsMeasDiff);
+            this.Controls.Add(this.txtMonthlyLtDiff);
             this.Controls.Add(this.lblMonthlyEuros);
             this.Controls.Add(this.txtMonthlyTotRecPrice);
             this.Controls.Add(this.txtMonthlyVehVol);
@@ -581,5 +604,7 @@
         private System.Windows.Forms.TextBox txtMonthlyVehVol;
         private System.Windows.Forms.TextBox txtMonthlyTotRecPrice;
         private System.Windows.Forms.Label lblMonthlyEuros;
+        private System.Windows.Forms.TextBox txtMonthlyLtDiff;
+        private System.Windows.Forms.Label lblMonthlyConsMeasDiff;
     }
 }

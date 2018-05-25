@@ -203,7 +203,7 @@
             this.btnScheduler.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnScheduler.Image = global::PumpInfo.Properties.Resources.TemporalTable_32x;
             this.btnScheduler.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnScheduler.Location = new System.Drawing.Point(501, 12);
+            this.btnScheduler.Location = new System.Drawing.Point(501, 1);
             this.btnScheduler.Name = "btnScheduler";
             this.btnScheduler.Size = new System.Drawing.Size(110, 40);
             this.btnScheduler.TabIndex = 17;
@@ -303,11 +303,11 @@
             this.btnSchedulerByDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.btnSchedulerByDriver.Image = global::PumpInfo.Properties.Resources.TemporalTable_32x;
             this.btnSchedulerByDriver.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSchedulerByDriver.Location = new System.Drawing.Point(501, 55);
+            this.btnSchedulerByDriver.Location = new System.Drawing.Point(501, 40);
             this.btnSchedulerByDriver.Name = "btnSchedulerByDriver";
             this.btnSchedulerByDriver.Size = new System.Drawing.Size(110, 40);
             this.btnSchedulerByDriver.TabIndex = 20;
-            this.btnSchedulerByDriver.Text = "Πλάνο";
+            this.btnSchedulerByDriver.Text = "Πλάνο/\r\nΟδηγό";
             this.btnSchedulerByDriver.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSchedulerByDriver.UseVisualStyleBackColor = true;
             this.btnSchedulerByDriver.Click += new System.EventHandler(this.btnSchedulerByDriver_Click);
