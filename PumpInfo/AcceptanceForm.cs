@@ -422,5 +422,42 @@ namespace PumpInfo
             //8 - backspace
         }
 
+        private void cbClosedReason_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbClosedReason.SelectedIndex == 0) //Ελεύθερα Σχόλια
+            {
+                txtRemarks.Enabled = true;
+            }
+            else if (cbClosedReason.SelectedIndex == 1) //Ανεφοδιασμός
+            {
+                txtRemarks.Text = "Ανεφοδιασμός";
+                txtRemarks.Enabled = false;
+                txtPumpDex.Text = "0";
+                txtPumpAntlia.Text = "0";
+                txtPumpAkrof.Text = "0"; 
+                txtPumpVol.Text = "0";
+            }
+            else if (cbClosedReason.SelectedIndex == 2) //Stock out
+            {
+                txtRemarks.Text = "Stock out";
+                txtRemarks.Enabled = false;
+                txtPumpDex.Text = "0";
+                txtPumpAntlia.Text = "0";
+                txtPumpAkrof.Text = "0";
+                txtPumpVol.Text = "0";
+            }
+            else if (cbClosedReason.SelectedIndex == 3) //Κλειστό
+            {
+                txtRemarks.Text = "Κλειστό";
+                txtRemarks.Enabled = false;
+                txtPumpDex.Text = "0";
+                txtPumpAntlia.Text = "0";
+                txtPumpAkrof.Text = "0";
+                txtPumpVol.Text = "0";
+
+                obj.station_Closed_Manually = true;
+            }
+
+        }
     }
 }

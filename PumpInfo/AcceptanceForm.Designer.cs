@@ -82,6 +82,7 @@
             this.lblReceiptΝο = new System.Windows.Forms.Label();
             this.txtReceiptPrice = new System.Windows.Forms.TextBox();
             this.lblReceiptPrice = new System.Windows.Forms.Label();
+            this.cbClosedReason = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).BeginInit();
             this.SuspendLayout();
             // 
@@ -596,12 +597,29 @@
             this.lblReceiptPrice.TabIndex = 57;
             this.lblReceiptPrice.Text = "Price (€)";
             // 
+            // cbClosedReason
+            // 
+            this.cbClosedReason.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbClosedReason.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cbClosedReason.FormattingEnabled = true;
+            this.cbClosedReason.Items.AddRange(new object[] {
+            "Ελεύθερα Σχόλια",
+            "Ανεφοδιασμός",
+            "Stock out",
+            "Κλειστό"});
+            this.cbClosedReason.Location = new System.Drawing.Point(503, 32);
+            this.cbClosedReason.Name = "cbClosedReason";
+            this.cbClosedReason.Size = new System.Drawing.Size(280, 24);
+            this.cbClosedReason.TabIndex = 58;
+            this.cbClosedReason.SelectedIndexChanged += new System.EventHandler(this.cbClosedReason_SelectedIndexChanged);
+            // 
             // AcceptanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(904, 502);
+            this.Controls.Add(this.cbClosedReason);
             this.Controls.Add(this.lblReceiptPrice);
             this.Controls.Add(this.txtReceiptPrice);
             this.Controls.Add(this.lblReceiptΝο);
@@ -708,5 +726,6 @@
         private System.Windows.Forms.Label lblReceiptΝο;
         private System.Windows.Forms.TextBox txtReceiptPrice;
         private System.Windows.Forms.Label lblReceiptPrice;
+        private System.Windows.Forms.ComboBox cbClosedReason;
     }
 }
