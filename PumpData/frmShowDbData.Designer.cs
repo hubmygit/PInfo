@@ -525,8 +525,6 @@
         public System.Windows.Forms.Button btnNewGeoPoint;
         private System.Windows.Forms.Label lblDtTo;
         private System.Windows.Forms.Label lblDtFrom;
-        private System.Windows.Forms.DateTimePicker dtTo;
-        private System.Windows.Forms.DateTimePicker dtFrom;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripCounter;
         private System.Windows.Forms.CheckBox cbColorMode;
@@ -559,5 +557,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Driver;
+        public System.Windows.Forms.DateTimePicker dtTo;
+        public System.Windows.Forms.DateTimePicker dtFrom;
     }
 }

@@ -450,5 +450,26 @@ namespace PumpData
                 e.Handled = true;
             }
         }
+
+        private void dgvStations_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                string Station_Id = dgvStations["Station_Id", e.RowIndex].Value.ToString();
+
+                if (Station_Id == "") //never...
+                {
+                    return;
+                }
+
+                frmShowDbData GeoIdData = new frmShowDbData();
+                GeoIdData.objList = GeoIdData.objList.Where(i => i.geostationId == Convert.ToInt32(Station_Id)).ToList();
+                //DateTime dtFromOri = GeoIdData.dtFrom.Value;
+                GeoIdData.dtFrom.Value = new DateTime(1900, 1, 1);
+                GeoIdData.ApplyFilters();
+                //GeoIdData.dtFrom.Value = dtFromOri;
+                GeoIdData.ShowDialog();
+            }
+        }
     }
 }

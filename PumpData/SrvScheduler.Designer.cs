@@ -307,6 +307,7 @@
             this.dgvStations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStations.Size = new System.Drawing.Size(1196, 253);
             this.dgvStations.TabIndex = 38;
+            this.dgvStations.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStations_CellDoubleClick);
             this.dgvStations.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvStations_SortCompare);
             // 
             // Station_Id

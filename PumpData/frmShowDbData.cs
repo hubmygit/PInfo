@@ -40,7 +40,7 @@ namespace PumpData
             ApplyFilters();
         }
 
-        List<ImpData> objList = new List<ImpData>();
+        public List<ImpData> objList = new List<ImpData>();
         bool applyFilterEvents = false;
 
         private void reorderGridViewColumns(DataGridView dgv)
@@ -68,7 +68,7 @@ namespace PumpData
             dgv.Columns["Driver"].DisplayIndex = 19;
         }
 
-        private void ApplyFilters()
+        public void ApplyFilters()
         {
             if (applyFilterEvents == false)
             {
