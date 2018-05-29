@@ -45,13 +45,14 @@
             this.Density = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblCountExported = new System.Windows.Forms.Label();
+            this.llConfig = new System.Windows.Forms.LinkLabel();
+            this.btnSchedulerByDriver = new System.Windows.Forms.Button();
             this.btnScheduler = new System.Windows.Forms.Button();
             this.btnSynchDbs = new System.Windows.Forms.Button();
             this.btnArchived = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
-            this.btnSchedulerByDriver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -197,6 +198,31 @@
             this.lblCountExported.TabIndex = 14;
             this.lblCountExported.Text = "Εγγραφές: 0";
             // 
+            // llConfig
+            // 
+            this.llConfig.AutoSize = true;
+            this.llConfig.Location = new System.Drawing.Point(12, 58);
+            this.llConfig.Name = "llConfig";
+            this.llConfig.Size = new System.Drawing.Size(69, 13);
+            this.llConfig.TabIndex = 21;
+            this.llConfig.TabStop = true;
+            this.llConfig.Text = "Configuration";
+            this.llConfig.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llConfig_LinkClicked);
+            // 
+            // btnSchedulerByDriver
+            // 
+            this.btnSchedulerByDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.btnSchedulerByDriver.Image = global::PumpInfo.Properties.Resources.TemporalTable_32x;
+            this.btnSchedulerByDriver.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSchedulerByDriver.Location = new System.Drawing.Point(489, 12);
+            this.btnSchedulerByDriver.Name = "btnSchedulerByDriver";
+            this.btnSchedulerByDriver.Size = new System.Drawing.Size(100, 40);
+            this.btnSchedulerByDriver.TabIndex = 20;
+            this.btnSchedulerByDriver.Text = "Πλάνο/\r\nΟδηγό";
+            this.btnSchedulerByDriver.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSchedulerByDriver.UseVisualStyleBackColor = true;
+            this.btnSchedulerByDriver.Click += new System.EventHandler(this.btnSchedulerByDriver_Click);
+            // 
             // btnScheduler
             // 
             this.btnScheduler.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -283,25 +309,12 @@
             this.btnOpenFile.UseVisualStyleBackColor = true;
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
-            // btnSchedulerByDriver
-            // 
-            this.btnSchedulerByDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnSchedulerByDriver.Image = global::PumpInfo.Properties.Resources.TemporalTable_32x;
-            this.btnSchedulerByDriver.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSchedulerByDriver.Location = new System.Drawing.Point(489, 12);
-            this.btnSchedulerByDriver.Name = "btnSchedulerByDriver";
-            this.btnSchedulerByDriver.Size = new System.Drawing.Size(100, 40);
-            this.btnSchedulerByDriver.TabIndex = 20;
-            this.btnSchedulerByDriver.Text = "Πλάνο/\r\nΟδηγό";
-            this.btnSchedulerByDriver.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSchedulerByDriver.UseVisualStyleBackColor = true;
-            this.btnSchedulerByDriver.Click += new System.EventHandler(this.btnSchedulerByDriver_Click);
-            // 
             // frmPumpInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(914, 502);
+            this.Controls.Add(this.llConfig);
             this.Controls.Add(this.btnSchedulerByDriver);
             this.Controls.Add(this.btnScheduler);
             this.Controls.Add(this.btnSynchDbs);
@@ -345,6 +358,7 @@
         public System.Windows.Forms.Button btnSynchDbs;
         public System.Windows.Forms.Button btnScheduler;
         public System.Windows.Forms.Button btnSchedulerByDriver;
+        private System.Windows.Forms.LinkLabel llConfig;
     }
 }
 

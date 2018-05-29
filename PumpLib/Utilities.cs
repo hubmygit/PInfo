@@ -4099,6 +4099,68 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<ConfigParams> GetConfigParamList()
+        {
+            List<ConfigParams> ret = new List<ConfigParams>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Name, ifnull(IntValue, 0) as IntValue, StrValue, ifnull(RealValue, 0) as RealValue FROM [Config] ORDER BY Id ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new ConfigParams()
+                           {
+                                Id = Convert.ToInt32(reader["Id"].ToString()),
+                                Name = reader["Name"].ToString(),
+                                IntValue = Convert.ToInt32(reader["IntValue"].ToString()),
+                                StrValue = reader["StrValue"].ToString(),
+                                RealValue = Convert.ToDouble(reader["RealValue"].ToString())
+                            });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
+        public bool Update_Config_RealValues(string name, double value)
+        {
+            bool ret = false;
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
+            string UpdSt = "UPDATE [Config] SET RealValue = " + value.ToString().Replace(",",".") + " WHERE Name = " + name;
+            try
+            {
+                sqlConn.Open();
+                SQLiteCommand cmd = new SQLiteCommand(UpdSt, sqlConn);
+                cmd.CommandType = CommandType.Text;
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    ret = true;
+                }
+
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+
+        }
+
     }
     
 
@@ -4773,6 +4835,15 @@ namespace PumpLib
     {
         public int Id { get; set; }
         public string UserName { get; set; }
+    }
+
+    public class ConfigParams
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int IntValue { get; set; }
+        public string StrValue { get; set; }
+        public double RealValue { get; set; }
     }
 
     //public class MapFormParams

@@ -376,5 +376,11 @@ namespace PumpInfo
             SchedulerByDriver frmSchDr = new SchedulerByDriver();
             frmSchDr.ShowDialog();
         }
+
+        private void llConfig_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmConfig frmConf = new frmConfig();
+            frmConf.ShowDialog();
+        }
     }
 }
