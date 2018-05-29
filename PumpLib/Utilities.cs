@@ -1944,6 +1944,32 @@ namespace PumpLib
             return ret;
         }
 
+        public static List<Remarks> GetRemarksList()
+        {
+            List<Remarks> ret = new List<Remarks>();
+
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string SelectSt = "SELECT Id, Remark, IsClosed FROM [Remarks] ORDER BY Id ";
+            SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(new Remarks() { Id = Convert.ToInt32(reader["Id"].ToString()), Remark = reader["Remark"].ToString(), IsClosed = Convert.ToBoolean(reader["IsClosed"].ToString()) });
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+
+            return ret;
+        }
+
         public static List<Product> GetProductsList(int VehicleNo)
         {
             List<Product> ret = new List<Product>();
@@ -2016,6 +2042,18 @@ namespace PumpLib
         public static Product getComboboxItem_Product(ComboBox cb)
         {
             Product ret = ((Product)((ComboboxItem)cb.SelectedItem).Value);
+
+            return ret;
+        }
+
+        public static List<ComboboxItem> GetRemarksComboboxItemsList(List<Remarks> Remarks)
+        {
+            List<ComboboxItem> ret = new List<ComboboxItem>();
+
+            foreach (Remarks rem in Remarks)
+            {
+                ret.Add(new ComboboxItem() { Value = rem, Text = rem.Remark });
+            }
 
             return ret;
         }
@@ -4331,6 +4369,17 @@ namespace PumpLib
         public string Name { get; set; }
 
         public Product()
+        {
+        }
+    }
+
+    public class Remarks
+    {
+        public int Id { get; set; }
+        public string Remark { get; set; }
+        public bool IsClosed { get; set; }
+
+        public Remarks()
         {
         }
     }

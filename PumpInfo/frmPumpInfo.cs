@@ -301,6 +301,7 @@ namespace PumpInfo
 
         private void btnClosedGasStation_Click(object sender, EventArgs e)
         {
+            /*
             if (objList.Count > 0)
             {
                 ClosedGasStation frmClosedGS = new ClosedGasStation();
@@ -367,11 +368,7 @@ namespace PumpInfo
 
 
             }
-
-
-            
-
-
+            */          
         }
 
         private void btnSchedulerByDriver_Click(object sender, EventArgs e)

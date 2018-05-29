@@ -35,6 +35,7 @@ namespace PumpInfo
 
             cbBrand.Items.AddRange(DbUtilities.GetBrandsComboboxItemsList(brands).ToArray<ComboboxItem>());
             cbProduct.Items.AddRange(DbUtilities.GetProductsComboboxItemsList(products).ToArray<ComboboxItem>());
+            cbClosedReason.Items.AddRange(DbUtilities.GetRemarksComboboxItemsList(remarks).ToArray<ComboboxItem>());
 
             maxVolumeDiffPerc = Config.MaxVolumeDiffPerc(); 
 
@@ -42,6 +43,8 @@ namespace PumpInfo
             
             object[] ObjRow = GridViewUtils.ImpDataToGridViewRow(obj);
             GridViewUtils.ShowObjToDataGridView(dgvCurrentObj, ObjRow);
+
+            cbClosedReason.SelectedIndex = 0; //ΕΛΕΥΘΕΡΑ ΣΧΟΛΙΑ
 
             if (obj.accepted) //show extra data
             {
@@ -64,7 +67,12 @@ namespace PumpInfo
                 txtPumpVol_Leave(this, EventArgs.Empty);
 
                 txtSampleNo.Text = obj.sampleNo.ToString();
+
                 txtRemarks.Text = obj.remarks;
+                if (cbClosedReason.FindStringExact(obj.remarks) >= 0)
+                {
+                    cbClosedReason.SelectedIndex = cbClosedReason.FindStringExact(obj.remarks);
+                }
 
                 txtReceiptNo.Text = obj.receiptNo;
                 txtReceiptPrice.Text = obj.receiptPrice.ToString();
@@ -82,6 +90,7 @@ namespace PumpInfo
         public RecordAction recordAction = RecordAction.None;
         public List<Brand> brands = DbUtilities.GetBrandsList();
         public List<Product> products = DbUtilities.GetProductsList();
+        public List<Remarks> remarks = DbUtilities.GetRemarksList();
         public double maxVolumeDiffPerc;
         
         private void btnAdd_Click(object sender, EventArgs e)
@@ -101,15 +110,18 @@ namespace PumpInfo
                 txtSampleNo.Text = "0";
             }
 
-            if (txtReceiptNo.Text.Trim() == "")
+            if (txtReceiptNo.Text.Trim() == "" && cbClosedReason.SelectedIndex == 0) //free remarks
             {
                 MessageBox.Show("Προσοχή! Δεν έχετε συμπληρώσει Αριθμό Απόδειξης.");
             }
 
-            if (txtReceiptPrice.Text.Trim() == "" || txtReceiptPrice.Text.Trim() == "0") // ||  txtReceiptPrice.Text.Trim() < x ||  txtReceiptPrice.Text.Trim() > y
+            if (txtReceiptPrice.Text.Trim() == "" || txtReceiptPrice.Text.Trim() == "0")// || txtReceiptPrice.Text.Trim() < x || txtReceiptPrice.Text.Trim() > y
             {
                 txtReceiptPrice.Text = "0";
-                MessageBox.Show("Προσοχή! Δεν έχετε συμπληρώσει Αξία Απόδειξης.");
+                if (cbClosedReason.SelectedIndex == 0)
+                {
+                    MessageBox.Show("Προσοχή! Δεν έχετε συμπληρώσει Αξία Απόδειξης.");
+                }
             }
             else
             {
@@ -428,36 +440,23 @@ namespace PumpInfo
             {
                 txtRemarks.Enabled = true;
             }
-            else if (cbClosedReason.SelectedIndex == 1) //Ανεφοδιασμός
+            else
             {
-                txtRemarks.Text = "Ανεφοδιασμός";
+                txtRemarks.Text = cbClosedReason.Text;
                 txtRemarks.Enabled = false;
                 txtPumpDex.Text = "0";
                 txtPumpAntlia.Text = "0";
                 txtPumpAkrof.Text = "0"; 
                 txtPumpVol.Text = "0";
-            }
-            else if (cbClosedReason.SelectedIndex == 2) //Stock out
-            {
-                txtRemarks.Text = "Stock out";
-                txtRemarks.Enabled = false;
-                txtPumpDex.Text = "0";
-                txtPumpAntlia.Text = "0";
-                txtPumpAkrof.Text = "0";
-                txtPumpVol.Text = "0";
-            }
-            else if (cbClosedReason.SelectedIndex == 3) //Κλειστό
-            {
-                txtRemarks.Text = "Κλειστό";
-                txtRemarks.Enabled = false;
-                txtPumpDex.Text = "0";
-                txtPumpAntlia.Text = "0";
-                txtPumpAkrof.Text = "0";
-                txtPumpVol.Text = "0";
+                cbProduct.SelectedIndex = 0;
 
-                obj.station_Closed_Manually = true;
+                //if (((Remarks)((ComboboxItem)cbClosedReason.SelectedItem).Value).IsClosed) //Κλειστό
+                //{
+                //    obj.station_Closed_Manually
+                //}
+                obj.station_Closed_Manually = ((Remarks)((ComboboxItem)cbClosedReason.SelectedItem).Value).IsClosed;
             }
-
+            
         }
     }
 }

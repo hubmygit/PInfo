@@ -603,11 +603,8 @@
             this.cbClosedReason.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cbClosedReason.FormattingEnabled = true;
             this.cbClosedReason.Items.AddRange(new object[] {
-            "Ελεύθερα Σχόλια",
-            "Ανεφοδιασμός",
-            "Stock out",
-            "Κλειστό"});
-            this.cbClosedReason.Location = new System.Drawing.Point(503, 32);
+            "ΕΛΕΥΘΕΡΑ ΣΧΟΛΙΑ"});
+            this.cbClosedReason.Location = new System.Drawing.Point(137, 403);
             this.cbClosedReason.Name = "cbClosedReason";
             this.cbClosedReason.Size = new System.Drawing.Size(280, 24);
             this.cbClosedReason.TabIndex = 58;
