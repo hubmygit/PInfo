@@ -3826,6 +3826,43 @@ namespace PumpLib
 
         }
 
+        public void ExportDB_Geostation(string StartupPath)
+        {
+            //------------------- copy paste empty db 
+            string Source = StartupPath + "\\EmptyDBs\\StationGeoData.db";
+            string Destination = StartupPath + "\\ExportedDBs\\StationGeoData.db";
+            try
+            {
+                System.IO.File.Copy(Source, Destination, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            //------------------- select from sql server
+
+            List<Station_GeoData> station_GeoData_List = GetDataFrom_Station_GeoData();
+
+            List<Station_TimeDependData> station_TimeDependData_List = GetDataFrom_Station_TimeDependData();
+
+            //------------------- insert into sqlite
+
+            bool Step1 = DataTo_Station_GeoData(Destination, station_GeoData_List);
+
+            bool Step2 = DataTo_Station_TimeDependData(Destination, station_TimeDependData_List);
+
+            if (Step1 == true && Step2 == true)
+            {
+                Output.WriteToFile("OK - [" + Destination + "]");
+            }
+            else
+            {
+                Output.WriteToFile("Error!");
+            }
+
+        }
+
         public void ExportDB_Archived()
         {
             //------------------- copy paste empty db 
@@ -3855,6 +3892,39 @@ namespace PumpLib
             else
             {
                 MessageBox.Show("Η διαδικασία ολοκληρώθηκε με σφάλματα!\r\nΠαρακαλώ προσπαθήστε ξανά...");
+            }
+
+        }
+
+        public void ExportDB_Archived(string StartupPath)
+        {
+            //------------------- copy paste empty db 
+            string Source = StartupPath + "\\EmptyDBs\\Archived.db";
+            string Destination = StartupPath + "\\ExportedDBs\\Archived.db";
+            try
+            {
+                System.IO.File.Copy(Source, Destination, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            //------------------- select from sql server
+
+            List<ArchivedData> ArchivedData_List = Get_Archived_Data();
+
+            //------------------- insert into sqlite
+
+            bool Step1 = DataTo_Archived(Destination, ArchivedData_List);
+
+            if (Step1 == true)
+            {                
+                Output.WriteToFile("OK - [" + Destination + "]");
+            }
+            else
+            {
+                Output.WriteToFile("Error!");
             }
 
         }
@@ -4837,6 +4907,7 @@ namespace PumpLib
     {
         public int Id { get; set; }
         public string UserName { get; set; }
+        public string Email { get; set; }
     }
 
     public class ConfigParams

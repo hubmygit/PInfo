@@ -393,20 +393,65 @@ namespace PumpAnalysis
 
                 Application.Exit();
             }
-                        
-            
+
+            if (args.Count(i => i.ToUpper().Trim(new char[] { ' ', '-', '/' }) == "SENDDBS") > 0)
+            {
+                ExportDBs();
+
+                SendDBsToEachDriver();
+
+                Application.Exit();
+            }
         }
 
-
-        private void sendExportedDBsByEmail()
+        private void ExportDBs()
         {
-            string file = @"C:\Repos\PumpInfo\PumpData\bin\Debug\ExportedDBs\Archived.db";
+            Output.WriteToFile("===== EXPORT DBS... =====");
 
-            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("pumpinfo@moh.gr", "hkylidis@moh.gr", "DB Sync Test", "Use attachments to synchronize DBs.");
+            DbUtilities dbu = new DbUtilities();
 
-            System.Net.Mail.Attachment data = new System.Net.Mail.Attachment(file, System.Net.Mime.MediaTypeNames.Application.Octet);
+            Output.WriteToFile("StationGeoData.db");
+            dbu.ExportDB_Geostation(Application.StartupPath.Replace("PumpAnalysis", "PumpData"));
+            //System.Threading.Thread.Sleep(5000); //5 sec
+            Output.WriteToFile("Archived.db");
+            dbu.ExportDB_Archived(Application.StartupPath.Replace("PumpAnalysis", "PumpData"));
+            //System.Threading.Thread.Sleep(5000); //5 sec
+            Output.WriteToFile("===== DBS EXPORTED... =====");
+        }
 
-            message.Attachments.Add(data);
+        private void SendDBsToEachDriver()
+        {
+            List<Machines> machines = DbUtilities.GetSqlMachinesList();//.Where(i => i.Email.Trim().Length > 0).ToList();
+            //null !!!!!!!!!!!!!!!!!!!
+            foreach (Machines driver in machines)
+            {
+                //if (driver.Email != "")
+                //{
+                    SendExportedDBsByEmail(driver.Email); //change mailto before run!!!!!!!!!!!!!!!!!!!
+                //}
+            }
+        }
+
+        private void SendExportedDBsByEmail(string MailTo) //"hkylidis@moh.gr"
+        {
+            Output.WriteToFile("===== SENDING MAIL... =====");
+            Output.WriteToFile("To: " + MailTo);
+
+            string targetDirectory = Application.StartupPath.Replace("PumpAnalysis", "PumpData") + "\\ExportedDBs\\";
+
+
+            string Archived_db_file = targetDirectory + "Archived.db"; //@"C:\Repos\PumpInfo\PumpData\bin\Debug\ExportedDBs\Archived.db";
+            string StationGeoData_db_file = targetDirectory + "StationGeoData.db"; //@"C:\Repos\PumpInfo\PumpData\bin\Debug\ExportedDBs\StationGeoData.db";
+
+            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("pumpinfo@moh.gr", MailTo, "Συγχρονισμός Βάσεων - DBs Synchronization", 
+                "Χρησιμοποιείστε τα συνημμένα αρχεία για να συγχρονίσετε τη βάση σας. \r\nUse attachments to synchronize your database.");
+
+            //System.Net.Mail.Attachment data = new System.Net.Mail.Attachment(file, System.Net.Mime.MediaTypeNames.Application.Octet);
+            //message.Attachments.Add(data);
+            System.Net.Mail.Attachment att_Archived_db = new System.Net.Mail.Attachment(Archived_db_file, System.Net.Mime.MediaTypeNames.Application.Octet);
+            System.Net.Mail.Attachment att_StationGeoData_db = new System.Net.Mail.Attachment(StationGeoData_db_file, System.Net.Mime.MediaTypeNames.Application.Octet);
+            message.Attachments.Add(att_Archived_db);
+            message.Attachments.Add(att_StationGeoData_db);
 
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
             
@@ -421,8 +466,11 @@ namespace PumpAnalysis
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception occured: " + ex.Message + " \r\n {0}", ex.ToString());
+                //MessageBox.Show("Exception occured: " + ex.Message + " \r\n {0}", ex.ToString());
+                Output.WriteToFile("Exception occured: " + ex.Message + " \r\n " + ex.ToString());
             }
+
+            Output.WriteToFile("===== MAIL SENT... =====");
 
         }
     }
