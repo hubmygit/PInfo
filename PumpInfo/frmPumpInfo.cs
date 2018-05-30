@@ -17,10 +17,23 @@ namespace PumpInfo
         {
             InitializeComponent();
 
+            frmContextMenuStrip.Items.Add("Configuration (System Parameters)");
+            frmContextMenuStrip.Click += new EventHandler(frmContextMenuStrip_Click);
+            this.ContextMenuStrip = frmContextMenuStrip;
+            
             ExpCounterToLblText(lblCountExported); 
         }
 
+        private ContextMenuStrip frmContextMenuStrip = new ContextMenuStrip();
+
         public List<ImpData> objList = new List<ImpData>();
+
+
+        void frmContextMenuStrip_Click(object sender, EventArgs e)
+        {
+            frmConfig frmConf = new frmConfig();
+            frmConf.ShowDialog();
+        }
 
         private void ExpCounterToLblText(Label lbl)
         {
@@ -365,8 +378,7 @@ namespace PumpInfo
                     //dgvReceiptData.ClearSelection();
 
                 }
-
-
+                
             }
             */          
         }
@@ -377,10 +389,5 @@ namespace PumpInfo
             frmSchDr.ShowDialog();
         }
 
-        private void llConfig_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            frmConfig frmConf = new frmConfig();
-            frmConf.ShowDialog();
-        }
     }
 }

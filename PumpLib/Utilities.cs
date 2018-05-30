@@ -138,6 +138,8 @@ namespace PumpLib
             receiptPrice = 0.0;
             geostationId = 0;
             realCoordinates = new Coordinates();
+
+            station_Closed_Manually = false; //optional!
         }
 
         public string csvDateToSqlDate(string csvDate)
@@ -4051,7 +4053,7 @@ namespace PumpLib
         {
             foreach (ImpData thisObj in ImpDataList)
             {
-                if (thisObj.station_Closed_Manually && thisObj.geostationId > 10)
+                if (thisObj.accepted == true && thisObj.station_Closed_Manually && thisObj.geostationId > 10)
                 {
                     Update_TimeDependData_Station_Closed(thisObj.geostationId);
                 }
@@ -4136,8 +4138,8 @@ namespace PumpLib
         {
             bool ret = false;
 
-            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBMap.connectionString);
-            string UpdSt = "UPDATE [Config] SET RealValue = " + value.ToString().Replace(",",".") + " WHERE Name = " + name;
+            SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
+            string UpdSt = "UPDATE [Config] SET RealValue = " + value.ToString().Replace(",",".") + " WHERE Name = '" + name + "'";
             try
             {
                 sqlConn.Open();

@@ -356,7 +356,7 @@
             // txtRemarks
             // 
             this.txtRemarks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtRemarks.Location = new System.Drawing.Point(137, 425);
+            this.txtRemarks.Location = new System.Drawing.Point(137, 455);
             this.txtRemarks.Multiline = true;
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -604,7 +604,7 @@
             this.cbClosedReason.FormattingEnabled = true;
             this.cbClosedReason.Items.AddRange(new object[] {
             "ΕΛΕΥΘΕΡΑ ΣΧΟΛΙΑ"});
-            this.cbClosedReason.Location = new System.Drawing.Point(137, 403);
+            this.cbClosedReason.Location = new System.Drawing.Point(137, 425);
             this.cbClosedReason.Name = "cbClosedReason";
             this.cbClosedReason.Size = new System.Drawing.Size(280, 24);
             this.cbClosedReason.TabIndex = 58;
@@ -615,7 +615,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(904, 502);
+            this.ClientSize = new System.Drawing.Size(904, 542);
             this.Controls.Add(this.cbClosedReason);
             this.Controls.Add(this.lblReceiptPrice);
             this.Controls.Add(this.txtReceiptPrice);
@@ -658,8 +658,8 @@
             this.Controls.Add(this.lblBrand);
             this.Controls.Add(this.dgvCurrentObj);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(920, 540);
-            this.MinimumSize = new System.Drawing.Size(920, 540);
+            this.MaximumSize = new System.Drawing.Size(920, 580);
+            this.MinimumSize = new System.Drawing.Size(920, 580);
             this.Name = "AcceptanceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Acceptance Form";

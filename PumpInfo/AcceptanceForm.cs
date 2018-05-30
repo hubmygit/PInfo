@@ -438,7 +438,9 @@ namespace PumpInfo
         {
             if (cbClosedReason.SelectedIndex == 0) //Ελεύθερα Σχόλια
             {
+                txtRemarks.Text = "";
                 txtRemarks.Enabled = true;
+                obj.station_Closed_Manually = false;
             }
             else
             {
@@ -450,13 +452,9 @@ namespace PumpInfo
                 txtPumpVol.Text = "0";
                 cbProduct.SelectedIndex = 0;
 
-                //if (((Remarks)((ComboboxItem)cbClosedReason.SelectedItem).Value).IsClosed) //Κλειστό
-                //{
-                //    obj.station_Closed_Manually
-                //}
                 obj.station_Closed_Manually = ((Remarks)((ComboboxItem)cbClosedReason.SelectedItem).Value).IsClosed;
             }
-            
         }
+
     }
 }

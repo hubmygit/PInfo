@@ -44,10 +44,34 @@ namespace PumpInfo
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            bool succeed = true;
             DbUtilities dbu = new DbUtilities();
-            dbu.Update_Config_RealValues("Max_Volume_Diff_Perc", Convert.ToDouble(txtMaxVolDiff.Text));
-            dbu.Update_Config_RealValues("Min_Litre_Price", Convert.ToDouble(txtMinLitrePrice.Text));
-            dbu.Update_Config_RealValues("Max_Litre_Price", Convert.ToDouble(txtMaxLitrePrice.Text));
+
+            if (dbu.Update_Config_RealValues("Max_Volume_Diff_Perc", Convert.ToDouble(txtMaxVolDiff.Text)) == false)
+            {
+                succeed = false;
+            }
+
+            if (dbu.Update_Config_RealValues("Min_Litre_Price", Convert.ToDouble(txtMinLitrePrice.Text)) == false)
+            {
+                succeed = false;
+            }
+
+            if (dbu.Update_Config_RealValues("Max_Litre_Price", Convert.ToDouble(txtMaxLitrePrice.Text)) == false)
+            {
+                succeed = false;
+            }
+
+            if (succeed)
+            {
+                MessageBox.Show("Επιτυχής καταχώρηση!");
+            }
+            else
+            {
+                MessageBox.Show("Προσοχή! Σφάλμα κατά την καταχώρηση!");
+            }
+            Close();
+
         }
     }
 }

@@ -42,7 +42,7 @@
             // 
             this.lblMaxVolDiff.AutoSize = true;
             this.lblMaxVolDiff.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblMaxVolDiff.Location = new System.Drawing.Point(38, 59);
+            this.lblMaxVolDiff.Location = new System.Drawing.Point(50, 49);
             this.lblMaxVolDiff.Name = "lblMaxVolDiff";
             this.lblMaxVolDiff.Size = new System.Drawing.Size(268, 16);
             this.lblMaxVolDiff.TabIndex = 21;
@@ -51,7 +51,7 @@
             // txtMaxVolDiff
             // 
             this.txtMaxVolDiff.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtMaxVolDiff.Location = new System.Drawing.Point(312, 56);
+            this.txtMaxVolDiff.Location = new System.Drawing.Point(324, 46);
             this.txtMaxVolDiff.Name = "txtMaxVolDiff";
             this.txtMaxVolDiff.Size = new System.Drawing.Size(200, 22);
             this.txtMaxVolDiff.TabIndex = 33;
@@ -61,26 +61,26 @@
             // 
             this.lblMinLitrePrice.AutoSize = true;
             this.lblMinLitrePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblMinLitrePrice.Location = new System.Drawing.Point(171, 97);
+            this.lblMinLitrePrice.Location = new System.Drawing.Point(78, 87);
             this.lblMinLitrePrice.Name = "lblMinLitrePrice";
-            this.lblMinLitrePrice.Size = new System.Drawing.Size(135, 16);
+            this.lblMinLitrePrice.Size = new System.Drawing.Size(240, 16);
             this.lblMinLitrePrice.TabIndex = 34;
-            this.lblMinLitrePrice.Text = "Ελάχιστη τιμή Λίτρου";
+            this.lblMinLitrePrice.Text = "Ελάχιστη τιμή Λίτρου (Αξία Απόδειξης)";
             // 
             // MaxLitrePrice
             // 
             this.MaxLitrePrice.AutoSize = true;
             this.MaxLitrePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.MaxLitrePrice.Location = new System.Drawing.Point(176, 135);
+            this.MaxLitrePrice.Location = new System.Drawing.Point(83, 125);
             this.MaxLitrePrice.Name = "MaxLitrePrice";
-            this.MaxLitrePrice.Size = new System.Drawing.Size(130, 16);
+            this.MaxLitrePrice.Size = new System.Drawing.Size(235, 16);
             this.MaxLitrePrice.TabIndex = 35;
-            this.MaxLitrePrice.Text = "Μέγιστη τιμή Λίτρου";
+            this.MaxLitrePrice.Text = "Μέγιστη τιμή Λίτρου (Αξία Απόδειξης)";
             // 
             // txtMinLitrePrice
             // 
             this.txtMinLitrePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtMinLitrePrice.Location = new System.Drawing.Point(312, 94);
+            this.txtMinLitrePrice.Location = new System.Drawing.Point(324, 84);
             this.txtMinLitrePrice.Name = "txtMinLitrePrice";
             this.txtMinLitrePrice.Size = new System.Drawing.Size(200, 22);
             this.txtMinLitrePrice.TabIndex = 36;
@@ -89,7 +89,7 @@
             // txtMaxLitrePrice
             // 
             this.txtMaxLitrePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtMaxLitrePrice.Location = new System.Drawing.Point(312, 132);
+            this.txtMaxLitrePrice.Location = new System.Drawing.Point(324, 122);
             this.txtMaxLitrePrice.Name = "txtMaxLitrePrice";
             this.txtMaxLitrePrice.Size = new System.Drawing.Size(200, 22);
             this.txtMaxLitrePrice.TabIndex = 37;
