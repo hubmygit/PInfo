@@ -421,18 +421,15 @@ namespace PumpAnalysis
 
         private void SendDBsToEachDriver()
         {
-            List<Machines> machines = DbUtilities.GetSqlMachinesList();//.Where(i => i.Email.Trim().Length > 0).ToList();
-            //null !!!!!!!!!!!!!!!!!!!
+            List<Machines> machines = DbUtilities.GetSqlMachinesList().Where(i => i.Email != null && i.Email.Trim().Length > 0).ToList();
+
             foreach (Machines driver in machines)
             {
-                //if (driver.Email != "")
-                //{
-                    SendExportedDBsByEmail(driver.Email); //change mailto before run!!!!!!!!!!!!!!!!!!!
-                //}
+                SendExportedDBsByEmail(driver.Email); 
             }
         }
 
-        private void SendExportedDBsByEmail(string MailTo) //"hkylidis@moh.gr"
+        private void SendExportedDBsByEmail(string MailTo) 
         {
             Output.WriteToFile("===== SENDING MAIL... =====");
             Output.WriteToFile("To: " + MailTo);
@@ -448,10 +445,18 @@ namespace PumpAnalysis
 
             //System.Net.Mail.Attachment data = new System.Net.Mail.Attachment(file, System.Net.Mime.MediaTypeNames.Application.Octet);
             //message.Attachments.Add(data);
-            System.Net.Mail.Attachment att_Archived_db = new System.Net.Mail.Attachment(Archived_db_file, System.Net.Mime.MediaTypeNames.Application.Octet);
-            System.Net.Mail.Attachment att_StationGeoData_db = new System.Net.Mail.Attachment(StationGeoData_db_file, System.Net.Mime.MediaTypeNames.Application.Octet);
-            message.Attachments.Add(att_Archived_db);
-            message.Attachments.Add(att_StationGeoData_db);
+            try
+            {
+                System.Net.Mail.Attachment att_Archived_db = new System.Net.Mail.Attachment(Archived_db_file, System.Net.Mime.MediaTypeNames.Application.Octet);
+                System.Net.Mail.Attachment att_StationGeoData_db = new System.Net.Mail.Attachment(StationGeoData_db_file, System.Net.Mime.MediaTypeNames.Application.Octet);
+                message.Attachments.Add(att_Archived_db);
+                message.Attachments.Add(att_StationGeoData_db);
+            }
+            catch (Exception exAtt)
+            {
+                Output.WriteToFile("Exception occured: " + exAtt.Message + " \r\n " + exAtt.ToString());
+                return;
+            }
 
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
             

@@ -1834,7 +1834,7 @@ namespace PumpLib
             List<Machines> ret = new List<Machines>();
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, UserName FROM [dbo].[Machines] ORDER BY UserName ";
+            string SelectSt = "SELECT Id, UserName, Email FROM [dbo].[Machines] ORDER BY UserName ";
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
@@ -1845,7 +1845,8 @@ namespace PumpLib
                     ret.Add(new Machines()
                     {
                         Id = Convert.ToInt32(reader["Id"].ToString()),
-                        UserName = reader["UserName"].ToString()
+                        UserName = reader["UserName"].ToString(),
+                        Email = reader["Email"].ToString()
                     });
                 }
                 reader.Close();
@@ -3675,6 +3676,8 @@ namespace PumpLib
                     cmd.ExecuteNonQuery();
                 }
                 tran.Commit();
+
+                cmd.Dispose(); //unlocks the database file!
             }
             catch (Exception ex)
             {
@@ -3721,6 +3724,8 @@ namespace PumpLib
                     cmd.ExecuteNonQuery();
                 }
                 tran.Commit();
+
+                cmd.Dispose(); //unlocks the database file!
             }
             catch (Exception ex)
             {
@@ -3777,6 +3782,8 @@ namespace PumpLib
                     cmd.ExecuteNonQuery();
                 }
                 tran.Commit();
+
+                cmd.Dispose(); //unlocks the database file!
             }
             catch (Exception ex)
             {
