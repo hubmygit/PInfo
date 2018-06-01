@@ -47,7 +47,7 @@
             this.txtVehicleNo.Name = "txtVehicleNo";
             this.txtVehicleNo.ReadOnly = true;
             this.txtVehicleNo.Size = new System.Drawing.Size(280, 22);
-            this.txtVehicleNo.TabIndex = 2;
+            this.txtVehicleNo.TabIndex = 1;
             // 
             // lblVehicleNo
             // 
@@ -65,7 +65,7 @@
             this.txtKmTo.Location = new System.Drawing.Point(142, 143);
             this.txtKmTo.Name = "txtKmTo";
             this.txtKmTo.Size = new System.Drawing.Size(280, 22);
-            this.txtKmTo.TabIndex = 1;
+            this.txtKmTo.TabIndex = 4;
             this.txtKmTo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKm_KeyPress);
             // 
             // lblKmTo
@@ -110,7 +110,7 @@
             this.txtDt.Name = "txtDt";
             this.txtDt.ReadOnly = true;
             this.txtDt.Size = new System.Drawing.Size(280, 22);
-            this.txtDt.TabIndex = 42;
+            this.txtDt.TabIndex = 2;
             // 
             // txtKmFrom
             // 
@@ -118,7 +118,7 @@
             this.txtKmFrom.Location = new System.Drawing.Point(142, 105);
             this.txtKmFrom.Name = "txtKmFrom";
             this.txtKmFrom.Size = new System.Drawing.Size(280, 22);
-            this.txtKmFrom.TabIndex = 43;
+            this.txtKmFrom.TabIndex = 3;
             // 
             // lblKmFrom
             // 
