@@ -138,20 +138,18 @@ namespace PumpData
             DbUtilities dbu = new DbUtilities();
             results = dbu.getVehicleTraceData(VehicleNo, year, month);
 
-            if (results.Count > 1)
+            //if (results.Count > 1)
+            foreach (Consumption thisCons in results)
             {
-                foreach (Consumption thisCons in results)
+                dgvVehicleTraceList.Rows.Add(new object[] 
                 {
-                    dgvVehicleTraceList.Rows.Add(new object[] 
-                    {
-                        thisCons.Dt.ToString("dd.MM.yyyy"), thisCons.KmFrom, thisCons.KmTo, (thisCons.KmTo - thisCons.KmFrom).ToString(),
-                        thisCons.PumpVolume, thisCons.ControllerVolume, thisCons.ReceiptPrice, thisCons.Driver
-                    });
+                    thisCons.Dt.ToString("dd.MM.yyyy"), thisCons.KmFrom, thisCons.KmTo, (thisCons.KmTo - thisCons.KmFrom).ToString(),
+                    thisCons.PumpVolume, thisCons.ControllerVolume, thisCons.ReceiptPrice, thisCons.Driver
+                });
 
-                }
-                btnCalc.Enabled = true;
             }
-
+            btnCalc.Enabled = true;
+            
             dgvVehicleTraceList.ClearSelection();
         }
 
