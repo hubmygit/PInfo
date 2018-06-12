@@ -4536,6 +4536,43 @@ namespace PumpLib
         }
     }
 
+    public class EmailParams
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Domain { get; set; }
+        public string EmailAddress { get; set; }
+        public string SmtpClientHost { get; set; }
+
+        public EmailParams()
+        {
+            SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
+            string SelectSt = "SELECT Id, UserName, Password, Domain, EmailAddress, SmtpClientHost FROM [dbo].[EmailParams] ORDER BY Id ";
+            SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Id = Convert.ToInt32(reader["Id"].ToString());
+                    UserName = reader["UserName"].ToString();
+                    Password = reader["Password"].ToString();
+                    Domain = reader["Domain"].ToString();
+                    EmailAddress = reader["EmailAddress"].ToString();
+                    SmtpClientHost = reader["SmtpClientHost"].ToString();
+                }
+                reader.Close();
+                sqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occurred: " + ex.Message);
+            }
+        }
+    }
+
     public static class Output
     {
         public static void WriteToFile(string text, bool error = false)

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 using System.IO;
 using PumpLib;
+using Microsoft.Exchange.WebServices.Data;
 
 namespace PumpAnalysis
 {
@@ -402,6 +403,58 @@ namespace PumpAnalysis
 
                 Application.Exit();
             }
+
+            if (args.Count(i => i.ToUpper().Trim(new char[] { ' ', '-', '/' }) == "RECEIVEATT") > 0)
+            {
+                ReceiveEmailAttachments();
+
+                Application.Exit();
+            }
+        }
+
+        private void ReceiveEmailAttachments()
+        {
+            Output.WriteToFile("===== IMPORT ATTACHMENTS... =====");
+            EmailParams emailParams = new EmailParams();
+
+            ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
+
+            //service.AutodiscoverUrl("pumpinfo@moh.gr");
+            service.AutodiscoverUrl(emailParams.EmailAddress);
+            //service.Credentials = new WebCredentials("moh\\pumpinfo", "pump!@#");
+            //service.Credentials = new WebCredentials("pumpinfo", "pump!@#", "moh");
+            service.Credentials = new WebCredentials(emailParams.UserName, emailParams.Password, emailParams.Domain);
+
+            ItemView view = new ItemView(20);
+            view.OrderBy.Add(ItemSchema.DateTimeReceived, SortDirection.Descending);
+
+            string querystring = "HasAttachments:true Kind:email IsRead:false";
+
+            FindItemsResults<Item> results = service.FindItems(WellKnownFolderName.Inbox, querystring, view);
+            foreach (EmailMessage email in results)
+            {
+                if (email.IsRead == false)
+                {
+                    //MessageBox.Show(email.Subject); //to log file...
+
+                    email.Load();
+
+                    foreach (var att in email.Attachments)
+                    {
+                        FileAttachment fileAttachment = (FileAttachment)att;
+
+                        Output.WriteToFile("Attachment file: " + fileAttachment.Name);
+
+                        //MessageBox.Show(fileAttachment.Name); //to log file...
+                        //fileAttachment.Load("C:\\Tests\\" + fileAttachment.Name);
+                        fileAttachment.Load(Application.StartupPath + "\\Import\\" + fileAttachment.Name);
+                    }
+
+                    email.IsRead = true;
+                    email.Update(ConflictResolutionMode.AlwaysOverwrite);
+                }
+            }
+            Output.WriteToFile("===== ATTACHMENTS IMPORTED... =====");
         }
 
         private void ExportDBs()
@@ -423,13 +476,15 @@ namespace PumpAnalysis
         {
             List<Machines> machines = DbUtilities.GetSqlMachinesList().Where(i => i.Email != null && i.Email.Trim().Length > 0).ToList();
 
+            EmailParams emailParams = new EmailParams();
+
             foreach (Machines driver in machines)
             {
-                SendExportedDBsByEmail(driver.Email); 
+                SendExportedDBsByEmail(driver.Email, emailParams); 
             }
         }
 
-        private void SendExportedDBsByEmail(string MailTo) 
+        private void SendExportedDBsByEmail(string MailTo, EmailParams emailParams) 
         {
             Output.WriteToFile("===== SENDING MAIL... =====");
             Output.WriteToFile("To: " + MailTo);
@@ -440,7 +495,8 @@ namespace PumpAnalysis
             string Archived_db_file = targetDirectory + "Archived.db"; //@"C:\Repos\PumpInfo\PumpData\bin\Debug\ExportedDBs\Archived.db";
             string StationGeoData_db_file = targetDirectory + "StationGeoData.db"; //@"C:\Repos\PumpInfo\PumpData\bin\Debug\ExportedDBs\StationGeoData.db";
 
-            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("pumpinfo@moh.gr", MailTo, "Συγχρονισμός Βάσεων - DBs Synchronization", 
+            //System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("pumpinfo@moh.gr", MailTo, "Συγχρονισμός Βάσεων - DBs Synchronization",
+              System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage(emailParams.EmailAddress, MailTo, "Συγχρονισμός Βάσεων - DBs Synchronization",
                 "Χρησιμοποιείστε τα συνημμένα αρχεία για να συγχρονίσετε τη βάση σας. \r\nUse attachments to synchronize your database.");
 
             //System.Net.Mail.Attachment data = new System.Net.Mail.Attachment(file, System.Net.Mime.MediaTypeNames.Application.Octet);
@@ -459,9 +515,10 @@ namespace PumpAnalysis
             }
 
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
-            
-            client.Host = "wmath.moh.gr";
-            client.Credentials = new System.Net.NetworkCredential("pumpinfo", "pump!@#");
+
+            client.Host = emailParams.SmtpClientHost; //"wmath.moh.gr";
+            //client.Credentials = new System.Net.NetworkCredential("pumpinfo", "pump!@#");
+            client.Credentials = new System.Net.NetworkCredential(emailParams.UserName, emailParams.Password);
 
             client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
 
