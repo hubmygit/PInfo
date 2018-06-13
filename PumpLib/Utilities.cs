@@ -3598,7 +3598,10 @@ namespace PumpLib
                 //"case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver, " +
                 "M.UserName as Driver, " +
                 "R.Dt, B.Name as Brand, E.Dealer, E.Address, isnull(R.Weight, 0) as Weight, isnull(R.Temp, 0) as Temp, isnull(R.Density, 0) as Density, isnull(R.Volume, 0) as Volume, E.Pump, isnull(E.PumpVolume, 0) as PumpVolume, " +
-                "convert(decimal(18, 5), round(   isnull( ((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0) ,0)   , 5)) as VolDiff, isnull(E.GeostationId, 0) as GeostationId, isnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
+                //"convert(decimal(18, 5), round(   isnull( ((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0) ,0)   , 5)) as VolDiff, " + 
+                "convert(decimal(18, 5), case when isnull(R.Volume, 0) = 0 then 0  else round(isnull(((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0), 0), 5) end) as VolDiff, " +
+                "isnull(E.GeostationId, 0) as GeostationId, isnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
+                
                 "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId left outer join " +
                      "Brand B on B.Id = E.BrandId left outer join Product P on P.Id = E.ProductId left outer join Machines M on M.Id = R.MachineNo " +
                 "WHERE R.Accepted = 1 ORDER BY Dt desc ";
