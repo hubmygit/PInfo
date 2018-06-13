@@ -415,15 +415,28 @@ namespace PumpAnalysis
         private void ReceiveEmailAttachments()
         {
             Output.WriteToFile("===== IMPORT ATTACHMENTS... =====");
-            EmailParams emailParams = new EmailParams();
+            EmailParams emailParams = new EmailParams(true);
 
-            ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
+            ExchangeService service = new ExchangeService();
+
+            try
+            {
+                service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
+            }
+            catch (Exception ex)
+            {
+                Output.WriteToFile("ERROR:" + ex.Message);
+            }
 
             //service.AutodiscoverUrl("pumpinfo@moh.gr");
-            service.AutodiscoverUrl(emailParams.EmailAddress);
+            //service.AutodiscoverUrl(emailParams.EmailAddress);
+            //Output.WriteToFile("a");
+            //service.Url = new Uri("https://wmath.moh.gr/EWS/Exchange.asmx");
+            //Output.WriteToFile("b");
             //service.Credentials = new WebCredentials("moh\\pumpinfo", "pump!@#");
             //service.Credentials = new WebCredentials("pumpinfo", "pump!@#", "moh");
             service.Credentials = new WebCredentials(emailParams.UserName, emailParams.Password, emailParams.Domain);
+            service.AutodiscoverUrl(emailParams.EmailAddress);
 
             ItemView view = new ItemView(20);
             view.OrderBy.Add(ItemSchema.DateTimeReceived, SortDirection.Descending);
@@ -431,14 +444,13 @@ namespace PumpAnalysis
             string querystring = "HasAttachments:true Kind:email IsRead:false";
 
             FindItemsResults<Item> results = service.FindItems(WellKnownFolderName.Inbox, querystring, view);
+            
             foreach (EmailMessage email in results)
             {
                 if (email.IsRead == false)
                 {
                     //MessageBox.Show(email.Subject); //to log file...
-
                     email.Load();
-
                     foreach (var att in email.Attachments)
                     {
                         FileAttachment fileAttachment = (FileAttachment)att;
@@ -449,12 +461,11 @@ namespace PumpAnalysis
                         //fileAttachment.Load("C:\\Tests\\" + fileAttachment.Name);
                         fileAttachment.Load(Application.StartupPath + "\\Import\\" + fileAttachment.Name);
                     }
-
                     email.IsRead = true;
                     email.Update(ConflictResolutionMode.AlwaysOverwrite);
                 }
             }
-            Output.WriteToFile("===== ATTACHMENTS IMPORTED... =====");
+            Output.WriteToFile("===== PROCEDURE COMPLETED... =====");
         }
 
         private void ExportDBs()
@@ -476,7 +487,7 @@ namespace PumpAnalysis
         {
             List<Machines> machines = DbUtilities.GetSqlMachinesList().Where(i => i.Email != null && i.Email.Trim().Length > 0).ToList();
 
-            EmailParams emailParams = new EmailParams();
+            EmailParams emailParams = new EmailParams(true);
 
             foreach (Machines driver in machines)
             {

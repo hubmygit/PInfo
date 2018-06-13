@@ -4550,7 +4550,7 @@ namespace PumpLib
         public string EmailAddress { get; set; }
         public string SmtpClientHost { get; set; }
 
-        public EmailParams()
+        public EmailParams(bool auto = false)
         {
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
             string SelectSt = "SELECT Id, UserName, Password, Domain, EmailAddress, SmtpClientHost FROM [dbo].[EmailParams] ORDER BY Id ";
@@ -4573,7 +4573,14 @@ namespace PumpLib
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following error occurred: " + ex.Message);
+                if (auto)
+                {
+                    Output.WriteToFile("ERROR: " + ex.Message);
+                }
+                else
+                {
+                    MessageBox.Show("The following error occurred: " + ex.Message);
+                }
             }
         }
     }
