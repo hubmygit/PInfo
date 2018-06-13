@@ -54,6 +54,11 @@ namespace PumpData
             cbYear.Items.AddRange(DbUtilities.GetVehicleTraceYearsComboboxItemsList(VehicleTraceDt.Select(i => i.Date.Year).Distinct().OrderBy(i => i).ToList()).ToArray<ComboboxItem>());
                         
             txtConsumption.Text = selVehicle.Consumption.ToString();
+
+            
+            cbYear.SelectedIndex = cbYear.FindStringExact(VehicleTraceDt[0].Year.ToString());
+
+            cbMonth.SelectedIndex = cbMonth.FindStringExact(VehicleTraceDt[0].Month.ToString());
         }
 
         private void cbYear_SelectedIndexChanged(object sender, EventArgs e)

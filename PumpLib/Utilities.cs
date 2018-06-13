@@ -2467,9 +2467,11 @@ namespace PumpLib
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string SelectSt = "SELECT R.VehicleNo, Dt, E.GeostationId, convert(decimal(18, 5), round(  isnull( ((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0) ,0) , 5)) as VolDiff, " +
+            string SelectSt = "SELECT R.VehicleNo, Dt, E.GeostationId, " +
+                //"convert(decimal(18, 5), round(  isnull( ((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0) ,0) , 5)) as VolDiff, " +
+                "convert(decimal(18, 5), case when isnull(R.Volume, 0) = 0 then 0  else round(isnull(((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0), 0), 5) end) as VolDiff, " +
                 //"case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver " +
-                "M.UserName as Driver , P.Name as 'VehicleType'" +
+                "M.UserName as Driver , P.Name as 'VehicleType' " +
                 "FROM [dbo].[receiptData] R left outer join [dbo].[extraData] E on R.Id = E.receiptDataId left outer join [dbo].[Machines] M on R.MachineNo = M.Id " +
                 " left outer join [dbo].[Vehicles] V on R.VehicleNo = V.Id left outer join [dbo].[ProductGroup] P on V.ProductGroupId = P.Id " +
                 "WHERE R.Accepted = 1 and GeostationId > 10 " +
