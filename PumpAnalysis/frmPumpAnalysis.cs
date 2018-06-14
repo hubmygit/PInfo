@@ -354,7 +354,7 @@ namespace PumpAnalysis
                     dbu.update_ImportedGroup_Table(ImportedGroupId);
                 }
 
-                Output.WriteToFile("Fineshed - File " + cnt.ToString() + "/" + fileEntries.Length);
+                Output.WriteToFile("Finished - File " + cnt.ToString() + "/" + fileEntries.Length);
 
                 objList.Clear();
                 vtObjList.Clear();
@@ -495,7 +495,7 @@ namespace PumpAnalysis
             }
         }
 
-        private void SendExportedDBsByEmail(string MailTo, EmailParams emailParams) 
+        /*private void SendExportedDBsByEmail_ori(string MailTo, EmailParams emailParams) 
         {
             Output.WriteToFile("===== SENDING MAIL... =====");
             Output.WriteToFile("To: " + MailTo);
@@ -507,9 +507,11 @@ namespace PumpAnalysis
             string StationGeoData_db_file = targetDirectory + "StationGeoData.db"; //@"C:\Repos\PumpInfo\PumpData\bin\Debug\ExportedDBs\StationGeoData.db";
 
             //System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("pumpinfo@moh.gr", MailTo, "Συγχρονισμός Βάσεων - DBs Synchronization",
-              System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage(emailParams.EmailAddress, MailTo, "Συγχρονισμός Βάσεων - DBs Synchronization",
-                "Χρησιμοποιείστε τα συνημμένα αρχεία για να συγχρονίσετε τη βάση σας. \r\nUse attachments to synchronize your database.");
-
+            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage(emailParams.EmailAddress, MailTo, "Συγχρονισμός Βάσεων - DBs Synchronization",
+                "Χρησιμοποιείστε τα συνημμένα αρχεία για να συγχρονίσετε τη βάση σας. \r\n" +
+                "Πατήστε το κουμπί 'Sync', επιλέξτε 'Πρατήρια' επιλέγοντας το αρχείο 'StationGeoData.db' και 'Επισκέψεις' επιλέγοντας το αρχείο 'Archived.db' \r\n\r\n" +
+                "Use attachments to synchronize your database. \r\n" +
+                "Click the button 'Sync', then button 'Pratiria' and select file 'StationGeoData.db' and click the button 'Episkepseis' and select the file 'Archived.db' ");
             //System.Net.Mail.Attachment data = new System.Net.Mail.Attachment(file, System.Net.Mime.MediaTypeNames.Application.Octet);
             //message.Attachments.Add(data);
             try
@@ -529,13 +531,77 @@ namespace PumpAnalysis
 
             client.Host = emailParams.SmtpClientHost; //"wmath.moh.gr";
             //client.Credentials = new System.Net.NetworkCredential("pumpinfo", "pump!@#");
-            client.Credentials = new System.Net.NetworkCredential(emailParams.UserName, emailParams.Password);
+            client.Credentials = new System.Net.NetworkCredential(emailParams.UserName, emailParams.Password, emailParams.Domain);
 
             client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
 
             try
             {
                 client.Send(message);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("Exception occured: " + ex.Message + " \r\n {0}", ex.ToString());
+                Output.WriteToFile("Exception occured: " + ex.Message + " \r\n " + ex.ToString());
+            }
+
+            Output.WriteToFile("===== MAIL SENT... =====");
+
+        }
+        */
+
+        private void SendExportedDBsByEmail(string MailTo, EmailParams emailParams)
+        {
+            Output.WriteToFile("===== SENDING MAIL... =====");
+            Output.WriteToFile("To: " + MailTo);
+
+            ExchangeService service = new ExchangeService();
+
+            try
+            {
+                service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
+            }
+            catch (Exception ex)
+            {
+                Output.WriteToFile("ERROR:" + ex.Message);
+            }
+
+
+            service.Credentials = new WebCredentials(emailParams.UserName, emailParams.Password, emailParams.Domain);
+            service.AutodiscoverUrl(emailParams.EmailAddress);
+
+            string targetDirectory = Application.StartupPath.Replace("PumpAnalysis", "PumpData") + "\\ExportedDBs\\";
+
+
+            string Archived_db_file = targetDirectory + "Archived.db"; //@"C:\Repos\PumpInfo\PumpData\bin\Debug\ExportedDBs\Archived.db";
+            string StationGeoData_db_file = targetDirectory + "StationGeoData.db"; //@"C:\Repos\PumpInfo\PumpData\bin\Debug\ExportedDBs\StationGeoData.db";
+
+            String subject = "Συγχρονισμός Βάσεων - DBs Synchronization";
+            String body = "Χρησιμοποιείστε τα συνημμένα αρχεία για να συγχρονίσετε τη βάση σας. \r\n" +
+                "Πατήστε το κουμπί 'Sync', επιλέξτε 'Πρατήρια' επιλέγοντας το αρχείο 'StationGeoData.db' και 'Επισκέψεις' επιλέγοντας το αρχείο 'Archived.db' \r\n\r\n" +
+                "Use attachments to synchronize your database. \r\n" +
+                "Click the button 'Sync', then button 'Pratiria' and select file 'StationGeoData.db' and click the button 'Episkepseis' and select the file 'Archived.db' ";
+
+            EmailMessage email = new EmailMessage(service);
+            email.Subject = subject;
+            email.Body = new MessageBody(BodyType.Text, body);
+            email.ToRecipients.Add(MailTo);
+
+            try
+            {
+                email.Attachments.AddFileAttachment(Archived_db_file);
+                email.Attachments.AddFileAttachment(StationGeoData_db_file);
+                
+            }
+            catch (Exception exAtt)
+            {
+                Output.WriteToFile("Exception occured: " + exAtt.Message + " \r\n " + exAtt.ToString());
+                return;
+            }
+            
+            try
+            {
+                email.Send();
             }
             catch (Exception ex)
             {
