@@ -433,8 +433,8 @@ namespace PumpAnalysis
             //Output.WriteToFile("a");
             //service.Url = new Uri("https://wmath.moh.gr/EWS/Exchange.asmx");
             //Output.WriteToFile("b");
-            //service.Credentials = new WebCredentials("moh\\pumpinfo", "pump!@#");
-            //service.Credentials = new WebCredentials("pumpinfo", "pump!@#", "moh");
+            //service.Credentials = new WebCredentials("moh\\pumpinfo", "password here");
+            //service.Credentials = new WebCredentials("pumpinfo", "password here", "moh");
             service.Credentials = new WebCredentials(emailParams.UserName, emailParams.Password, emailParams.Domain);
             service.AutodiscoverUrl(emailParams.EmailAddress);
 
@@ -530,7 +530,7 @@ namespace PumpAnalysis
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
 
             client.Host = emailParams.SmtpClientHost; //"wmath.moh.gr";
-            //client.Credentials = new System.Net.NetworkCredential("pumpinfo", "pump!@#");
+            //client.Credentials = new System.Net.NetworkCredential("pumpinfo", "password here");
             client.Credentials = new System.Net.NetworkCredential(emailParams.UserName, emailParams.Password, emailParams.Domain);
 
             client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;

@@ -4299,6 +4299,7 @@ namespace PumpLib
         }
 
         public static string connectionString { get; set; }
+        public static string passPhrase = "Use this passPhrase to decrypt!";
     }
 
     public static class MapsApi
@@ -4553,11 +4554,19 @@ namespace PumpLib
         public EmailParams(bool auto = false)
         {
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
-            string SelectSt = "SELECT Id, UserName, Password, Domain, EmailAddress, SmtpClientHost FROM [dbo].[EmailParams] ORDER BY Id ";
+            //string SelectSt = "SELECT Id, UserName, Password, Domain, EmailAddress, SmtpClientHost FROM [dbo].[EmailParams] ORDER BY Id ";
+
+            string SelectSt = "SELECT Id, UserName, CONVERT(varchar, DECRYPTBYPASSPHRASE(@passPhrase , [Password])) as Password, Domain, EmailAddress, SmtpClientHost " + 
+                              "FROM [dbo].[EmailParams] ORDER BY Id ";
+            //CONVERT(varchar, DECRYPTBYPASSPHRASE( @passPhrase , [UserName])) as 
+
             SqlCommand cmd = new SqlCommand(SelectSt, sqlConn);
             try
             {
                 sqlConn.Open();
+
+                cmd.Parameters.AddWithValue("@passPhrase", SqlDBInfo.passPhrase);
+
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
