@@ -107,7 +107,7 @@ namespace PumpInfo
             }
             else
             {
-                gasStationVisitsFiltered = gasStationVisits.Where(i => i.Driver == ((Machines)((ComboboxItem)cbDriver.SelectedItem).Value).UserName && i.Dt >= DtFrom && i.Dt <= DtTo).ToList();
+                gasStationVisitsFiltered = gasStationVisits.Where(i => i.Driver == cbDriver.Text && i.Dt >= DtFrom && i.Dt <= DtTo).ToList();
             }
 
             List<GasStationsPerPerioxh> gasStationsFiltered = gasStationsPerPerioxh.Where(i => perioxesFiltered.Select(k => k.Id).Contains(i.Geo_Perioxh_id) && i.ExistsInComs(coms_selected.ToArray())).ToList();
