@@ -19,9 +19,7 @@ namespace PumpInfo
     {
         public AcceptanceForm()
         {
-            InitializeComponent();
-
-            
+            InitializeComponent();            
         }
 
         ToolTip tpRealLatLong = new ToolTip();

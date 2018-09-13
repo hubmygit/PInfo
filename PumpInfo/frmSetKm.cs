@@ -41,7 +41,17 @@ namespace PumpInfo
             }
             else
             {
-                Close();
+                int KmFrom = Convert.ToInt32(txtKmFrom.Text);
+                int KmTo = Convert.ToInt32(txtKmTo.Text);
+
+                if (KmFrom >= KmTo)
+                {
+                    MessageBox.Show("Προσοχή! Τα τελικά χλμ πρέπει να είναι περισσότερα από τα αρχικά!");
+                }
+                else
+                {
+                    Close();
+                }
             }
         }
 

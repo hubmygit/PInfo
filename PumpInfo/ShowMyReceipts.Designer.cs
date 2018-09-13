@@ -48,6 +48,7 @@
             this.lblEuros = new System.Windows.Forms.Label();
             this.lblTotRecPrice = new System.Windows.Forms.Label();
             this.btnCopy = new System.Windows.Forms.Button();
+            this.chbWPrice = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceipts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -227,11 +228,27 @@
             this.btnCopy.UseVisualStyleBackColor = true;
             this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
+            // chbWPrice
+            // 
+            this.chbWPrice.AutoSize = true;
+            this.chbWPrice.Checked = true;
+            this.chbWPrice.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbWPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.chbWPrice.Location = new System.Drawing.Point(692, 30);
+            this.chbWPrice.Name = "chbWPrice";
+            this.chbWPrice.Size = new System.Drawing.Size(73, 20);
+            this.chbWPrice.TabIndex = 57;
+            this.chbWPrice.Text = "Με αξία";
+            this.chbWPrice.ThreeState = true;
+            this.chbWPrice.UseVisualStyleBackColor = true;
+            this.chbWPrice.CheckStateChanged += new System.EventHandler(this.chbWPrice_CheckStateChanged);
+            // 
             // ShowMyReceipts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(964, 442);
+            this.Controls.Add(this.chbWPrice);
             this.Controls.Add(this.btnCopy);
             this.Controls.Add(this.txtTotRecPrice);
             this.Controls.Add(this.lblEuros);
@@ -270,5 +287,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Rec_receiptNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rec_Price;
         public System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.CheckBox chbWPrice;
     }
 }

@@ -46,6 +46,15 @@ namespace PumpInfo
 
             filteredReceiptsList = filteredReceiptsList.Where(i => i.Dt >= dtFromDate && i.Dt <= dtToDate.AddDays(1)).ToList();
 
+            if (chbWPrice.CheckState == CheckState.Checked)
+            {
+                filteredReceiptsList = filteredReceiptsList.Where(i => i.ReceiptPrice > 0.0 ).ToList();
+            }
+            else if (chbWPrice.CheckState == CheckState.Unchecked)
+            {
+                filteredReceiptsList = filteredReceiptsList.Where(i => i.ReceiptPrice <= 0.0).ToList();
+            }
+
             double receiptSum = filteredReceiptsList.Sum(i => i.ReceiptPrice);
             txtTotRecPrice.Text = receiptSum.ToString();
 
@@ -88,6 +97,11 @@ namespace PumpInfo
             }
 
             dgvReceipts.RowHeadersVisible = true;
+        }
+
+        private void chbWPrice_CheckStateChanged(object sender, EventArgs e)
+        {
+            ApplyFilters();
         }
     }
 }
