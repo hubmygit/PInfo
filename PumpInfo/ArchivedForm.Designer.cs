@@ -33,6 +33,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArchivedForm));
             this.dgvReceiptData = new System.Windows.Forms.DataGridView();
+            this.cbVehicle = new System.Windows.Forms.ComboBox();
+            this.dtFrom = new System.Windows.Forms.DateTimePicker();
+            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.lblDtFrom = new System.Windows.Forms.Label();
+            this.lblDtTo = new System.Windows.Forms.Label();
+            this.cbColorMode = new System.Windows.Forms.CheckBox();
+            this.cbDrivers = new System.Windows.Forms.ComboBox();
+            this.cbDealer = new System.Windows.Forms.ComboBox();
+            this.btnReceipts = new System.Windows.Forms.Button();
+            this.btnKms = new System.Windows.Forms.Button();
+            this.btnGeostation = new System.Windows.Forms.Button();
             this.Vehicle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Driver = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,19 +59,9 @@
             this.PumpVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VolDiff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GeostationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmbientTemp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cbVehicle = new System.Windows.Forms.ComboBox();
-            this.dtFrom = new System.Windows.Forms.DateTimePicker();
-            this.dtTo = new System.Windows.Forms.DateTimePicker();
-            this.lblDtFrom = new System.Windows.Forms.Label();
-            this.lblDtTo = new System.Windows.Forms.Label();
-            this.cbColorMode = new System.Windows.Forms.CheckBox();
-            this.cbDrivers = new System.Windows.Forms.ComboBox();
-            this.cbDealer = new System.Windows.Forms.ComboBox();
-            this.btnReceipts = new System.Windows.Forms.Button();
-            this.btnKms = new System.Windows.Forms.Button();
-            this.btnGeostation = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,6 +97,7 @@
             this.PumpVolume,
             this.VolDiff,
             this.GeostationId,
+            this.AmbientTemp,
             this.SampleNo,
             this.Remarks});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -122,123 +124,6 @@
             this.dgvReceiptData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvReceiptData.Size = new System.Drawing.Size(1160, 407);
             this.dgvReceiptData.TabIndex = 12;
-            // 
-            // Vehicle
-            // 
-            this.Vehicle.HeaderText = "Vehicle";
-            this.Vehicle.Name = "Vehicle";
-            this.Vehicle.ReadOnly = true;
-            this.Vehicle.Width = 64;
-            // 
-            // Product
-            // 
-            this.Product.HeaderText = "Product";
-            this.Product.Name = "Product";
-            this.Product.ReadOnly = true;
-            // 
-            // Driver
-            // 
-            this.Driver.HeaderText = "Driver";
-            this.Driver.Name = "Driver";
-            this.Driver.ReadOnly = true;
-            this.Driver.Width = 75;
-            // 
-            // gridDateTime
-            // 
-            this.gridDateTime.HeaderText = "DateTime";
-            this.gridDateTime.Name = "gridDateTime";
-            this.gridDateTime.ReadOnly = true;
-            this.gridDateTime.Width = 136;
-            // 
-            // Brand
-            // 
-            this.Brand.HeaderText = "Brand";
-            this.Brand.Name = "Brand";
-            this.Brand.ReadOnly = true;
-            this.Brand.Width = 84;
-            // 
-            // Dealer
-            // 
-            this.Dealer.HeaderText = "Dealer";
-            this.Dealer.Name = "Dealer";
-            this.Dealer.ReadOnly = true;
-            this.Dealer.Width = 140;
-            // 
-            // Address
-            // 
-            this.Address.HeaderText = "Address";
-            this.Address.Name = "Address";
-            this.Address.ReadOnly = true;
-            this.Address.Width = 140;
-            // 
-            // Weight
-            // 
-            this.Weight.HeaderText = "Weight";
-            this.Weight.Name = "Weight";
-            this.Weight.ReadOnly = true;
-            this.Weight.Width = 64;
-            // 
-            // Temp
-            // 
-            this.Temp.HeaderText = "Temp";
-            this.Temp.Name = "Temp";
-            this.Temp.ReadOnly = true;
-            this.Temp.Width = 60;
-            // 
-            // Density
-            // 
-            this.Density.HeaderText = "Density";
-            this.Density.Name = "Density";
-            this.Density.ReadOnly = true;
-            this.Density.Width = 66;
-            // 
-            // Volume
-            // 
-            this.Volume.HeaderText = "Volume";
-            this.Volume.Name = "Volume";
-            this.Volume.ReadOnly = true;
-            this.Volume.Width = 66;
-            // 
-            // Pump
-            // 
-            this.Pump.HeaderText = "Pump";
-            this.Pump.Name = "Pump";
-            this.Pump.ReadOnly = true;
-            // 
-            // PumpVolume
-            // 
-            this.PumpVolume.HeaderText = "PumpVolume";
-            this.PumpVolume.Name = "PumpVolume";
-            this.PumpVolume.ReadOnly = true;
-            this.PumpVolume.Width = 105;
-            // 
-            // VolDiff
-            // 
-            this.VolDiff.HeaderText = "VolDiff";
-            this.VolDiff.Name = "VolDiff";
-            this.VolDiff.ReadOnly = true;
-            this.VolDiff.Width = 80;
-            // 
-            // GeostationId
-            // 
-            this.GeostationId.HeaderText = "GeostationId";
-            this.GeostationId.Name = "GeostationId";
-            this.GeostationId.ReadOnly = true;
-            this.GeostationId.Visible = false;
-            // 
-            // SampleNo
-            // 
-            this.SampleNo.HeaderText = "SampleNo";
-            this.SampleNo.Name = "SampleNo";
-            this.SampleNo.ReadOnly = true;
-            this.SampleNo.Width = 84;
-            // 
-            // Remarks
-            // 
-            this.Remarks.HeaderText = "Remarks";
-            this.Remarks.Name = "Remarks";
-            this.Remarks.ReadOnly = true;
-            this.Remarks.Width = 75;
             // 
             // cbVehicle
             // 
@@ -372,6 +257,129 @@
             this.btnGeostation.UseVisualStyleBackColor = true;
             this.btnGeostation.Click += new System.EventHandler(this.btnGeostation_Click);
             // 
+            // Vehicle
+            // 
+            this.Vehicle.HeaderText = "Vehicle";
+            this.Vehicle.Name = "Vehicle";
+            this.Vehicle.ReadOnly = true;
+            this.Vehicle.Width = 64;
+            // 
+            // Product
+            // 
+            this.Product.HeaderText = "Product";
+            this.Product.Name = "Product";
+            this.Product.ReadOnly = true;
+            // 
+            // Driver
+            // 
+            this.Driver.HeaderText = "Driver";
+            this.Driver.Name = "Driver";
+            this.Driver.ReadOnly = true;
+            this.Driver.Width = 75;
+            // 
+            // gridDateTime
+            // 
+            this.gridDateTime.HeaderText = "DateTime";
+            this.gridDateTime.Name = "gridDateTime";
+            this.gridDateTime.ReadOnly = true;
+            this.gridDateTime.Width = 136;
+            // 
+            // Brand
+            // 
+            this.Brand.HeaderText = "Brand";
+            this.Brand.Name = "Brand";
+            this.Brand.ReadOnly = true;
+            this.Brand.Width = 84;
+            // 
+            // Dealer
+            // 
+            this.Dealer.HeaderText = "Dealer";
+            this.Dealer.Name = "Dealer";
+            this.Dealer.ReadOnly = true;
+            this.Dealer.Width = 140;
+            // 
+            // Address
+            // 
+            this.Address.HeaderText = "Address";
+            this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
+            this.Address.Width = 140;
+            // 
+            // Weight
+            // 
+            this.Weight.HeaderText = "Weight";
+            this.Weight.Name = "Weight";
+            this.Weight.ReadOnly = true;
+            this.Weight.Width = 64;
+            // 
+            // Temp
+            // 
+            this.Temp.HeaderText = "Temp";
+            this.Temp.Name = "Temp";
+            this.Temp.ReadOnly = true;
+            this.Temp.Width = 60;
+            // 
+            // Density
+            // 
+            this.Density.HeaderText = "Density";
+            this.Density.Name = "Density";
+            this.Density.ReadOnly = true;
+            this.Density.Width = 66;
+            // 
+            // Volume
+            // 
+            this.Volume.HeaderText = "Volume";
+            this.Volume.Name = "Volume";
+            this.Volume.ReadOnly = true;
+            this.Volume.Width = 66;
+            // 
+            // Pump
+            // 
+            this.Pump.HeaderText = "Pump";
+            this.Pump.Name = "Pump";
+            this.Pump.ReadOnly = true;
+            // 
+            // PumpVolume
+            // 
+            this.PumpVolume.HeaderText = "PumpVolume";
+            this.PumpVolume.Name = "PumpVolume";
+            this.PumpVolume.ReadOnly = true;
+            this.PumpVolume.Width = 105;
+            // 
+            // VolDiff
+            // 
+            this.VolDiff.HeaderText = "VolDiff";
+            this.VolDiff.Name = "VolDiff";
+            this.VolDiff.ReadOnly = true;
+            this.VolDiff.Width = 80;
+            // 
+            // GeostationId
+            // 
+            this.GeostationId.HeaderText = "GeostationId";
+            this.GeostationId.Name = "GeostationId";
+            this.GeostationId.ReadOnly = true;
+            this.GeostationId.Visible = false;
+            // 
+            // AmbientTemp
+            // 
+            this.AmbientTemp.HeaderText = "AmbientTemp";
+            this.AmbientTemp.Name = "AmbientTemp";
+            this.AmbientTemp.ReadOnly = true;
+            // 
+            // SampleNo
+            // 
+            this.SampleNo.HeaderText = "SampleNo";
+            this.SampleNo.Name = "SampleNo";
+            this.SampleNo.ReadOnly = true;
+            this.SampleNo.Width = 84;
+            // 
+            // Remarks
+            // 
+            this.Remarks.HeaderText = "Remarks";
+            this.Remarks.Name = "Remarks";
+            this.Remarks.ReadOnly = true;
+            this.Remarks.Width = 75;
+            // 
             // ArchivedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -411,6 +419,9 @@
         public System.Windows.Forms.Button btnGeostation;
         private System.Windows.Forms.CheckBox cbColorMode;
         private System.Windows.Forms.ComboBox cbDrivers;
+        private System.Windows.Forms.ComboBox cbDealer;
+        public System.Windows.Forms.Button btnReceipts;
+        public System.Windows.Forms.Button btnKms;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vehicle;
         private System.Windows.Forms.DataGridViewTextBoxColumn Product;
         private System.Windows.Forms.DataGridViewTextBoxColumn Driver;
@@ -426,10 +437,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PumpVolume;
         private System.Windows.Forms.DataGridViewTextBoxColumn VolDiff;
         private System.Windows.Forms.DataGridViewTextBoxColumn GeostationId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AmbientTemp;
         private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
-        private System.Windows.Forms.ComboBox cbDealer;
-        public System.Windows.Forms.Button btnReceipts;
-        public System.Windows.Forms.Button btnKms;
     }
 }

@@ -27,8 +27,8 @@ namespace PumpInfo
 
             //archivedDataList = archivedDataList.Distinct().ToList();
             archivedDataList = archivedDataList.GroupBy(i => new { i.Address, i.Brand, i.Dealer, i.Density, i.Driver, i.Dt, i.GeostationId,
-                                                                   i.Product, i.Pump, i.PumpVolume, i.Remarks, i.SampleNo, i.Temp, i.VehicleNo,
-                                                                   i.VolDiff, i.Volume, i.Weight }).Select(group => group.First()).ToList();
+                                                                   i.Product, i.Pump, i.PumpVolume,i.Remarks, i.SampleNo, i.Temp, i.VehicleNo,
+                                                                   i.VolDiff, i.Volume, i.Weight, i.AmbientTemp }).Select(group => group.First()).ToList();
 
             cbVehicle.SelectedIndex = 0;
             cbDrivers.SelectedIndex = 0;

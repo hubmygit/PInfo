@@ -64,6 +64,8 @@ namespace PumpInfo
                 //txtPumpVol_Leave(null, null);
                 txtPumpVol_Leave(this, EventArgs.Empty);
 
+                txtAmbientTemp.Text = obj.ambientTemp.ToString();
+
                 txtSampleNo.Text = obj.sampleNo.ToString();
 
                 txtRemarks.Text = obj.remarks;
@@ -165,7 +167,7 @@ namespace PumpInfo
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
                 obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct),
                                  txtPumpDex.Text + "/" + txtPumpAntlia.Text + "/" + txtPumpAkrof.Text, //txtPump.Text, 
-                                 Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text,
+                                 Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtAmbientTemp.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text,
                                  Convert.ToInt32(lblGeostationId.Text), new Coordinates() { latitude = txtRealLat.Text, longitude = txtRealLong.Text },
                                  txtReceiptNo.Text, Convert.ToDouble(txtReceiptPrice.Text));
                 //getComboboxItem_Brand
@@ -186,7 +188,7 @@ namespace PumpInfo
                 //obj.addExtraData(((Brand)((ComboboxItem)cbBrand.SelectedItem).Value), txtDealer.Text, txtAddress.Text, txtProduct.Text, txtPump.Text, txtPumpVol.Text);
                 obj.addExtraData(DbUtilities.getComboboxItem_Brand(cbBrand), txtDealer.Text, txtAddress.Text, DbUtilities.getComboboxItem_Product(cbProduct),
                                  txtPumpDex.Text + "/" + txtPumpAntlia.Text + "/" + txtPumpAkrof.Text, //txtPump.Text, 
-                                 Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text, 
+                                 Convert.ToDouble(txtPumpVol.Text), Convert.ToInt32(txtAmbientTemp.Text), Convert.ToInt32(txtSampleNo.Text), txtRemarks.Text, 
                                  Convert.ToInt32(lblGeostationId.Text), new Coordinates() { latitude = txtRealLat.Text, longitude = txtRealLong.Text },
                                  txtReceiptNo.Text, Convert.ToDouble(txtReceiptPrice.Text));
 

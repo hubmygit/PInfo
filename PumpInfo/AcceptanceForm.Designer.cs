@@ -83,6 +83,8 @@
             this.txtReceiptPrice = new System.Windows.Forms.TextBox();
             this.lblReceiptPrice = new System.Windows.Forms.Label();
             this.cbClosedReason = new System.Windows.Forms.ComboBox();
+            this.lblAmbientTemp = new System.Windows.Forms.Label();
+            this.txtAmbientTemp = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentObj)).BeginInit();
             this.SuspendLayout();
             // 
@@ -328,7 +330,7 @@
             // 
             this.lblSampleNo.AutoSize = true;
             this.lblSampleNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.lblSampleNo.Location = new System.Drawing.Point(473, 446);
+            this.lblSampleNo.Location = new System.Drawing.Point(473, 477);
             this.lblSampleNo.Name = "lblSampleNo";
             this.lblSampleNo.Size = new System.Drawing.Size(76, 16);
             this.lblSampleNo.TabIndex = 31;
@@ -337,7 +339,7 @@
             // txtSampleNo
             // 
             this.txtSampleNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.txtSampleNo.Location = new System.Drawing.Point(555, 443);
+            this.txtSampleNo.Location = new System.Drawing.Point(555, 474);
             this.txtSampleNo.Name = "txtSampleNo";
             this.txtSampleNo.Size = new System.Drawing.Size(280, 22);
             this.txtSampleNo.TabIndex = 32;
@@ -610,12 +612,32 @@
             this.cbClosedReason.TabIndex = 58;
             this.cbClosedReason.SelectedIndexChanged += new System.EventHandler(this.cbClosedReason_SelectedIndexChanged);
             // 
+            // lblAmbientTemp
+            // 
+            this.lblAmbientTemp.AutoSize = true;
+            this.lblAmbientTemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblAmbientTemp.Location = new System.Drawing.Point(453, 430);
+            this.lblAmbientTemp.Name = "lblAmbientTemp";
+            this.lblAmbientTemp.Size = new System.Drawing.Size(96, 16);
+            this.lblAmbientTemp.TabIndex = 59;
+            this.lblAmbientTemp.Text = "Ambient Temp";
+            // 
+            // txtAmbientTemp
+            // 
+            this.txtAmbientTemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.txtAmbientTemp.Location = new System.Drawing.Point(555, 427);
+            this.txtAmbientTemp.Name = "txtAmbientTemp";
+            this.txtAmbientTemp.Size = new System.Drawing.Size(280, 22);
+            this.txtAmbientTemp.TabIndex = 60;
+            // 
             // AcceptanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(904, 542);
+            this.Controls.Add(this.txtAmbientTemp);
+            this.Controls.Add(this.lblAmbientTemp);
             this.Controls.Add(this.cbClosedReason);
             this.Controls.Add(this.lblReceiptPrice);
             this.Controls.Add(this.txtReceiptPrice);
@@ -724,5 +746,7 @@
         private System.Windows.Forms.TextBox txtReceiptPrice;
         private System.Windows.Forms.Label lblReceiptPrice;
         private System.Windows.Forms.ComboBox cbClosedReason;
+        private System.Windows.Forms.Label lblAmbientTemp;
+        private System.Windows.Forms.TextBox txtAmbientTemp;
     }
 }

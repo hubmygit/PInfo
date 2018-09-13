@@ -40,6 +40,9 @@ namespace PumpLib
         public Product product = new Product();
         public string pump = "";
         public double pumpVolume = 0.0;
+
+        public int ambientTemp = 0;
+
         public int sampleNo = 0;
         public string remarks = "";
 
@@ -83,8 +86,7 @@ namespace PumpLib
             volume = ConvertStrToDouble(lines[7]);
         }
 
-        //public void addExtraData(string Brand, string Dealer, string Address, string Product, string Pump, string PumpVolume)
-        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, double PumpVolume, int SampleNo, string Remarks, int GeostationId, Coordinates RealCoordinates, string ReceiptNo, double ReceiptPrice)
+        public void addExtraData(Brand Brand, string Dealer, string Address, Product Product, string Pump, double PumpVolume, int AmbientTemp, int SampleNo, string Remarks, int GeostationId, Coordinates RealCoordinates, string ReceiptNo, double ReceiptPrice)
         {
             accepted = true;
 
@@ -94,6 +96,7 @@ namespace PumpLib
             product = Product;
             pump = Pump;
             pumpVolume = PumpVolume;
+            ambientTemp = AmbientTemp;
             sampleNo = SampleNo;
             remarks = Remarks;
             geostationId = GeostationId;
@@ -112,6 +115,7 @@ namespace PumpLib
             product = otherObj.product;
             pump = otherObj.pump;
             pumpVolume = otherObj.pumpVolume;
+            ambientTemp = otherObj.ambientTemp;
             sampleNo = otherObj.sampleNo;
             remarks = otherObj.remarks;
             geostationId = otherObj.geostationId;
@@ -132,6 +136,7 @@ namespace PumpLib
             product = new Product();
             pump = "";
             pumpVolume = 0.0;
+            ambientTemp = 0;
             sampleNo = 0;
             remarks = "";
             receiptNo = "";
@@ -396,8 +401,8 @@ namespace PumpLib
 
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume], [SampleNo], [Remarks], [GeostationId], [CooLong], [CooLat], [ReceiptNo], [ReceiptPrice]) VALUES " +
-                           "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId, @CooLong, @CooLat, @ReceiptNo, @ReceiptPrice) ";
+            string InsSt = "INSERT INTO [extraData] ([ReceiptDataId], [BrandId], [Dealer], [Address], [ProductId], [Pump], [PumpVolume], [AmbientTemp], [SampleNo], [Remarks], [GeostationId], [CooLong], [CooLat], [ReceiptNo], [ReceiptPrice]) VALUES " +
+                           "(@ReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @AmbientTemp, @SampleNo, @Remarks, @GeostationId, @CooLong, @CooLat, @ReceiptNo, @ReceiptPrice) ";
             try
             {
                 sqlConn.Open();
@@ -410,6 +415,7 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@ProductId", extraData.product.Id);
                 cmd.Parameters.AddWithValue("@Pump", extraData.pump);
                 cmd.Parameters.AddWithValue("@PumpVolume", extraData.pumpVolume);
+                cmd.Parameters.AddWithValue("@AmbientTemp", extraData.ambientTemp);
                 cmd.Parameters.AddWithValue("@SampleNo", extraData.sampleNo);
                 cmd.Parameters.AddWithValue("@Remarks", extraData.remarks);
                 cmd.Parameters.AddWithValue("@GeostationId", extraData.geostationId);
@@ -856,7 +862,7 @@ namespace PumpLib
             SQLiteCommand cmd = new SQLiteCommand("SELECT RD.Id, RD.VehicleNo, datetime(RD.Dt) as Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
                                                   "RD.Accepted, ifnull(RD.ProcessedGroupId,0) as ProcessedGroupId, ifnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
                                                   "ifnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, ED.Dealer, ED.Address, ED.ProductId, ED.Pump, ED.PumpVolume, " +
-                                                  "ifnull(ED.SampleNo,0) as SampleNo, ED.Remarks, ifnull(ED.GeostationId,0) as GeostationId, " +
+                                                  "ifnull(ED.AmbientTemp,0) as AmbientTemp, ifnull(ED.SampleNo,0) as SampleNo, ED.Remarks, ifnull(ED.GeostationId,0) as GeostationId, " +
                                                   "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat, ED.ReceiptNo, ifnull(ED.ReceiptPrice,0) as ReceiptPrice " +
                 " FROM [receiptData] RD left outer join [extraData] ED on RD.Id = ED.ReceiptDataId " +
                 " WHERE ifnull(RD.[ExportedGroupId], 0) = @ExportedGroupId ", sqlConn);
@@ -904,6 +910,7 @@ namespace PumpLib
                         objLine.product = new Product() { Id = Convert.ToInt32(reader["ProductId"].ToString()) };
                         objLine.pump = reader["Pump"].ToString();
                         objLine.pumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString());
+                        objLine.ambientTemp = Convert.ToInt32(reader["AmbientTemp"].ToString());
                         objLine.sampleNo = Convert.ToInt32(reader["SampleNo"].ToString());
                         objLine.remarks = reader["Remarks"].ToString();
                         objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
@@ -969,7 +976,7 @@ namespace PumpLib
             SqlCommand cmd = new SqlCommand("SELECT RD.Id, RD.VehicleNo, RD.Dt, RD.CooLong, RD.CooLat, RD.Weight, RD.Temp, RD.Density, RD.Volume, " +
                                             "isnull(RD.Accepted,0) as Accepted, isnull(RD.ProcessedGroupId,0) as ProcessedGroupId, isnull(RD.ExportedGroupId,0) as ExportedGroupId, " +
                                             "isnull(ED.Id,0) as EDId, ED.ReceiptDataId, ED.BrandId, B.Name as BName, ED.Dealer, ED.Address, ED.ProductId, P.Name as PName, ED.Pump, ED.PumpVolume, " +
-                                            "isnull(ED.SampleNo,0) as SampleNo, isnull(RD.MachineNo,0) as MachineNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId, " +
+                                            "isnull(ED.AmbientTemp,0) as AmbientTemp, isnull(ED.SampleNo,0) as SampleNo, isnull(RD.MachineNo,0) as MachineNo, ED.Remarks, isnull(ED.GeostationId,0) as GeostationId, " +
                                             "ED.CooLong as RealCooLong, ED.CooLat as RealCooLat, PG.Name as ProductGroup, ED.ReceiptNo, isnull(ED.ReceiptPrice, 0) as ReceiptPrice, M.UserName as Driver " +
                                             //" ,SV.Address as GeoAddr1, SV.Address2 as GeoAddr2, SV.Address3 as GeoAddr3, SV.[Postal-Code] as PostalCode, SV.Country, SV.Latitude as GeoLat, SV.Longitude as GeoLong, SV.UpdDate as GeoDt, SV.Comp_Name " + 
                                             " FROM [dbo].[receiptData] RD left outer join " +
@@ -1024,6 +1031,7 @@ namespace PumpLib
                         objLine.product = new Product() { Id = Convert.ToInt32(reader["ProductId"].ToString()), Name = reader["PName"].ToString() }; 
                         objLine.pump = reader["Pump"].ToString();
                         objLine.pumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString());
+                        objLine.ambientTemp = Convert.ToInt32(reader["AmbientTemp"].ToString());
                         objLine.sampleNo = Convert.ToInt32(reader["SampleNo"].ToString());
                         objLine.remarks = reader["Remarks"].ToString();
                         objLine.geostationId = Convert.ToInt32(reader["GeostationId"].ToString());
@@ -1271,8 +1279,8 @@ namespace PumpLib
 
             SqlConnection sqlConn = new SqlConnection(SqlDBInfo.connectionString);
 
-            string InsSt = "INSERT INTO [dbo].[extraData] (ReceiptDataId, ClientId, ClientReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, SampleNo, Remarks, GeostationId, CooLong, CooLat, ReceiptNo, ReceiptPrice) " +
-                        " VALUES (@ReceiptDataId, @ClientId, @ClientReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume, @SampleNo, @Remarks, @GeostationId, @CooLong, @CooLat, @ReceiptNo, @ReceiptPrice ) ";
+            string InsSt = "INSERT INTO [dbo].[extraData] (ReceiptDataId, ClientId, ClientReceiptDataId, BrandId, Dealer, Address, ProductId, Pump, PumpVolume, AmbientTemp, SampleNo, Remarks, GeostationId, CooLong, CooLat, ReceiptNo, ReceiptPrice) " +
+                        " VALUES (@ReceiptDataId, @ClientId, @ClientReceiptDataId, @BrandId, @Dealer, @Address, @ProductId, @Pump, @PumpVolume,@AmbientTemp, @SampleNo, @Remarks, @GeostationId, @CooLong, @CooLat, @ReceiptNo, @ReceiptPrice ) ";
 
             try
             {
@@ -1288,6 +1296,7 @@ namespace PumpLib
                 cmd.Parameters.AddWithValue("@ProductId", obj.product.Id);
                 cmd.Parameters.AddWithValue("@Pump", obj.pump);
                 cmd.Parameters.AddWithValue("@PumpVolume", obj.pumpVolume);
+                cmd.Parameters.AddWithValue("@AmbientTemp", obj.ambientTemp);
                 cmd.Parameters.AddWithValue("@SampleNo", obj.sampleNo);
                 cmd.Parameters.AddWithValue("@Remarks", obj.remarks);
                 cmd.Parameters.AddWithValue("@GeostationId", obj.geostationId);
@@ -3254,7 +3263,7 @@ namespace PumpLib
 
             string SelectSt = "SELECT R.Id, R.Accepted, R.VehicleNo, datetime(R.Dt) as Dt, B.Name as Brand, E.Dealer, E.Address, " + 
             "ifnull(E.GeostationId,0) as GeostationId, P.Name as Product, " +
-            "R.Weight, R.Temp, R.Density, R.Volume, E.Pump, ifnull(E.PumpVolume,0) as PumpVolume, ifnull(E.SampleNo,0) as SampleNo, E.Remarks " +
+            "R.Weight, R.Temp, R.Density, R.Volume, E.Pump, ifnull(E.PumpVolume,0) as PumpVolume, ifnull(E.AmbientTemp,0) as AmbientTemp, ifnull(E.SampleNo,0) as SampleNo, E.Remarks " +
             "FROM receiptData R left outer join " +
             "extraData E on R.Id = E.ReceiptDataId left outer join " +
             "Brand B on E.BrandId = B.Id left outer join " +
@@ -3306,6 +3315,7 @@ namespace PumpLib
                         volume = Convert.ToDouble(reader["Volume"].ToString()),
                         pump = reader["Pump"].ToString(),
                         pumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString()),
+                        ambientTemp = Convert.ToInt32(reader["AmbientTemp"].ToString()),
                         sampleNo = Convert.ToInt32(reader["SampleNo"].ToString()),
                         remarks = reader["Remarks"].ToString(),
 
@@ -3332,7 +3342,7 @@ namespace PumpLib
             SQLiteConnection sqlConn = new SQLiteConnection(SQLiteDBArch.connectionString);
 
             string SelectSt = "SELECT VehicleNo, Product, Driver, datetime(Dt) as Dt, Brand, Dealer, Address, Weight, Temp, Density, Volume, Pump, " +
-                "ifnull(PumpVolume,0) as PumpVolume, VolDiff, ifnull(GeostationId,0) as GeostationId, ifnull(SampleNo,0) as SampleNo, Remarks " +
+                "ifnull(PumpVolume,0) as PumpVolume, VolDiff, ifnull(AmbientTemp,0) as AmbientTemp, ifnull(GeostationId,0) as GeostationId, ifnull(SampleNo,0) as SampleNo, Remarks " +
                 "FROM [Arch] ORDER BY Dt DESC ";
 
             SQLiteCommand cmd = new SQLiteCommand(SelectSt, sqlConn);
@@ -3358,6 +3368,7 @@ namespace PumpLib
                         Pump = reader["Pump"].ToString(),
                         PumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString()),
                         VolDiff = Convert.ToDouble(reader["VolDiff"].ToString()),
+                        AmbientTemp = Convert.ToInt32(reader["AmbientTemp"].ToString()),
                         GeostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
                         SampleNo = Convert.ToInt32(reader["SampleNo"].ToString()),
                         Remarks = reader["Remarks"].ToString()
@@ -3400,7 +3411,7 @@ namespace PumpLib
 
             string SelectSt = "SELECT R.VehicleNo, P.Name as Product, " + //case when R.MachineNo = 1 then 'Βασίλης' when R.MachineNo = 2 then 'Ιωσήφ' else 'Auto' end as Driver, " +
                                 "datetime(R.Dt) as Dt, B.Name as Brand, E.Dealer, E.Address, ifnull(R.Weight, 0) as Weight, ifnull(R.Temp, 0) as Temp, ifnull(R.Density, 0) as Density, ifnull(R.Volume, 0) as Volume, E.Pump, ifnull(E.PumpVolume, 0) as PumpVolume, " +
-                                "ifnull(round((ifnull(R.Volume, 0) - ifnull(E.PumpVolume, 0)) / ifnull(R.Volume, 0) * 100.0, 5), 0) as VolDiff, ifnull(E.GeostationId, 0) as GeostationId, ifnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
+                                "ifnull(round((ifnull(R.Volume, 0) - ifnull(E.PumpVolume, 0)) / ifnull(R.Volume, 0) * 100.0, 5), 0) as VolDiff, ifnull(E.AmbientTemp, 0) as AmbientTemp, ifnull(E.GeostationId, 0) as GeostationId, ifnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
                               "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId left outer join Brand B on B.Id = E.BrandId left outer join  Product P on P.Id = E.ProductId " +
                               "WHERE R.Accepted = 1 ORDER BY Dt DESC ";
 
@@ -3427,6 +3438,7 @@ namespace PumpLib
                         Pump = reader["Pump"].ToString(),
                         PumpVolume = Convert.ToDouble(reader["PumpVolume"].ToString()),
                         VolDiff = Convert.ToDouble(reader["VolDiff"].ToString()),
+                        AmbientTemp = Convert.ToInt32(reader["AmbientTemp"].ToString()),
                         GeostationId = Convert.ToInt32(reader["GeostationId"].ToString()),
                         SampleNo = Convert.ToInt32(reader["SampleNo"].ToString()),
                         Remarks = reader["Remarks"].ToString()
@@ -3600,7 +3612,7 @@ namespace PumpLib
                 "R.Dt, B.Name as Brand, E.Dealer, E.Address, isnull(R.Weight, 0) as Weight, isnull(R.Temp, 0) as Temp, isnull(R.Density, 0) as Density, isnull(R.Volume, 0) as Volume, E.Pump, isnull(E.PumpVolume, 0) as PumpVolume, " +
                 //"convert(decimal(18, 5), round(   isnull( ((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0) ,0)   , 5)) as VolDiff, " + 
                 "convert(decimal(18, 5), case when isnull(R.Volume, 0) = 0 then 0  else round(isnull(((isnull(R.Volume, 0) - isnull(E.PumpVolume, 0)) / isnull(R.Volume, 0) * 100.0), 0), 5) end) as VolDiff, " +
-                "isnull(E.GeostationId, 0) as GeostationId, isnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
+                "isnull(E.AmbientTemp, 0) as AmbientTemp, isnull(E.GeostationId, 0) as GeostationId, isnull(E.SampleNo, 0) as SampleNo, E.Remarks " +
                 
                 "FROM receiptData R left outer join extraData E on R.Id = E.receiptDataId left outer join " +
                      "Brand B on B.Id = E.BrandId left outer join Product P on P.Id = E.ProductId left outer join Machines M on M.Id = R.MachineNo " +
@@ -3629,6 +3641,7 @@ namespace PumpLib
                         Pump = reader1["Pump"].ToString(),
                         PumpVolume = Convert.ToDouble(reader1["PumpVolume"].ToString()),
                         VolDiff = Convert.ToDouble(reader1["VolDiff"].ToString()),
+                        AmbientTemp = Convert.ToInt32(reader1["AmbientTemp"].ToString()),
                         GeostationId = Convert.ToInt32(reader1["GeostationId"].ToString()),
                         SampleNo = Convert.ToInt32(reader1["SampleNo"].ToString()),
                         Remarks = reader1["Remarks"].ToString()
@@ -3759,8 +3772,8 @@ namespace PumpLib
 
                 foreach (ArchivedData thisRec in ArchivedData_List)
                 {
-                    string InsSt = "INSERT INTO [Arch] (VehicleNo, Product, Driver, Dt, Brand, Dealer, Address, Weight, Temp, Density, Volume, Pump, PumpVolume, VolDiff, GeostationId, SampleNo, Remarks) VALUES " +
-                           "(@VehicleNo, @Product, @Driver, @Dt, @Brand, @Dealer, @Address, @Weight, @Temp, @Density, @Volume, @Pump, @PumpVolume, @VolDiff, @GeostationId, @SampleNo, @Remarks) ";
+                    string InsSt = "INSERT INTO [Arch] (VehicleNo, Product, Driver, Dt, Brand, Dealer, Address, Weight, Temp, Density, Volume, Pump, PumpVolume, VolDiff, AmbientTemp, GeostationId, SampleNo, Remarks) VALUES " +
+                           "(@VehicleNo, @Product, @Driver, @Dt, @Brand, @Dealer, @Address, @Weight, @Temp, @Density, @Volume, @Pump, @PumpVolume, @VolDiff, @AmbientTemp, @GeostationId, @SampleNo, @Remarks) ";
 
                     cmd.CommandText = InsSt;
                     //SQLiteCommand cmd = new SQLiteCommand(InsSt, sqlConn);
@@ -3779,6 +3792,7 @@ namespace PumpLib
                     cmd.Parameters.AddWithValue("@Pump", thisRec.Pump);
                     cmd.Parameters.AddWithValue("@PumpVolume", thisRec.PumpVolume);
                     cmd.Parameters.AddWithValue("@VolDiff", thisRec.VolDiff);
+                    cmd.Parameters.AddWithValue("@AmbientTemp", thisRec.AmbientTemp);
                     cmd.Parameters.AddWithValue("@GeostationId", thisRec.GeostationId);
                     cmd.Parameters.AddWithValue("@SampleNo", thisRec.SampleNo);
                     cmd.Parameters.AddWithValue("@Remarks", thisRec.Remarks);
@@ -4481,7 +4495,7 @@ namespace PumpLib
             {
                 ret.Add(new object[] { thisObj.VehicleNo, thisObj.Product, thisObj.Driver, thisObj.Dt.ToString("dd.MM.yyyy HH:mm"), thisObj.Brand, thisObj.Dealer, thisObj.Address,
                     thisObj.Weight, thisObj.Temp, thisObj.Density, thisObj.Volume, thisObj.Pump, thisObj.PumpVolume, thisObj.VolDiff,
-                    thisObj.GeostationId, thisObj.SampleNo, thisObj.Remarks });
+                    thisObj.GeostationId, thisObj.AmbientTemp, thisObj.SampleNo, thisObj.Remarks });
             }
 
             return ret;
@@ -4825,6 +4839,7 @@ namespace PumpLib
         public string Pump { get; set; }
         public double PumpVolume { get; set; }
         public double VolDiff { get; set; }
+        public int AmbientTemp { get; set; }
         public int GeostationId { get; set; }
         public int SampleNo { get; set; }
         public string Remarks { get; set; }
