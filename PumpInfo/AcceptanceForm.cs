@@ -110,6 +110,11 @@ namespace PumpInfo
                 txtSampleNo.Text = "0";
             }
 
+            if (txtAmbientTemp.Text.Trim() == "")
+            {
+                txtAmbientTemp.Text = "0";
+            }
+
             if (txtReceiptNo.Text.Trim() == "" && cbClosedReason.SelectedIndex == 0) //free remarks
             {
                 MessageBox.Show("Προσοχή! Δεν έχετε συμπληρώσει Αριθμό Απόδειξης.");
@@ -456,5 +461,15 @@ namespace PumpInfo
             }
         }
 
+        private void txtAmbientTemp_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //allow only integers
+            if ((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+            //48 - 57 will be numbers
+            //8 - backspace
+        }
     }
 }

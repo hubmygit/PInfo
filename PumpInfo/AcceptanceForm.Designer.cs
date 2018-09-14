@@ -626,9 +626,11 @@
             // 
             this.txtAmbientTemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.txtAmbientTemp.Location = new System.Drawing.Point(555, 427);
+            this.txtAmbientTemp.MaxLength = 2;
             this.txtAmbientTemp.Name = "txtAmbientTemp";
             this.txtAmbientTemp.Size = new System.Drawing.Size(280, 22);
             this.txtAmbientTemp.TabIndex = 60;
+            this.txtAmbientTemp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAmbientTemp_KeyPress);
             // 
             // AcceptanceForm
             // 
