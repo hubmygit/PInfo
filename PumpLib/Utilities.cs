@@ -1514,7 +1514,11 @@ namespace PumpLib
 
             try
             {
-                jsonAll = new JavaScriptSerializer().Serialize(obj);
+                //jsonAll = new JavaScriptSerializer().Serialize(obj);
+
+                JavaScriptSerializer jss = new JavaScriptSerializer();
+                jss.MaxJsonLength = Int32.MaxValue;
+                jsonAll = jss.Serialize(obj);
             }
             catch (Exception ex)
             {
@@ -1525,7 +1529,11 @@ namespace PumpLib
 
         public List<ImpData> JsonToObjectList(string jsonFile)
         {
-            List<ImpData> desObjAll = new JavaScriptSerializer().Deserialize<List<ImpData>>(jsonFile);
+            //List<ImpData> desObjAll = new JavaScriptSerializer().Deserialize<List<ImpData>>(jsonFile);
+
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            jss.MaxJsonLength = Int32.MaxValue;
+            List<ImpData> desObjAll = jss.Deserialize<List<ImpData>>(jsonFile);
 
             return desObjAll;
         }
@@ -1534,9 +1542,13 @@ namespace PumpLib
         {
             ImpData_And_VehicleTrace desObjAll = new ImpData_And_VehicleTrace();
             try
-            {
-                desObjAll = new JavaScriptSerializer().Deserialize<ImpData_And_VehicleTrace>(jsonFile);
+            {                
+                //desObjAll = new JavaScriptSerializer().Deserialize<ImpData_And_VehicleTrace>(jsonFile);
                 //new System.DateTime(1970, 1, 1, 0, 0, 0, 0).AddMilliseconds(1514757600000).AddHours(+2)
+
+                JavaScriptSerializer jss = new JavaScriptSerializer();
+                jss.MaxJsonLength = Int32.MaxValue;
+                desObjAll = jss.Deserialize<ImpData_And_VehicleTrace>(jsonFile);
             }
             catch (Exception ex)
             {
