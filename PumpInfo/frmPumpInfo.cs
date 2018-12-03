@@ -239,8 +239,16 @@ namespace PumpInfo
                 List<VehicleTrace> VehicleTraceToMigrate = dbu.Get_VehicleTrace_Data(DistinctProcessGroupIds);
 
                 //DateTime fromDate = DataToMigrate.Min(i => i.datetime);
-                DateTime fromDate = DataToMigrate.Where(i => i.accepted == true).Min(i => i.datetime);
-                
+                DateTime fromDate = new DateTime();
+
+                if (DataToMigrate.Exists(i => i.accepted == true))
+                {
+                    fromDate = DataToMigrate.Where(i => i.accepted == true).Min(i => i.datetime);
+                }
+                else
+                {
+                    fromDate = DataToMigrate.Min(i => i.datetime);
+                }
                 DateTime toDate = DateTime.Now; //DataToMigrate.Max(i => i.datetime);
 
                 List<Station> StationsToMigrate = dbu.Get_Station_Data(fromDate, toDate);
